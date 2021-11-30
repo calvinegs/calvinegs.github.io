@@ -115,7 +115,7 @@ menu:
     - identifier: posts
       name: posts
       url: /posts/
-      weight: 10
+      weight: 5
     - identifier: archives
       name: archives
       url: /archives/
