@@ -33,7 +33,7 @@ PS C:\>Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePoin
 
 ##
 
-## Install hugo
+## 安裝 hugo
 
 ### Step 1: 在 Windows 10 上使用 choco 安裝 hugo
 
@@ -42,7 +42,7 @@ C:\> choco install hugo -confirm
 C:\> choco install hugo-extended - config
 C:\> hugo version
 ```
-
+![image](https://user-images.githubusercontent.com/21993717/144010547-49f3b2f2-08c8-4065-809c-598c512ac5b4.png)
 ### Step 2: Create a New Site (建立部落格網站)
 
 ```shell
