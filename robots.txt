@@ -1,0 +1,3 @@
+User-agent: *
+Disallow:
+Sitemap: https://calvinegs.github.io/sitemap.xml
