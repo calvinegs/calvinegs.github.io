@@ -112,23 +112,23 @@ params:
 
 menu:
   main:
-    - identifier: posts
+    - identifier: Posts
       name: posts
       url: /posts/
       weight: 5
-    - identifier: archives
+    - identifier: Archive
       name: archives
       url: /archives/
       weight: 10
-    - identifier: categories
+    - identifier: Categories
       name: categories
       url: /categories/
       weight: 10
-    - identifier: tags
+    - identifier: Tags
       name: tags
       url: /tags/
       weight: 20
-    - identifier: search
+    - identifier: Search
       name: search
       url: /search/
       weight: 25
