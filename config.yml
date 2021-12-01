@@ -89,7 +89,10 @@ params:
   #     google:
   #         SiteVerificationTag: "XYZabc"
 
-  # assets:
+  assets:
+    favicon: "img/favicon.png"
+    # favicon: "img/appicon.png"
+    # favicon: "img/favicon.ico"
   #     favicon: "<link / abs url>"
   #     favicon16x16: "<link / abs url>"
   #     favicon32x32: "<link / abs url>"
