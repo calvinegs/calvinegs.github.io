@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://calvinegs.github.io/posts/</loc>
+    <lastmod>2021-12-01T17:17:02+08:00</lastmod>
+  </url><url>
+    <loc>https://calvinegs.github.io/posts/deployhugo-githubpages/</loc>
+    <lastmod>2021-12-01T17:17:02+08:00</lastmod>
+  </url><url>
+    <loc>https://calvinegs.github.io/</loc>
+    <lastmod>2021-12-01T17:17:02+08:00</lastmod>
+  </url><url>
     <loc>https://calvinegs.github.io/categories/</loc>
     <lastmod>2021-11-27T11:51:00+08:00</lastmod>
   </url><url>
@@ -11,9 +20,6 @@
     <loc>https://calvinegs.github.io/tags/install-hugo/</loc>
     <lastmod>2021-11-27T11:51:00+08:00</lastmod>
   </url><url>
-    <loc>https://calvinegs.github.io/posts/</loc>
-    <lastmod>2021-11-27T11:51:00+08:00</lastmod>
-  </url><url>
     <loc>https://calvinegs.github.io/tags/</loc>
     <lastmod>2021-11-27T11:51:00+08:00</lastmod>
   </url><url>
@@ -21,9 +27,6 @@
     <lastmod>2021-11-27T11:51:00+08:00</lastmod>
   </url><url>
     <loc>https://calvinegs.github.io/posts/installhugo-windows/</loc>
-    <lastmod>2021-11-27T11:51:00+08:00</lastmod>
-  </url><url>
-    <loc>https://calvinegs.github.io/</loc>
     <lastmod>2021-11-27T11:51:00+08:00</lastmod>
   </url><url>
     <loc>https://calvinegs.github.io/archives/</loc>

@@ -22,7 +22,7 @@
  Hugo git vs code gist github page Markdown  Chocolatey Chocolatey 是一個 Windows 上的套件管理工具，它結合了 Nuget 基礎服務與 powershell 指令，提供快速安裝應用程式與工具的服務，將安裝軟體的內容封裝到一個安裝包中，在 Chocolatey 中只需要一條簡單的指令就能完成搜尋、安裝、更新、解安裝等操作。
 在 Windows 10 上安裝 Chocolatey 在命令提示字元下執行以下指令
 PS C:\&amp;gt;Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString(&amp;#39;https://community.chocolatey.org/install.ps1&amp;#39;)) 移除 Chocolatey 刪除 C:\ProgramData\chocolatey 目錄及移除環境變數即可，搜尋 &amp;ldquo;編輯系統環境變數&amp;rdquo; \ &amp;ldquo;進階&amp;rdquo; \ &amp;ldquo;環境變數&amp;rdquo;
- 安裝 hugo Step 1: 在 Windows 10 上使用 choco 安裝 hugo C:\&amp;gt; choco install hugo -confirm C:\&amp;gt; choco install hugo-extended - config C:\&amp;gt; hugo version Step 2: Create a New Site (建立部落格網站) C:\&amp;gt; hugo new site quickstart C:\&amp;gt; hugo new site quickstart -f yml # 若要使用 config.</description>
+安裝 hugo Step 1: 在 Windows 10 上使用 choco 安裝 hugo C:\&amp;gt; choco install hugo -confirm C:\&amp;gt; choco install hugo-extended - config C:\&amp;gt; hugo version Step 2: Create a New Site (建立部落格網站) C:\&amp;gt; hugo new site quickstart C:\&amp;gt; hugo new site quickstart -f yml # 若要使用 config.</description>
     </item>
     
   </channel>

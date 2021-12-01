@@ -10,7 +10,24 @@
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 27 Nov 2021 11:51:00 +0800</lastBuildDate><atom:link href="https://calvinegs.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 01 Dec 2021 17:17:02 +0800</lastBuildDate><atom:link href="https://calvinegs.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>在 Github Pages 部署 Hugo 靜態網站</title>
+      <link>https://calvinegs.github.io/posts/deployhugo-githubpages/</link>
+      <pubDate>Wed, 01 Dec 2021 17:17:02 +0800</pubDate>
+      
+      <guid>https://calvinegs.github.io/posts/deployhugo-githubpages/</guid>
+      <description>GitHub Page 功能是 GitHub 提供的一項支援靜態網頁的服務，只要在你的 repository 中加入一個名為 gh-pages 的分支，則 GitHub 便會預設將此分支內的檔案以靜態網頁的方式呈現，因此利用此特性就可很容易的製作一個簡單的網站。GitHub Pages 提供了二種不同形態的頁面 &amp;ldquo;User or organization site&amp;rdquo; &amp;amp; &amp;ldquo;Project Site&amp;rdquo;。其中個人/組織 網站一個 GitHub 帳號只能有一個、而專案網站則可以很多個。
+ https://calvinegs.github.io #只有一個 https://calvinegs.github.io/project1
+https://calvinegs.github.io/project2
+https://calvinegs.github.io/project3
+&amp;hellip;
+ 安裝步驟 Step 1: 在 GitHub 上建立一個 new repository Repository name 若為 Owner_name.github.io 即所謂的 User site，Repository name 即為靜態網站的網址。以下圖為例，有效網址為 https://calvinegs.github.io
+Step 2: 使用 GitHub Action 構建 Hugo 透過 GitHub Action 功能，在你每次將新版本的 Hugo 網站內容推送到 GitHub repository 時，GitHub 將自動建置網站。
+新增一個 .github/workflows/gh-pages.yml，內容如下:
+name: github pages on: push: branches: - main # Set a branch to deploy pull_request: jobs: deploy: runs-on: ubuntu-20.</description>
+    </item>
+    
     <item>
       <title>在 Windows 10 使用 Hugo</title>
       <link>https://calvinegs.github.io/posts/installhugo-windows/</link>
@@ -22,7 +39,7 @@
  Hugo git vs code gist github page Markdown  Chocolatey Chocolatey 是一個 Windows 上的套件管理工具，它結合了 Nuget 基礎服務與 powershell 指令，提供快速安裝應用程式與工具的服務，將安裝軟體的內容封裝到一個安裝包中，在 Chocolatey 中只需要一條簡單的指令就能完成搜尋、安裝、更新、解安裝等操作。
 在 Windows 10 上安裝 Chocolatey 在命令提示字元下執行以下指令
 PS C:\&amp;gt;Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString(&amp;#39;https://community.chocolatey.org/install.ps1&amp;#39;)) 移除 Chocolatey 刪除 C:\ProgramData\chocolatey 目錄及移除環境變數即可，搜尋 &amp;ldquo;編輯系統環境變數&amp;rdquo; \ &amp;ldquo;進階&amp;rdquo; \ &amp;ldquo;環境變數&amp;rdquo;
- 安裝 hugo Step 1: 在 Windows 10 上使用 choco 安裝 hugo C:\&amp;gt; choco install hugo -confirm C:\&amp;gt; choco install hugo-extended - config C:\&amp;gt; hugo version Step 2: Create a New Site (建立部落格網站) C:\&amp;gt; hugo new site quickstart C:\&amp;gt; hugo new site quickstart -f yml # 若要使用 config.</description>
+安裝 hugo Step 1: 在 Windows 10 上使用 choco 安裝 hugo C:\&amp;gt; choco install hugo -confirm C:\&amp;gt; choco install hugo-extended - config C:\&amp;gt; hugo version Step 2: Create a New Site (建立部落格網站) C:\&amp;gt; hugo new site quickstart C:\&amp;gt; hugo new site quickstart -f yml # 若要使用 config.</description>
     </item>
     
   </channel>
