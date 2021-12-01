@@ -31,8 +31,6 @@ PS C:\>Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePoin
 
 刪除 C:\ProgramData\chocolatey 目錄及移除環境變數即可，搜尋 "編輯系統環境變數" \ "進階" \ "環境變數"
 
-##
-
 ## 安裝 hugo
 
 ### Step 1: 在 Windows 10 上使用 choco 安裝 hugo
@@ -53,9 +51,9 @@ C:\> hugo new site quickstart -f yml # 若要使用 config.yaml 為 config 設�
 ### Step 3: Add a Theme (新增部落格主題)
 請先確認在您的作業系統中已經安裝了 git
 ```shell
-C:\>cd quickstart
-C:\>git init
-C:\>git submodule add https://github.com/theNewDynamic/gohugo-theme-ananke.git themes/ananke
+C:\> cd quickstart
+C:\> git init
+C:\> git submodule add https://github.com/theNewDynamic/gohugo-theme-ananke.git themes/ananke
 C:\> git submodule update --init --recursive # needed when you reclone your repo (submodules may not get cloned automatically)
 
 ```
@@ -63,13 +61,13 @@ C:\> git submodule update --init --recursive # needed when you reclone your repo
 在 config.toml 中加入 theme = "ananke"
 
 ```shell
-C:\>echo 'theme = "ananke"' >> config.toml
+C:\> echo 'theme = "ananke"' >> config.toml
 ```
 
 ### Step 4: Add Some Content (建立新文章)
 
 ```shell
-C:\>hugo new posts/my-first-post.md
+C:\> hugo new posts/my-first-post.md
 ```
 
 在 md file 中加入以下內容
@@ -80,7 +78,7 @@ C:\>hugo new posts/my-first-post.md
 ### Step 5: Start the Hugo server (本機測試)
 
 ```shell
-C:\>hugo server -D
+C:\> hugo server -D
 ```
 開啟瀏覽器，輸入網址 https://localhost:1313
 ---
