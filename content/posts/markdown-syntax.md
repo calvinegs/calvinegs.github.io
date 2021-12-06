@@ -229,6 +229,11 @@ Hugo 內容文件中使用基本 Markdown 語法，還額外支援由 Hugo 所�
 
 3. Close the file.
 
+## Task List
+
+![image](https://gist.github.com/calvinegs/ff926f09800f808617f84d0a966a8b31/raw/images---Mon_Dec_06_2021_1638799958147.png)
+
+![image](https://gist.github.com/calvinegs/ff926f09800f808617f84d0a966a8b31/raw/images---Mon_Dec_06_2021_1638799849495.png)
 
 ## 反引號的使用 
 
