@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>hugo on 永誌不忘 • 筆記簿</title>
+    <link>https://calvinegs.github.io/tags/hugo/</link>
+    <description>Recent content in hugo on 永誌不忘 • 筆記簿</description>
+    <image>
+      <url>https://calvinegs.github.io/papermod-cover.png</url>
+      <link>https://calvinegs.github.io/papermod-cover.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 06 Dec 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://calvinegs.github.io/tags/hugo/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Hugo 中使用的 Markdown 語法介紹</title>
+      <link>https://calvinegs.github.io/posts/markdown-syntax/</link>
+      <pubDate>Mon, 06 Dec 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://calvinegs.github.io/posts/markdown-syntax/</guid>
+      <description>以範例來說明 Hugo 所支援的 Markdown 語法 </description>
+    </item>
+    
+  </channel>
+</rss>
