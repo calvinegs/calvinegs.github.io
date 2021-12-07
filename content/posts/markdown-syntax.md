@@ -272,7 +272,7 @@ See the section on [`code`](#code).
 
 ## 使用跳脫字元
 
-要顯示原本用於格式化 Markdown 文件中的文字字元，請在該字符前添加反斜線 (\)。
+要顯示原本用於格式化 Markdown 文件中的文字字元，請在該字符前添加反斜線 (`\`)。
 
 ## 其他元素的使用  — abbr, sub, sup, kbd, mark
 
