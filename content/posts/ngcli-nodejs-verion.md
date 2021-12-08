@@ -1,7 +1,7 @@
 ---
-title: "ng cli and nodejs"
+title: "Angular cli 與 Nodejs"
 date: "2021-12-08"
-description: "Angular cli  與 Nodejs 版本對照表 "
+description: "Angular cli 與 Nodejs 版本對照表"
 tags: ["ng", "cli", "nodejs"]
 categories: ["angular"]
 draft: false
