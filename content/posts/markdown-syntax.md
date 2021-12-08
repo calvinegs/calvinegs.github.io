@@ -29,13 +29,13 @@ Hugo 內容文件中使用基本 Markdown 語法，還額外支援由 Hugo 所�
 
 在段落的第一行最前面加">"
 
-#### 未註明出處的文字區塊引用 (Blockquote without attribution)
+### 未註明出處的文字區塊引用 (Blockquote without attribution)
 
 ![image](https://gist.github.com/calvinegs/ff926f09800f808617f84d0a966a8b31/raw/images---Mon_Dec_06_2021_1638781433614.png)
 > Tiam, ad mint andaepu dandae nostion secatur sequo quae.
 > **Note** that you can use _Markdown syntax_ within a blockquote.
 
-#### 註明出處的文字區塊引用 (Blockquote with attribution)
+### 註明出處的文字區塊引用 (Blockquote with attribution)
 
 ![image](https://gist.github.com/calvinegs/ff926f09800f808617f84d0a966a8b31/raw/images---Mon_Dec_06_2021_1638781500603.png)
 > Don't communicate by sharing memory, share memory by communicating.
@@ -59,7 +59,7 @@ Hugo 內容文件中使用基本 Markdown 語法，還額外支援由 Hugo 所�
 | Bob   | 27  |
 | Alice | 23  |
 
-#### 表格內支援內嵌 Markdown 語法
+### 表格內支援內嵌 Markdown 語法
 
 ![image](https://gist.github.com/calvinegs/ff926f09800f808617f84d0a966a8b31/raw/images---Mon_Dec_06_2021_1638782923449.png)
 
@@ -68,7 +68,7 @@ Hugo 內容文件中使用基本 Markdown 語法，還額外支援由 Hugo 所�
 | _italics_ | **bold** | `code` |
 
 
-#### 表格內的對齊功能
+### 表格內的對齊功能
 
 ![image](https://gist.github.com/calvinegs/ff926f09800f808617f84d0a966a8b31/raw/images---Mon_Dec_06_2021_1638782962956.png)
 
@@ -81,7 +81,7 @@ Hugo 內容文件中使用基本 Markdown 語法，還額外支援由 Hugo 所�
 
 ## 程式碼區塊 (Code Blocks)
 
-#### 使用 '反引號' 的程式碼區塊
+### 使用 '反引號' 的程式碼區塊
 
 ![image](https://gist.github.com/calvinegs/ff926f09800f808617f84d0a966a8b31/raw/images---Mon_Dec_06_2021_1638783017129.png)
 
@@ -98,7 +98,7 @@ Hugo 內容文件中使用基本 Markdown 語法，還額外支援由 Hugo 所�
 </html>
 ```
 
-#### 使用 '四個空格' 的程式碼區塊
+### 使用 '四個空格' 的程式碼區塊
 
 ![image](https://gist.github.com/calvinegs/ff926f09800f808617f84d0a966a8b31/raw/images---Mon_Dec_06_2021_1638783058278.png)
 
@@ -113,7 +113,7 @@ Hugo 內容文件中使用基本 Markdown 語法，還額外支援由 Hugo 所�
     </body>
     </html>
 
-#### 使用 Hugo 內部支援 highlight shortcode 的程式碼區塊
+### 使用 Hugo 內部支援 highlight shortcode 的程式碼區塊
 
 ![image](https://gist.github.com/calvinegs/ff926f09800f808617f84d0a966a8b31/raw/images---Mon_Dec_06_2021_1638783269185.png)
 
@@ -131,7 +131,7 @@ Hugo 內容文件中使用基本 Markdown 語法，還額外支援由 Hugo 所�
 </html>
 {{< /highlight >}}
 
-#### 使用 Gist 的程式區塊
+### 使用 Gist 的程式區塊
 
 ![image](https://gist.github.com/calvinegs/ff926f09800f808617f84d0a966a8b31/raw/images---Mon_Dec_06_2021_1638783951002.png)
 
@@ -141,7 +141,7 @@ Hugo 內容文件中使用基本 Markdown 語法，還額外支援由 Hugo 所�
 
 ## 清單
 
-#### 有序清單
+### 有序清單
 
 ![image](https://gist.github.com/calvinegs/ff926f09800f808617f84d0a966a8b31/raw/images---Mon_Dec_06_2021_1638784545161.png)
 
@@ -149,7 +149,7 @@ Hugo 內容文件中使用基本 Markdown 語法，還額外支援由 Hugo 所�
 2. Second item
 3. Third item
 
-#### 無序清單
+### 無序清單
 
 ![image](https://gist.github.com/calvinegs/ff926f09800f808617f84d0a966a8b31/raw/images---Mon_Dec_06_2021_1638784580362.png)
 
@@ -157,7 +157,7 @@ Hugo 內容文件中使用基本 Markdown 語法，還額外支援由 Hugo 所�
 -   Another item
 -   And another item
 
-#### 巢狀清單
+### 巢狀清單
 
 ![image](https://gist.github.com/calvinegs/ff926f09800f808617f84d0a966a8b31/raw/images---Mon_Dec_06_2021_1638784616109.png)
 
@@ -177,12 +177,12 @@ Hugo 內容文件中使用基本 Markdown 語法，還額外支援由 Hugo 所�
     - Indented item
     - Indented item
 4. Fourth item
-#### 以數字開頭的無序清單
+### 以數字開頭的無序清單
 
 ![image](https://gist.github.com/calvinegs/ff926f09800f808617f84d0a966a8b31/raw/images---Mon_Dec_06_2021_1638784480784.png)
 
 
-#### 將'段落'加入清單中
+### 將'段落'加入清單中
 
 ![image](https://gist.github.com/calvinegs/ff926f09800f808617f84d0a966a8b31/raw/images---Mon_Dec_06_2021_1638785228842.png)
 
@@ -193,7 +193,7 @@ Hugo 內容文件中使用基本 Markdown 語法，還額外支援由 Hugo 所�
 
 * And here's the third list item.
 
-#### 將'文字區塊引用'加入清單中
+### 將'文字區塊引用'加入清單中
 
 ![image](https://gist.github.com/calvinegs/ff926f09800f808617f84d0a966a8b31/raw/images---Mon_Dec_06_2021_1638785268821.png)
 
@@ -204,7 +204,7 @@ Hugo 內容文件中使用基本 Markdown 語法，還額外支援由 Hugo 所�
 
 * And here's the third list item.
 
-#### 將'程式區塊'加入清單中
+### 將'程式區塊'加入清單中
 
 ![image](https://gist.github.com/calvinegs/ff926f09800f808617f84d0a966a8b31/raw/images---Mon_Dec_06_2021_1638785296437.png)
 
@@ -218,7 +218,7 @@ Hugo 內容文件中使用基本 Markdown 語法，還額外支援由 Hugo 所�
 
 3. Update the title to match the name of your website.
 
-#### 將'圖檔'加入清單中
+### 將'圖檔'加入清單中
 
 ![image](https://gist.github.com/calvinegs/ff926f09800f808617f84d0a966a8b31/raw/images---Mon_Dec_06_2021_1638785331162.png)
 
