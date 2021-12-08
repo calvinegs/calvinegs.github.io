@@ -3,11 +3,11 @@
 <meta http-equiv=x-ua-compatible content="IE=edge">
 <meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no">
 <meta name=robots content="index, follow">
-<title>Categories | 永誌不忘 • 筆記簿</title>
+<title>typescript | 永誌不忘 • 筆記簿</title>
 <meta name=keywords content>
 <meta name=description content="Theme PaperMod - https://github.com/adityatelange/hugo-PaperMod">
 <meta name=author content="Theme PaperMod">
-<link rel=canonical href=https://calvinegs.github.io/categories/>
+<link rel=canonical href=https://calvinegs.github.io/tags/typescript/>
 <link crossorigin=anonymous href=/assets/css/stylesheet.min.c88963fe2d79462000fd0fb1b3737783c32855d340583e4523343f8735c787f0.css integrity="sha256-yIlj/i15RiAA/Q+xs3N3g8MoVdNAWD5FIzQ/hzXHh/A=" rel="preload stylesheet" as=style>
 <link rel=icon href=https://calvinegs.github.io/img/favicon.png>
 <link rel=icon type=image/png sizes=16x16 href=https://calvinegs.github.io/favicon-16x16.png>
@@ -17,17 +17,17 @@
 <meta name=theme-color content="#2e2e33">
 <meta name=msapplication-TileColor content="#2e2e33">
 <meta name=generator content="Hugo 0.89.3">
-<link rel=alternate type=application/rss+xml href=https://calvinegs.github.io/categories/index.xml>
+<link rel=alternate type=application/rss+xml href=https://calvinegs.github.io/tags/typescript/index.xml>
 <noscript>
 <style>#theme-toggle,.top-link{display:none}</style>
 <style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--hljs-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style>
-</noscript><meta property="og:title" content="Categories">
+</noscript><meta property="og:title" content="typescript">
 <meta property="og:description" content="Theme PaperMod - https://github.com/adityatelange/hugo-PaperMod">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://calvinegs.github.io/categories/"><meta property="og:image" content="https://calvinegs.github.io/papermod-cover.png">
+<meta property="og:url" content="https://calvinegs.github.io/tags/typescript/"><meta property="og:image" content="https://calvinegs.github.io/papermod-cover.png">
 <meta name=twitter:card content="summary_large_image">
 <meta name=twitter:image content="https://calvinegs.github.io/papermod-cover.png">
-<meta name=twitter:title content="Categories">
+<meta name=twitter:title content="typescript">
 <meta name=twitter:description content="Theme PaperMod - https://github.com/adityatelange/hugo-PaperMod">
 </head>
 <body class=list id=top>
@@ -54,7 +54,7 @@
 </li>
 <li>
 <a href=https://calvinegs.github.io/categories/ title=Categories>
-<span class=active>Categories</span>
+<span>Categories</span>
 </a>
 </li>
 <li>
@@ -71,20 +71,28 @@
 </nav>
 </header>
 <main class=main>
-<header class=page-header>
-<h1>Categories</h1>
+<header class=page-header><div class=breadcrumbs><a href=https://calvinegs.github.io/>Home</a>&nbsp;»&nbsp;<a href=https://calvinegs.github.io/tags/>Tags</a></div>
+<h1>typescript</h1>
 </header>
-<ul class=terms-tags>
-<li>
-<a href=https://calvinegs.github.io/categories/angular/>angular <sup><strong><sup>1</sup></strong></sup> </a>
-</li>
-<li>
-<a href=https://calvinegs.github.io/categories/hugo/>hugo <sup><strong><sup>2</sup></strong></sup> </a>
-</li>
-<li>
-<a href=https://calvinegs.github.io/categories/typescript/>typescript <sup><strong><sup>1</sup></strong></sup> </a>
-</li>
-</ul>
+<article class="post-entry tag-entry">
+<header class=entry-header>
+<h2>Setup Typescript Environment
+</h2>
+</header>
+<section class=entry-content>
+<p>設置 TypeScript 開發環境 TypeScript 已經支援前端開發的許多架構
+開始設置 建立一個目錄
+$ mkdir typescript-starter $ cd typescript-starter 透過 npm 產生 package.json 檔案
+$ npm init -y 在 Local 端安裝 TypeScript
+$ npm install typescript --save-dev #or -D 為 nodejs 安裝類型檔
+$ npm install @types/node --save-dev 透過 tsc 建立 TypeScript 的設定檔 (tsconfig.json)
+$ npx tsc --init P.S. 由於 typescript 是安裝在 local，執行時要透過 npx 指令(由 npm 所提供)
+指定額外的參數
+$ npx tsc --init --init --rootDir src --outDir build --esModuleInterop --resolveJsonModule --lib es6 --module commonjs --allowJs true --noImplicitAny true rootDir: TypeScript 找尋程式的地方。 outDir: TypeScript 轉譯成 JavaScript 所存放的地方。 esModuleInterop: 若使用 commonjs 為此專案的 module system，則此設定值必須設定為 true。 resolveJsonModule: 若此專案會使用 JSON，則此設定值必須設定為 true。 lib: 指定為 ‘es6’ 指可使用到新版 JS 的一些語言特性，指定 ‘es5’ 則會有較高的相容易。 module: 指存 module system，如: commonjs。 allowJs: 此選項將允許您在 ....</p>
+</section>
+<footer class=entry-footer><span title="2021-12-07 00:00:00 +0000 UTC">December 7, 2021</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;Theme PaperMod</footer>
+<a class=entry-link aria-label="post link to Setup Typescript Environment" href=https://calvinegs.github.io/posts/setup-typescript-env/></a>
+</article>
 </main>
 <footer class=footer>
 <span>&copy; 2021 <a href=https://calvinegs.github.io/>永誌不忘 • 筆記簿</a></span>
