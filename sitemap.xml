@@ -3,15 +3,36 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://calvinegs.github.io/tags/angular/</loc>
-    <lastmod>2021-12-08T00:00:00+00:00</lastmod>
+    <lastmod>2021-12-12T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://calvinegs.github.io/categories/</loc>
+    <lastmod>2021-12-12T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://calvinegs.github.io/tags/node.js/</loc>
+    <lastmod>2021-12-12T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://calvinegs.github.io/tags/nvs/</loc>
+    <lastmod>2021-12-12T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://calvinegs.github.io/categories/nvs/</loc>
+    <lastmod>2021-12-12T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://calvinegs.github.io/posts/</loc>
+    <lastmod>2021-12-12T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://calvinegs.github.io/tags/</loc>
+    <lastmod>2021-12-12T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://calvinegs.github.io/posts/nvs-using/</loc>
+    <lastmod>2021-12-12T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://calvinegs.github.io/</loc>
+    <lastmod>2021-12-12T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://calvinegs.github.io/categories/angular/</loc>
     <lastmod>2021-12-08T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://calvinegs.github.io/posts/ngcli-nodejs-verion/</loc>
-    <lastmod>2021-12-08T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://calvinegs.github.io/categories/</loc>
     <lastmod>2021-12-08T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://calvinegs.github.io/tags/ng-cli/</loc>
@@ -20,22 +41,13 @@
     <loc>https://calvinegs.github.io/tags/nodejs/</loc>
     <lastmod>2021-12-08T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://calvinegs.github.io/posts/</loc>
-    <lastmod>2021-12-08T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://calvinegs.github.io/tags/</loc>
-    <lastmod>2021-12-08T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://calvinegs.github.io/</loc>
-    <lastmod>2021-12-08T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://calvinegs.github.io/posts/setup-typescript-env/</loc>
-    <lastmod>2021-12-07T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://calvinegs.github.io/tags/typescript/</loc>
     <lastmod>2021-12-07T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://calvinegs.github.io/categories/typescript/</loc>
+    <lastmod>2021-12-07T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://calvinegs.github.io/posts/setup-typescript-env/</loc>
     <lastmod>2021-12-07T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://calvinegs.github.io/tags/hugo/</loc>

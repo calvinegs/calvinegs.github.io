@@ -3,11 +3,11 @@
 <meta http-equiv=x-ua-compatible content="IE=edge">
 <meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no">
 <meta name=robots content="index, follow">
-<title>typescript | 永誌不忘 • 筆記簿</title>
+<title>Posts | 永誌不忘 • 筆記簿</title>
 <meta name=keywords content>
-<meta name=description content="Theme PaperMod - https://github.com/adityatelange/hugo-PaperMod">
+<meta name=description content="Posts - 永誌不忘 • 筆記簿">
 <meta name=author content="Theme PaperMod">
-<link rel=canonical href=https://calvinegs.github.io/tags/typescript/>
+<link rel=canonical href=https://calvinegs.github.io/posts/>
 <link crossorigin=anonymous href=/assets/css/stylesheet.min.c88963fe2d79462000fd0fb1b3737783c32855d340583e4523343f8735c787f0.css integrity="sha256-yIlj/i15RiAA/Q+xs3N3g8MoVdNAWD5FIzQ/hzXHh/A=" rel="preload stylesheet" as=style>
 <link rel=icon href=https://calvinegs.github.io/img/favicon.png>
 <link rel=icon type=image/png sizes=16x16 href=https://calvinegs.github.io/favicon-16x16.png>
@@ -17,18 +17,19 @@
 <meta name=theme-color content="#2e2e33">
 <meta name=msapplication-TileColor content="#2e2e33">
 <meta name=generator content="Hugo 0.89.3">
-<link rel=alternate type=application/rss+xml href=https://calvinegs.github.io/tags/typescript/index.xml>
+<link rel=alternate type=application/rss+xml href=https://calvinegs.github.io/posts/index.xml>
 <noscript>
 <style>#theme-toggle,.top-link{display:none}</style>
 <style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--hljs-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style>
-</noscript><meta property="og:title" content="typescript">
+</noscript><meta property="og:title" content="Posts">
 <meta property="og:description" content="Theme PaperMod - https://github.com/adityatelange/hugo-PaperMod">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://calvinegs.github.io/tags/typescript/"><meta property="og:image" content="https://calvinegs.github.io/papermod-cover.png">
+<meta property="og:url" content="https://calvinegs.github.io/posts/"><meta property="og:image" content="https://calvinegs.github.io/papermod-cover.png">
 <meta name=twitter:card content="summary_large_image">
 <meta name=twitter:image content="https://calvinegs.github.io/papermod-cover.png">
-<meta name=twitter:title content="typescript">
+<meta name=twitter:title content="Posts">
 <meta name=twitter:description content="Theme PaperMod - https://github.com/adityatelange/hugo-PaperMod">
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Posts","item":"https://calvinegs.github.io/posts/"}]}</script>
 </head>
 <body class=list id=top>
 <script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
@@ -44,7 +45,7 @@
 <ul id=menu>
 <li>
 <a href=https://calvinegs.github.io/posts/ title=Posts>
-<span>Posts</span>
+<span class=active>Posts</span>
 </a>
 </li>
 <li>
@@ -71,28 +72,30 @@
 </nav>
 </header>
 <main class=main>
-<header class=page-header><div class=breadcrumbs><a href=https://calvinegs.github.io/>Home</a>&nbsp;»&nbsp;<a href=https://calvinegs.github.io/tags/>Tags</a></div>
-<h1>typescript</h1>
+<header class=page-header><div class=breadcrumbs><a href=https://calvinegs.github.io/>Home</a></div>
+<h1>Posts</h1>
 </header>
-<article class="post-entry tag-entry">
+<article class=post-entry>
 <header class=entry-header>
-<h2>設置 TypeScript 開發環境
+<h2>在 Windows 10 使用 Hugo
 </h2>
 </header>
 <section class=entry-content>
-<p>TypeScript 已經支援前端開發的許多架構，使用 TypeScript 有許多額外的好處，因此學習 TypeScript 是現在軟體開發工程師不可缺的一項技能。本文是用來記錄如何設置一個簡易的 TypeScript 開發環境，很適合用來學習 TypeScript。
-開始設置 建立一個目錄
-$ mkdir typescript-starter $ cd typescript-starter 透過 npm 產生 package.json 檔案
-$ npm init -y 在 Local 端安裝 TypeScript
-$ npm install typescript --save-dev #or -D 為 nodejs 安裝類型檔
-$ npm install @types/node --save-dev 透過 tsc 建立 TypeScript 的設定檔 (tsconfig.json)
-$ npx tsc --init P.S. 由於 typescript 是安裝在 local，執行時要透過 npx 指令(由 npm 所提供)
-指定額外的參數
-$ npx tsc --init --init --rootDir src --outDir build --esModuleInterop --resolveJsonModule --lib es6 --module commonjs --allowJs true --noImplicitAny true rootDir: TypeScript 找尋程式的地方。 outDir: TypeScript 轉譯成 JavaScript 所存放的地方。 esModuleInterop: 若使用 commonjs 為此專案的 module system，則此設定值必須設定為 true。 resolveJsonModule: 若此專案會使用 JSON，則此設定值必須設定為 true。 lib: 指定為 ‘es6’ 指可使用到新版 JS 的一些語言特性，指定 ‘es5’ 則會有較高的相容易。 module: 指存 module system，如: commonjs。 allowJs: 此選項將允許您在 ....</p>
+<p>Hugo 是一個静態網站生成器，搭配 git 很適合來建立個人部落格。在一系列的筆記中將介紹如何安裝/使用相關工具與技術，目的是搭建一個完全免費的個人部落格。
+使用的相關工具/技術:
+Hugo git vs code gist github page Markdown Chocolatey Chocolatey 是一個 Windows 上的套件管理工具，它結合了 Nuget 基礎服務與 powershell 指令，提供快速安裝應用程式與工具的服務，將安裝軟體的內容封裝到一個安裝包中，在 Chocolatey 中只需要一條簡單的指令就能完成搜尋、安裝、更新、解安裝等操作。
+在 Windows 10 上安裝 Chocolatey 在命令提示字元下執行以下指令
+PS C:\>Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1')) 移除 Chocolatey 刪除 C:\ProgramData\chocolatey 目錄及移除環境變數即可，搜尋 “編輯系統環境變數” \ “進階” \ “環境變數”
+安裝 hugo Step 1: 在 Windows 10 上使用 choco 安裝 hugo C:\> choco install hugo -confirm C:\> choco install hugo-extended - config C:\> hugo version Step 2: Create a New Site (建立部落格網站) C:\> hugo new site quickstart C:\> hugo new site quickstart -f yml # 若要使用 config....</p>
 </section>
-<footer class=entry-footer><span title="2021-12-07 00:00:00 +0000 UTC">December 7, 2021</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;Theme PaperMod</footer>
-<a class=entry-link aria-label="post link to 設置 TypeScript 開發環境" href=https://calvinegs.github.io/posts/setup-typescript-env/></a>
+<footer class=entry-footer><span title="2021-11-27 11:51:00 +0800 +0800">November 27, 2021</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;Theme PaperMod</footer>
+<a class=entry-link aria-label="post link to 在 Windows 10 使用 Hugo" href=https://calvinegs.github.io/posts/installhugo-windows/></a>
 </article>
+<footer class=page-footer>
+<nav class=pagination>
+<a class=prev href=https://calvinegs.github.io/posts/>« Prev Page</a>
+</nav>
+</footer>
 </main>
 <footer class=footer>
 <span>&copy; 2021 <a href=https://calvinegs.github.io/>永誌不忘 • 筆記簿</a></span>
