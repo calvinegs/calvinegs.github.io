@@ -1,5 +1,5 @@
 ---
-title: "Setup Typescript Environment"
+title: "設置 TypeScript 開發環境"
 date: 2021-12-07
 draft: false
 description: "設定 Typescript 的開發環境 (nodejs)"
@@ -7,9 +7,8 @@ tags: ["typescript"]
 categories: ["typescript"]
 ---
 
-# 設置 TypeScript 開發環境
 
-TypeScript 已經支援前端開發的許多架構
+TypeScript 已經支援前端開發的許多架構，使用 TypeScript 有許多額外的好處，因此學習 TypeScript 是現在軟體開發工程師不可缺的一項技能。本文是用來記錄如何設置一個簡易的 TypeScript 開發環境，很適合用來學習 TypeScript。
 
 ## 開始設置
 
