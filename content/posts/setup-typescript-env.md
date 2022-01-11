@@ -31,7 +31,7 @@ $ npm init -y
 $ npm install typescript --save-dev #or -D
 ```
 
-為 nodejs 安裝類型檔
+為 Node.js 安裝類型檔
 
 ```shell
 $ npm install @types/node --save-dev
@@ -171,7 +171,7 @@ console.log(
 
 ts-node 是一個 TypeScript 執行引擎和 Node.js 的 REPL。它以JIT方式將TypeScript轉譯為 JavaScript，使你能夠直接在 Node.js上 執行 TypeScript 而不需要預轉譯。通過 node 的模組載入 API 來實現的，使其能夠與其他 Node.js 工具和程式庫一起無縫使用。
 
-nodemon 是一個工具，它通過檢測程式目錄中的文件更改時可以自動重新啟動 Node.js 應用程式，以此協助 node.js 的應用程程式開發。
+nodemon 是一個工具，它通過檢測程式目錄中的文件更改時可以自動重新啟動應用程式(本範例中是啟動 Node.js)，以此協助應用程式開發。
 
 ```shell
 $ npm install --save-dev ts-node nodemon
@@ -202,7 +202,7 @@ $ touch nodemon.json
 
 執行 scripts
 ```shell
-PS F:\test\ts\ts-starter> npm start
+PS F:\test\ts\ts-starter> npm start # npm start 是 npm run start 的 alias
 
 > ts-starter@1.0.0 start
 > nodemon                                                                                                                               
