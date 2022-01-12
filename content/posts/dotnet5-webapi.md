@@ -1,5 +1,5 @@
 ---
-title: "Dotnet5 Webapi"
+title: "ASP.NET Core 5 Web API"
 date: 2022-01-11
 draft: false
 description: "使用 ASP.NET Core 5.0 建立 Web API"
@@ -13,7 +13,7 @@ categories: ["webapi"]
 
 ```bash
 $ dotnet --version # 檢查 dotnet 版本，目前版本為: 5.0.201
-$
+
 $ dotnet new webapi -n "Todo5" && cd "Todo5"
 ```
 
@@ -24,7 +24,7 @@ $ ls # 查看 專案檔案結構
 ![image](https://user-images.githubusercontent.com/21993717/148718867-37ffe9a1-ada1-486a-ab86-74832dc94796.png)
 
 ```bash
-$ dotnet new gitignore # 使用 dotnet cli 來產生預計的 git ignore 檔案
+$ dotnet new gitignore # 使用 dotnet cli 來產生預設的 git ignore 檔案
 ```
 
 ![image](https://user-images.githubusercontent.com/21993717/148718998-4208993f-cbfb-4822-95bf-34b852a36ac1.png)
@@ -37,7 +37,7 @@ $ git init && git add . && git commit -m "Initial commit"
 
 ## 安裝本機工具
 
-此方式安裝的工具，僅限本機存取(只針對目前的目錄和子目錄)， 首先透過 dotnet new tool-manifest 命令來產生工具資訊清單檔，再使用 dotnet tool install 來安裝各式工具程式。這樣的方式好處是在專案若多人協助方式，則可利用 dotnet tool restore 命令將紀錄在 .config/dotnet-tools.json 的工具資訊清單檔重建在不同協助人員的電腦中。
+此方式安裝的工具，僅限本機存取(只針對目前的目錄和子目錄)， 首先透過 dotnet new tool-manifest 命令來產生工具資訊清單檔，再使用 dotnet tool install 來安裝各式工具程式。這樣的方式好處是在專案若多人協助方式時，則可利用 dotnet tool restore 命令將紀錄在 .config/dotnet-tools.json 的工具資訊清單檔重建在不同協助人員的電腦中。
 
 ```bash
 $ dotnet new tool-manifest #會產生 .config/dotnet-tools.json 檔案
@@ -113,14 +113,7 @@ $ cat .\Todo5.csproj #查看 安裝套件的相關設定值
 $ git add . && git commit -m "Add EFCore NuGet packages"
 ```
 
-## 安裝給 AspNetCore Idendity Framework 使用的相關套件
-
-```bash
-$ dotnet add package Microsoft.AspNetCore.Identity.EntityFrameworkCore --version 5.0.13
-$ dotnet add package Microsoft.AspNetCore.Identity.UI --version 5.0.13
-```
-
-## Add a database context (Auto Generate)
+## 新增 database context (自動產生)
 
 ```bash
 $ dotnet ef dbcontext scaffold "Data Source=app.db; Cache=Shared" Microsoft.EntityFrameworkCore.Sqlite -c ApiDbContext -o Data #在專案目錄 ./Data 子目錄下新建立一個 ApiDbContext.cs 的 DB Context file
@@ -270,6 +263,7 @@ namespace TodoApp
     };
 }
 ```
+## 移除預設產生的樣本程式碼的 WeatherForecast.cs & WeatherForecastController.cs
 
 ## Add the initial migration to create the database
 
@@ -279,7 +273,7 @@ namespace TodoApp
   $ dotnet ef database update (在根目錄產生 app.db sqlite database)
 ```
 
-## Scaffold a controller
+## 使用 ASPNET Codegenerator 自動產生 Todo Controller
 
 ```bash
 $ dotnet aspnet-codegenerator controller -name TodoController -async -api -m ItemData -dc ApiDbContext -outDir Controllers
@@ -300,4 +294,3 @@ $ dotnet aspnet-codegenerator controller -name TodoController -async -api -m Ite
 ![image](https://user-images.githubusercontent.com/21993717/148928509-f8076263-95d9-4f75-9c88-9b38f1cd12e9.png)
 
 ![image](https://user-images.githubusercontent.com/21993717/148928685-84833fad-82b9-4d40-ac43-b32817d880e5.png)
-
