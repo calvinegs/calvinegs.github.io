@@ -10,7 +10,25 @@
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 11 Jan 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://calvinegs.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 17 Jan 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://calvinegs.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>type annotation</title>
+      <link>https://calvinegs.github.io/tags/type-annotation/</link>
+      <pubDate>Mon, 17 Jan 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://calvinegs.github.io/tags/type-annotation/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>type inference</title>
+      <link>https://calvinegs.github.io/tags/type-inference/</link>
+      <pubDate>Mon, 17 Jan 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://calvinegs.github.io/tags/type-inference/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>dotnet 5</title>
       <link>https://calvinegs.github.io/tags/dotnet-5/</link>
