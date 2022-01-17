@@ -1,7 +1,7 @@
 ---
 title: "型別推論(type inference) 與 型別註記(type annotation)"
 date: 2022-01-17
-draft: true
+draft: false
 description: "筆記 TypeScript 中所謂的 '型別推論'(type inference) 與 '型別註記'(type annotation)"
 tags: ["type inference", "type annotation"]
 categories: ["typescript"]
