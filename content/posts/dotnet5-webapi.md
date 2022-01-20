@@ -1,13 +1,18 @@
 ---
-title: "ASP.NET Core 5 Web API"
+title: "ASP.NET Core 5 Web API - 從無到有"
 date: 2022-01-11
 draft: false
-description: "使用 ASP.NET Core 5.0 建立 Web API"
+description: "使用 ASP.NET Core 5.0 一步步從無到有 建立一個簡易的 Web API"
 tags: ["dotnet 5", "webapi"]
 categories: ["webapi"]
 ---
+*[github Source code #tag: identity_jwt](https://github.com/calvinegs/DotNet-Web-Api-5.git)*
 
-# TodoApp(Donet 5): Sqlite + EF + Asp.net Code Generator
+本文將記錄如何一步步從無到有使用 Dotnet Core 5.0 建立 ASP.NET Core 5 Web API，其中將會使用到下列技術:
+ - Dotnet cli
+ - Entity Framework
+ - Sqlite
+ - ASP.NET Core Generator
 
 ## 使用 dotnet cli 建立專案
 
@@ -263,14 +268,15 @@ namespace TodoApp
     };
 }
 ```
-## 移除預設產生的樣本程式碼的 WeatherForecast.cs & WeatherForecastController.cs
+## 移除預設產生的樣本程式碼
+Weather Forecast 程式碼是預設自動產生的，可直接將 WeatherForecast.cs & WeatherForecastController.cs 刪除
 
 ## Add the initial migration to create the database
 
 ```bash
   $ dotnet build
   $ dotnet ef migrations add "Initial Migrations"
-  $ dotnet ef database update (在根目錄產生 app.db sqlite database)
+  $ dotnet ef database update # 在根目錄產生 app.db sqlite database
 ```
 
 ## 使用 ASPNET Codegenerator 自動產生 Todo Controller
