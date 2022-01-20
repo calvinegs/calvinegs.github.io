@@ -2,14 +2,35 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://calvinegs.github.io/posts/dotnet5-webapi-ii/</loc>
+    <lastmod>2022-01-20T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://calvinegs.github.io/categories/</loc>
-    <lastmod>2022-01-17T00:00:00+00:00</lastmod>
+    <lastmod>2022-01-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://calvinegs.github.io/tags/dotnet-5/</loc>
+    <lastmod>2022-01-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://calvinegs.github.io/tags/identity-framework/</loc>
+    <lastmod>2022-01-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://calvinegs.github.io/tags/jwt/</loc>
+    <lastmod>2022-01-20T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://calvinegs.github.io/posts/</loc>
-    <lastmod>2022-01-17T00:00:00+00:00</lastmod>
+    <lastmod>2022-01-20T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://calvinegs.github.io/tags/</loc>
-    <lastmod>2022-01-17T00:00:00+00:00</lastmod>
+    <lastmod>2022-01-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://calvinegs.github.io/tags/webapi/</loc>
+    <lastmod>2022-01-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://calvinegs.github.io/categories/webapi/</loc>
+    <lastmod>2022-01-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://calvinegs.github.io/</loc>
+    <lastmod>2022-01-20T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://calvinegs.github.io/tags/type-annotation/</loc>
     <lastmod>2022-01-17T00:00:00+00:00</lastmod>
@@ -23,19 +44,7 @@
     <loc>https://calvinegs.github.io/posts/ts-type-inferenc-annotation/</loc>
     <lastmod>2022-01-17T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://calvinegs.github.io/</loc>
-    <lastmod>2022-01-17T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://calvinegs.github.io/posts/dotnet5-webapi/</loc>
-    <lastmod>2022-01-11T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://calvinegs.github.io/tags/dotnet-5/</loc>
-    <lastmod>2022-01-11T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://calvinegs.github.io/tags/webapi/</loc>
-    <lastmod>2022-01-11T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://calvinegs.github.io/categories/webapi/</loc>
     <lastmod>2022-01-11T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://calvinegs.github.io/tags/angular/</loc>
