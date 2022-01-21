@@ -1,5 +1,5 @@
 ---
-title: "Vscod Shortcut"
+title: "VS Code 中常用快捷鍵"
 date: 2022-01-21
 description: "VS Code 中常用的快捷鍵"
 tags: ["shortcut"]
@@ -9,11 +9,9 @@ ShowToc: false
 TocOpen: false
 ---
 
-# VS Code 常用快捷組合鍵 #
 
-
-|組合鍵|說明|備註|
-|--------------------|-------------------------------------------------------------------------------------------|------------------------------------|
+|組合鍵|說明|
+|--------------------|-----------------------------------------------------------------------------|
 |Ctrl+K F| Close folder|
 |Ctrl+K Ctrl+O| Open folder|
 |Ctrl+R| Open Project (透過歷史記錄清單)|
@@ -90,9 +88,9 @@ TocOpen: false
 |Ctrl + shift + c| 建立新的終端機 (焦點在 Terminal 時無效)|
 |Ctrl + shift + 5| 切割終端機|
 |Alt + ↑↓←→| 切換整合終端機聚焦點|
-|Alt + U| 若所在檔案不是 ts 檔，則顯示對應的 ts 檔案。若是 ts 檔，則顯示前一個檔案|Extension angular2-switcher 所支援|
-|Alt + I| 若所在檔案不是 css 檔，則顯示對應的 css 檔案。若是 css 檔，則顯示前一個檔案|Extension angular2-switcher 所支援|
-|Alt + O| 若所在檔案不是 html 檔，則顯示對應的 html 檔案。若是 html 檔，則顯示前一個檔案|Extension angular2-switcher 所支援|
-|Alt + P| 若所在檔案不是 spec.ts 檔，則顯示對應的 spec.ts 檔案。若是 spec.ts 檔，則顯示前一個檔案|Extension angular2-switcher 所支援|
+|Alt + U| 若所在檔案不是 ts 檔，則顯示對應的 ts 檔案。若是 ts 檔，則顯示前一個檔案|
+|Alt + I| 若所在檔案不是 css 檔，則顯示對應的 css 檔案。若是 css 檔，則顯示前一個檔案|
+|Alt + O| 若所在檔案不是 html 檔，則顯示對應的 html 檔案。若是 html 檔，則顯示前一個檔案|
+|Alt + P| 若所在檔案不是 spec.ts 檔，則顯示對應的 spec.ts 檔案。若是 spec.ts 檔，則顯示前一個檔案|
 
-後四項是 VSCide Extension angular2-switcher 所支援|
+註: 後四項是 VSCide Extension angular2-switcher 所支援
