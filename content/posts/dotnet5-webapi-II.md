@@ -274,8 +274,6 @@ $ dotnet add package Microsoft.IdentityModel.Tokens --version 6.11.1
 ```cs
 private string GenerateJwtToken(IdentityUser user)
 {
-    var jwtTokenHandler = new JwtSecurityTokenHandler();
-
     var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
 
     var claims = new ClaimsIdentity(new []
@@ -288,18 +286,12 @@ private string GenerateJwtToken(IdentityUser user)
 
     var tokenDescriptor = new SecurityTokenDescriptor
     {
-        // Subject = new ClaimsIdentity(new []
-        // {
-        //     new Claim("Id", user.Id),
-        //     new Claim(JwtRegisteredClaimNames.Email, user.Email),
-        //     new Claim(JwtRegisteredClaimNames.Sub, user.Email),
-        //     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
-        // }),
         Subject = claims,
         Expires = DateTime.UtcNow.AddHours(6),
         SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
     };
 
+    var jwtTokenHandler = new JwtSecurityTokenHandler();
     var token = jwtTokenHandler.CreateToken(tokenDescriptor);
     var jwtToken = jwtTokenHandler.WriteToken(token);
 

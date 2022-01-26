@@ -45,7 +45,7 @@ TocOpen: false
 |Alt+0| 移至同一個 Group 中最後一個 editor Tab|
 |Alt+Shift+0| 切換 Groups 成為並列或並排|
 |Ctrl+Shift+P| Show Command Palette|
-|Ctrl+P| Open File (使用檔案歷史清單)|
+|Ctrl+P| Open File|
 |Ctrl+K Ctrl+S| Keyboard Shortcuts|
 |Ctrl+K S| Save All Files|
 |Ctrl+N| New File|
