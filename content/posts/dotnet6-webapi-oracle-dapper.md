@@ -1,7 +1,7 @@
 ---
 title: "ASP.NET Core 6 Web API 使用 Dapper ORM 連結 Oracle"
 date: 2022-01-28
-draft: true
+draft: false
 description: "採用 Dapper 這個小而美的 ORM 架構並以 Repository Pattern 來撰寫 ASP.NET Core 6 Web Api"
 tags: ["dotnet 6", "webapi", "dapper", "repository", "jwt"]
 categories: ["webapi"]
