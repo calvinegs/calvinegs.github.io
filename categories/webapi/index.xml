@@ -10,7 +10,16 @@
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 20 Jan 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://calvinegs.github.io/categories/webapi/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 28 Jan 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://calvinegs.github.io/categories/webapi/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>ASP.NET Core 6 Web API 使用 Dapper ORM 連結 Oracle</title>
+      <link>https://calvinegs.github.io/posts/dotnet6-webapi-oracle-dapper/</link>
+      <pubDate>Fri, 28 Jan 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://calvinegs.github.io/posts/dotnet6-webapi-oracle-dapper/</guid>
+      <description>採用 Dapper 這個小而美的 ORM 架構並以 Repository Pattern 來撰寫 ASP.NET Core 6 Web Api</description>
+    </item>
+    
     <item>
       <title>ASP.NET Core 5 Web API 加入權限管理 (Dotnet Core Identity Framework &#43; JWT)</title>
       <link>https://calvinegs.github.io/posts/dotnet5-webapi-ii/</link>
