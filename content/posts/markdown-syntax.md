@@ -11,7 +11,7 @@ ShowToc: true
 TocOpen: false
 ---
 
-Hugo 內容文件中使用基本 Markdown 語法，還額外支援由 Hugo 所提供的加強語法(也支援基本 HTML 元素)。 
+Hugo 內容文件中使用基本 Markdown 語法，還額外支援由 Hugo 所提供的加強語法(也支援基本 HTML 元素)。
 
 ## 標題 (Headings)
 
@@ -32,12 +32,14 @@ Hugo 內容文件中使用基本 Markdown 語法，還額外支援由 Hugo 所�
 ### 未註明出處的文字區塊引用 (Blockquote without attribution)
 
 ![image](https://gist.github.com/calvinegs/ff926f09800f808617f84d0a966a8b31/raw/images---Mon_Dec_06_2021_1638781433614.png)
+
 > Tiam, ad mint andaepu dandae nostion secatur sequo quae.
 > **Note** that you can use _Markdown syntax_ within a blockquote.
 
 ### 註明出處的文字區塊引用 (Blockquote with attribution)
 
 ![image](https://gist.github.com/calvinegs/ff926f09800f808617f84d0a966a8b31/raw/images---Mon_Dec_06_2021_1638781500603.png)
+
 > Don't communicate by sharing memory, share memory by communicating.
 >
 > — <cite>Rob Pike[^1]</cite>
@@ -46,7 +48,7 @@ Hugo 內容文件中使用基本 Markdown 語法，還額外支援由 Hugo 所�
 
 ## 斷行 (Line Breaks)
 
-要建立換行符號 (`<br>`)，請以兩個或多個空格結束一行，然後鍵入 return鍵。
+要建立換行符號 (`<br>`)，請以兩個或多個空格結束一行，然後鍵入 return 鍵。
 
 ## 表格 (Tables)
 
@@ -67,17 +69,16 @@ Hugo 內容文件中使用基本 Markdown 語法，還額外支援由 Hugo 所�
 | --------- | -------- | ------ |
 | _italics_ | **bold** | `code` |
 
-
 ### 表格內的對齊功能
 
 ![image](https://gist.github.com/calvinegs/ff926f09800f808617f84d0a966a8b31/raw/images---Mon_Dec_06_2021_1638782962956.png)
 
 | Number | Next number | Previous number |
-| :------ |:---: | ---: |
-| Five | Six | Four |
-| Ten | Eleven | Nine |
-| Seven | Eight | Six |
-| Two | Three | One |
+| :----- | :---------: | --------------: |
+| Five   |     Six     |            Four |
+| Ten    |   Eleven    |            Nine |
+| Seven  |    Eight    |             Six |
+| Two    |    Three    |             One |
 
 ## 程式碼區塊 (Code Blocks)
 
@@ -88,13 +89,13 @@ Hugo 內容文件中使用基本 Markdown 語法，還額外支援由 Hugo 所�
 ```html
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <title>Example HTML5 Document</title>
-    </head>
-    <body>
-        <p>Test</p>
-    </body>
+  <head>
+    <meta charset="utf-8" />
+    <title>Example HTML5 Document</title>
+  </head>
+  <body>
+    <p>Test</p>
+  </body>
 </html>
 ```
 
@@ -153,70 +154,70 @@ Hugo 內容文件中使用基本 Markdown 語法，還額外支援由 Hugo 所�
 
 ![image](https://gist.github.com/calvinegs/ff926f09800f808617f84d0a966a8b31/raw/images---Mon_Dec_06_2021_1638784580362.png)
 
--   List item
--   Another item
--   And another item
+- List item
+- Another item
+- And another item
 
 ### 巢狀清單
 
 ![image](https://gist.github.com/calvinegs/ff926f09800f808617f84d0a966a8b31/raw/images---Mon_Dec_06_2021_1638784616109.png)
 
--   Fruit
-    -   Apple
-    -   Orange
-    -   Banana
--   Dairy
-    -   Milk
-    -   Cheese
+- Fruit
+  - Apple
+  - Orange
+  - Banana
+- Dairy
+  - Milk
+  - Cheese
 
 ![image](https://gist.github.com/calvinegs/ff926f09800f808617f84d0a966a8b31/raw/images---Mon_Dec_06_2021_1638784791650.png)
 
 1. First item
 2. Second item
 3. Third item
-    - Indented item
-    - Indented item
+   - Indented item
+   - Indented item
 4. Fourth item
+
 ### 以數字開頭的無序清單
 
 ![image](https://gist.github.com/calvinegs/ff926f09800f808617f84d0a966a8b31/raw/images---Mon_Dec_06_2021_1638784480784.png)
-
 
 ### 將'段落'加入清單中
 
 ![image](https://gist.github.com/calvinegs/ff926f09800f808617f84d0a966a8b31/raw/images---Mon_Dec_06_2021_1638785228842.png)
 
-* This is the first list item.
-* Here's the second list item.
+- This is the first list item.
+- Here's the second list item.
 
-    I need to add another paragraph below the second list item.
+  I need to add another paragraph below the second list item.
 
-* And here's the third list item.
+- And here's the third list item.
 
 ### 將'文字區塊引用'加入清單中
 
 ![image](https://gist.github.com/calvinegs/ff926f09800f808617f84d0a966a8b31/raw/images---Mon_Dec_06_2021_1638785268821.png)
 
-* This is the first list item.
-* Here's the second list item.
+- This is the first list item.
+- Here's the second list item.
 
-    > A blockquote would look great below the second list item.
+  > A blockquote would look great below the second list item.
 
-* And here's the third list item.
+- And here's the third list item.
 
 ### 將'程式區塊'加入清單中
 
 ![image](https://gist.github.com/calvinegs/ff926f09800f808617f84d0a966a8b31/raw/images---Mon_Dec_06_2021_1638785296437.png)
 
-1. Open the file.
-2. Find the following code block on line 21:
+1.  Open the file.
+2.  Find the following code block on line 21:
 
         <html>
           <head>
             <title>Test</title>
           </head>
 
-3. Update the title to match the name of your website.
+3.  Update the title to match the name of your website.
 
 ### 將'圖檔'加入清單中
 
@@ -225,7 +226,7 @@ Hugo 內容文件中使用基本 Markdown 語法，還額外支援由 Hugo 所�
 1. Open the file containing the Linux mascot.
 2. Marvel at its beauty.
 
-    ![Tux, the Linux mascot](https://gist.github.com/calvinegs/ff926f09800f808617f84d0a966a8b31/raw/images---Mon_Dec_06_2021_1638785106824.png)
+   ![Tux, the Linux mascot](https://gist.github.com/calvinegs/ff926f09800f808617f84d0a966a8b31/raw/images---Mon_Dec_06_2021_1638785106824.png)
 
 3. Close the file.
 
@@ -235,12 +236,11 @@ Hugo 內容文件中使用基本 Markdown 語法，還額外支援由 Hugo 所�
 
 ![image](https://gist.github.com/calvinegs/ff926f09800f808617f84d0a966a8b31/raw/images---Mon_Dec_06_2021_1638799849495.png)
 
-## 反引號的使用 
+## 反引號的使用
 
 ![image](https://gist.github.com/calvinegs/ff926f09800f808617f84d0a966a8b31/raw/images---Mon_Dec_06_2021_1638786654747.png)
 
 ![image](https://gist.github.com/calvinegs/ff926f09800f808617f84d0a966a8b31/raw/images---Mon_Dec_06_2021_1638786709378.png)
-
 
 ## 水平線 (Horizontal Rules)
 
@@ -258,14 +258,14 @@ Try to put a blank line before...
 
 My favorite search engine is [Duck Duck Go](https://duckduckgo.com).
 
-
 ![image](https://gist.github.com/calvinegs/ff926f09800f808617f84d0a966a8b31/raw/images---Mon_Dec_06_2021_1638787425525.png)
 
 I love supporting the **[EFF](https://eff.org)**.  
-This is the *[Markdown Guide](https://www.markdownguide.org)*.  
+This is the _[Markdown Guide](https://www.markdownguide.org)_.  
 See the section on [`code`](#code).
 
 ## 斜體 & 強調
+
 使用 * 符號套用在文字的前後方，即可將文字改為斜體字；而使用連續兩個*加在文字的前後方則會是強調文字。
 
 有時候，你得*停一下*腳步，等一等 **心靈**，讓心情平和，想一想自己生活中擁有的所有 **美好** 的東西。
@@ -274,10 +274,9 @@ See the section on [`code`](#code).
 
 要顯示原本用於格式化 Markdown 文件中的文字字元，請在該字符前添加反斜線 (`\`)。
 
-## 其他元素的使用  — abbr, sub, sup, kbd, mark
+## 其他元素的使用 — abbr, sub, sup, kbd, mark
 
 ![image](https://gist.github.com/calvinegs/ff926f09800f808617f84d0a966a8b31/raw/images---Mon_Dec_06_2021_1638786778889.png)
-
 
 <abbr title="Graphics Interchange Format">GIF</abbr> is a bitmap image format.
 
@@ -288,3 +287,11 @@ X<sup>n</sup> + Y<sup>n</sup> = Z<sup>n</sup>
 Press <kbd><kbd>CTRL</kbd>+<kbd>ALT</kbd>+<kbd>Delete</kbd></kbd> to end the session.
 
 Most <mark>salamanders</mark> are nocturnal, and hunt for insects, worms, and other small creatures.
+
+```mermaid
+  graph TD;
+      A-->B;
+      A-->C;
+      B-->D;
+      C-->D;
+```
