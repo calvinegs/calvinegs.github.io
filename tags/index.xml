@@ -10,7 +10,34 @@
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 28 Jan 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://calvinegs.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 20 Feb 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://calvinegs.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Parcel.js</title>
+      <link>https://calvinegs.github.io/tags/parcel.js/</link>
+      <pubDate>Sun, 20 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://calvinegs.github.io/tags/parcel.js/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Typescript</title>
+      <link>https://calvinegs.github.io/tags/typescript/</link>
+      <pubDate>Sun, 20 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://calvinegs.github.io/tags/typescript/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Web App</title>
+      <link>https://calvinegs.github.io/tags/web-app/</link>
+      <pubDate>Sun, 20 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://calvinegs.github.io/tags/web-app/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>dapper</title>
       <link>https://calvinegs.github.io/tags/dapper/</link>
@@ -134,15 +161,6 @@
       <pubDate>Wed, 08 Dec 2021 00:00:00 +0000</pubDate>
       
       <guid>https://calvinegs.github.io/tags/ng-cli/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>typescript</title>
-      <link>https://calvinegs.github.io/tags/typescript/</link>
-      <pubDate>Tue, 07 Dec 2021 00:00:00 +0000</pubDate>
-      
-      <guid>https://calvinegs.github.io/tags/typescript/</guid>
       <description></description>
     </item>
     

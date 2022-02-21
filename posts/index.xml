@@ -10,7 +10,16 @@
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 28 Jan 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://calvinegs.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 20 Feb 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://calvinegs.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>使用 Parcel.js &#43; Typescript 來建置一個 Web App</title>
+      <link>https://calvinegs.github.io/posts/parcel-typescript/</link>
+      <pubDate>Sun, 20 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://calvinegs.github.io/posts/parcel-typescript/</guid>
+      <description>使用 Typescript 來開發前端應用程式已是一個趨勢，透過 Parcel.js 的幫助，可以快速地建置一個簡潔又有彈性的開發環境，來學習 Typescript</description>
+    </item>
+    
     <item>
       <title>ASP.NET Core 6 Web API 使用 Dapper ORM 連結 Oracle</title>
       <link>https://calvinegs.github.io/posts/dotnet6-webapi-oracle-dapper/</link>
