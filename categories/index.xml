@@ -10,7 +10,16 @@
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 20 Feb 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://calvinegs.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 21 Feb 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://calvinegs.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>html</title>
+      <link>https://calvinegs.github.io/categories/html/</link>
+      <pubDate>Mon, 21 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://calvinegs.github.io/categories/html/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>Typescript</title>
       <link>https://calvinegs.github.io/categories/typescript/</link>
