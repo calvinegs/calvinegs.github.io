@@ -446,9 +446,6 @@ body {
 ![EmmetSetting](https://user-images.githubusercontent.com/21993717/129663354-be7f2d35-3c7a-42f3-a1b4-fbee8b53afe0.png)
 
 在該目錄下建立一個名為 snippets.json 檔案，內容如下
-
-![EmmetSnippet](https://user-images.githubusercontent.com/21993717/129663264-d68003b7-9b81-41bf-8673-78d9f2475603.png)
-
 ```json
 {
   "html": {

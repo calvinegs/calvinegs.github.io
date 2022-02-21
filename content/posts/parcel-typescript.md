@@ -85,6 +85,10 @@ window.onload = () => {
   </body>
 </html>
 ```
+註: 可參考另一編筆記是紀錄如何使用 Emmet 語法
+*[透過範例學習 Emmet 語法](https://calvinegs.github.io/posts/emmet-syntax/)*
+
+
 
 ## 執行程式
 
