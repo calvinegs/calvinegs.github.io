@@ -32,7 +32,7 @@
 <meta name=twitter:title content="透過範例學習 Emmet 語法">
 <meta name=twitter:description content="Emmet extension 是一個協助編寫 Html 或 CSS 語法的有力工具，透過範例來學習 Emmet 所支援的語法是最快上手的方式。">
 <script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Posts","item":"https://calvinegs.github.io/posts/"},{"@type":"ListItem","position":2,"name":"透過範例學習 Emmet 語法","item":"https://calvinegs.github.io/posts/emmet-syntax/"}]}</script>
-<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"透過範例學習 Emmet 語法","name":"透過範例學習 Emmet 語法","description":"Emmet extension 是一個協助編寫 Html 或 CSS 語法的有力工具，透過範例來學習 Emmet 所支援的語法是最快上手的方式。","keywords":["emmet","html","css"],"articleBody":"網頁製作時，手刻 HTML/CSS 即傷神又容易出錯，讓我們來看看 Emmet 如何快速又便捷的協助我們進行 HTML/CSS 的輸入。\nElements 輸入 div 按下 Enter 或 Tab 鍵，輸入 innerHtml - abc 再按下 Ctrl+Enter 鍵\ndivabcdiv 輸入 p 按下 Enter 或 Tab 鍵，輸入 innerHtml -abc 再按下 Ctrl+Enter 鍵\npabcp Nesting operators Child:  divulli\ndiv ul lili ul div Sibling: + div+p+bq\ndivdiv pp blockquoteblockquote Climb-up: ^ div+divpspan+em\ndiv+divpspan+em^bq\ndiv+divpspan+em^^^bq\npspan+em -- divdiv div pspanspanememp div pspan+em^bq -- divdiv div pspanspanememp blockquoteblockquote div pspan+em^^^bq -- divdiv div pspanspanememp div blockquoteblockquote Multiplication: * ulli*5\nul lili lili lili lili lili ul Grouping: () div(headerulli*2a)+footerp\ndiv header ul lia href=\"\"ali lia href=\"\"ali ul header footer pp footer div (divdl(dt+dd)*3)+footerp\ndiv dl dtdt dddd dtdt dddd dtdt dddd dl div footer pp footer Attribute operators abbr#anId.aClass[style=“color:blue;” title=“Hypertext Markup Language”]{HTML}\nabbr title=\"Hypertext Markup Language\" id=\"anId\" class=\"aClass\" style=\"color:blue;\" HTMLabbr  ID and CLASS div#header+div.page+div#footer.class1.class2.class3\ndiv id=\"header\"div div class=\"page\"div div id=\"footer\" class=\"class1 class2 class3\"div div.class1\ndiv class=\"class1\"div (headerul.navli*5)+footer\nheader ul class=\"nav\" lili lili lili lili lili ul header footerfooter Custome attributes td[title=“Hello world!” colspan=3]\ntd title=\"Hello world!\" colspan=\"3\"td a:blank\na href=\"http://\" target=\"_blank\" rel=\"noopener noreferrer\"a Item numbering: $ ulli.item$*5\nul li class=\"item1\"li li class=\"item2\"li li class=\"item3\"li li class=\"item4\"li li class=\"item5\"li ul ulli.item$$$*5\nul li class=\"item001\"li li class=\"item002\"li li class=\"item003\"li li class=\"item004\"li li class=\"item005\"li ul ulli.item$@-*5\n註: @-: 表示反向排序\nul li class=\"item5\"li li class=\"item4\"li li class=\"item3\"li li class=\"item2\"li li class=\"item1\"li ul ulli.item$@3*5\nul li class=\"item3\"li li class=\"item4\"li li class=\"item5\"li li class=\"item6\"li li class=\"item7\"li ul ulli.item$@-3*5\n\" data-lang=\"html\"       ulli.item${Item $@3}*5\nul li class=\"item1\"Item 3li li class=\"item2\"Item 4li li class=\"item3\"Item 5li li class=\"item4\"Item 6li li class=\"item5\"Item 7li ul ul.my-list(li.my-list-item#id-$$)*6\nul class=\"my-list\" li class=\"my-list-item\" id=\"id-01\"li li class=\"my-list-item\" id=\"id-02\"li li class=\"my-list-item\" id=\"id-03\"li li class=\"my-list-item\" id=\"id-04\"li li class=\"my-list-item\" id=\"id-05\"li li class=\"my-list-item\" id=\"id-06\"li ul Text: a{Click me}\n a href=\"\"clickabhereb {click}+b{here} -- a href=\"\"clickbhereba {Click }+a{here}+{ to continue} -- pClick a href=\"\"herea to continuep  pClickp a href=\"\"herea to continue Implicit .class1\ndiv class=\"class1\"div em.class1\nemspan class=\"class1\"spanem ul.class1\nul li class=\"class1\"li ul table.row.col\ntable tr class=\"row\" td class=\"col\"td tr table Forms \u0026 Inputs form:get\nform action=\"\" method=\"get\"form form:post\nform action=\"\" method=\"post\"form Lorem lpsum lorem\nlorem20\nul.mylistlorem4.item*5\nul class=\"mylist\" liLorem ipsum dolor sit.li liRepellendus iusto debitis vel.li liAperiam similique architecto odio!li liExercitationem iusto nesciunt maxime.li liMinus reiciendis eaque nemo?li ul p*4lorem4\npLorem ipsum dolor sit.p pAccusantium odit nostrum modi.p pConsequatur soluta voluptatibus amet.p pMolestiae quo a asperiores!p Advanced Structures p{Click }+a{here}+{ to continue}\npClick a href=\"\"herea to continuep CSS Abbreviations body { /* c#000 */ color: #000; /* c#f */ color: #fff; /* c#f4 */ color: #f4f4f4; /* p10 */ padding: 10px; /* default pixel */ /* p10% or p10p */ padding: 10%; /* p10r */ padding: 10rem; /* pr10 */ padding-right: 10px; /* pl10 pt10 pb10 */ padding-left: 10px; padding-top: 10px; padding-bottom: 10px; /* m20 ml20 mt20 mb20*/ margin: 20px; margin-left: 20px; margin-top: 20px; margin-bottom: 2%; /* t10 b10 db di dib */ top: 10px; bottom: 10px; display: block; display: inline; display: inline-block; /* w300 taj dn df*/ width: 300px; text-align: justify; display: none; display: flex; /* ff ffa fft ffv*/ font-family: serif; /* default font: serif */ font-family: Arial, \"Helvetica Neue\", Helvetica, sans-serif; font-family: \"Times New Roman\", Times, Baskerville, Georgia, serif; font-family: Verdana, Geneva, sans-serif; /* fwb fw700 fsi fsn fso */ font-weight: bold; font-weight: 700; font-style: italic; font-style: normal; font-style: oblique; /* fz2e */ font-size: 2em; /* pr15+ml10 */ padding-right: 15px; margin-left: 10px; } Custom Snippets 先設定 Emmet Snippets 要存放的目錄 (如: f:\\emmet )\n在該目錄下建立一個名為 snippets.json 檔案，內容如下\n{ \"html\": { \"snippets\": { \"nl\": \"nav.main-navulli.item$*4\", \"ull\": \"ulli[id=${1} class=${2}]*2\" } }, \"css\": { \"snippets\": { \"cb\": \"color: black\", \"bsd\": \"border: 1px solid ${1:red}\" } } } 註:\n ${1} 表示為第一個游標停駐的地方，可直接進行 id 輸入, 當按下 Tab 鍵後，游標會自動停駐在 ${2} 的地方，方便輸入 class name。 ${1:red} 其中的 red 表示是預設值。  存檔後重新啟動 VS Code\n nav class=\"main-nav\" ul li class=\"item1\"li li class=\"item2\"li li class=\"item3\"li li class=\"item4\"li ul nav  ul li id=\"\" class=\"\"li li id=\"\" class=\"\"li ul /* cb */ color: black; /* bsd */ border: 1px solid red; ","wordCount":"674","inLanguage":"en","datePublished":"2022-02-21T00:00:00Z","dateModified":"2022-02-21T00:00:00Z","author":{"@type":"Person","name":"Theme PaperMod"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://calvinegs.github.io/posts/emmet-syntax/"},"publisher":{"@type":"Organization","name":"永誌不忘 • 筆記簿","logo":{"@type":"ImageObject","url":"https://calvinegs.github.io/img/favicon.png"}}}</script>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"透過範例學習 Emmet 語法","name":"透過範例學習 Emmet 語法","description":"Emmet extension 是一個協助編寫 Html 或 CSS 語法的有力工具，透過範例來學習 Emmet 所支援的語法是最快上手的方式。","keywords":["emmet","html","css"],"articleBody":"網頁製作時，手刻 HTML/CSS 即傷神又容易出錯，讓我們來看看 Emmet 如何快速又便捷的協助我們進行 HTML/CSS 的輸入。\nElements 輸入 div 按下 Enter 或 Tab 鍵，輸入 innerHtml - abc 再按下 Ctrl+Enter 鍵\nabc 輸入 p 按下 Enter 或 Tab 鍵，輸入 innerHtml -abc 再按下 Ctrl+Enter 鍵\nabc\nNesting operators Child:  divulli\n     Sibling: + div+p+bq\n \n Climb-up: ^ div+divpspan+em\ndiv+divpspan+em^bq\ndiv+divpspan+em^^^bq\npspan+em -- divdiv div pspanspanememp div pspan+em^bq -- divdiv div pspanspanememp blockquoteblockquote div pspan+em^^^bq -- divdiv div pspanspanememp div blockquoteblockquote Multiplication: * ulli*5\n       Grouping: () div(headerulli*2a)+footerp\n        \n  (divdl(dt+dd)*3)+footerp\n           \n Attribute operators abbr#anId.aClass[style=“color:blue;” title=“Hypertext Markup Language”]{HTML}\nHTMLID and CLASS div#header+div.page+div#footer.class1.class2.class3\n   div.class1\n (headerul.navli*5)+footer\n         Custome attributes td[title=“Hello world!” colspan=3]\n a:blank\n Item numbering: $ ulli.item$*5\n       ulli.item$$$*5\n       ulli.item$@-*5\n註: @-: 表示反向排序\n       ulli.item$@3*5\n       ulli.item$@-3*5\n\" data-lang=\"\"       ulli.item${Item $@3}*5\n Item 3 Item 4 Item 5 Item 6 Item 7  ul.my-list(li.my-list-item#id-$$)*6\n       Text: a{Click me}\nclickhere {click}+b{here} -- clickhere {Click }+a{here}+{ to continue} -- Click here to continue\nClick\nhere to continue Implicit .class1\n em.class1\n ul.class1\n   table.row.col\n    Forms \u0026 Inputs form:get\n form:post\n Lorem lpsum lorem\nlorem20\nul.mylistlorem4.item*5\nLorem ipsum dolor sit. Repellendus iusto debitis vel. Aperiam similique architecto odio! Exercitationem iusto nesciunt maxime. Minus reiciendis eaque nemo?  p*4lorem4\nLorem ipsum dolor sit.\nAccusantium odit nostrum modi.\nConsequatur soluta voluptatibus amet.\nMolestiae quo a asperiores!\nAdvanced Structures p{Click }+a{here}+{ to continue}\nClick here to continue\nCSS Abbreviations body { /* c#000 */ color: #000; /* c#f */ color: #fff; /* c#f4 */ color: #f4f4f4; /* p10 */ padding: 10px; /* default pixel */ /* p10% or p10p */ padding: 10%; /* p10r */ padding: 10rem; /* pr10 */ padding-right: 10px; /* pl10 pt10 pb10 */ padding-left: 10px; padding-top: 10px; padding-bottom: 10px; /* m20 ml20 mt20 mb20*/ margin: 20px; margin-left: 20px; margin-top: 20px; margin-bottom: 2%; /* t10 b10 db di dib */ top: 10px; bottom: 10px; display: block; display: inline; display: inline-block; /* w300 taj dn df*/ width: 300px; text-align: justify; display: none; display: flex; /* ff ffa fft ffv*/ font-family: serif; /* default font: serif */ font-family: Arial, \"Helvetica Neue\", Helvetica, sans-serif; font-family: \"Times New Roman\", Times, Baskerville, Georgia, serif; font-family: Verdana, Geneva, sans-serif; /* fwb fw700 fsi fsn fso */ font-weight: bold; font-weight: 700; font-style: italic; font-style: normal; font-style: oblique; /* fz2e */ font-size: 2em; /* pr15+ml10 */ padding-right: 15px; margin-left: 10px; } Custom Snippets 先設定 Emmet Snippets 要存放的目錄 (如: f:\\emmet )\n在該目錄下建立一個名為 snippets.json 檔案，內容如下\n{ \"html\": { \"snippets\": { \"nl\": \"nav.main-navulli.item$*4\", \"ull\": \"ulli[id=${1} class=${2}]*2\" } }, \"css\": { \"snippets\": { \"cb\": \"color: black\", \"bsd\": \"border: 1px solid ${1:red}\" } } } 註:\n ${1} 表示為第一個游標停駐的地方，可直接進行 id 輸入, 當按下 Tab 鍵後，游標會自動停駐在 ${2} 的地方，方便輸入 class name。 ${1:red} 其中的 red 表示是預設值。  存檔後重新啟動 VS Code\n           /* cb */ color: black; /* bsd */ border: 1px solid red; ","wordCount":"674","inLanguage":"en","datePublished":"2022-02-21T00:00:00Z","dateModified":"2022-02-21T00:00:00Z","author":{"@type":"Person","name":"Theme PaperMod"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://calvinegs.github.io/posts/emmet-syntax/"},"publisher":{"@type":"Organization","name":"永誌不忘 • 筆記簿","logo":{"@type":"ImageObject","url":"https://calvinegs.github.io/img/favicon.png"}}}</script>
 </head>
 <body id=top>
 <script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
@@ -137,23 +137,23 @@ Emmet extension 是一個協助編寫 Html 或 CSS 語法的有力工具，透�
 <div class=post-content><p>網頁製作時，手刻 HTML/CSS 即傷神又容易出錯，讓我們來看看 Emmet 如何快速又便捷的協助我們進行 HTML/CSS 的輸入。</p>
 <h2 id=elements>Elements<a hidden class=anchor aria-hidden=true href=#elements>#</a></h2>
 <p>輸入 div 按下 Enter 或 Tab 鍵，輸入 innerHtml - abc 再按下 Ctrl+Enter 鍵</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html>&lt;<span style=color:#f92672>div</span>&gt;abc&lt;/<span style=color:#f92672>div</span>&gt;
-</code></pre></div><p>輸入 p 按下 Enter 或 Tab 鍵，輸入 innerHtml -abc 再按下 Ctrl+Enter 鍵</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html>&lt;<span style=color:#f92672>p</span>&gt;abc&lt;/<span style=color:#f92672>p</span>&gt;
-</code></pre></div><h2 id=nesting-operators>Nesting operators<a hidden class=anchor aria-hidden=true href=#nesting-operators>#</a></h2>
+<pre tabindex=0><code>&lt;div&gt;abc&lt;/div&gt;
+</code></pre><p>輸入 p 按下 Enter 或 Tab 鍵，輸入 innerHtml -abc 再按下 Ctrl+Enter 鍵</p>
+<pre tabindex=0><code>&lt;p&gt;abc&lt;/p&gt;
+</code></pre><h2 id=nesting-operators>Nesting operators<a hidden class=anchor aria-hidden=true href=#nesting-operators>#</a></h2>
 <h3 id=child->Child: ><a hidden class=anchor aria-hidden=true href=#child->#</a></h3>
 <p>div>ul>li</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html>&lt;<span style=color:#f92672>div</span>&gt;
-  &lt;<span style=color:#f92672>ul</span>&gt;
-    &lt;<span style=color:#f92672>li</span>&gt;&lt;/<span style=color:#f92672>li</span>&gt;
-  &lt;/<span style=color:#f92672>ul</span>&gt;
-&lt;/<span style=color:#f92672>div</span>&gt;
-</code></pre></div><h3 id=sibling->Sibling: +<a hidden class=anchor aria-hidden=true href=#sibling->#</a></h3>
+<pre tabindex=0><code>&lt;div&gt;
+  &lt;ul&gt;
+    &lt;li&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/div&gt;
+</code></pre><h3 id=sibling->Sibling: +<a hidden class=anchor aria-hidden=true href=#sibling->#</a></h3>
 <p>div+p+bq</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html>&lt;<span style=color:#f92672>div</span>&gt;&lt;/<span style=color:#f92672>div</span>&gt;
-&lt;<span style=color:#f92672>p</span>&gt;&lt;/<span style=color:#f92672>p</span>&gt;
-&lt;<span style=color:#f92672>blockquote</span>&gt;&lt;/<span style=color:#f92672>blockquote</span>&gt;
-</code></pre></div><h3 id=climb-up->Climb-up: ^<a hidden class=anchor aria-hidden=true href=#climb-up->#</a></h3>
+<pre tabindex=0><code>&lt;div&gt;&lt;/div&gt;
+&lt;p&gt;&lt;/p&gt;
+&lt;blockquote&gt;&lt;/blockquote&gt;
+</code></pre><h3 id=climb-up->Climb-up: ^<a hidden class=anchor aria-hidden=true href=#climb-up->#</a></h3>
 <p>div+div>p>span+em<br>
 div+div>p>span+em^bq<br>
 div+div>p>span+em^^^bq</p>
@@ -176,184 +176,184 @@ div+div>p>span+em^^^bq</p>
 &lt;<span style=color:#f92672>blockquote</span>&gt;&lt;/<span style=color:#f92672>blockquote</span>&gt;
 </code></pre></div><h3 id=multiplication->Multiplication: *<a hidden class=anchor aria-hidden=true href=#multiplication->#</a></h3>
 <p>ul>li*5</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html>&lt;<span style=color:#f92672>ul</span>&gt;
-  &lt;<span style=color:#f92672>li</span>&gt;&lt;/<span style=color:#f92672>li</span>&gt;
-  &lt;<span style=color:#f92672>li</span>&gt;&lt;/<span style=color:#f92672>li</span>&gt;
-  &lt;<span style=color:#f92672>li</span>&gt;&lt;/<span style=color:#f92672>li</span>&gt;
-  &lt;<span style=color:#f92672>li</span>&gt;&lt;/<span style=color:#f92672>li</span>&gt;
-  &lt;<span style=color:#f92672>li</span>&gt;&lt;/<span style=color:#f92672>li</span>&gt;
-&lt;/<span style=color:#f92672>ul</span>&gt;
-</code></pre></div><h3 id=grouping->Grouping: ()<a hidden class=anchor aria-hidden=true href=#grouping->#</a></h3>
+<pre tabindex=0><code>&lt;ul&gt;
+  &lt;li&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</code></pre><h3 id=grouping->Grouping: ()<a hidden class=anchor aria-hidden=true href=#grouping->#</a></h3>
 <p>div>(header>ul>li*2>a)+footer>p</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html>&lt;<span style=color:#f92672>div</span>&gt;
-  &lt;<span style=color:#f92672>header</span>&gt;
-    &lt;<span style=color:#f92672>ul</span>&gt;
-      &lt;<span style=color:#f92672>li</span>&gt;&lt;<span style=color:#f92672>a</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;&#34;</span>&gt;&lt;/<span style=color:#f92672>a</span>&gt;&lt;/<span style=color:#f92672>li</span>&gt;
-      &lt;<span style=color:#f92672>li</span>&gt;&lt;<span style=color:#f92672>a</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;&#34;</span>&gt;&lt;/<span style=color:#f92672>a</span>&gt;&lt;/<span style=color:#f92672>li</span>&gt;
-    &lt;/<span style=color:#f92672>ul</span>&gt;
-  &lt;/<span style=color:#f92672>header</span>&gt;
-  &lt;<span style=color:#f92672>footer</span>&gt;
-    &lt;<span style=color:#f92672>p</span>&gt;&lt;/<span style=color:#f92672>p</span>&gt;
-  &lt;/<span style=color:#f92672>footer</span>&gt;
-&lt;/<span style=color:#f92672>div</span>&gt;
-</code></pre></div><p>(div>dl>(dt+dd)*3)+footer>p</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html>&lt;<span style=color:#f92672>div</span>&gt;
-  &lt;<span style=color:#f92672>dl</span>&gt;
-    &lt;<span style=color:#f92672>dt</span>&gt;&lt;/<span style=color:#f92672>dt</span>&gt;
-    &lt;<span style=color:#f92672>dd</span>&gt;&lt;/<span style=color:#f92672>dd</span>&gt;
-    &lt;<span style=color:#f92672>dt</span>&gt;&lt;/<span style=color:#f92672>dt</span>&gt;
-    &lt;<span style=color:#f92672>dd</span>&gt;&lt;/<span style=color:#f92672>dd</span>&gt;
-    &lt;<span style=color:#f92672>dt</span>&gt;&lt;/<span style=color:#f92672>dt</span>&gt;
-    &lt;<span style=color:#f92672>dd</span>&gt;&lt;/<span style=color:#f92672>dd</span>&gt;
-  &lt;/<span style=color:#f92672>dl</span>&gt;
-&lt;/<span style=color:#f92672>div</span>&gt;
-&lt;<span style=color:#f92672>footer</span>&gt;
-  &lt;<span style=color:#f92672>p</span>&gt;&lt;/<span style=color:#f92672>p</span>&gt;
-&lt;/<span style=color:#f92672>footer</span>&gt;
-</code></pre></div><h2 id=attribute-operators>Attribute operators<a hidden class=anchor aria-hidden=true href=#attribute-operators>#</a></h2>
+<pre tabindex=0><code>&lt;div&gt;
+  &lt;header&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;&quot;&gt;&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;&quot;&gt;&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/header&gt;
+  &lt;footer&gt;
+    &lt;p&gt;&lt;/p&gt;
+  &lt;/footer&gt;
+&lt;/div&gt;
+</code></pre><p>(div>dl>(dt+dd)*3)+footer>p</p>
+<pre tabindex=0><code>&lt;div&gt;
+  &lt;dl&gt;
+    &lt;dt&gt;&lt;/dt&gt;
+    &lt;dd&gt;&lt;/dd&gt;
+    &lt;dt&gt;&lt;/dt&gt;
+    &lt;dd&gt;&lt;/dd&gt;
+    &lt;dt&gt;&lt;/dt&gt;
+    &lt;dd&gt;&lt;/dd&gt;
+  &lt;/dl&gt;
+&lt;/div&gt;
+&lt;footer&gt;
+  &lt;p&gt;&lt;/p&gt;
+&lt;/footer&gt;
+</code></pre><h2 id=attribute-operators>Attribute operators<a hidden class=anchor aria-hidden=true href=#attribute-operators>#</a></h2>
 <p>abbr#anId.aClass[style=&ldquo;color:blue;&rdquo; title=&ldquo;Hypertext Markup Language&rdquo;]{HTML}</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html>&lt;<span style=color:#f92672>abbr</span>
-  <span style=color:#a6e22e>title</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;Hypertext Markup Language&#34;</span>
-  <span style=color:#a6e22e>id</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;anId&#34;</span>
-  <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;aClass&#34;</span>
-  <span style=color:#a6e22e>style</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;color:blue;&#34;</span>
-  &gt;HTML&lt;/<span style=color:#f92672>abbr</span>
+<pre tabindex=0><code>&lt;abbr
+  title=&quot;Hypertext Markup Language&quot;
+  id=&quot;anId&quot;
+  class=&quot;aClass&quot;
+  style=&quot;color:blue;&quot;
+  &gt;HTML&lt;/abbr
 &gt;
-</code></pre></div><h2 id=id-and-class>ID and CLASS<a hidden class=anchor aria-hidden=true href=#id-and-class>#</a></h2>
+</code></pre><h2 id=id-and-class>ID and CLASS<a hidden class=anchor aria-hidden=true href=#id-and-class>#</a></h2>
 <p>div#header+div.page+div#footer.class1.class2.class3</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html>&lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>id</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;header&#34;</span>&gt;&lt;/<span style=color:#f92672>div</span>&gt;
-&lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;page&#34;</span>&gt;&lt;/<span style=color:#f92672>div</span>&gt;
-&lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>id</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;footer&#34;</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;class1 class2 class3&#34;</span>&gt;&lt;/<span style=color:#f92672>div</span>&gt;
-</code></pre></div><p>div.class1</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html>&lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;class1&#34;</span>&gt;&lt;/<span style=color:#f92672>div</span>&gt;
-</code></pre></div><p>(header>ul.nav>li*5)+footer</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html>&lt;<span style=color:#f92672>header</span>&gt;
-  &lt;<span style=color:#f92672>ul</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;nav&#34;</span>&gt;
-    &lt;<span style=color:#f92672>li</span>&gt;&lt;/<span style=color:#f92672>li</span>&gt;
-    &lt;<span style=color:#f92672>li</span>&gt;&lt;/<span style=color:#f92672>li</span>&gt;
-    &lt;<span style=color:#f92672>li</span>&gt;&lt;/<span style=color:#f92672>li</span>&gt;
-    &lt;<span style=color:#f92672>li</span>&gt;&lt;/<span style=color:#f92672>li</span>&gt;
-    &lt;<span style=color:#f92672>li</span>&gt;&lt;/<span style=color:#f92672>li</span>&gt;
-  &lt;/<span style=color:#f92672>ul</span>&gt;
-&lt;/<span style=color:#f92672>header</span>&gt;
-&lt;<span style=color:#f92672>footer</span>&gt;&lt;/<span style=color:#f92672>footer</span>&gt;
-</code></pre></div><h2 id=custome-attributes>Custome attributes<a hidden class=anchor aria-hidden=true href=#custome-attributes>#</a></h2>
+<pre tabindex=0><code>&lt;div id=&quot;header&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;page&quot;&gt;&lt;/div&gt;
+&lt;div id=&quot;footer&quot; class=&quot;class1 class2 class3&quot;&gt;&lt;/div&gt;
+</code></pre><p>div.class1</p>
+<pre tabindex=0><code>&lt;div class=&quot;class1&quot;&gt;&lt;/div&gt;
+</code></pre><p>(header>ul.nav>li*5)+footer</p>
+<pre tabindex=0><code>&lt;header&gt;
+  &lt;ul class=&quot;nav&quot;&gt;
+    &lt;li&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/header&gt;
+&lt;footer&gt;&lt;/footer&gt;
+</code></pre><h2 id=custome-attributes>Custome attributes<a hidden class=anchor aria-hidden=true href=#custome-attributes>#</a></h2>
 <p>td[title=&ldquo;Hello world!&rdquo; colspan=3]</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html>&lt;<span style=color:#f92672>td</span> <span style=color:#a6e22e>title</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;Hello world!&#34;</span> <span style=color:#a6e22e>colspan</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;3&#34;</span>&gt;&lt;/<span style=color:#f92672>td</span>&gt;
-</code></pre></div><p>a:blank</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html>&lt;<span style=color:#f92672>a</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;http://&#34;</span> <span style=color:#a6e22e>target</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;_blank&#34;</span> <span style=color:#a6e22e>rel</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;noopener noreferrer&#34;</span>&gt;&lt;/<span style=color:#f92672>a</span>&gt;
-</code></pre></div><h2 id=item-numbering->Item numbering: $<a hidden class=anchor aria-hidden=true href=#item-numbering->#</a></h2>
+<pre tabindex=0><code>&lt;td title=&quot;Hello world!&quot; colspan=&quot;3&quot;&gt;&lt;/td&gt;
+</code></pre><p>a:blank</p>
+<pre tabindex=0><code>&lt;a href=&quot;http://&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;&lt;/a&gt;
+</code></pre><h2 id=item-numbering->Item numbering: $<a hidden class=anchor aria-hidden=true href=#item-numbering->#</a></h2>
 <p>ul>li.item$*5</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html>&lt;<span style=color:#f92672>ul</span>&gt;
-  &lt;<span style=color:#f92672>li</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;item1&#34;</span>&gt;&lt;/<span style=color:#f92672>li</span>&gt;
-  &lt;<span style=color:#f92672>li</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;item2&#34;</span>&gt;&lt;/<span style=color:#f92672>li</span>&gt;
-  &lt;<span style=color:#f92672>li</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;item3&#34;</span>&gt;&lt;/<span style=color:#f92672>li</span>&gt;
-  &lt;<span style=color:#f92672>li</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;item4&#34;</span>&gt;&lt;/<span style=color:#f92672>li</span>&gt;
-  &lt;<span style=color:#f92672>li</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;item5&#34;</span>&gt;&lt;/<span style=color:#f92672>li</span>&gt;
-&lt;/<span style=color:#f92672>ul</span>&gt;
-</code></pre></div><p>ul>li.item$$$*5</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html>&lt;<span style=color:#f92672>ul</span>&gt;
-  &lt;<span style=color:#f92672>li</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;item001&#34;</span>&gt;&lt;/<span style=color:#f92672>li</span>&gt;
-  &lt;<span style=color:#f92672>li</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;item002&#34;</span>&gt;&lt;/<span style=color:#f92672>li</span>&gt;
-  &lt;<span style=color:#f92672>li</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;item003&#34;</span>&gt;&lt;/<span style=color:#f92672>li</span>&gt;
-  &lt;<span style=color:#f92672>li</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;item004&#34;</span>&gt;&lt;/<span style=color:#f92672>li</span>&gt;
-  &lt;<span style=color:#f92672>li</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;item005&#34;</span>&gt;&lt;/<span style=color:#f92672>li</span>&gt;
-&lt;/<span style=color:#f92672>ul</span>&gt;
-</code></pre></div><p>ul>li.item$@-*5<br>
+<pre tabindex=0><code>&lt;ul&gt;
+  &lt;li class=&quot;item1&quot;&gt;&lt;/li&gt;
+  &lt;li class=&quot;item2&quot;&gt;&lt;/li&gt;
+  &lt;li class=&quot;item3&quot;&gt;&lt;/li&gt;
+  &lt;li class=&quot;item4&quot;&gt;&lt;/li&gt;
+  &lt;li class=&quot;item5&quot;&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</code></pre><p>ul>li.item$$$*5</p>
+<pre tabindex=0><code>&lt;ul&gt;
+  &lt;li class=&quot;item001&quot;&gt;&lt;/li&gt;
+  &lt;li class=&quot;item002&quot;&gt;&lt;/li&gt;
+  &lt;li class=&quot;item003&quot;&gt;&lt;/li&gt;
+  &lt;li class=&quot;item004&quot;&gt;&lt;/li&gt;
+  &lt;li class=&quot;item005&quot;&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</code></pre><p>ul>li.item$@-*5<br>
 註: @-: 表示反向排序</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html>&lt;<span style=color:#f92672>ul</span>&gt;
-  &lt;<span style=color:#f92672>li</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;item5&#34;</span>&gt;&lt;/<span style=color:#f92672>li</span>&gt;
-  &lt;<span style=color:#f92672>li</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;item4&#34;</span>&gt;&lt;/<span style=color:#f92672>li</span>&gt;
-  &lt;<span style=color:#f92672>li</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;item3&#34;</span>&gt;&lt;/<span style=color:#f92672>li</span>&gt;
-  &lt;<span style=color:#f92672>li</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;item2&#34;</span>&gt;&lt;/<span style=color:#f92672>li</span>&gt;
-  &lt;<span style=color:#f92672>li</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;item1&#34;</span>&gt;&lt;/<span style=color:#f92672>li</span>&gt;
-&lt;/<span style=color:#f92672>ul</span>&gt;
-</code></pre></div><p>ul>li.item$@3*5</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html>&lt;<span style=color:#f92672>ul</span>&gt;
-  &lt;<span style=color:#f92672>li</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;item3&#34;</span>&gt;&lt;/<span style=color:#f92672>li</span>&gt;
-  &lt;<span style=color:#f92672>li</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;item4&#34;</span>&gt;&lt;/<span style=color:#f92672>li</span>&gt;
-  &lt;<span style=color:#f92672>li</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;item5&#34;</span>&gt;&lt;/<span style=color:#f92672>li</span>&gt;
-  &lt;<span style=color:#f92672>li</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;item6&#34;</span>&gt;&lt;/<span style=color:#f92672>li</span>&gt;
-  &lt;<span style=color:#f92672>li</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;item7&#34;</span>&gt;&lt;/<span style=color:#f92672>li</span>&gt;
-&lt;/<span style=color:#f92672>ul</span>&gt;
-</code></pre></div><p>ul>li.item$@-3*5</p>
-<pre tabindex=0><code class="language-html<ul>" data-lang="html<ul>">    &lt;li class=&quot;item7&quot;&gt;&lt;/li&gt;
+<pre tabindex=0><code>&lt;ul&gt;
+  &lt;li class=&quot;item5&quot;&gt;&lt;/li&gt;
+  &lt;li class=&quot;item4&quot;&gt;&lt;/li&gt;
+  &lt;li class=&quot;item3&quot;&gt;&lt;/li&gt;
+  &lt;li class=&quot;item2&quot;&gt;&lt;/li&gt;
+  &lt;li class=&quot;item1&quot;&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</code></pre><p>ul>li.item$@3*5</p>
+<pre tabindex=0><code>&lt;ul&gt;
+  &lt;li class=&quot;item3&quot;&gt;&lt;/li&gt;
+  &lt;li class=&quot;item4&quot;&gt;&lt;/li&gt;
+  &lt;li class=&quot;item5&quot;&gt;&lt;/li&gt;
+  &lt;li class=&quot;item6&quot;&gt;&lt;/li&gt;
+  &lt;li class=&quot;item7&quot;&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</code></pre><p>ul>li.item$@-3*5</p>
+<pre tabindex=0><code class="language-<ul>" data-lang="<ul>">    &lt;li class=&quot;item7&quot;&gt;&lt;/li&gt;
     &lt;li class=&quot;item6&quot;&gt;&lt;/li&gt;
     &lt;li class=&quot;item5&quot;&gt;&lt;/li&gt;
     &lt;li class=&quot;item4&quot;&gt;&lt;/li&gt;
     &lt;li class=&quot;item3&quot;&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </code></pre><p>ul>li.item${Item $@3}*5</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html>&lt;<span style=color:#f92672>ul</span>&gt;
-  &lt;<span style=color:#f92672>li</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;item1&#34;</span>&gt;Item 3&lt;/<span style=color:#f92672>li</span>&gt;
-  &lt;<span style=color:#f92672>li</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;item2&#34;</span>&gt;Item 4&lt;/<span style=color:#f92672>li</span>&gt;
-  &lt;<span style=color:#f92672>li</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;item3&#34;</span>&gt;Item 5&lt;/<span style=color:#f92672>li</span>&gt;
-  &lt;<span style=color:#f92672>li</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;item4&#34;</span>&gt;Item 6&lt;/<span style=color:#f92672>li</span>&gt;
-  &lt;<span style=color:#f92672>li</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;item5&#34;</span>&gt;Item 7&lt;/<span style=color:#f92672>li</span>&gt;
-&lt;/<span style=color:#f92672>ul</span>&gt;
-</code></pre></div><p>ul.my-list>(li.my-list-item#id-$$)*6</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html>&lt;<span style=color:#f92672>ul</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;my-list&#34;</span>&gt;
-  &lt;<span style=color:#f92672>li</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;my-list-item&#34;</span> <span style=color:#a6e22e>id</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;id-01&#34;</span>&gt;&lt;/<span style=color:#f92672>li</span>&gt;
-  &lt;<span style=color:#f92672>li</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;my-list-item&#34;</span> <span style=color:#a6e22e>id</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;id-02&#34;</span>&gt;&lt;/<span style=color:#f92672>li</span>&gt;
-  &lt;<span style=color:#f92672>li</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;my-list-item&#34;</span> <span style=color:#a6e22e>id</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;id-03&#34;</span>&gt;&lt;/<span style=color:#f92672>li</span>&gt;
-  &lt;<span style=color:#f92672>li</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;my-list-item&#34;</span> <span style=color:#a6e22e>id</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;id-04&#34;</span>&gt;&lt;/<span style=color:#f92672>li</span>&gt;
-  &lt;<span style=color:#f92672>li</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;my-list-item&#34;</span> <span style=color:#a6e22e>id</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;id-05&#34;</span>&gt;&lt;/<span style=color:#f92672>li</span>&gt;
-  &lt;<span style=color:#f92672>li</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;my-list-item&#34;</span> <span style=color:#a6e22e>id</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;id-06&#34;</span>&gt;&lt;/<span style=color:#f92672>li</span>&gt;
-&lt;/<span style=color:#f92672>ul</span>&gt;
-</code></pre></div><h2 id=text>Text:<a hidden class=anchor aria-hidden=true href=#text>#</a></h2>
+<pre tabindex=0><code>&lt;ul&gt;
+  &lt;li class=&quot;item1&quot;&gt;Item 3&lt;/li&gt;
+  &lt;li class=&quot;item2&quot;&gt;Item 4&lt;/li&gt;
+  &lt;li class=&quot;item3&quot;&gt;Item 5&lt;/li&gt;
+  &lt;li class=&quot;item4&quot;&gt;Item 6&lt;/li&gt;
+  &lt;li class=&quot;item5&quot;&gt;Item 7&lt;/li&gt;
+&lt;/ul&gt;
+</code></pre><p>ul.my-list>(li.my-list-item#id-$$)*6</p>
+<pre tabindex=0><code>&lt;ul class=&quot;my-list&quot;&gt;
+  &lt;li class=&quot;my-list-item&quot; id=&quot;id-01&quot;&gt;&lt;/li&gt;
+  &lt;li class=&quot;my-list-item&quot; id=&quot;id-02&quot;&gt;&lt;/li&gt;
+  &lt;li class=&quot;my-list-item&quot; id=&quot;id-03&quot;&gt;&lt;/li&gt;
+  &lt;li class=&quot;my-list-item&quot; id=&quot;id-04&quot;&gt;&lt;/li&gt;
+  &lt;li class=&quot;my-list-item&quot; id=&quot;id-05&quot;&gt;&lt;/li&gt;
+  &lt;li class=&quot;my-list-item&quot; id=&quot;id-06&quot;&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</code></pre><h2 id=text>Text:<a hidden class=anchor aria-hidden=true href=#text>#</a></h2>
 <p>a{Click me}</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html><span style=color:#75715e>&lt;!-- a{click}+b{here} --&gt;</span>
-&lt;<span style=color:#f92672>a</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;&#34;</span>&gt;click&lt;/<span style=color:#f92672>a</span>&gt;&lt;<span style=color:#f92672>b</span>&gt;here&lt;/<span style=color:#f92672>b</span>&gt;
+<pre tabindex=0><code>&lt;!-- a{click}+b{here} --&gt;
+&lt;a href=&quot;&quot;&gt;click&lt;/a&gt;&lt;b&gt;here&lt;/b&gt;
 
-<span style=color:#75715e>&lt;!-- a&gt;{click}+b{here} --&gt;</span>
-&lt;<span style=color:#f92672>a</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;&#34;</span>&gt;click&lt;<span style=color:#f92672>b</span>&gt;here&lt;/<span style=color:#f92672>b</span>&gt;&lt;/<span style=color:#f92672>a</span>&gt;
-</code></pre></div><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html><span style=color:#75715e>&lt;!-- p&gt;{Click }+a{here}+{ to continue} --&gt;</span>
+&lt;!-- a&gt;{click}+b{here} --&gt;
+&lt;a href=&quot;&quot;&gt;click&lt;b&gt;here&lt;/b&gt;&lt;/a&gt;
+</code></pre><pre tabindex=0><code>&lt;!-- p&gt;{Click }+a{here}+{ to continue} --&gt;
 
-&lt;<span style=color:#f92672>p</span>&gt;Click &lt;<span style=color:#f92672>a</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;&#34;</span>&gt;here&lt;/<span style=color:#f92672>a</span>&gt; to continue&lt;/<span style=color:#f92672>p</span>&gt;
-</code></pre></div><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html><span style=color:#75715e>&lt;!-- p{Click }+a{here}+{ to continue} --&gt;</span>
+&lt;p&gt;Click &lt;a href=&quot;&quot;&gt;here&lt;/a&gt; to continue&lt;/p&gt;
+</code></pre><pre tabindex=0><code>&lt;!-- p{Click }+a{here}+{ to continue} --&gt;
 
-&lt;<span style=color:#f92672>p</span>&gt;Click&lt;/<span style=color:#f92672>p</span>&gt;
-&lt;<span style=color:#f92672>a</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;&#34;</span>&gt;here&lt;/<span style=color:#f92672>a</span>&gt; to continue
-</code></pre></div><h2 id=implicit>Implicit<a hidden class=anchor aria-hidden=true href=#implicit>#</a></h2>
+&lt;p&gt;Click&lt;/p&gt;
+&lt;a href=&quot;&quot;&gt;here&lt;/a&gt; to continue
+</code></pre><h2 id=implicit>Implicit<a hidden class=anchor aria-hidden=true href=#implicit>#</a></h2>
 <p>.class1</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html>&lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;class1&#34;</span>&gt;&lt;/<span style=color:#f92672>div</span>&gt;
-</code></pre></div><p>em>.class1</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html>&lt;<span style=color:#f92672>em</span>&gt;&lt;<span style=color:#f92672>span</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;class1&#34;</span>&gt;&lt;/<span style=color:#f92672>span</span>&gt;&lt;/<span style=color:#f92672>em</span>&gt;
-</code></pre></div><p>ul>.class1</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html>&lt;<span style=color:#f92672>ul</span>&gt;
-  &lt;<span style=color:#f92672>li</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;class1&#34;</span>&gt;&lt;/<span style=color:#f92672>li</span>&gt;
-&lt;/<span style=color:#f92672>ul</span>&gt;
-</code></pre></div><p>table>.row>.col</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html>&lt;<span style=color:#f92672>table</span>&gt;
-  &lt;<span style=color:#f92672>tr</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;row&#34;</span>&gt;
-    &lt;<span style=color:#f92672>td</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;col&#34;</span>&gt;&lt;/<span style=color:#f92672>td</span>&gt;
-  &lt;/<span style=color:#f92672>tr</span>&gt;
-&lt;/<span style=color:#f92672>table</span>&gt;
-</code></pre></div><h2 id=forms--inputs>Forms & Inputs<a hidden class=anchor aria-hidden=true href=#forms--inputs>#</a></h2>
+<pre tabindex=0><code>&lt;div class=&quot;class1&quot;&gt;&lt;/div&gt;
+</code></pre><p>em>.class1</p>
+<pre tabindex=0><code>&lt;em&gt;&lt;span class=&quot;class1&quot;&gt;&lt;/span&gt;&lt;/em&gt;
+</code></pre><p>ul>.class1</p>
+<pre tabindex=0><code>&lt;ul&gt;
+  &lt;li class=&quot;class1&quot;&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</code></pre><p>table>.row>.col</p>
+<pre tabindex=0><code>&lt;table&gt;
+  &lt;tr class=&quot;row&quot;&gt;
+    &lt;td class=&quot;col&quot;&gt;&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;
+</code></pre><h2 id=forms--inputs>Forms & Inputs<a hidden class=anchor aria-hidden=true href=#forms--inputs>#</a></h2>
 <p>form:get</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html>&lt;<span style=color:#f92672>form</span> <span style=color:#a6e22e>action</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;&#34;</span> <span style=color:#a6e22e>method</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;get&#34;</span>&gt;&lt;/<span style=color:#f92672>form</span>&gt;
-</code></pre></div><p>form:post</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html>&lt;<span style=color:#f92672>form</span> <span style=color:#a6e22e>action</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;&#34;</span> <span style=color:#a6e22e>method</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;post&#34;</span>&gt;&lt;/<span style=color:#f92672>form</span>&gt;
-</code></pre></div><h2 id=lorem-lpsum>Lorem lpsum<a hidden class=anchor aria-hidden=true href=#lorem-lpsum>#</a></h2>
+<pre tabindex=0><code>&lt;form action=&quot;&quot; method=&quot;get&quot;&gt;&lt;/form&gt;
+</code></pre><p>form:post</p>
+<pre tabindex=0><code>&lt;form action=&quot;&quot; method=&quot;post&quot;&gt;&lt;/form&gt;
+</code></pre><h2 id=lorem-lpsum>Lorem lpsum<a hidden class=anchor aria-hidden=true href=#lorem-lpsum>#</a></h2>
 <p>lorem<br>
 lorem20<br>
 ul.mylist>lorem4.item*5</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html>&lt;<span style=color:#f92672>ul</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;mylist&#34;</span>&gt;
-  &lt;<span style=color:#f92672>li</span>&gt;Lorem ipsum dolor sit.&lt;/<span style=color:#f92672>li</span>&gt;
-  &lt;<span style=color:#f92672>li</span>&gt;Repellendus iusto debitis vel.&lt;/<span style=color:#f92672>li</span>&gt;
-  &lt;<span style=color:#f92672>li</span>&gt;Aperiam similique architecto odio!&lt;/<span style=color:#f92672>li</span>&gt;
-  &lt;<span style=color:#f92672>li</span>&gt;Exercitationem iusto nesciunt maxime.&lt;/<span style=color:#f92672>li</span>&gt;
-  &lt;<span style=color:#f92672>li</span>&gt;Minus reiciendis eaque nemo?&lt;/<span style=color:#f92672>li</span>&gt;
-&lt;/<span style=color:#f92672>ul</span>&gt;
-</code></pre></div><p>p*4>lorem4</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html>&lt;<span style=color:#f92672>p</span>&gt;Lorem ipsum dolor sit.&lt;/<span style=color:#f92672>p</span>&gt;
-&lt;<span style=color:#f92672>p</span>&gt;Accusantium odit nostrum modi.&lt;/<span style=color:#f92672>p</span>&gt;
-&lt;<span style=color:#f92672>p</span>&gt;Consequatur soluta voluptatibus amet.&lt;/<span style=color:#f92672>p</span>&gt;
-&lt;<span style=color:#f92672>p</span>&gt;Molestiae quo a asperiores!&lt;/<span style=color:#f92672>p</span>&gt;
-</code></pre></div><h2 id=advanced-structures>Advanced Structures<a hidden class=anchor aria-hidden=true href=#advanced-structures>#</a></h2>
+<pre tabindex=0><code>&lt;ul class=&quot;mylist&quot;&gt;
+  &lt;li&gt;Lorem ipsum dolor sit.&lt;/li&gt;
+  &lt;li&gt;Repellendus iusto debitis vel.&lt;/li&gt;
+  &lt;li&gt;Aperiam similique architecto odio!&lt;/li&gt;
+  &lt;li&gt;Exercitationem iusto nesciunt maxime.&lt;/li&gt;
+  &lt;li&gt;Minus reiciendis eaque nemo?&lt;/li&gt;
+&lt;/ul&gt;
+</code></pre><p>p*4>lorem4</p>
+<pre tabindex=0><code>&lt;p&gt;Lorem ipsum dolor sit.&lt;/p&gt;
+&lt;p&gt;Accusantium odit nostrum modi.&lt;/p&gt;
+&lt;p&gt;Consequatur soluta voluptatibus amet.&lt;/p&gt;
+&lt;p&gt;Molestiae quo a asperiores!&lt;/p&gt;
+</code></pre><h2 id=advanced-structures>Advanced Structures<a hidden class=anchor aria-hidden=true href=#advanced-structures>#</a></h2>
 <p>p>{Click }+a{here}+{ to continue}</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html>&lt;<span style=color:#f92672>p</span>&gt;Click &lt;<span style=color:#f92672>a</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;&#34;</span>&gt;here&lt;/<span style=color:#f92672>a</span>&gt; to continue&lt;/<span style=color:#f92672>p</span>&gt;
-</code></pre></div><h2 id=css-abbreviations>CSS Abbreviations<a hidden class=anchor aria-hidden=true href=#css-abbreviations>#</a></h2>
+<pre tabindex=0><code>&lt;p&gt;Click &lt;a href=&quot;&quot;&gt;here&lt;/a&gt; to continue&lt;/p&gt;
+</code></pre><h2 id=css-abbreviations>CSS Abbreviations<a hidden class=anchor aria-hidden=true href=#css-abbreviations>#</a></h2>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-css data-lang=css><span style=color:#f92672>body</span> {
   <span style=color:#75715e>/* c#000 */</span>
   <span style=color:#66d9ef>color</span>: <span style=color:#ae81ff>#000</span>;
@@ -440,22 +440,22 @@ ul.mylist>lorem4.item*5</p>
 <li>${1:red} 其中的 red 表示是預設值。</li>
 </ol>
 <p>存檔後重新啟動 VS Code</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html><span style=color:#75715e>&lt;!-- 在 html 樘中輪入 nl 按下 Tab 鍵 --&gt;</span>
-&lt;<span style=color:#f92672>nav</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;main-nav&#34;</span>&gt;
-  &lt;<span style=color:#f92672>ul</span>&gt;
-    &lt;<span style=color:#f92672>li</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;item1&#34;</span>&gt;&lt;/<span style=color:#f92672>li</span>&gt;
-    &lt;<span style=color:#f92672>li</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;item2&#34;</span>&gt;&lt;/<span style=color:#f92672>li</span>&gt;
-    &lt;<span style=color:#f92672>li</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;item3&#34;</span>&gt;&lt;/<span style=color:#f92672>li</span>&gt;
-    &lt;<span style=color:#f92672>li</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;item4&#34;</span>&gt;&lt;/<span style=color:#f92672>li</span>&gt;
-  &lt;/<span style=color:#f92672>ul</span>&gt;
-&lt;/<span style=color:#f92672>nav</span>&gt;
+<pre tabindex=0><code>&lt;!-- 在 html 樘中輪入 nl 按下 Tab 鍵 --&gt;
+&lt;nav class=&quot;main-nav&quot;&gt;
+  &lt;ul&gt;
+    &lt;li class=&quot;item1&quot;&gt;&lt;/li&gt;
+    &lt;li class=&quot;item2&quot;&gt;&lt;/li&gt;
+    &lt;li class=&quot;item3&quot;&gt;&lt;/li&gt;
+    &lt;li class=&quot;item4&quot;&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/nav&gt;
 
-<span style=color:#75715e>&lt;!-- ull --&gt;</span>
-&lt;<span style=color:#f92672>ul</span>&gt;
-  &lt;<span style=color:#f92672>li</span> <span style=color:#a6e22e>id</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;&#34;</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;&#34;</span>&gt;&lt;/<span style=color:#f92672>li</span>&gt;
-  &lt;<span style=color:#f92672>li</span> <span style=color:#a6e22e>id</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;&#34;</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;&#34;</span>&gt;&lt;/<span style=color:#f92672>li</span>&gt;
-&lt;/<span style=color:#f92672>ul</span>&gt;
-</code></pre></div><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-css data-lang=css><span style=color:#75715e>/* cb */</span>
+&lt;!-- ull --&gt;
+&lt;ul&gt;
+  &lt;li id=&quot;&quot; class=&quot;&quot;&gt;&lt;/li&gt;
+  &lt;li id=&quot;&quot; class=&quot;&quot;&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</code></pre><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-css data-lang=css><span style=color:#75715e>/* cb */</span>
 <span style=color:#f92672>color</span><span style=color:#f92672>:</span> <span style=color:#f92672>black</span><span style=color:#f92672>;</span>
 <span style=color:#75715e>/* bsd */</span>
 <span style=color:#f92672>border</span><span style=color:#f92672>:</span> <span style=color:#f92672>1px</span> <span style=color:#f92672>solid</span> <span style=color:#f92672>red</span><span style=color:#f92672>;</span>
