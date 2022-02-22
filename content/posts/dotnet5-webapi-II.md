@@ -48,7 +48,7 @@ $ dotnet add package Microsoft.AspNetCore.Identity.UI --version 5.0.13
 - 使用 AspNetCore Identity，則 DataContext (ApiDbContext.cs 中) 必須要繼承
   IdentityDbContext， 同時 Model creationg 時要改成呼叫 base.OnModelCreation
 
-```cs
+```cs  {hl_lines=[1,3,13],linenostart=1}
 public partial class ApiDbContext : IdentityDbContext
 {
     public DbSet<ItemData> ItemData { get; set; }

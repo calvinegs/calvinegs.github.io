@@ -13,13 +13,13 @@ categories: ["html"]
 
 輸入 div 按下 Enter 或 Tab 鍵，輸入 innerHtml - abc 再按下 Ctrl+Enter 鍵
 
-```html
+```
 <div>abc</div>
 ```
 
 輸入 p 按下 Enter 或 Tab 鍵，輸入 innerHtml -abc 再按下 Ctrl+Enter 鍵
 
-```html
+```
 <p>abc</p>
 ```
 
@@ -29,7 +29,7 @@ categories: ["html"]
 
 div>ul>li
 
-```html
+```
 <div>
   <ul>
     <li></li>
@@ -41,7 +41,7 @@ div>ul>li
 
 div+p+bq
 
-```html
+```
 <div></div>
 <p></p>
 <blockquote></blockquote>
@@ -73,11 +73,11 @@ div+div>p>span+em^^^bq
 <blockquote></blockquote>
 ```
 
-### Multiplication: \*
+### Multiplication: *
 
-ul>li\*5
+ul>li*5
 
-```html
+```
 <ul>
   <li></li>
   <li></li>
@@ -89,9 +89,9 @@ ul>li\*5
 
 ### Grouping: ()
 
-div>(header>ul>li\*2>a)+footer>p
+div>(header>ul>li*2>a)+footer>p
 
-```html
+```
 <div>
   <header>
     <ul>
@@ -105,9 +105,9 @@ div>(header>ul>li\*2>a)+footer>p
 </div>
 ```
 
-(div>dl>(dt+dd)\*3)+footer>p
+(div>dl>(dt+dd)*3)+footer>p
 
-```html
+```
 <div>
   <dl>
     <dt></dt>
@@ -127,7 +127,7 @@ div>(header>ul>li\*2>a)+footer>p
 
 abbr#anId.aClass[style="color:blue;" title="Hypertext Markup Language"]{HTML}
 
-```html
+```
 <abbr
   title="Hypertext Markup Language"
   id="anId"
@@ -141,7 +141,7 @@ abbr#anId.aClass[style="color:blue;" title="Hypertext Markup Language"]{HTML}
 
 div#header+div.page+div#footer.class1.class2.class3
 
-```html
+```
 <div id="header"></div>
 <div class="page"></div>
 <div id="footer" class="class1 class2 class3"></div>
@@ -149,13 +149,13 @@ div#header+div.page+div#footer.class1.class2.class3
 
 div.class1
 
-```html
+```
 <div class="class1"></div>
 ```
 
-(header>ul.nav>li\*5)+footer
+(header>ul.nav>li*5)+footer
 
-```html
+```
 <header>
   <ul class="nav">
     <li></li>
@@ -172,21 +172,21 @@ div.class1
 
 td[title="Hello world!" colspan=3]
 
-```html
+```
 <td title="Hello world!" colspan="3"></td>
 ```
 
 a:blank
 
-```html
+```
 <a href="http://" target="_blank" rel="noopener noreferrer"></a>
 ```
 
 ## Item numbering: $
 
-ul>li.item$\*5
+ul>li.item$*5
 
-```html
+```
 <ul>
   <li class="item1"></li>
   <li class="item2"></li>
@@ -196,9 +196,9 @@ ul>li.item$\*5
 </ul>
 ```
 
-ul>li.item$$$\*5
+ul>li.item$$$*5
 
-```html
+```
 <ul>
   <li class="item001"></li>
   <li class="item002"></li>
@@ -208,10 +208,10 @@ ul>li.item$$$\*5
 </ul>
 ```
 
-ul>li.item$@-\*5  
+ul>li.item$@-*5  
 註: @-: 表示反向排序
 
-```html
+```
 <ul>
   <li class="item5"></li>
   <li class="item4"></li>
@@ -221,9 +221,9 @@ ul>li.item$@-\*5
 </ul>
 ```
 
-ul>li.item$@3\*5
+ul>li.item$@3*5
 
-```html
+```
 <ul>
   <li class="item3"></li>
   <li class="item4"></li>
@@ -233,9 +233,9 @@ ul>li.item$@3\*5
 </ul>
 ```
 
-ul>li.item$@-3\*5
+ul>li.item$@-3*5
 
-```html<ul>
+```<ul>
     <li class="item7"></li>
     <li class="item6"></li>
     <li class="item5"></li>
@@ -244,9 +244,9 @@ ul>li.item$@-3\*5
 </ul>
 ```
 
-ul>li.item${Item $@3}\*5
+ul>li.item${Item $@3}*5
 
-```html
+```
 <ul>
   <li class="item1">Item 3</li>
   <li class="item2">Item 4</li>
@@ -256,9 +256,9 @@ ul>li.item${Item $@3}\*5
 </ul>
 ```
 
-ul.my-list>(li.my-list-item#id-$$)\*6
+ul.my-list>(li.my-list-item#id-$$)*6
 
-```html
+```
 <ul class="my-list">
   <li class="my-list-item" id="id-01"></li>
   <li class="my-list-item" id="id-02"></li>
@@ -273,7 +273,7 @@ ul.my-list>(li.my-list-item#id-$$)\*6
 
 a{Click me}
 
-```html
+```
 <!-- a{click}+b{here} -->
 <a href="">click</a><b>here</b>
 
@@ -281,13 +281,13 @@ a{Click me}
 <a href="">click<b>here</b></a>
 ```
 
-```html
+```
 <!-- p>{Click }+a{here}+{ to continue} -->
 
 <p>Click <a href="">here</a> to continue</p>
 ```
 
-```html
+```
 <!-- p{Click }+a{here}+{ to continue} -->
 
 <p>Click</p>
@@ -298,19 +298,19 @@ a{Click me}
 
 .class1
 
-```html
+```
 <div class="class1"></div>
 ```
 
 em>.class1
 
-```html
+```
 <em><span class="class1"></span></em>
 ```
 
 ul>.class1
 
-```html
+```
 <ul>
   <li class="class1"></li>
 </ul>
@@ -318,7 +318,7 @@ ul>.class1
 
 table>.row>.col
 
-```html
+```
 <table>
   <tr class="row">
     <td class="col"></td>
@@ -330,13 +330,13 @@ table>.row>.col
 
 form:get
 
-```html
+```
 <form action="" method="get"></form>
 ```
 
 form:post
 
-```html
+```
 <form action="" method="post"></form>
 ```
 
@@ -344,9 +344,9 @@ form:post
 
 lorem  
 lorem20  
-ul.mylist>lorem4.item\*5
+ul.mylist>lorem4.item*5
 
-```html
+```
 <ul class="mylist">
   <li>Lorem ipsum dolor sit.</li>
   <li>Repellendus iusto debitis vel.</li>
@@ -356,9 +356,9 @@ ul.mylist>lorem4.item\*5
 </ul>
 ```
 
-p\*4>lorem4
+p*4>lorem4
 
-```html
+```
 <p>Lorem ipsum dolor sit.</p>
 <p>Accusantium odit nostrum modi.</p>
 <p>Consequatur soluta voluptatibus amet.</p>
@@ -369,7 +369,7 @@ p\*4>lorem4
 
 p>{Click }+a{here}+{ to continue}
 
-```html
+```
 <p>Click <a href="">here</a> to continue</p>
 ```
 
@@ -470,7 +470,7 @@ body {
 
 存檔後重新啟動 VS Code
 
-```html
+```
 <!-- 在 html 樘中輪入 nl 按下 Tab 鍵 -->
 <nav class="main-nav">
   <ul>

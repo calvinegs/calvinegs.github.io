@@ -24,7 +24,7 @@ $ git add . && git commit -m "Add Dapper & Oracle Data Access NuGet packages"
 
 $ cat OracleDapperRepository.csproj
 ```
-```json
+```xml {linenos=table,hl_lines=[4,"10-12"],linenostart=1}
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
@@ -195,7 +195,7 @@ namespace OracleDapperRepository.Controllers
 
 ## 在 Program.cs 中將 SysmstafRepository 注入 Container 中
 
-```cs
+```cs {linenos=table,hl_lines=[9],linenostart=1}
 using OracleDapperRepository.Repositories;
 using OracleDapperRepository.Repositories.Interfaces;
 

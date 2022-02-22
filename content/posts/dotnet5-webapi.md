@@ -52,7 +52,7 @@ $ dotnet tool install dotnet-aspnet-codegenerator --version 5.0.2 #使用 local 
 $  cat .\.config\dotnet-tools.json # 查看安裝上述二項工具後的設定資訊
 ```
 
-```json
+```json {linenos=table,hl_lines=[5,9]}
 {
   "version": 1,
   "isRoot": true,
@@ -86,7 +86,7 @@ $ dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design --version 
 $ cat .\Todo5.csproj #查看 安裝套件的相關設定值
 ```
 
-```json
+```xml {linenos=inline,hl_lines=[9,"13-15","19-20"]}
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
@@ -130,7 +130,7 @@ $ dotnet run #可使用 dotnet watch run 命令來自動監控程式碼的變動
 
 ## 開啟瀏覽器查看以下網址 "https://localhost:5001/WeatherForecast"
 
-```json
+```json {linenos=table}
 [
   {
     "date": "2022-01-11T11:44:43.1899069+08:00",
@@ -185,7 +185,7 @@ $ Code .
 
 ## 在 Models 目錄下新增一個 model(模型) class - ItemData
 
-```cs
+```cs {linenos=table}
 namespace Todo5.Models
 {
     public class ItemData
@@ -202,7 +202,7 @@ namespace Todo5.Models
 
 `public DbSet<ItemData> ItemDatas { get; set; }`
 
-```cs
+```cs {linenos=table,hl_lines=[12],linenostart=1}
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
@@ -233,7 +233,7 @@ namespace Todo5.Data
 
 ## 在 Startup.cs 檔案中註冊 database context (連絡到 Sqlite DB)
 
-```cs
+```cs {linenos=table,hl_lines=["2-3"],linenostart=15}
 services.AddDbContext<ApiDbContext>(options =>
   options.UseSqlite(
     Configuration.GetConnectionString("DefaultConnection")
@@ -241,7 +241,7 @@ services.AddDbContext<ApiDbContext>(options =>
 );
 ```
 
-```cs
+```cs {linenos=table,hl_lines=["16-17"]}
 namespace TodoApp
 {
     public class Startup

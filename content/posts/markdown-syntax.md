@@ -86,7 +86,7 @@ Hugo 內容文件中使用基本 Markdown 語法，還額外支援由 Hugo 所�
 
 ![image](https://gist.github.com/calvinegs/ff926f09800f808617f84d0a966a8b31/raw/images---Mon_Dec_06_2021_1638783017129.png)
 
-```html
+```html {linenos=table}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -113,12 +113,11 @@ Hugo 內容文件中使用基本 Markdown 語法，還額外支援由 Hugo 所�
       <p>Test</p>
     </body>
     </html>
-
 ### 使用 Hugo 內部支援 highlight shortcode 的程式碼區塊
 
 ![image](https://gist.github.com/calvinegs/ff926f09800f808617f84d0a966a8b31/raw/images---Mon_Dec_06_2021_1638783269185.png)
 
-{{< highlight html >}}
+{{< highlight html "linenos=table,hl_lines=8 15-17,linenostart=1">}}
 
 <!doctype html>
 <html lang="en">

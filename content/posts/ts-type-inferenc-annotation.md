@@ -88,7 +88,7 @@ console.log(`Half share: ${halfShare}`); //Half share: 60
 
 tsc 因為在 tscconfig.json 多加入了編輯參數 "declaration": true，這個參數告訴編譯器，除了輸出程式碼轉譯外，還要輸芔包含型別宣告資訊的 .d.ts 檔，所以會在 build 目錄中產生一個 index.d.js，內容如下圖，可以看到 taxAmount 被推論成 string
 
-```json
+```typescript
 declare function calculateTax(amount: number): string;
 declare let price: number;
 declare let taxAmount: string;
@@ -113,7 +113,7 @@ console.log(`Half share: ${halfShare}`); //Half share: 60
 
 結果發現在 index.d.js 檔中 taxAmount 也被推論成 any，且編譯結果正常。
 
-```json
+```js
 declare function calculateTax(amount: any): any;
 declare let price: number;
 declare let taxAmount: any;
@@ -132,7 +132,7 @@ function calculateTax(amount: any): any {
 
 再執行看看，發現編譯程式時正常，確在執行時期產生非預期結果
 
-```json
+```bash
 Full amount in tax: $120.00
 Half share: NaN
 ```
@@ -159,7 +159,7 @@ document.addEventListener("scroll", function (event) {
 
 而在這個例子中，因為是 'scroll' 事件，所以參數中不能是 button，因此轉譯時會產生錯誤。
 
-```script
+```js
 window.onmousedown = function(mouseEvent) {
    console.log(mouseEvent.button);   //<- OK
    console.log(mouseEvent.kangaroo); //<- Error!
