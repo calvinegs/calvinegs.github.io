@@ -22,7 +22,7 @@ TocOpen: false
 Chocolatey 是一個 Windows 上的套件管理工具，它結合了 Nuget 基礎服務與 powershell 指令，提供快速安裝應用程式與工具的服務，將安裝軟體的內容封裝到一個安裝包中，在 Chocolatey 中只需要一條簡單的指令就能完成搜尋、安裝、更新、解安裝等操作。
 
 ### 在 Windows 10 上安裝 Chocolatey 
-在命令提示字元下執行以下指令
+以‘系統管理員’身份開啟 'Windows PowerShell',　執行以下指令來進行 Chocolatey 安裝
 ```shell
 PS C:\>Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
 ```
