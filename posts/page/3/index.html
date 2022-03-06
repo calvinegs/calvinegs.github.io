@@ -121,7 +121,7 @@ name: github pages on: push: branches: - main # Set a branch to deploy pull_requ
 <p>Hugo 是一個静態網站生成器，搭配 git 很適合來建立個人部落格。在一系列的筆記中將介紹如何安裝/使用相關工具與技術，目的是搭建一個完全免費的個人部落格。
 使用的相關工具/技術:
 Hugo git vs code gist github page Markdown Chocolatey Chocolatey 是一個 Windows 上的套件管理工具，它結合了 Nuget 基礎服務與 powershell 指令，提供快速安裝應用程式與工具的服務，將安裝軟體的內容封裝到一個安裝包中，在 Chocolatey 中只需要一條簡單的指令就能完成搜尋、安裝、更新、解安裝等操作。
-在 Windows 10 上安裝 Chocolatey 在命令提示字元下執行以下指令
+在 Windows 10 上安裝 Chocolatey 以‘系統管理員’身份開啟 ‘Windows PowerShell’,　執行以下指令來進行 Chocolatey 安裝
 PS C:\>Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1')) 移除 Chocolatey 刪除 C:\ProgramData\chocolatey 目錄及移除環境變數即可，搜尋 “編輯系統環境變數” \ “進階” \ “環境變數”
 安裝 hugo Step 1: 在 Windows 10 上使用 choco 安裝 hugo C:\> choco install hugo -confirm C:\> choco install hugo-extended - config C:\> hugo version Step 2: Create a New Site (建立部落格網站) C:\> hugo new site quickstart C:\> hugo new site quickstart -f yml # 若要使用 config....</p>
 </section>
