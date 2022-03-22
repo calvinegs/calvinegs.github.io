@@ -23,6 +23,8 @@ F:\> choco install nvs #安裝 nvs
 F:\> nvs --version #查看是否安裝成功，並顯示 nvs 版本
 ```
 
+> 註：安裝完成後若遇到在 `cmd` 中可正常執行，但在`Windows PowerShell` 無法使用時，可使用‘系統管理員’身份開啟 Posershell，並執行 `PS>Set-ExecutionPolicy RemoteSigned` 應可解決這個問題。
+
 ## 安裝不同版本 Node.js
 
 以個人工作環境為例，目前使用的 Angular 是 13.0 搭配的 Node.js 版本是 V16.10.0。
