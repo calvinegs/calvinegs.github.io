@@ -11,11 +11,13 @@ categories: ["ubuntu"]
 
 ## 基本操作
 > Ctrl+Alt+T: 開啟新終端機  
-> Ctrl+D：關閉終端機 (關閉 Tab）  
+> Ctrl+Shift+W：關閉終端機 (關閉 Tab）  
+> Ctrl+D：關閉未輸入任何指令終端機 (關閉 Tab）  
 > Ctrl+C：取消正在執行中的指令  
 > Ctrl+L： 清除終端機畫面  
 > Ctrl+Shift+T： 開啟新的 Tab  
 > ALT+［數字鍵］： 移到第幾個 Tab  
+> Ctrl+PgUp/PgDn： 切換 Tab  
 > Ctrl+Shift+'+': Zoom In   
 > Ctrl+'-': Zoom Out
 
@@ -31,7 +33,7 @@ categories: ["ubuntu"]
 >Ctrl+D: 刪除游標所在的字元  
 >Ctrl+H: 刪除游標所在的前一個字元  
 >Ctrl+U: 刪除游標所在位置之前的所有字元  
->Ctrl+K: 刪除游標所在位置之後的所有字元  
+>Ctrl+K: 刪除游標所在位置之後的所有字元（含游標所在的字元)  
 >Ctrl+W: 刪除游標所在的這個一個字（除游標所在的字元外)  
 >Ctrl+T: 交換游標所在的字元與前一個字元位置  
 >Alt+T: 交換游標所在的字與前一個字位置  
@@ -41,3 +43,5 @@ categories: ["ubuntu"]
 >Ctrl+R: 以Key word方式反向搜尋 History 指令  
 >Ctrl+P: 前一個 History 中的指令  
 >Ctrl+N: 下一個 History 中的指令  
+
+>$ HISTTIMEFORMAT="%Y-%m-%d %T "
