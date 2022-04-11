@@ -1,6 +1,6 @@
 ---
 title: "透過範例了解 Javascript Destructuring (解構指定值)"
-date: 2021-12-01T17:17:02+08:00
+date: 2022-04-11
 draft: false
 description: "透過 解構 語法可以方便的用來擷取陣列或物件中的資料"
 tags: ["destructuring"]
