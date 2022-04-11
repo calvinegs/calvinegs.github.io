@@ -137,6 +137,15 @@ name: github pages on: push: branches: - main # Set a branch to deploy pull_requ
     </item>
     
     <item>
+      <title>透過範例了解 Javascript Destructuring (解構指定值)</title>
+      <link>https://calvinegs.github.io/posts/destructuring-js/</link>
+      <pubDate>Wed, 01 Dec 2021 17:17:02 +0800</pubDate>
+      
+      <guid>https://calvinegs.github.io/posts/destructuring-js/</guid>
+      <description>透過 解構 語法可以方便的用來擷取陣列或物件中的資料</description>
+    </item>
+    
+    <item>
       <title>在 Windows 10 使用 Hugo</title>
       <link>https://calvinegs.github.io/posts/installhugo-windows/</link>
       <pubDate>Sat, 27 Nov 2021 11:51:00 +0800</pubDate>
