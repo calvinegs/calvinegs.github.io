@@ -113,7 +113,7 @@ captain america civil war
 ```
 
 ## 陣列解構
-``` js {hl_lines=[4-7],linenostart=1}
+``` js {hl_lines=["4-7"],linenostart=1}
 // we have an array with the name and surname
 let arr = ["John", "Smith"]
 
