@@ -10,7 +10,16 @@
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 11 Apr 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://calvinegs.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 12 Apr 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://calvinegs.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>透過範例了解 Javascript Rest ＆ Spread 運算符有何不同</title>
+      <link>https://calvinegs.github.io/posts/rest-spread-js/</link>
+      <pubDate>Tue, 12 Apr 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://calvinegs.github.io/posts/rest-spread-js/</guid>
+      <description>JavaScript 使用三個點 (...) 來表示rest(其餘)運算符和Spread(擴展)運算符。但這兩個運算符並不相同。</description>
+    </item>
+    
     <item>
       <title>透過範例了解 Javascript Destructuring (解構指定值)</title>
       <link>https://calvinegs.github.io/posts/destructuring-js/</link>

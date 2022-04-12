@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>JavaScript on 永誌不忘 • 筆記簿</title>
-    <link>https://calvinegs.github.io/categories/javascript/</link>
-    <description>Recent content in JavaScript on 永誌不忘 • 筆記簿</description>
+    <title>Spread on 永誌不忘 • 筆記簿</title>
+    <link>https://calvinegs.github.io/tags/spread/</link>
+    <description>Recent content in Spread on 永誌不忘 • 筆記簿</description>
     <image>
       <url>https://calvinegs.github.io/papermod-cover.png</url>
       <link>https://calvinegs.github.io/papermod-cover.png</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 12 Apr 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://calvinegs.github.io/categories/javascript/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 12 Apr 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://calvinegs.github.io/tags/spread/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>透過範例了解 Javascript Rest ＆ Spread 運算符有何不同</title>
       <link>https://calvinegs.github.io/posts/rest-spread-js/</link>
@@ -18,15 +18,6 @@
       
       <guid>https://calvinegs.github.io/posts/rest-spread-js/</guid>
       <description>JavaScript 使用三個點 (...) 來表示rest(其餘)運算符和Spread(擴展)運算符。但這兩個運算符並不相同。</description>
-    </item>
-    
-    <item>
-      <title>透過範例了解 Javascript Destructuring (解構指定值)</title>
-      <link>https://calvinegs.github.io/posts/destructuring-js/</link>
-      <pubDate>Mon, 11 Apr 2022 00:00:00 +0000</pubDate>
-      
-      <guid>https://calvinegs.github.io/posts/destructuring-js/</guid>
-      <description>透過 解構 語法可以方便的用來擷取陣列或物件中的資料</description>
     </item>
     
   </channel>
