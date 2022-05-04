@@ -125,7 +125,7 @@ div>(header>ul>li*2>a)+footer>p
 
 ## Attribute operators
 
-abbr#anId.aClass[style="color:blue;" title="Hypertext Markup Language"]{HTML}
+abbr#anId.aClass[style=color:blue; title='Hypertext Markup Language']{HTML}
 
 ```
 <abbr

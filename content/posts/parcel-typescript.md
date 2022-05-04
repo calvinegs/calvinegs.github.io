@@ -112,6 +112,47 @@ Server running at http://localhost:1234
 同時也把 HTML 檔案中的 .ts 自動的轉成 .js
 ![image](https://user-images.githubusercontent.com/21993717/154881354-6214d7d0-be8d-4176-ab73-d4286eb0b03f.png)
 
+## 除錯
+
+> 按下快速鍵 Ctrl+Shift+D 叫出 "Run and Debug" 功能，點選 create a launch.sjon file
+![image](https://user-images.githubusercontent.com/21993717/166696988-e9e13d36-7b94-448c-bec7-5076c1321452.png)
+
+> 點選 "Edge: Launch" 
+![image](https://user-images.githubusercontent.com/21993717/166697548-86ab5d94-f72e-462b-abd2-2033e49072c3.png)
+
+> 自動産生 launch.sjon
+```json
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        
+        {
+            "type": "pwa-msedge",
+            "request": "launch",
+            "name": "Launch Edge against localhost",
+            "url": "http://localhost:8080", // 8080 改成 1234
+            "webRoot": "${workspaceFolder}"
+        }
+    ]
+}
+```
+> 先將 "url": "http://localhost:8080" Port 改成1234,，並在檔案尾部加入以下設定，並存檔。
+```json
+            "breakOnLoad": true,
+            "sourceMapPathOverrides": {
+                "../*": "${webRoot}/*"
+            }
+```
+
+> 再次按下快速鍵 Ctrl+Shift+D 叫出 "Run and Debug" 功能， 下拉選單中選擇 “Launch Edge against localhost"。在 Source code 中設定中斷點，再以滑鼠點選右邊的綠色三角型按鍵，開始進行除錯。VSCode 會自動啟動 edge 瀏覽器，同時程式會暫停在中斷點處。
+![2022-05-04 22-10-29 的螢幕擷圖](https://user-images.githubusercontent.com/21993717/166699593-1f896fd7-f4eb-4d9a-a0b5-2e3f7111497f.png)
+
+![image](https://user-images.githubusercontent.com/21993717/166701338-a61e30f6-bdcf-4d85-a41e-b015bbb5ce1d.png)
+
+
 ## 結論
 
 > 你會發現透過 Parcel 的幫助，當使用 Typescript 來撰寫 網站程式即方便又快速。
