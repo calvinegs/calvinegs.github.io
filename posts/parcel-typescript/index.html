@@ -32,7 +32,7 @@
 <meta name=twitter:title content="使用 Parcel.js + Typescript 來建置一個 Web App">
 <meta name=twitter:description content="使用 Typescript 來開發前端應用程式已是一個趨勢，透過 Parcel.js 的幫助，可以快速地建置一個簡潔又有彈性的開發環境，來學習 Typescript">
 <script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Posts","item":"https://calvinegs.github.io/posts/"},{"@type":"ListItem","position":2,"name":"使用 Parcel.js + Typescript 來建置一個 Web App","item":"https://calvinegs.github.io/posts/parcel-typescript/"}]}</script>
-<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"使用 Parcel.js + Typescript 來建置一個 Web App","name":"使用 Parcel.js \u002b Typescript 來建置一個 Web App","description":"使用 Typescript 來開發前端應用程式已是一個趨勢，透過 Parcel.js 的幫助，可以快速地建置一個簡潔又有彈性的開發環境，來學習 Typescript","keywords":["Parcel.js","Typescript","Web App"],"articleBody":"使用 Typescript 來開發前端應用程式已是一個趨勢，這篇筆記是用來紀錄如何用 Parcel.js 來建置一個簡潔又有彈性的開發環境用來學習 Typescript。\n使用的工具 \u0026 作業系統  git vscode Mint 20.2 (作業系統)  專案初始化 $ mkdir parcel_ts \u0026\u0026 cd parcel_ts # 建立專案目錄 $ npm init -y # 初始化專案目錄 $ touch Startup.ts Employee.ts index.html # 新增三個空白程式檔 $ npm install --save-dev parcel parcel-bundler # 安裝 parcel \u0026 parcel-bundler $ code . # 開啟 vs code 在 package.json 中建立執行程式的 script \"script\": { \"dev\": \"parcel index.html\" } 使用 Typescript 撰寫程式  Employee.ts\n export class Employee { constructor( private name: string = \"no name\", private department: string = \"no department\" ) {} displayInfo(): string { return `${this.name}department is ${this.department}`; } }  Startup.ts\n import { Employee } from \"./Employee\"; window.onload = () = { let information = document.querySelector(\"#info\"); const employee = new Employee(\"Dany Green\", \"Market\"); if (employee) information.innerHTML = employee.displayInfo(); };  index.html\n   --  html lang=\"en\" head meta charset=\"UTF-8\" / meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\" / meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" / titleWhat's uptitle head body h2#info, 即可産生以下 Html div 內容-- div name=\"container\" h2 id=\"info\"h2 div  script type=\"module\" src=\"Startup.ts\"script body html 註: 可參考另一編筆記是紀錄如何使用 Emmet 語法 透過範例學習 Emmet 語法\n執行程式 $ npm run dev  parcel_ts@1.0.0 dev  parcel index.html Server running at http://localhost:1234 ✨ Built in 22ms Typescript 轉譯成 Javascript  程式執行後，可發現在 dist 目錄下，Parcel.js 已經自動的 Typescript 程式轉譯成 Javascript 了。  同時也把 HTML 檔案中的 .ts 自動的轉成 .js 結論  你會發現透過 Parcel 的幫助，當使用 Typescript 來撰寫 網站程式即方便又快速。\n ","wordCount":"245","inLanguage":"en","datePublished":"2022-02-20T00:00:00Z","dateModified":"2022-02-20T00:00:00Z","author":{"@type":"Person","name":"Theme PaperMod"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://calvinegs.github.io/posts/parcel-typescript/"},"publisher":{"@type":"Organization","name":"永誌不忘 • 筆記簿","logo":{"@type":"ImageObject","url":"https://calvinegs.github.io/img/favicon.png"}}}</script>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"使用 Parcel.js + Typescript 來建置一個 Web App","name":"使用 Parcel.js \u002b Typescript 來建置一個 Web App","description":"使用 Typescript 來開發前端應用程式已是一個趨勢，透過 Parcel.js 的幫助，可以快速地建置一個簡潔又有彈性的開發環境，來學習 Typescript","keywords":["Parcel.js","Typescript","Web App"],"articleBody":"使用 Typescript 來開發前端應用程式已是一個趨勢，這篇筆記是用來紀錄如何用 Parcel.js 來建置一個簡潔又有彈性的開發環境用來學習 Typescript。\n使用的工具 \u0026 作業系統  git vscode Mint 20.2 (作業系統)  專案初始化 $ mkdir parcel_ts \u0026\u0026 cd parcel_ts # 建立專案目錄 $ npm init -y # 初始化專案目錄 $ touch Startup.ts Employee.ts index.html # 新增三個空白程式檔 $ npm install --save-dev parcel parcel-bundler # 安裝 parcel \u0026 parcel-bundler $ code . # 開啟 vs code 在 package.json 中建立執行程式的 script \"script\": { \"dev\": \"parcel index.html\" } 使用 Typescript 撰寫程式  Employee.ts\n export class Employee { constructor( private name: string = \"no name\", private department: string = \"no department\" ) {} displayInfo(): string { return `${this.name}department is ${this.department}`; } }  Startup.ts\n import { Employee } from \"./Employee\"; window.onload = () = { let information = document.querySelector(\"#info\"); const employee = new Employee(\"Dany Green\", \"Market\"); if (employee) information.innerHTML = employee.displayInfo(); };  index.html\n   --  html lang=\"en\" head meta charset=\"UTF-8\" / meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\" / meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" / titleWhat's uptitle head body h2#info, 即可産生以下 Html div 內容-- div name=\"container\" h2 id=\"info\"h2 div  script type=\"module\" src=\"Startup.ts\"script body html 註: 可參考另一編筆記是紀錄如何使用 Emmet 語法 透過範例學習 Emmet 語法\n執行程式 $ npm run dev  parcel_ts@1.0.0 dev  parcel index.html Server running at http://localhost:1234 ✨ Built in 22ms Typescript 轉譯成 Javascript  程式執行後，可發現在 dist 目錄下，Parcel.js 已經自動的 Typescript 程式轉譯成 Javascript 了。  同時也把 HTML 檔案中的 .ts 自動的轉成 .js 除錯  按下快速鍵 Ctrl+Shift+D 叫出 “Run and Debug” 功能，點選 create a launch.sjon file   點選 “Edge: Launch”   自動産生 launch.sjon\n { // Use IntelliSense to learn about possible attributes.  // Hover to view descriptions of existing attributes.  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387  \"version\": \"0.2.0\", \"configurations\": [ { \"type\": \"pwa-msedge\", \"request\": \"launch\", \"name\": \"Launch Edge against localhost\", \"url\": \"http://localhost:8080\", // 8080 改成 1234  \"webRoot\": \"${workspaceFolder}\" } ] }  先將 “url”: “http://localhost:8080” Port 改成1234,，並在檔案尾部加入以下設定，並存檔。\n \"breakOnLoad\": true, \"sourceMapPathOverrides\": { \"../*\": \"${webRoot}/*\" }  再次按下快速鍵 Ctrl+Shift+D 叫出 “Run and Debug” 功能， 下拉選單中選擇 “Launch Edge against localhost\"。在 Source code 中設定中斷點，再以滑鼠點選右邊的綠色三角型按鍵，開始進行除錯。VSCode 會自動啟動 edge 瀏覽器，同時程式會暫停在中斷點處。  結論  你會發現透過 Parcel 的幫助，當使用 Typescript 來撰寫 網站程式即方便又快速。\n ","wordCount":"340","inLanguage":"en","datePublished":"2022-02-20T00:00:00Z","dateModified":"2022-02-20T00:00:00Z","author":{"@type":"Person","name":"Theme PaperMod"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://calvinegs.github.io/posts/parcel-typescript/"},"publisher":{"@type":"Organization","name":"永誌不忘 • 筆記簿","logo":{"@type":"ImageObject","url":"https://calvinegs.github.io/img/favicon.png"}}}</script>
 </head>
 <body id=top>
 <script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
@@ -104,6 +104,8 @@
 <a href=#%e5%9f%b7%e8%a1%8c%e7%a8%8b%e5%bc%8f aria-label=執行程式>執行程式</a></li>
 <li>
 <a href=#typescript-%e8%bd%89%e8%ad%af%e6%88%90-javascript aria-label="Typescript 轉譯成 Javascript">Typescript 轉譯成 Javascript</a></li>
+<li>
+<a href=#%e9%99%a4%e9%8c%af aria-label=除錯>除錯</a></li>
 <li>
 <a href=#%e7%b5%90%e8%ab%96 aria-label=結論>結論</a>
 </li>
@@ -194,6 +196,50 @@ Server running at http://localhost:1234
 </blockquote>
 <p>同時也把 HTML 檔案中的 .ts 自動的轉成 .js
 <img loading=lazy src=https://user-images.githubusercontent.com/21993717/154881354-6214d7d0-be8d-4176-ab73-d4286eb0b03f.png alt=image>
+</p>
+<h2 id=除錯>除錯<a hidden class=anchor aria-hidden=true href=#除錯>#</a></h2>
+<blockquote>
+<p>按下快速鍵 Ctrl+Shift+D 叫出 &ldquo;Run and Debug&rdquo; 功能，點選 create a launch.sjon file
+<img loading=lazy src=https://user-images.githubusercontent.com/21993717/166696988-e9e13d36-7b94-448c-bec7-5076c1321452.png alt=image>
+</p>
+</blockquote>
+<blockquote>
+<p>點選 &ldquo;Edge: Launch&rdquo;
+<img loading=lazy src=https://user-images.githubusercontent.com/21993717/166697548-86ab5d94-f72e-462b-abd2-2033e49072c3.png alt=image>
+</p>
+</blockquote>
+<blockquote>
+<p>自動産生 launch.sjon</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json>{
+    <span style=color:#75715e>// Use IntelliSense to learn about possible attributes.
+</span><span style=color:#75715e></span>    <span style=color:#75715e>// Hover to view descriptions of existing attributes.
+</span><span style=color:#75715e></span>    <span style=color:#75715e>// For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+</span><span style=color:#75715e></span>    <span style=color:#f92672>&#34;version&#34;</span>: <span style=color:#e6db74>&#34;0.2.0&#34;</span>,
+    <span style=color:#f92672>&#34;configurations&#34;</span>: [
+        
+        {
+            <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;pwa-msedge&#34;</span>,
+            <span style=color:#f92672>&#34;request&#34;</span>: <span style=color:#e6db74>&#34;launch&#34;</span>,
+            <span style=color:#f92672>&#34;name&#34;</span>: <span style=color:#e6db74>&#34;Launch Edge against localhost&#34;</span>,
+            <span style=color:#f92672>&#34;url&#34;</span>: <span style=color:#e6db74>&#34;http://localhost:8080&#34;</span>, <span style=color:#75715e>// 8080 改成 1234
+</span><span style=color:#75715e></span>            <span style=color:#f92672>&#34;webRoot&#34;</span>: <span style=color:#e6db74>&#34;${workspaceFolder}&#34;</span>
+        }
+    ]
+}
+</code></pre></div><blockquote>
+<p>先將 &ldquo;url&rdquo;: &ldquo;http://localhost:8080&rdquo; Port 改成1234,，並在檔案尾部加入以下設定，並存檔。</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json>            <span style=color:#e6db74>&#34;breakOnLoad&#34;</span><span style=color:#960050;background-color:#1e0010>:</span> <span style=color:#66d9ef>true</span><span style=color:#960050;background-color:#1e0010>,</span>
+            <span style=color:#e6db74>&#34;sourceMapPathOverrides&#34;</span><span style=color:#960050;background-color:#1e0010>:</span> {
+                <span style=color:#f92672>&#34;../*&#34;</span>: <span style=color:#e6db74>&#34;${webRoot}/*&#34;</span>
+            }
+</code></pre></div><blockquote>
+<p>再次按下快速鍵 Ctrl+Shift+D 叫出 &ldquo;Run and Debug&rdquo; 功能， 下拉選單中選擇 “Launch Edge against localhost"。在 Source code 中設定中斷點，再以滑鼠點選右邊的綠色三角型按鍵，開始進行除錯。VSCode 會自動啟動 edge 瀏覽器，同時程式會暫停在中斷點處。
+<img loading=lazy src=https://user-images.githubusercontent.com/21993717/166699593-1f896fd7-f4eb-4d9a-a0b5-2e3f7111497f.png alt="2022-05-04 22-10-29 的螢幕擷圖">
+</p>
+</blockquote>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/166701338-a61e30f6-bdcf-4d85-a41e-b015bbb5ce1d.png alt=image>
 </p>
 <h2 id=結論>結論<a hidden class=anchor aria-hidden=true href=#結論>#</a></h2>
 <blockquote>
