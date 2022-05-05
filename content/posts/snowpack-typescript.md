@@ -121,7 +121,19 @@ import {v4 as uuidV4 } from 'uuid';
 const list = document.querySelector('#list');
 ```
 
+### 開始撰寫程式
+```js
+import {v4 as uuidV4 } from 'uuid';
+
+// console.log(uuidV4());
+
+const list = document.querySelector<HTMLUListElement>('#list');
+const form = document.getElementById('new-task-form') as HTMLFormElement | null;
+const input = document.querySelector<HTMLInputElement>('#new-task-title');
+```
+
 > 將滑鼠移至 list 變數，可以發現目前 list 的型別是 "Element 或 null"。
+
 ![image](https://user-images.githubusercontent.com/21993717/166862306-965a5898-5fd7-415a-afcd-b1d8d1fe2cee.png)
 
 > 透過 index.html 我們可以知道 #list 其實是 ul list，在透過 TypeScript 來撰寫程式時我們可以多利用它的型別檢核，來更方便、更正確的使用程式中的變數。
@@ -356,4 +368,5 @@ function LoadTasks(): Task[] {
 
 
 > 新增 Task、改變 Task 完成否，再 “重新載入這個網頁”，畫面如我們希望的保留了我們已新增/修改的狀態。
+
 ![螢幕擷圖](https://user-images.githubusercontent.com/21993717/166931328-ff6ce2e6-72df-4a21-8f9b-0d9427bbf51a.png)
