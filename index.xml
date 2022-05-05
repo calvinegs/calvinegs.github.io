@@ -10,7 +10,16 @@
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 25 Apr 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://calvinegs.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 01 May 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://calvinegs.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>使用 Snowpack &#43; Typescript 來建置一個 Web App</title>
+      <link>https://calvinegs.github.io/posts/snowpack-typescript/</link>
+      <pubDate>Sun, 01 May 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://calvinegs.github.io/posts/snowpack-typescript/</guid>
+      <description>前端技術（架構）的蓬勃發展，使得建構（打包）工具（Bundler）也隨之推陳出新。之前寫過使用 parcel.js 搭配 Typescript 來開發前端應用程式的筆記。今天要來試試更新的打包工具 Snowpack，</description>
+    </item>
+    
     <item>
       <title>使用 Node.js &#43; express 建立一個電子商務後端服務的 REST API</title>
       <link>https://calvinegs.github.io/posts/nodejs-restapi-example/</link>
