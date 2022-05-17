@@ -73,7 +73,7 @@ $ git init && git add . && git commit -m "Initial commit"
 
 > 安裝 Microsoft.AspNetCore.Authentication.JwtBearer 套件
 
-```bash {hl_lines=[1,13]}
+```bash {linenos=table,hl_lines=[1,13]}
 $ dotnet add package Microsoft.AspNetCore.Authentication.JwtBearer
 
 $ cat JwtAuthDemo.csproj 
@@ -243,7 +243,7 @@ app.UseAuthorization();
 
 > 加入`.RequireAuthorization()` 即可
 
-```cs {hl_lines=[13]}
+```cs {linenos=table,hl_lines=[13]}
 app.MapGet("/weatherforecast", () =>
 {
     var forecast =  Enumerable.Range(1, 5).Select(index =>
@@ -275,7 +275,7 @@ $ git commit -m "finished JWT function" -a
 
 > 完整程式如下(Program.cs)
 
-```cs {hl_lines}
+```cs {linenos=table}
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
