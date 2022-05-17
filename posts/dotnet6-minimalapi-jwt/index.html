@@ -1,0 +1,601 @@
+<!doctype html><html lang=en dir=auto>
+<head><meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no">
+<meta name=robots content="index, follow">
+<title>使用 ASP.NET Core 6 提供的 Minimal APIs 新框架建置一個極簡的 Web API 服務 | 永誌不忘 • 筆記簿</title>
+<meta name=keywords content="dotnet 6,webapi,minimal api,jwt">
+<meta name=description content="在 ASP.NET Core 提供 Minimal APIs 新框架前，你使用的是 MVC 框架，比起 Node.js + Express MVC 框架是顯得煩複許多，也許你只是一個提供極簡 rest web api 服務如：Microservices，但你還是得先建好必要的程式架構才能開始你的程式撰寫，有了 Minimal APIs 新框架後一切都變得簡單了">
+<meta name=author content="Theme PaperMod">
+<link rel=canonical href=https://calvinegs.github.io/posts/dotnet6-minimalapi-jwt/>
+<link crossorigin=anonymous href=/assets/css/stylesheet.min.c88963fe2d79462000fd0fb1b3737783c32855d340583e4523343f8735c787f0.css integrity="sha256-yIlj/i15RiAA/Q+xs3N3g8MoVdNAWD5FIzQ/hzXHh/A=" rel="preload stylesheet" as=style>
+<script defer crossorigin=anonymous src=/assets/js/highlight.min.7680afc38aa6b15ddf158a4f3780b7b1f7dde7e91d26f073e6229bb7a0793c92.js integrity="sha256-doCvw4qmsV3fFYpPN4C3sffd5+kdJvBz5iKbt6B5PJI=" onload=hljs.initHighlightingOnLoad()></script>
+<link rel=icon href=https://calvinegs.github.io/img/favicon.png>
+<link rel=icon type=image/png sizes=16x16 href=https://calvinegs.github.io/favicon-16x16.png>
+<link rel=icon type=image/png sizes=32x32 href=https://calvinegs.github.io/favicon-32x32.png>
+<link rel=apple-touch-icon href=https://calvinegs.github.io/apple-touch-icon.png>
+<link rel=mask-icon href=https://calvinegs.github.io/safari-pinned-tab.svg>
+<meta name=theme-color content="#2e2e33">
+<meta name=msapplication-TileColor content="#2e2e33">
+<meta name=generator content="Hugo 0.89.3">
+<noscript>
+<style>#theme-toggle,.top-link{display:none}</style>
+<style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--hljs-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style>
+</noscript><meta property="og:title" content="使用 ASP.NET Core 6 提供的 Minimal APIs 新框架建置一個極簡的 Web API 服務">
+<meta property="og:description" content="在 ASP.NET Core 提供 Minimal APIs 新框架前，你使用的是 MVC 框架，比起 Node.js + Express MVC 框架是顯得煩複許多，也許你只是一個提供極簡 rest web api 服務如：Microservices，但你還是得先建好必要的程式架構才能開始你的程式撰寫，有了 Minimal APIs 新框架後一切都變得簡單了">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://calvinegs.github.io/posts/dotnet6-minimalapi-jwt/"><meta property="og:image" content="https://calvinegs.github.io/papermod-cover.png"><meta property="article:section" content="posts">
+<meta property="article:published_time" content="2022-05-13T00:00:00+00:00">
+<meta property="article:modified_time" content="2022-05-13T00:00:00+00:00">
+<meta name=twitter:card content="summary_large_image">
+<meta name=twitter:image content="https://calvinegs.github.io/papermod-cover.png">
+<meta name=twitter:title content="使用 ASP.NET Core 6 提供的 Minimal APIs 新框架建置一個極簡的 Web API 服務">
+<meta name=twitter:description content="在 ASP.NET Core 提供 Minimal APIs 新框架前，你使用的是 MVC 框架，比起 Node.js + Express MVC 框架是顯得煩複許多，也許你只是一個提供極簡 rest web api 服務如：Microservices，但你還是得先建好必要的程式架構才能開始你的程式撰寫，有了 Minimal APIs 新框架後一切都變得簡單了">
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Posts","item":"https://calvinegs.github.io/posts/"},{"@type":"ListItem","position":2,"name":"使用 ASP.NET Core 6 提供的 Minimal APIs 新框架建置一個極簡的 Web API 服務","item":"https://calvinegs.github.io/posts/dotnet6-minimalapi-jwt/"}]}</script>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"使用 ASP.NET Core 6 提供的 Minimal APIs 新框架建置一個極簡的 Web API 服務","name":"使用 ASP.NET Core 6 提供的 Minimal APIs 新框架建置一個極簡的 Web API 服務","description":"在 ASP.NET Core 提供 Minimal APIs 新框架前，你使用的是 MVC 框架，比起 Node.js + Express MVC 框架是顯得煩複許多，也許你只是一個提供極簡 rest web api 服務如：Microservices，但你還是得先建好必要的程式架構才能開始你的程式撰寫，有了 Minimal APIs 新框架後一切都變得簡單了","keywords":["dotnet 6","webapi","minimal api","jwt"],"articleBody":"github Source code #tag: minimal_webapi_jwt\n本篇筆記中將紀錄如何使用 ASP.NET Core 6 提供的 Minimal APIs 新框架建置一個使用 Token-base 身份驗證的 Web API 網站。\n建立新專案 $ dotnet new webapi -o JwtAuthDemo -minimal 範本「ASP.NET Core Web API」已成功建立。 正在處理建立後的動作... 正在 /home/egs/cal-data/tech-test/webapi/Minimal/JwtAuthDemo/JwtAuthDemo.csproj 上執行 'dotnet restore'... 正在判斷要還原的專案... 已還原 /home/egs/cal-data/tech-test/webapi/Minimal/JwtAuthDemo/JwtAuthDemo.csproj (214 ms 內)。 還原成功。 $ cd JwtAuthDemo $ ls -al 總用量 32 drwxrwxr-x 4 egs egs 4096 五 13 18:36 . drwxrwxr-x 7 egs egs 4096 五 13 18:36 .. -rw-rw-r-- 1 egs egs 127 五 13 18:36 appsettings.Development.json -rw-rw-r-- 1 egs egs 151 五 13 18:36 appsettings.json -rw-rw-r-- 1 egs egs 327 五 13 18:36 JwtAuthDemo.csproj drwxrwxr-x 2 egs egs 4096 五 13 18:36 obj -rw-rw-r-- 1 egs egs 1131 五 13 18:36 Program.cs drwxrwxr-x 2 egs egs 4096 五 13 18:36 Properties  dotnet code 版本安裝與管理\n $ dotnet --list-sdks # 顯示已安裝的 sdk 版本資訊 5.0.408 [/usr/share/dotnet/sdk] 6.0.300 [/usr/share/dotnet/sdk] $ dotnet --version # 顯示目前所使用的版本 6.0.300 # 預設是最新的版本  由於 dotnet 版本演化滿快的，所以會建議在專案目錄中要指定使用 SDK 的版本，以免當你又安裝了更新版本（如7.0）後程式執行出問題。\n $ dotnet new globaljson --sdk-version 6.0.300 範本「global.json 檔案」已成功建立。 $ cat global.json { \"sdk\": { \"version\": \"6.0.300\" } }  使用 dotnet cli 來產生預設的 git ignore 檔案\n $ dotnet new gitignore  建立 git 初始版本\n $ git init \u0026\u0026 git add . \u0026\u0026 git commit -m \"Initial commit\"  安裝 Microsoft.AspNetCore.Authentication.JwtBearer 套件\n $ dotnet add package Microsoft.AspNetCore.Authentication.JwtBearer  $ cat JwtAuthDemo.csproj =\"Microsoft.NET.Sdk.Web\"  net6.0 enable enable   =\"Microsoft.AspNetCore.Authentication.JwtBearer\" Version=\"6.0.5\" /  =\"Swashbuckle.AspNetCore\" Version=\"6.2.3\" /    加入 Git 新版本\n $ git commit -m \"Add new package Microsoft.AspNetCore.Authentication.JwtBearer\" -a $ code . # 打開 VS Code  目前産生的程式架構\n  執行程式\n $ dotnet watch 實作 JWT 的流程 上圖中可以看到，由系統自動産生的 sample code 已經可以正常執行。\n接下來將在程式中實作JWT功能， 透過 JWT　的實作可以讓你的專案實現 Token-base 的身份驗證與授權。 （Json Web Token) 實作的過程大致可以分成三個部分:\n 在登入成功後産生合法的 JWT Token 每次收到 request 時驗證是否為合法有效的 JWT Token 在特定 API Endpoint 上驗證是否帶有 “合法有效的 JWT Token”，以達到權限管理的需求  産生合法的 Jason Web Token  在 Program.cs 中新一個建立 Token 的 function\n string CreateToken(LoginViewModel user) { List claims = new List { new Claim(ClaimTypes.Name, user.Username), new Claim(ClaimTypes.Role, \"Admin\") }; ConfigurationManager _configuration = builder.Configuration; var secretkey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes( _configuration.GetValuestring(\"JwtSettings:Secret\"))); // _configuration.GetSection(\"JwtSettings:Secret\").Value)  var credentials = new SigningCredentials(secretkey, SecurityAlgorithms.HmacSha512Signature); var token = new JwtSecurityToken( // 亦可使用　SecurityTokenDescriptor　來産生 Token  issuer: _configuration.GetValuestring(\"JwtSettings:Issuer\"), audience: _configuration.GetValuestring(\"JwtSettings:Audience\"), claims: claims, expires: DateTime.Now.AddDays(1), signingCredentials: credentials); var jwt = new JwtSecurityTokenHandler().WriteToken(token); return jwt; }  建立一個 登入 的 Endpoint\n app.MapPost(\"/signin\", (LoginViewModel login) = { if (ValidateUser(login)) // 驗證登入的帳號是否合法  { var token = CreateToken(login); // 若為合法使用者，則産生一個使用 Token  return Results.Ok(new { token }); // 將登入狀態與Token一併回傳前端  } else { return Results.BadRequest(); // 驗證失敗時回傳 status: 400 Bad Request  } } ).WithName(\"SignIn\").AllowAnonymous(); bool ValidateUser(LoginViewModel login) { return login.Username == \"cal\" ? true : false; }  建立一個 model 來接收 login 資料\n record LoginViewModel(string Username, string Password); 驗證是否為合法有效的 JWT Token  第一步，透過 DI 將 JWT 相關設定設置好\n builder.Services .AddAuthentication(JwtBearerDefaults.AuthenticationScheme) .AddJwtBearer(options = { // 當驗證失敗時，回應標頭會包含 WWW-Authenticate 標頭，這裡會顯示失敗的詳細錯誤原因  options.IncludeErrorDetails = true; // 預設值為 true，有時會特別關閉  options.TokenValidationParameters = new TokenValidationParameters { // 透過這項宣告，就可以從 \"NAME\" 取值  NameClaimType = \"http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier\", // 透過這項宣告，就可以從 \"Role\" 取值，並可讓 [Authorize] 判斷角色  RoleClaimType = \"http://schemas.microsoft.com/ws/2008/06/identity/claims/role\", // 驗證 Issuer (一般都會)  ValidateIssuer = true, ValidIssuer = _configuration.GetValuestring(\"JwtSettings:Issuer\"), // 驗證 Audience (通常不太需要)  ValidateAudience = false, //ValidAudience = \"JwtAuthDemo\", // 不驗證就不需要填寫  // 驗證 Token 的有效期間 (一般都會)  ValidateLifetime = true, // 如果 Token 中包含 key 才需要驗證，一般都只有簽章而已  ValidateIssuerSigningKey = false, // 應該從 IConfiguration 取得  IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secret)) }; }); builder.Services.AddAuthorization();  第二步，要記得也要啟動 request pipeline 中的 Middleware (UseAuthentication \u0026 UseAuthorization 都需要)\n app.UseAuthentication(); app.UseAuthorization(); 在特定 API EndPoint 上驗證是否帶有合法有效的 JWT Token  加入.RequireAuthorization() 即可\n app.MapGet(\"/weatherforecast\", () = { var forecast = Enumerable.Range(1, 5).Select(index = new WeatherForecast ( DateTime.Now.AddDays(index), Random.Shared.Next(-20, 55), summaries[Random.Shared.Next(summaries.Length)] )) .ToArray(); return forecast; }) .WithName(\"GetWeatherForecast\").RequireAuthorization();  如上程式加入.RequireAuthorization()後，再重新瀏覽 weatherforecast endpoint，會回傳 Status: 401 Unauthorized 的錯誤訊息。\n  使用 Postman，先加入 Authorization Header，並將登入成功後回傳的 Token 加到 Authorization Header 中。再次送出就可正常的取得所有天氣預測資料了。\n  加入 git 版本控制\n $ git commit -m \"finished JWT function\" -a  完整程式如下(Program.cs)\n using System.IdentityModel.Tokens.Jwt; using System.Security.Claims; using System.Text; using Microsoft.AspNetCore.Authentication.JwtBearer; using Microsoft.IdentityModel.Tokens; var builder = WebApplication.CreateBuilder(args); ConfigurationManager _configuration = builder.Configuration; var secret = _configuration.GetValuestring(\"JwtSettings:Secret\"); // Add services to the container. // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle builder.Services.AddEndpointsApiExplorer(); builder.Services.AddSwaggerGen(); builder.Services .AddAuthentication(JwtBearerDefaults.AuthenticationScheme) .AddJwtBearer(options = { // 當驗證失敗時，回應標頭會包含 WWW-Authenticate 標頭，這裡會顯示失敗的詳細錯誤原因  options.IncludeErrorDetails = true; // 預設值為 true，有時會特別關閉  options.TokenValidationParameters = new TokenValidationParameters { // 透過這項宣告，就可以從 \"NAME\" 取值  NameClaimType = \"http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier\", // 透過這項宣告，就可以從 \"Role\" 取值，並可讓 [Authorize] 判斷角色  RoleClaimType = \"http://schemas.microsoft.com/ws/2008/06/identity/claims/role\", // 驗證 Issuer (一般都會)  ValidateIssuer = true, ValidIssuer = _configuration.GetValuestring(\"JwtSettings:Issuer\"), // 驗證 Audience (通常不太需要)  ValidateAudience = false, //ValidAudience = \"JwtAuthDemo\", // 不驗證就不需要填寫  // 驗證 Token 的有效期間 (一般都會)  ValidateLifetime = true, // 如果 Token 中包含 key 才需要驗證，一般都只有簽章而已  ValidateIssuerSigningKey = false, // 應該從 IConfiguration 取得  IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secret)) }; }); builder.Services.AddAuthorization(); var app = builder.Build(); // Configure the HTTP request pipeline. if (app.Environment.IsDevelopment()) { app.UseSwagger(); app.UseSwaggerUI(); } app.UseHttpsRedirection(); app.UseAuthentication(); app.UseAuthorization(); var summaries = new[] { \"Freezing\", \"Bracing\", \"Chilly\", \"Cool\", \"Mild\", \"Warm\", \"Balmy\", \"Hot\", \"Sweltering\", \"Scorching\" }; app.MapGet(\"/weatherforecast\", () = { var forecast = Enumerable.Range(1, 5).Select(index = new WeatherForecast ( DateTime.Now.AddDays(index), Random.Shared.Next(-20, 55), summaries[Random.Shared.Next(summaries.Length)] )) .ToArray(); return forecast; }) .WithName(\"GetWeatherForecast\").RequireAuthorization(); app.MapPost(\"/signin\", (LoginViewModel login) = { if (ValidateUser(login)) { var token = CreateToken(login); return Results.Ok(new { token }); } else { return Results.BadRequest(); } } ).WithName(\"SignIn\").AllowAnonymous(); string CreateToken(LoginViewModel user) { List claims = new List { new Claim(ClaimTypes.Name, user.Username), new Claim(ClaimTypes.Role, \"Admin\"), new Claim(ClaimTypes.Role, \"Users\"), new Claim(\"ProjectType\", \"TTG\"), }; var secretkey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(secret)); // _configuration.GetSection(\"JwtSettings:Secret\").Value)  var credentials = new SigningCredentials(secretkey, SecurityAlgorithms.HmacSha512Signature); var token = new JwtSecurityToken( // 亦可使用　SecurityTokenDescriptor　來産生 Token  issuer: _configuration.GetValuestring(\"JwtSettings:Issuer\"), audience: _configuration.GetValuestring(\"JwtSettings:Audience\"), claims: claims, expires: DateTime.Now.AddDays(1), signingCredentials: credentials); var jwt = new JwtSecurityTokenHandler().WriteToken(token); return jwt; } bool ValidateUser(LoginViewModel login) { return login.Username == \"cal\" ? true : false; } app.MapGet(\"/claims\", (ClaimsPrincipal user) = { return Results.Ok(user.Claims.Select(p = new { p.Type, p.Value })); }) .WithName(\"Claims\") .RequireAuthorization(); app.MapGet(\"/username\", (ClaimsPrincipal user) = { return Results.Ok(user.Claims.FirstOrDefault(p = p.Type == ClaimTypes.Name)?.Value); }) .WithName(\"Username\") .RequireAuthorization(); app.MapGet(\"/roles\", (ClaimsPrincipal user) = { return Results.Ok(user.Claims.Select(p = new { p.Type, p.Value }).Where( c= c.Type == ClaimTypes.Role)); }) .WithName(\"Userrole\") .RequireAuthorization(); app.MapGet(\"/issuer\", (ClaimsPrincipal user) = { return Results.Ok(user.Claims.FirstOrDefault(p = p.Type == \"iss\")?.Value); }) .WithName(\"Issuer\") .RequireAuthorization(); await app.RunAsync(); record WeatherForecast(DateTime Date, int TemperatureC, string? Summary) { public int TemperatureF = 32 + (int)(TemperatureC / 0.5556); } record LoginViewModel(string Username, string Password); 使用 OpenApi Swagger 來測試 API  將程式碼中的 builder.Services.AddSwaggerGen();改成以下內容\n builder.Services.AddSwaggerGen(c = { c.SwaggerDoc(\"v1\", new OpenApiInfo { Title = \"JwtDemo\", Version = \"v1\" }); c.AddSecurityDefinition(\"Bearer\", new OpenApiSecurityScheme { In = ParameterLocation.Header, Description = \"Please enter JWT with Bearer into field\", Name = \"Authorization\", Type = SecuritySchemeType.ApiKey }); c.AddSecurityRequirement(new OpenApiSecurityRequirement { { new OpenApiSecurityScheme { Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = \"Bearer\"} }, new string[] {} } }); });  有了上述的程式設定，當再次 dotnet run 啟動程式後，瀏覽器呈現的 Swagger 畫面右上角會多出了｀Authorize｀ 的按鈕。按下按鈕就是讓你填入登入成功後回傳的 Token\n  在 Value: 文字框內填入 “Bearer yJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTUxMiIsInR5cCI6IkpXVCJ9…..\"，再按下 Authorize 按鈕即表下在接下來的 Request 中都會自動帶入 Token 傳給 WebApi Server。 （請注意 Bearer後再先接著一個空白字元再加上 Token值）\n ","wordCount":"1048","inLanguage":"en","datePublished":"2022-05-13T00:00:00Z","dateModified":"2022-05-13T00:00:00Z","author":{"@type":"Person","name":"Theme PaperMod"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://calvinegs.github.io/posts/dotnet6-minimalapi-jwt/"},"publisher":{"@type":"Organization","name":"永誌不忘 • 筆記簿","logo":{"@type":"ImageObject","url":"https://calvinegs.github.io/img/favicon.png"}}}</script>
+</head>
+<body id=top>
+<script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
+<header class=header>
+<nav class=nav>
+<div class=logo>
+<a href=https://calvinegs.github.io/ accesskey=h title="永誌不忘 • 筆記簿 (Alt + H)">永誌不忘 • 筆記簿</a>
+<span class=logo-switches>
+<button id=theme-toggle accesskey=t title="(Alt + T)"><svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+</button>
+</span>
+</div>
+<ul id=menu>
+<li>
+<a href=https://calvinegs.github.io/posts/ title=Posts>
+<span>Posts</span>
+</a>
+</li>
+<li>
+<a href=https://calvinegs.github.io/archives/ title=Archive>
+<span>Archive</span>
+</a>
+</li>
+<li>
+<a href=https://calvinegs.github.io/categories/ title=Categories>
+<span>Categories</span>
+</a>
+</li>
+<li>
+<a href=https://calvinegs.github.io/tags/ title=Tags>
+<span>Tags</span>
+</a>
+</li>
+<li>
+<a href=https://calvinegs.github.io/search/ title="Search (Alt + /)" accesskey=/>
+<span>Search</span>
+</a>
+</li>
+</ul>
+</nav>
+</header>
+<main class=main>
+<article class=post-single>
+<header class=post-header>
+<div class=breadcrumbs><a href=https://calvinegs.github.io/>Home</a>&nbsp;»&nbsp;<a href=https://calvinegs.github.io/posts/>Posts</a></div>
+<h1 class=post-title>
+使用 ASP.NET Core 6 提供的 Minimal APIs 新框架建置一個極簡的 Web API 服務
+</h1>
+<div class=post-description>
+在 ASP.NET Core 提供 Minimal APIs 新框架前，你使用的是 MVC 框架，比起 Node.js + Express MVC 框架是顯得煩複許多，也許你只是一個提供極簡 rest web api 服務如：Microservices，但你還是得先建好必要的程式架構才能開始你的程式撰寫，有了 Minimal APIs 新框架後一切都變得簡單了
+</div>
+<div class=post-meta><span title="2022-05-13 00:00:00 +0000 UTC">May 13, 2022</span>&nbsp;·&nbsp;5 min&nbsp;·&nbsp;Theme PaperMod&nbsp;|&nbsp;<a href=https://github.com/adityatelange/hugo-PaperMod/tree/exampleSite/content/posts/dotnet6-minimalapi-JWT.md rel="noopener noreferrer" target=_blank>Suggest Changes</a>
+</div>
+</header> <div class=toc>
+<details>
+<summary accesskey=c title="(Alt + C)">
+<span class=details>Table of Contents</span>
+</summary>
+<div class=inner><ul>
+<li>
+<a href=#%e5%bb%ba%e7%ab%8b%e6%96%b0%e5%b0%88%e6%a1%88 aria-label=建立新專案>建立新專案</a></li>
+<li>
+<a href=#%e5%af%a6%e4%bd%9c-jwt-%e7%9a%84%e6%b5%81%e7%a8%8b aria-label="實作 JWT 的流程">實作 JWT 的流程</a></li>
+<li>
+<a href=#%e7%94%a3%e7%94%9f%e5%90%88%e6%b3%95%e7%9a%84-jason-web-token aria-label="産生合法的 Jason Web Token">産生合法的 Jason Web Token</a></li>
+<li>
+<a href=#%e9%a9%97%e8%ad%89%e6%98%af%e5%90%a6%e7%82%ba%e5%90%88%e6%b3%95%e6%9c%89%e6%95%88%e7%9a%84-jwt-token aria-label="驗證是否為合法有效的 JWT Token">驗證是否為合法有效的 JWT Token</a></li>
+<li>
+<a href=#%e5%9c%a8%e7%89%b9%e5%ae%9a-api-endpoint-%e4%b8%8a%e9%a9%97%e8%ad%89%e6%98%af%e5%90%a6%e5%b8%b6%e6%9c%89%e5%90%88%e6%b3%95%e6%9c%89%e6%95%88%e7%9a%84-jwt-token aria-label="在特定 API EndPoint 上驗證是否帶有合法有效的 JWT Token">在特定 API EndPoint 上驗證是否帶有合法有效的 JWT Token</a><ul>
+<li>
+<a href=#%e4%bd%bf%e7%94%a8-openapi-swagger-%e4%be%86%e6%b8%ac%e8%a9%a6-api aria-label="使用 OpenApi Swagger 來測試 API">使用 OpenApi Swagger 來測試 API</a>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</details>
+</div>
+<div class=post-content><p><em><a href=https://github.com/calvinegs/Minimal-Webapi-Jwt>github Source code #tag: minimal_webapi_jwt</a></em></p>
+<p>本篇筆記中將紀錄如何使用 ASP.NET Core 6 提供的 Minimal APIs 新框架建置一個使用 Token-base 身份驗證的 Web API 網站。</p>
+<h2 id=建立新專案>建立新專案<a hidden class=anchor aria-hidden=true href=#建立新專案>#</a></h2>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$ dotnet new webapi -o JwtAuthDemo -minimal
+範本「ASP.NET Core Web API」已成功建立。
+
+正在處理建立後的動作...
+正在 /home/egs/cal-data/tech-test/webapi/Minimal/JwtAuthDemo/JwtAuthDemo.csproj 上執行 <span style=color:#e6db74>&#39;dotnet restore&#39;</span>...
+  正在判斷要還原的專案...
+  已還原 /home/egs/cal-data/tech-test/webapi/Minimal/JwtAuthDemo/JwtAuthDemo.csproj <span style=color:#f92672>(</span><span style=color:#ae81ff>214</span> ms 內<span style=color:#f92672>)</span>。
+還原成功。
+
+$ cd JwtAuthDemo
+$ ls -al
+總用量 <span style=color:#ae81ff>32</span>
+drwxrwxr-x <span style=color:#ae81ff>4</span> egs egs <span style=color:#ae81ff>4096</span>  五  <span style=color:#ae81ff>13</span> 18:36 .
+drwxrwxr-x <span style=color:#ae81ff>7</span> egs egs <span style=color:#ae81ff>4096</span>  五  <span style=color:#ae81ff>13</span> 18:36 ..
+-rw-rw-r-- <span style=color:#ae81ff>1</span> egs egs  <span style=color:#ae81ff>127</span>  五  <span style=color:#ae81ff>13</span> 18:36 appsettings.Development.json
+-rw-rw-r-- <span style=color:#ae81ff>1</span> egs egs  <span style=color:#ae81ff>151</span>  五  <span style=color:#ae81ff>13</span> 18:36 appsettings.json
+-rw-rw-r-- <span style=color:#ae81ff>1</span> egs egs  <span style=color:#ae81ff>327</span>  五  <span style=color:#ae81ff>13</span> 18:36 JwtAuthDemo.csproj
+drwxrwxr-x <span style=color:#ae81ff>2</span> egs egs <span style=color:#ae81ff>4096</span>  五  <span style=color:#ae81ff>13</span> 18:36 obj
+-rw-rw-r-- <span style=color:#ae81ff>1</span> egs egs <span style=color:#ae81ff>1131</span>  五  <span style=color:#ae81ff>13</span> 18:36 Program.cs
+drwxrwxr-x <span style=color:#ae81ff>2</span> egs egs <span style=color:#ae81ff>4096</span>  五  <span style=color:#ae81ff>13</span> 18:36 Properties
+</code></pre></div><blockquote>
+<p>dotnet code 版本安裝與管理</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$ dotnet --list-sdks    <span style=color:#75715e># 顯示已安裝的 sdk 版本資訊</span>
+5.0.408 <span style=color:#f92672>[</span>/usr/share/dotnet/sdk<span style=color:#f92672>]</span>
+6.0.300 <span style=color:#f92672>[</span>/usr/share/dotnet/sdk<span style=color:#f92672>]</span>
+
+$ dotnet --version  <span style=color:#75715e># 顯示目前所使用的版本</span>
+6.0.300 <span style=color:#75715e># 預設是最新的版本</span>
+</code></pre></div><blockquote>
+<p>由於 dotnet 版本演化滿快的，所以會建議在專案目錄中要指定使用 SDK 的版本，以免當你又安裝了更新版本（如7.0）後程式執行出問題。</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$ dotnet new globaljson --sdk-version 6.0.300
+範本「global.json 檔案」已成功建立。
+
+$ cat global.json
+<span style=color:#f92672>{</span>
+  <span style=color:#e6db74>&#34;sdk&#34;</span>: <span style=color:#f92672>{</span>
+    <span style=color:#e6db74>&#34;version&#34;</span>: <span style=color:#e6db74>&#34;6.0.300&#34;</span>
+  <span style=color:#f92672>}</span>
+<span style=color:#f92672>}</span>
+</code></pre></div><blockquote>
+<p>使用 dotnet cli 來產生預設的 git ignore 檔案</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$ dotnet new gitignore
+</code></pre></div><blockquote>
+<p>建立 git 初始版本</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$ git init <span style=color:#f92672>&amp;&amp;</span> git add . <span style=color:#f92672>&amp;&amp;</span> git commit -m <span style=color:#e6db74>&#34;Initial commit&#34;</span>
+</code></pre></div><blockquote>
+<p>安裝 Microsoft.AspNetCore.Authentication.JwtBearer 套件</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:block;width:100%;background-color:#3c3d38>$ dotnet add package Microsoft.AspNetCore.Authentication.JwtBearer
+</span>
+$ cat JwtAuthDemo.csproj 
+&lt;Project Sdk<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;Microsoft.NET.Sdk.Web&#34;</span>&gt;
+
+  &lt;PropertyGroup&gt;
+    &lt;TargetFramework&gt;net6.0&lt;/TargetFramework&gt;
+    &lt;Nullable&gt;enable&lt;/Nullable&gt;
+    &lt;ImplicitUsings&gt;enable&lt;/ImplicitUsings&gt;
+  &lt;/PropertyGroup&gt;
+
+  &lt;ItemGroup&gt;
+<span style=display:block;width:100%;background-color:#3c3d38>    &lt;PackageReference Include<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;Microsoft.AspNetCore.Authentication.JwtBearer&#34;</span> Version<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;6.0.5&#34;</span> /&gt;
+</span>    &lt;PackageReference Include<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;Swashbuckle.AspNetCore&#34;</span> Version<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;6.2.3&#34;</span> /&gt;
+  &lt;/ItemGroup&gt;
+
+&lt;/Project&gt;
+</code></pre></div><blockquote>
+<p>加入 Git 新版本</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$ git commit -m <span style=color:#e6db74>&#34;Add new package Microsoft.AspNetCore.Authentication.JwtBearer&#34;</span> -a
+
+$ code .    <span style=color:#75715e># 打開 VS Code</span>
+</code></pre></div><blockquote>
+<p>目前産生的程式架構</p>
+</blockquote>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/168269485-478b1ace-676d-48e5-a96d-be69cfcbe5a3.png alt=image>
+</p>
+<blockquote>
+<p>執行程式</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$ dotnet watch
+</code></pre></div><p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/168411109-019af6d6-0e08-4808-99bf-e0224694f479.png alt=image>
+</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/168411149-d9f9777d-a74a-4ef0-a1af-f42bff2a38f0.png alt=image>
+</p>
+<h2 id=實作-jwt-的流程>實作 JWT 的流程<a hidden class=anchor aria-hidden=true href=#實作-jwt-的流程>#</a></h2>
+<p>上圖中可以看到，由系統自動産生的 sample code 已經可以正常執行。</p>
+<p>接下來將在程式中實作JWT功能， 透過 JWT　的實作可以讓你的專案實現 Token-base 的身份驗證與授權。 （Json Web Token) 實作的過程大致可以分成三個部分:</p>
+<ul>
+<li>在登入成功後産生合法的 JWT Token</li>
+<li>每次收到 request 時驗證是否為合法有效的 JWT Token</li>
+<li>在特定 API Endpoint 上驗證是否帶有 “合法有效的 JWT Token”，以達到權限管理的需求</li>
+</ul>
+<h2 id=産生合法的-jason-web-token>産生合法的 Jason Web Token<a hidden class=anchor aria-hidden=true href=#産生合法的-jason-web-token>#</a></h2>
+<blockquote>
+<p>在 Program.cs 中新一個建立 Token 的 function</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cs data-lang=cs><span style=color:#66d9ef>string</span> CreateToken(LoginViewModel user)
+{
+    List&lt;Claim&gt; claims = <span style=color:#66d9ef>new</span> List&lt;Claim&gt;
+    {
+        <span style=color:#66d9ef>new</span> Claim(ClaimTypes.Name, user.Username),
+        <span style=color:#66d9ef>new</span> Claim(ClaimTypes.Role, <span style=color:#e6db74>&#34;Admin&#34;</span>)
+    };
+
+    ConfigurationManager <span style=color:#ae81ff>_</span>configuration = builder.Configuration;
+
+    <span style=color:#66d9ef>var</span> secretkey = <span style=color:#66d9ef>new</span> SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(
+        <span style=color:#ae81ff>_</span>configuration.GetValue&lt;<span style=color:#66d9ef>string</span>&gt;(<span style=color:#e6db74>&#34;JwtSettings:Secret&#34;</span>)));    <span style=color:#75715e>// _configuration.GetSection(&#34;JwtSettings:Secret&#34;).Value)
+</span><span style=color:#75715e></span>
+    <span style=color:#66d9ef>var</span> credentials = <span style=color:#66d9ef>new</span> SigningCredentials(secretkey, SecurityAlgorithms.HmacSha512Signature);
+
+    <span style=color:#66d9ef>var</span> token = <span style=color:#66d9ef>new</span> JwtSecurityToken(   <span style=color:#75715e>// 亦可使用　SecurityTokenDescriptor　來産生 Token
+</span><span style=color:#75715e></span>        issuer: <span style=color:#ae81ff>_</span>configuration.GetValue&lt;<span style=color:#66d9ef>string</span>&gt;(<span style=color:#e6db74>&#34;JwtSettings:Issuer&#34;</span>),
+        audience: <span style=color:#ae81ff>_</span>configuration.GetValue&lt;<span style=color:#66d9ef>string</span>&gt;(<span style=color:#e6db74>&#34;JwtSettings:Audience&#34;</span>),
+        claims: claims,
+        expires: DateTime.Now.AddDays(<span style=color:#ae81ff>1</span>),
+        signingCredentials: credentials);
+
+    <span style=color:#66d9ef>var</span> jwt = <span style=color:#66d9ef>new</span> JwtSecurityTokenHandler().WriteToken(token);
+
+    <span style=color:#66d9ef>return</span> jwt;
+}
+</code></pre></div><blockquote>
+<p>建立一個 登入 的 Endpoint</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cs data-lang=cs>app.MapPost(<span style=color:#e6db74>&#34;/signin&#34;</span>, (LoginViewModel login) =&gt;
+    {
+        <span style=color:#66d9ef>if</span> (ValidateUser(login))  <span style=color:#75715e>// 驗證登入的帳號是否合法
+</span><span style=color:#75715e></span>        {
+            <span style=color:#66d9ef>var</span> token = CreateToken(login); <span style=color:#75715e>// 若為合法使用者，則産生一個使用 Token
+</span><span style=color:#75715e></span>            <span style=color:#66d9ef>return</span> Results.Ok(<span style=color:#66d9ef>new</span> { token }); <span style=color:#75715e>// 將登入狀態與Token一併回傳前端
+</span><span style=color:#75715e></span>        }
+        <span style=color:#66d9ef>else</span>
+        {
+            <span style=color:#66d9ef>return</span> Results.BadRequest();  <span style=color:#75715e>// 驗證失敗時回傳 status: 400 Bad Request
+</span><span style=color:#75715e></span>        }
+    }
+).WithName(<span style=color:#e6db74>&#34;SignIn&#34;</span>).AllowAnonymous();
+
+<span style=color:#66d9ef>bool</span> ValidateUser(LoginViewModel login)
+{
+    <span style=color:#66d9ef>return</span> login.Username == <span style=color:#e6db74>&#34;cal&#34;</span> ? <span style=color:#66d9ef>true</span> : <span style=color:#66d9ef>false</span>;
+}
+</code></pre></div><blockquote>
+<p>建立一個 model 來接收 login 資料</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cs data-lang=cs>record LoginViewModel(<span style=color:#66d9ef>string</span> Username, <span style=color:#66d9ef>string</span> Password);
+</code></pre></div><p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/168706315-16b2658a-ff6a-45c2-b8b3-3c1eee0c829c.png alt=image>
+</p>
+<h2 id=驗證是否為合法有效的-jwt-token>驗證是否為合法有效的 JWT Token<a hidden class=anchor aria-hidden=true href=#驗證是否為合法有效的-jwt-token>#</a></h2>
+<blockquote>
+<p>第一步，透過 DI 將 JWT 相關設定設置好</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cs data-lang=cs>builder.Services
+    .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =&gt;
+    {
+        <span style=color:#75715e>// 當驗證失敗時，回應標頭會包含 WWW-Authenticate 標頭，這裡會顯示失敗的詳細錯誤原因
+</span><span style=color:#75715e></span>        options.IncludeErrorDetails = <span style=color:#66d9ef>true</span>; <span style=color:#75715e>// 預設值為 true，有時會特別關閉
+</span><span style=color:#75715e></span>
+        options.TokenValidationParameters = <span style=color:#66d9ef>new</span> TokenValidationParameters
+        {
+            <span style=color:#75715e>// 透過這項宣告，就可以從 &#34;NAME&#34; 取值
+</span><span style=color:#75715e></span>            NameClaimType = <span style=color:#e6db74>&#34;http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier&#34;</span>,
+            <span style=color:#75715e>// 透過這項宣告，就可以從 &#34;Role&#34; 取值，並可讓 [Authorize] 判斷角色
+</span><span style=color:#75715e></span>            RoleClaimType = <span style=color:#e6db74>&#34;http://schemas.microsoft.com/ws/2008/06/identity/claims/role&#34;</span>,
+
+            <span style=color:#75715e>// 驗證 Issuer (一般都會)
+</span><span style=color:#75715e></span>            ValidateIssuer = <span style=color:#66d9ef>true</span>,
+            ValidIssuer = <span style=color:#ae81ff>_</span>configuration.GetValue&lt;<span style=color:#66d9ef>string</span>&gt;(<span style=color:#e6db74>&#34;JwtSettings:Issuer&#34;</span>),
+
+            <span style=color:#75715e>// 驗證 Audience (通常不太需要)
+</span><span style=color:#75715e></span>            ValidateAudience = <span style=color:#66d9ef>false</span>,
+            <span style=color:#75715e>//ValidAudience = &#34;JwtAuthDemo&#34;, // 不驗證就不需要填寫
+</span><span style=color:#75715e></span>
+            <span style=color:#75715e>// 驗證 Token 的有效期間 (一般都會)
+</span><span style=color:#75715e></span>            ValidateLifetime = <span style=color:#66d9ef>true</span>,
+
+            <span style=color:#75715e>// 如果 Token 中包含 key 才需要驗證，一般都只有簽章而已
+</span><span style=color:#75715e></span>            ValidateIssuerSigningKey = <span style=color:#66d9ef>false</span>,
+
+            <span style=color:#75715e>// 應該從 IConfiguration 取得
+</span><span style=color:#75715e></span>            IssuerSigningKey = <span style=color:#66d9ef>new</span> SymmetricSecurityKey(Encoding.UTF8.GetBytes(secret))
+        };
+    });
+
+builder.Services.AddAuthorization();
+</code></pre></div><blockquote>
+<p>第二步，要記得也要啟動 request pipeline 中的 Middleware (UseAuthentication & UseAuthorization 都需要)</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cs data-lang=cs>app.UseAuthentication();
+app.UseAuthorization();
+</code></pre></div><h2 id=在特定-api-endpoint-上驗證是否帶有合法有效的-jwt-token>在特定 API EndPoint 上驗證是否帶有合法有效的 JWT Token<a hidden class=anchor aria-hidden=true href=#在特定-api-endpoint-上驗證是否帶有合法有效的-jwt-token>#</a></h2>
+<blockquote>
+<p>加入<code>.RequireAuthorization()</code> 即可</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cs data-lang=cs>app.MapGet(<span style=color:#e6db74>&#34;/weatherforecast&#34;</span>, () =&gt;
+{
+    <span style=color:#66d9ef>var</span> forecast =  Enumerable.Range(<span style=color:#ae81ff>1</span>, <span style=color:#ae81ff>5</span>).Select(index =&gt;
+        <span style=color:#66d9ef>new</span> WeatherForecast
+        (
+            DateTime.Now.AddDays(index),
+            Random.Shared.Next(-<span style=color:#ae81ff>20</span>, <span style=color:#ae81ff>55</span>),
+            summaries[Random.Shared.Next(summaries.Length)]
+        ))
+        .ToArray();
+    <span style=color:#66d9ef>return</span> forecast;
+})
+<span style=display:block;width:100%;background-color:#3c3d38>.WithName(<span style=color:#e6db74>&#34;GetWeatherForecast&#34;</span>).RequireAuthorization();
+</span></code></pre></div><blockquote>
+<p>如上程式加入<code>.RequireAuthorization()</code>後，再重新瀏覽 weatherforecast endpoint，會回傳 Status: 401 Unauthorized 的錯誤訊息。</p>
+</blockquote>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/168756602-7019db97-5f36-41bf-9e47-a6e14150ab36.png alt=image>
+</p>
+<blockquote>
+<p>使用 Postman，先加入 Authorization Header，並將登入成功後回傳的 Token 加到 Authorization Header 中。再次送出就可正常的取得所有天氣預測資料了。</p>
+</blockquote>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/168757528-61bac493-c21d-468e-87f6-ffa1adad4f27.png alt=image>
+</p>
+<blockquote>
+<p>加入 git 版本控制</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$ git commit -m <span style=color:#e6db74>&#34;finished JWT function&#34;</span> -a
+</code></pre></div><blockquote>
+<p>完整程式如下(Program.cs)</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cs data-lang=cs><span style=color:#66d9ef>using</span> System.IdentityModel.Tokens.Jwt;
+<span style=color:#66d9ef>using</span> System.Security.Claims;
+<span style=color:#66d9ef>using</span> System.Text;
+<span style=color:#66d9ef>using</span> Microsoft.AspNetCore.Authentication.JwtBearer;
+<span style=color:#66d9ef>using</span> Microsoft.IdentityModel.Tokens;
+
+<span style=color:#66d9ef>var</span> builder = WebApplication.CreateBuilder(args);
+
+ConfigurationManager <span style=color:#ae81ff>_</span>configuration = builder.Configuration;
+<span style=color:#66d9ef>var</span> secret = <span style=color:#ae81ff>_</span>configuration.GetValue&lt;<span style=color:#66d9ef>string</span>&gt;(<span style=color:#e6db74>&#34;JwtSettings:Secret&#34;</span>);
+
+<span style=color:#75715e>// Add services to the container.
+</span><span style=color:#75715e>// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+</span><span style=color:#75715e></span>builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
+builder.Services
+    .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =&gt;
+    {
+        <span style=color:#75715e>// 當驗證失敗時，回應標頭會包含 WWW-Authenticate 標頭，這裡會顯示失敗的詳細錯誤原因
+</span><span style=color:#75715e></span>        options.IncludeErrorDetails = <span style=color:#66d9ef>true</span>; <span style=color:#75715e>// 預設值為 true，有時會特別關閉
+</span><span style=color:#75715e></span>
+        options.TokenValidationParameters = <span style=color:#66d9ef>new</span> TokenValidationParameters
+        {
+            <span style=color:#75715e>// 透過這項宣告，就可以從 &#34;NAME&#34; 取值
+</span><span style=color:#75715e></span>            NameClaimType = <span style=color:#e6db74>&#34;http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier&#34;</span>,
+            <span style=color:#75715e>// 透過這項宣告，就可以從 &#34;Role&#34; 取值，並可讓 [Authorize] 判斷角色
+</span><span style=color:#75715e></span>            RoleClaimType = <span style=color:#e6db74>&#34;http://schemas.microsoft.com/ws/2008/06/identity/claims/role&#34;</span>,
+
+            <span style=color:#75715e>// 驗證 Issuer (一般都會)
+</span><span style=color:#75715e></span>            ValidateIssuer = <span style=color:#66d9ef>true</span>,
+            ValidIssuer = <span style=color:#ae81ff>_</span>configuration.GetValue&lt;<span style=color:#66d9ef>string</span>&gt;(<span style=color:#e6db74>&#34;JwtSettings:Issuer&#34;</span>),
+
+            <span style=color:#75715e>// 驗證 Audience (通常不太需要)
+</span><span style=color:#75715e></span>            ValidateAudience = <span style=color:#66d9ef>false</span>,
+            <span style=color:#75715e>//ValidAudience = &#34;JwtAuthDemo&#34;, // 不驗證就不需要填寫
+</span><span style=color:#75715e></span>
+            <span style=color:#75715e>// 驗證 Token 的有效期間 (一般都會)
+</span><span style=color:#75715e></span>            ValidateLifetime = <span style=color:#66d9ef>true</span>,
+
+            <span style=color:#75715e>// 如果 Token 中包含 key 才需要驗證，一般都只有簽章而已
+</span><span style=color:#75715e></span>            ValidateIssuerSigningKey = <span style=color:#66d9ef>false</span>,
+
+            <span style=color:#75715e>// 應該從 IConfiguration 取得
+</span><span style=color:#75715e></span>            IssuerSigningKey = <span style=color:#66d9ef>new</span> SymmetricSecurityKey(Encoding.UTF8.GetBytes(secret))
+        };
+    });
+
+builder.Services.AddAuthorization();
+
+<span style=color:#66d9ef>var</span> app = builder.Build();
+
+<span style=color:#75715e>// Configure the HTTP request pipeline.
+</span><span style=color:#75715e></span><span style=color:#66d9ef>if</span> (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
+
+app.UseHttpsRedirection();
+
+app.UseAuthentication();
+app.UseAuthorization();
+
+<span style=color:#66d9ef>var</span> summaries = <span style=color:#66d9ef>new</span>[]
+{
+    <span style=color:#e6db74>&#34;Freezing&#34;</span>, <span style=color:#e6db74>&#34;Bracing&#34;</span>, <span style=color:#e6db74>&#34;Chilly&#34;</span>, <span style=color:#e6db74>&#34;Cool&#34;</span>, <span style=color:#e6db74>&#34;Mild&#34;</span>, <span style=color:#e6db74>&#34;Warm&#34;</span>, <span style=color:#e6db74>&#34;Balmy&#34;</span>, <span style=color:#e6db74>&#34;Hot&#34;</span>, <span style=color:#e6db74>&#34;Sweltering&#34;</span>, <span style=color:#e6db74>&#34;Scorching&#34;</span>
+};
+
+app.MapGet(<span style=color:#e6db74>&#34;/weatherforecast&#34;</span>, () =&gt;
+{
+    <span style=color:#66d9ef>var</span> forecast =  Enumerable.Range(<span style=color:#ae81ff>1</span>, <span style=color:#ae81ff>5</span>).Select(index =&gt;
+        <span style=color:#66d9ef>new</span> WeatherForecast
+        (
+            DateTime.Now.AddDays(index),
+            Random.Shared.Next(-<span style=color:#ae81ff>20</span>, <span style=color:#ae81ff>55</span>),
+            summaries[Random.Shared.Next(summaries.Length)]
+        ))
+        .ToArray();
+    <span style=color:#66d9ef>return</span> forecast;
+})
+.WithName(<span style=color:#e6db74>&#34;GetWeatherForecast&#34;</span>).RequireAuthorization();
+
+app.MapPost(<span style=color:#e6db74>&#34;/signin&#34;</span>, (LoginViewModel login) =&gt;
+    {
+        <span style=color:#66d9ef>if</span> (ValidateUser(login))
+        {
+            <span style=color:#66d9ef>var</span> token = CreateToken(login);
+            <span style=color:#66d9ef>return</span> Results.Ok(<span style=color:#66d9ef>new</span> { token });
+        }
+        <span style=color:#66d9ef>else</span>
+        {
+            <span style=color:#66d9ef>return</span> Results.BadRequest();
+        }
+    }
+).WithName(<span style=color:#e6db74>&#34;SignIn&#34;</span>).AllowAnonymous();
+
+<span style=color:#66d9ef>string</span> CreateToken(LoginViewModel user)
+{
+    List&lt;Claim&gt; claims = <span style=color:#66d9ef>new</span> List&lt;Claim&gt;
+    {
+        <span style=color:#66d9ef>new</span> Claim(ClaimTypes.Name, user.Username),
+        <span style=color:#66d9ef>new</span> Claim(ClaimTypes.Role, <span style=color:#e6db74>&#34;Admin&#34;</span>),
+        <span style=color:#66d9ef>new</span> Claim(ClaimTypes.Role, <span style=color:#e6db74>&#34;Users&#34;</span>),
+        <span style=color:#66d9ef>new</span> Claim(<span style=color:#e6db74>&#34;ProjectType&#34;</span>, <span style=color:#e6db74>&#34;TTG&#34;</span>),
+    };
+
+    <span style=color:#66d9ef>var</span> secretkey = <span style=color:#66d9ef>new</span> SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(secret));    
+    <span style=color:#75715e>// _configuration.GetSection(&#34;JwtSettings:Secret&#34;).Value)
+</span><span style=color:#75715e></span>
+    <span style=color:#66d9ef>var</span> credentials = <span style=color:#66d9ef>new</span> SigningCredentials(secretkey, SecurityAlgorithms.HmacSha512Signature);
+
+    <span style=color:#66d9ef>var</span> token = <span style=color:#66d9ef>new</span> JwtSecurityToken(   <span style=color:#75715e>// 亦可使用　SecurityTokenDescriptor　來産生 Token
+</span><span style=color:#75715e></span>        issuer: <span style=color:#ae81ff>_</span>configuration.GetValue&lt;<span style=color:#66d9ef>string</span>&gt;(<span style=color:#e6db74>&#34;JwtSettings:Issuer&#34;</span>),
+        audience: <span style=color:#ae81ff>_</span>configuration.GetValue&lt;<span style=color:#66d9ef>string</span>&gt;(<span style=color:#e6db74>&#34;JwtSettings:Audience&#34;</span>),
+        claims: claims,
+        expires: DateTime.Now.AddDays(<span style=color:#ae81ff>1</span>),
+        signingCredentials: credentials);
+
+    <span style=color:#66d9ef>var</span> jwt = <span style=color:#66d9ef>new</span> JwtSecurityTokenHandler().WriteToken(token);
+
+    <span style=color:#66d9ef>return</span> jwt;
+}
+
+<span style=color:#66d9ef>bool</span> ValidateUser(LoginViewModel login)
+{
+    <span style=color:#66d9ef>return</span> login.Username == <span style=color:#e6db74>&#34;cal&#34;</span> ? <span style=color:#66d9ef>true</span> : <span style=color:#66d9ef>false</span>;
+}
+
+app.MapGet(<span style=color:#e6db74>&#34;/claims&#34;</span>, (ClaimsPrincipal user) =&gt;
+    {
+        <span style=color:#66d9ef>return</span> Results.Ok(user.Claims.Select(p =&gt; <span style=color:#66d9ef>new</span> { p.Type, p.Value }));
+    })
+    .WithName(<span style=color:#e6db74>&#34;Claims&#34;</span>)
+    .RequireAuthorization();
+
+app.MapGet(<span style=color:#e6db74>&#34;/username&#34;</span>, (ClaimsPrincipal user) =&gt;
+    {
+        <span style=color:#66d9ef>return</span> Results.Ok(user.Claims.FirstOrDefault(p =&gt; p.Type == ClaimTypes.Name)?.Value);
+    })
+    .WithName(<span style=color:#e6db74>&#34;Username&#34;</span>)
+    .RequireAuthorization();
+
+app.MapGet(<span style=color:#e6db74>&#34;/roles&#34;</span>, (ClaimsPrincipal user) =&gt;
+    {
+        <span style=color:#66d9ef>return</span> Results.Ok(user.Claims.Select(p =&gt; <span style=color:#66d9ef>new</span> { p.Type, p.Value }).Where( c=&gt; c.Type == ClaimTypes.Role));
+    })
+    .WithName(<span style=color:#e6db74>&#34;Userrole&#34;</span>)
+    .RequireAuthorization();
+
+app.MapGet(<span style=color:#e6db74>&#34;/issuer&#34;</span>, (ClaimsPrincipal user) =&gt;
+    {
+        <span style=color:#66d9ef>return</span> Results.Ok(user.Claims.FirstOrDefault(p =&gt; p.Type == <span style=color:#e6db74>&#34;iss&#34;</span>)?.Value);
+    })
+    .WithName(<span style=color:#e6db74>&#34;Issuer&#34;</span>)
+    .RequireAuthorization();
+
+<span style=color:#66d9ef>await</span> app.RunAsync();
+
+record WeatherForecast(DateTime Date, <span style=color:#66d9ef>int</span> TemperatureC, <span style=color:#66d9ef>string?</span> Summary)
+{
+    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>int</span> TemperatureF =&gt; <span style=color:#ae81ff>32</span> + (<span style=color:#66d9ef>int</span>)(TemperatureC / <span style=color:#ae81ff>0.5556</span>);
+}
+
+record LoginViewModel(<span style=color:#66d9ef>string</span> Username, <span style=color:#66d9ef>string</span> Password);
+</code></pre></div><h3 id=使用-openapi-swagger-來測試-api>使用 OpenApi Swagger 來測試 API<a hidden class=anchor aria-hidden=true href=#使用-openapi-swagger-來測試-api>#</a></h3>
+<blockquote>
+<p>將程式碼中的 <code>builder.Services.AddSwaggerGen();</code>改成以下內容</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cs data-lang=cs>builder.Services.AddSwaggerGen(c =&gt;
+{
+    c.SwaggerDoc(<span style=color:#e6db74>&#34;v1&#34;</span>, <span style=color:#66d9ef>new</span> OpenApiInfo { Title = <span style=color:#e6db74>&#34;JwtDemo&#34;</span>, Version = <span style=color:#e6db74>&#34;v1&#34;</span> });
+    c.AddSecurityDefinition(<span style=color:#e6db74>&#34;Bearer&#34;</span>, <span style=color:#66d9ef>new</span> OpenApiSecurityScheme
+    {
+        In = ParameterLocation.Header,
+        Description = <span style=color:#e6db74>&#34;Please enter JWT with Bearer into field&#34;</span>,
+        Name = <span style=color:#e6db74>&#34;Authorization&#34;</span>,
+        Type = SecuritySchemeType.ApiKey
+    });
+    c.AddSecurityRequirement(<span style=color:#66d9ef>new</span> OpenApiSecurityRequirement
+    {
+        {
+            <span style=color:#66d9ef>new</span> OpenApiSecurityScheme
+                {
+                    Reference = <span style=color:#66d9ef>new</span> OpenApiReference { Type = ReferenceType.SecurityScheme, Id = <span style=color:#e6db74>&#34;Bearer&#34;</span>}
+                },
+            <span style=color:#66d9ef>new</span> <span style=color:#66d9ef>string</span>[] {}
+        }
+    });
+});
+</code></pre></div><blockquote>
+<p>有了上述的程式設定，當再次 dotnet run 啟動程式後，瀏覽器呈現的 Swagger 畫面右上角會多出了｀Authorize｀ 的按鈕。按下按鈕就是讓你填入登入成功後回傳的 Token</p>
+</blockquote>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/168768593-f2dde2f9-d4b2-43dd-85f5-ef080ff8c13a.png alt=image>
+</p>
+<blockquote>
+<p>在 Value: 文字框內填入 &ldquo;Bearer yJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTUxMiIsInR5cCI6IkpXVCJ9&mldr;.."，再按下 Authorize 按鈕即表下在接下來的 Request 中都會自動帶入 Token 傳給 WebApi Server。 （請注意 Bearer後再先接著一個空白字元再加上 Token值）</p>
+</blockquote>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/168768975-0274c3cf-eba6-49bc-a696-36df5b2a97db.png alt=image>
+</p>
+</div>
+<footer class=post-footer>
+<ul class=post-tags>
+<li><a href=https://calvinegs.github.io/tags/dotnet-6/>dotnet 6</a></li>
+<li><a href=https://calvinegs.github.io/tags/webapi/>webapi</a></li>
+<li><a href=https://calvinegs.github.io/tags/minimal-api/>minimal api</a></li>
+<li><a href=https://calvinegs.github.io/tags/jwt/>JWT</a></li>
+</ul>
+<nav class=paginav>
+<a class=next href=https://calvinegs.github.io/posts/snowpack-typescript/>
+<span class=title>Next Page »</span>
+<br>
+<span>使用 Snowpack + Typescript 來建置一個 Web App</span>
+</a>
+</nav>
+<div class=share-buttons>
+<a target=_blank rel="noopener noreferrer" aria-label="share 使用 ASP.NET Core 6 提供的 Minimal APIs 新框架建置一個極簡的 Web API 服務 on twitter" href="https://twitter.com/intent/tweet/?text=%e4%bd%bf%e7%94%a8%20ASP.NET%20Core%206%20%e6%8f%90%e4%be%9b%e7%9a%84%20Minimal%20APIs%20%e6%96%b0%e6%a1%86%e6%9e%b6%e5%bb%ba%e7%bd%ae%e4%b8%80%e5%80%8b%e6%a5%b5%e7%b0%a1%e7%9a%84%20Web%20API%20%e6%9c%8d%e5%8b%99&url=https%3a%2f%2fcalvinegs.github.io%2fposts%2fdotnet6-minimalapi-jwt%2f&hashtags=dotnet6%2cwebapi%2cminimalapi%2cjwt"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zM195.519 424.544c135.939.0 210.268-112.643 210.268-210.268.0-3.218.0-6.437-.153-9.502 14.406-10.421 26.973-23.448 36.935-38.314-13.18 5.824-27.433 9.809-42.452 11.648 15.326-9.196 26.973-23.602 32.49-40.92-14.252 8.429-30.038 14.56-46.896 17.931-13.487-14.406-32.644-23.295-53.946-23.295-40.767.0-73.87 33.104-73.87 73.87.0 5.824.613 11.494 1.992 16.858-61.456-3.065-115.862-32.49-152.337-77.241-6.284 10.881-9.962 23.601-9.962 37.088.0 25.594 13.027 48.276 32.95 61.456-12.107-.307-23.448-3.678-33.41-9.196v.92c0 35.862 25.441 65.594 59.311 72.49-6.13 1.686-12.72 2.606-19.464 2.606-4.751.0-9.348-.46-13.946-1.38 9.349 29.426 36.628 50.728 68.965 51.341-25.287 19.771-57.164 31.571-91.8 31.571-5.977.0-11.801-.306-17.625-1.073 32.337 21.15 71.264 33.41 112.95 33.41z"/></svg>
+</a>
+<a target=_blank rel="noopener noreferrer" aria-label="share 使用 ASP.NET Core 6 提供的 Minimal APIs 新框架建置一個極簡的 Web API 服務 on linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2fcalvinegs.github.io%2fposts%2fdotnet6-minimalapi-jwt%2f&title=%e4%bd%bf%e7%94%a8%20ASP.NET%20Core%206%20%e6%8f%90%e4%be%9b%e7%9a%84%20Minimal%20APIs%20%e6%96%b0%e6%a1%86%e6%9e%b6%e5%bb%ba%e7%bd%ae%e4%b8%80%e5%80%8b%e6%a5%b5%e7%b0%a1%e7%9a%84%20Web%20API%20%e6%9c%8d%e5%8b%99&summary=%e4%bd%bf%e7%94%a8%20ASP.NET%20Core%206%20%e6%8f%90%e4%be%9b%e7%9a%84%20Minimal%20APIs%20%e6%96%b0%e6%a1%86%e6%9e%b6%e5%bb%ba%e7%bd%ae%e4%b8%80%e5%80%8b%e6%a5%b5%e7%b0%a1%e7%9a%84%20Web%20API%20%e6%9c%8d%e5%8b%99&source=https%3a%2f%2fcalvinegs.github.io%2fposts%2fdotnet6-minimalapi-jwt%2f"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zM160.461 423.278V197.561h-75.04v225.717h75.04zm270.539.0V293.839c0-69.333-37.018-101.586-86.381-101.586-39.804.0-57.634 21.891-67.617 37.266v-31.958h-75.021c.995 21.181.0 225.717.0 225.717h75.02V297.222c0-6.748.486-13.492 2.474-18.315 5.414-13.475 17.767-27.434 38.494-27.434 27.135.0 38.007 20.707 38.007 51.037v120.768H431zM123.448 88.722C97.774 88.722 81 105.601 81 127.724c0 21.658 16.264 39.002 41.455 39.002h.484c26.165.0 42.452-17.344 42.452-39.002-.485-22.092-16.241-38.954-41.943-39.002z"/></svg>
+</a>
+<a target=_blank rel="noopener noreferrer" aria-label="share 使用 ASP.NET Core 6 提供的 Minimal APIs 新框架建置一個極簡的 Web API 服務 on reddit" href="https://reddit.com/submit?url=https%3a%2f%2fcalvinegs.github.io%2fposts%2fdotnet6-minimalapi-jwt%2f&title=%e4%bd%bf%e7%94%a8%20ASP.NET%20Core%206%20%e6%8f%90%e4%be%9b%e7%9a%84%20Minimal%20APIs%20%e6%96%b0%e6%a1%86%e6%9e%b6%e5%bb%ba%e7%bd%ae%e4%b8%80%e5%80%8b%e6%a5%b5%e7%b0%a1%e7%9a%84%20Web%20API%20%e6%9c%8d%e5%8b%99"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zM446 265.638c0-22.964-18.616-41.58-41.58-41.58-11.211.0-21.361 4.457-28.841 11.666-28.424-20.508-67.586-33.757-111.204-35.278l18.941-89.121 61.884 13.157c.756 15.734 13.642 28.29 29.56 28.29 16.407.0 29.706-13.299 29.706-29.701.0-16.403-13.299-29.702-29.706-29.702-11.666.0-21.657 6.792-26.515 16.578l-69.105-14.69c-1.922-.418-3.939-.042-5.585 1.036-1.658 1.073-2.811 2.761-3.224 4.686l-21.152 99.438c-44.258 1.228-84.046 14.494-112.837 35.232-7.468-7.164-17.589-11.591-28.757-11.591-22.965.0-41.585 18.616-41.585 41.58.0 16.896 10.095 31.41 24.568 37.918-.639 4.135-.99 8.328-.99 12.576.0 63.977 74.469 115.836 166.33 115.836s166.334-51.859 166.334-115.836c0-4.218-.347-8.387-.977-12.493 14.564-6.47 24.735-21.034 24.735-38.001zM326.526 373.831c-20.27 20.241-59.115 21.816-70.534 21.816-11.428.0-50.277-1.575-70.522-21.82-3.007-3.008-3.007-7.882.0-10.889 3.003-2.999 7.882-3.003 10.885.0 12.777 12.781 40.11 17.317 59.637 17.317 19.522.0 46.86-4.536 59.657-17.321 3.016-2.999 7.886-2.995 10.885.008 3.008 3.011 3.003 7.882-.008 10.889zm-5.23-48.781c-16.373.0-29.701-13.324-29.701-29.698.0-16.381 13.328-29.714 29.701-29.714 16.378.0 29.706 13.333 29.706 29.714.0 16.374-13.328 29.698-29.706 29.698zM160.91 295.348c0-16.381 13.328-29.71 29.714-29.71 16.369.0 29.689 13.329 29.689 29.71.0 16.373-13.32 29.693-29.689 29.693-16.386.0-29.714-13.32-29.714-29.693z"/></svg>
+</a>
+<a target=_blank rel="noopener noreferrer" aria-label="share 使用 ASP.NET Core 6 提供的 Minimal APIs 新框架建置一個極簡的 Web API 服務 on facebook" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fcalvinegs.github.io%2fposts%2fdotnet6-minimalapi-jwt%2f"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H342.978V319.085h66.6l12.672-82.621h-79.272v-53.617c0-22.603 11.073-44.636 46.58-44.636H425.6v-70.34s-32.71-5.582-63.982-5.582c-65.288.0-107.96 39.569-107.96 111.204v62.971h-72.573v82.621h72.573V512h-191.104c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892z"/></svg>
+</a>
+<a target=_blank rel="noopener noreferrer" aria-label="share 使用 ASP.NET Core 6 提供的 Minimal APIs 新框架建置一個極簡的 Web API 服務 on whatsapp" href="https://api.whatsapp.com/send?text=%e4%bd%bf%e7%94%a8%20ASP.NET%20Core%206%20%e6%8f%90%e4%be%9b%e7%9a%84%20Minimal%20APIs%20%e6%96%b0%e6%a1%86%e6%9e%b6%e5%bb%ba%e7%bd%ae%e4%b8%80%e5%80%8b%e6%a5%b5%e7%b0%a1%e7%9a%84%20Web%20API%20%e6%9c%8d%e5%8b%99%20-%20https%3a%2f%2fcalvinegs.github.io%2fposts%2fdotnet6-minimalapi-jwt%2f"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zm-58.673 127.703c-33.842-33.881-78.847-52.548-126.798-52.568-98.799.0-179.21 80.405-179.249 179.234-.013 31.593 8.241 62.428 23.927 89.612l-25.429 92.884 95.021-24.925c26.181 14.28 55.659 21.807 85.658 21.816h.074c98.789.0 179.206-80.413 179.247-179.243.018-47.895-18.61-92.93-52.451-126.81zM263.976 403.485h-.06c-26.734-.01-52.954-7.193-75.828-20.767l-5.441-3.229-56.386 14.792 15.05-54.977-3.542-5.637c-14.913-23.72-22.791-51.136-22.779-79.287.033-82.142 66.867-148.971 149.046-148.971 39.793.014 77.199 15.531 105.329 43.692 28.128 28.16 43.609 65.592 43.594 105.4-.034 82.149-66.866 148.983-148.983 148.984zm81.721-111.581c-4.479-2.242-26.499-13.075-30.604-14.571-4.105-1.495-7.091-2.241-10.077 2.241-2.986 4.483-11.569 14.572-14.182 17.562-2.612 2.988-5.225 3.364-9.703 1.12-4.479-2.241-18.91-6.97-36.017-22.23C231.8 264.15 222.81 249.484 220.198 245s-.279-6.908 1.963-9.14c2.016-2.007 4.48-5.232 6.719-7.847 2.24-2.615 2.986-4.484 4.479-7.472 1.493-2.99.747-5.604-.374-7.846-1.119-2.241-10.077-24.288-13.809-33.256-3.635-8.733-7.327-7.55-10.077-7.688-2.609-.13-5.598-.158-8.583-.158-2.986.0-7.839 1.121-11.944 5.604-4.105 4.484-15.675 15.32-15.675 37.364.0 22.046 16.048 43.342 18.287 46.332 2.24 2.99 31.582 48.227 76.511 67.627 10.685 4.615 19.028 7.371 25.533 9.434 10.728 3.41 20.492 2.929 28.209 1.775 8.605-1.285 26.499-10.833 30.231-21.295 3.732-10.464 3.732-19.431 2.612-21.298-1.119-1.869-4.105-2.99-8.583-5.232z"/></svg>
+</a>
+<a target=_blank rel="noopener noreferrer" aria-label="share 使用 ASP.NET Core 6 提供的 Minimal APIs 新框架建置一個極簡的 Web API 服務 on telegram" href="https://telegram.me/share/url?text=%e4%bd%bf%e7%94%a8%20ASP.NET%20Core%206%20%e6%8f%90%e4%be%9b%e7%9a%84%20Minimal%20APIs%20%e6%96%b0%e6%a1%86%e6%9e%b6%e5%bb%ba%e7%bd%ae%e4%b8%80%e5%80%8b%e6%a5%b5%e7%b0%a1%e7%9a%84%20Web%20API%20%e6%9c%8d%e5%8b%99&url=https%3a%2f%2fcalvinegs.github.io%2fposts%2fdotnet6-minimalapi-jwt%2f"><svg viewBox="2 2 28 28"><path d="M26.49 29.86H5.5a3.37 3.37.0 01-2.47-1 3.35 3.35.0 01-1-2.47V5.48A3.36 3.36.0 013 3 3.37 3.37.0 015.5 2h21A3.38 3.38.0 0129 3a3.36 3.36.0 011 2.46V26.37a3.35 3.35.0 01-1 2.47 3.38 3.38.0 01-2.51 1.02zm-5.38-6.71a.79.79.0 00.85-.66L24.73 9.24a.55.55.0 00-.18-.46.62.62.0 00-.41-.17q-.08.0-16.53 6.11a.59.59.0 00-.41.59.57.57.0 00.43.52l4 1.24 1.61 4.83a.62.62.0 00.63.43.56.56.0 00.4-.17L16.54 20l4.09 3A.9.9.0 0021.11 23.15zM13.8 20.71l-1.21-4q8.72-5.55 8.78-5.55c.15.0.23.0.23.16a.18.18.0 010 .06s-2.51 2.3-7.52 6.8z"/></svg>
+</a>
+</div>
+</footer>
+<div>
+<div id=disqus_thread></div>
+<script type=text/javascript>(function(){var a,b;if(window.location.hostname=="localhost")return;a=document.createElement('script'),a.type='text/javascript',a.async=!0,b='calvinegs-github-io',a.src='//'+b+'.disqus.com/embed.js',(document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild(a)})()</script>
+<noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript>
+<a href=https://disqus.com/ class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a>
+</div>
+</article>
+</main>
+<footer class=footer>
+<span>&copy; 2022 <a href=https://calvinegs.github.io/>永誌不忘 • 筆記簿</a></span>
+<span>
+Powered by
+<a href=https://gohugo.io/ rel="noopener noreferrer" target=_blank>Hugo</a> &
+        <a href=https://git.io/hugopapermod rel=noopener target=_blank>PaperMod</a>
+</span>
+</footer>
+<a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentcolor"><path d="M12 6H0l6-6z"/></svg>
+</a>
+<script>let menu=document.getElementById('menu');menu&&(menu.scrollLeft=localStorage.getItem("menu-scroll-position"),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}),document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener("click",function(b){b.preventDefault();var a=this.getAttribute("href").substr(1);window.matchMedia('(prefers-reduced-motion: reduce)').matches?document.querySelector(`[id='${decodeURIComponent(a)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(a)}']`).scrollIntoView({behavior:"smooth"}),a==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${a}`)})})</script>
+<script>var mybutton=document.getElementById("top-link");window.onscroll=function(){document.body.scrollTop>800||document.documentElement.scrollTop>800?(mybutton.style.visibility="visible",mybutton.style.opacity="1"):(mybutton.style.visibility="hidden",mybutton.style.opacity="0")}</script>
+<script>document.getElementById("theme-toggle").addEventListener("click",()=>{document.body.className.includes("dark")?(document.body.classList.remove('dark'),localStorage.setItem("pref-theme",'light')):(document.body.classList.add('dark'),localStorage.setItem("pref-theme",'dark'))})</script>
+<script>document.querySelectorAll('pre > code').forEach(b=>{const c=b.parentNode.parentNode,a=document.createElement('button');a.classList.add('copy-code'),a.innerText='copy';function d(){a.innerText='copied!',setTimeout(()=>{a.innerText='copy'},2e3)}a.addEventListener('click',e=>{if('clipboard'in navigator){navigator.clipboard.writeText(b.textContent),d();return}const a=document.createRange();a.selectNodeContents(b);const c=window.getSelection();c.removeAllRanges(),c.addRange(a);try{document.execCommand('copy'),d()}catch(a){}c.removeRange(a)}),c.classList.contains("highlight")?c.appendChild(a):c.parentNode.firstChild==c||(b.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName=="TABLE"?b.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(a):b.parentNode.appendChild(a))})</script>
+</body>
+</html>

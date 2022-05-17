@@ -10,7 +10,16 @@
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 25 Apr 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://calvinegs.github.io/tags/jwt/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 13 May 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://calvinegs.github.io/tags/jwt/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>使用 ASP.NET Core 6 提供的 Minimal APIs 新框架建置一個極簡的 Web API 服務</title>
+      <link>https://calvinegs.github.io/posts/dotnet6-minimalapi-jwt/</link>
+      <pubDate>Fri, 13 May 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://calvinegs.github.io/posts/dotnet6-minimalapi-jwt/</guid>
+      <description>在 ASP.NET Core 提供 Minimal APIs 新框架前，你使用的是 MVC 框架，比起 Node.js &#43; Express MVC 框架是顯得煩複許多，也許你只是一個提供極簡 rest web api 服務如：Microservices，但你還是得先建好必要的程式架構才能開始你的程式撰寫，有了 Minimal APIs 新框架後一切都變得簡單了</description>
+    </item>
+    
     <item>
       <title>使用 Node.js &#43; express 建立一個電子商務後端服務的 REST API</title>
       <link>https://calvinegs.github.io/posts/nodejs-restapi-example/</link>
@@ -18,15 +27,6 @@
       
       <guid>https://calvinegs.github.io/posts/nodejs-restapi-example/</guid>
       <description>Node.js &#43; express 來建立 REST API 服務，同時為提高網路安全性採取了 JWT JSON Web Token）來實作使用者驗證機制。而資料庫的部份是使用 MongoDB，但為方便起見，採直接使用MongoDB Cloud Services。</description>
-    </item>
-    
-    <item>
-      <title>ASP.NET Core 6 Web API 使用 Dapper ORM 連結 Oracle</title>
-      <link>https://calvinegs.github.io/posts/dotnet6-webapi-oracle-dapper/</link>
-      <pubDate>Fri, 28 Jan 2022 00:00:00 +0000</pubDate>
-      
-      <guid>https://calvinegs.github.io/posts/dotnet6-webapi-oracle-dapper/</guid>
-      <description>採用 Dapper 這個小而美的 ORM 架構並以 Repository Pattern 來撰寫 ASP.NET Core 6 Web Api</description>
     </item>
     
     <item>
