@@ -76,6 +76,18 @@
 </header>
 <article class="post-entry tag-entry">
 <header class=entry-header>
+<h2>Run SQL Server container images with Docker
+</h2>
+</header>
+<section class=entry-content>
+<p>如何在 Ubuntu 中使用 Docker 啟動 MS SQL Server 2019 參考資料：　https://docs.microsoft.com/en-us/sql/linux/quickstart-install-connect-docker?view=sql-server-ver15&pivots=cs1-bash
+首先當然在你的作業系統中必須先安裝好 Docker 下載　SQL Server Image file $ sudo docker pull mcr.microsoft.com/mssql/server:2019-latest $ docker images REPOSITORY TAG IMAGE ID CREATED SIZE mcr.microsoft.com/mssql/server 2019-latest f554c0722914 4 weeks ago 1.64GB 使用 Docker 把 SQL Server image file 啟動 $ docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=Sql@1234" \ -p 1433:1433 --name sql1 -h sql1 \ -d mcr.microsoft.com/mssql/server:2019-latest $ docker ps CONTAINER ID IMAGE COMMAND CREATED STATUS PORTS NAMES 36c9fe84ea3e mcr....</p>
+</section>
+<footer class=entry-footer><span title="2022-05-19 00:00:00 +0000 UTC">May 19, 2022</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;Theme PaperMod</footer>
+<a class=entry-link aria-label="post link to Run SQL Server container images with Docker" href=https://calvinegs.github.io/posts/sqlserver2019-docker/></a>
+</article>
+<article class="post-entry tag-entry">
+<header class=entry-header>
 <h2>Ubuntu 終端機常用快速鍵
 </h2>
 </header>

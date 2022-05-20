@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>Ubuntu on 永誌不忘 • 筆記簿</title>
-    <link>https://calvinegs.github.io/tags/ubuntu/</link>
-    <description>Recent content in Ubuntu on 永誌不忘 • 筆記簿</description>
+    <title>SQL Server on 永誌不忘 • 筆記簿</title>
+    <link>https://calvinegs.github.io/tags/sql-server/</link>
+    <description>Recent content in SQL Server on 永誌不忘 • 筆記簿</description>
     <image>
       <url>https://calvinegs.github.io/papermod-cover.png</url>
       <link>https://calvinegs.github.io/papermod-cover.png</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 19 May 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://calvinegs.github.io/tags/ubuntu/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 19 May 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://calvinegs.github.io/tags/sql-server/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Run SQL Server container images with Docker</title>
       <link>https://calvinegs.github.io/posts/sqlserver2019-docker/</link>
@@ -18,15 +18,6 @@
       
       <guid>https://calvinegs.github.io/posts/sqlserver2019-docker/</guid>
       <description>在開發的環境中我們常會需要搭配資料庫，而常見的資料庫管理系統種類、版本繁多，如果搭直接安裝在 local 端作業系統中，可能會造成開發環境混亂，其中採 Docker 方式來安裝測試用資料庫的方式是一個不錯的解決方案</description>
-    </item>
-    
-    <item>
-      <title>Ubuntu 終端機常用快速鍵</title>
-      <link>https://calvinegs.github.io/posts/terminal-shortcuts/</link>
-      <pubDate>Tue, 22 Mar 2022 00:00:00 +0000</pubDate>
-      
-      <guid>https://calvinegs.github.io/posts/terminal-shortcuts/</guid>
-      <description>在 Linux 環境中最常用的有概是 ‘終端機’ （Terminal）了，使用快速鍵更能幫助你加快了日常的工作</description>
     </item>
     
   </channel>
