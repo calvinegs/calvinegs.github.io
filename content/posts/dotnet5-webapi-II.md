@@ -9,7 +9,7 @@ categories: ["webapi"]
 
 在另一篇筆記中 *[ASP.NET Core 5 Web API - 從無到有](https://calvinegs.github.io/posts/dotnet5-webapi/)* 已經了解如何從無到有 使用 Dotnet core 5.0 建立 一個 Web API，本篇筆記將以此有基礎來記錄如何使用 Asp.Net Core Identity framework 及 JWT 來建置一個簡單又安全的 "使用者權限管理"功能。
 
-*[github Source code #tag: web_api](https://github.com/calvinegs/DotNet-Web-Api-5.git)*
+*[github Source code #tag: identity_jwt](https://github.com/calvinegs/DotNet-Web-Api-5/tree/identity_jwt)*
 
 ## 使用 Asp.Net Core Identity framework 來管理使用者使用權限
 
@@ -48,7 +48,7 @@ $ dotnet add package Microsoft.AspNetCore.Identity.UI --version 5.0.13
 - 使用 AspNetCore Identity，則 DataContext (ApiDbContext.cs 中) 必須要繼承
   IdentityDbContext， 同時 Model creationg 時要改成呼叫 base.OnModelCreation
 
-```cs  {hl_lines=[1,3,13],linenostart=1}
+```cs {linenos=table,hl_lines=[1,3,13],linenostart=1}
 public partial class ApiDbContext : IdentityDbContext
 {
     public DbSet<ItemData> ItemData { get; set; }
@@ -271,6 +271,8 @@ $ dotnet add package Microsoft.IdentityModel.Tokens --version 6.11.1
 
 ## 產生合法有效的 JWT Token
 
+> 在前述的　Controller 程式(Controllers/AuthManagementControll.cs)中加入 GenerateJwtToken Function
+
 ```cs
 private string GenerateJwtToken(IdentityUser user)
 {
@@ -298,6 +300,112 @@ private string GenerateJwtToken(IdentityUser user)
     return jwtToken;
 }
 ```
+
+> 並在 Login & Register function 中去呼叫　GenerateJwtToken function，並回傳 Token ()
+
+```cs {linenos=table,hl_lines=[25,30,84,89],linenostart=1}
+        [HttpPost]
+        [Route("Register")]
+        public async Task<IActionResult> Register([FromBody] UserRegistrationDto user)
+        {
+            if (ModelState.IsValid)
+            {
+                // We can utilise the model
+                var existingUser = await _userManager.FindByEmailAsync(user.Email);
+
+                if (existingUser != null)
+                {
+                    return BadRequest(new RegistrationResponse()
+                    {
+                        Errors = new List<string>() {
+                                "Email already in use"
+                            },
+                        Success = false
+                    });
+                }
+
+                var newUser = new IdentityUser() { Email = user.Email, UserName = user.Username };
+                var isCreated = await _userManager.CreateAsync(newUser, user.Password);
+                if (isCreated.Succeeded)
+                {
+                    var jwtToken = GenerateJwtToken(newUser);
+
+                    return Ok(new RegistrationResponse()
+                    {
+                        Success = true,
+                        Token = jwtToken
+                    });
+                }
+                else
+                {
+                    return BadRequest(new RegistrationResponse()
+                    {
+                        Errors = isCreated.Errors.Select(x => x.Description).ToList(),
+                        Success = false
+                    });
+                }
+            }
+
+            return BadRequest(new RegistrationResponse()
+            {
+                Errors = new List<string>() {
+                        "Invalid payload"
+                    },
+                Success = false
+            });
+        }
+
+        [HttpPost]
+        [Route("Login")]
+        public async Task<IActionResult> Login([FromBody] UserLoginRequest user)
+        {
+            if (ModelState.IsValid)
+            {
+                var existingUser = await _userManager.FindByEmailAsync(user.Email);
+
+                if (existingUser == null)
+                {
+                    return BadRequest(new RegistrationResponse()
+                    {
+                        Errors = new List<string>() {
+                                "Invalid login request"
+                            },
+                        Success = false
+                    });
+                }
+
+                var isCorrect = await _userManager.CheckPasswordAsync(existingUser, user.Password);
+
+                if (!isCorrect)
+                {
+                    return BadRequest(new RegistrationResponse()
+                    {
+                        Errors = new List<string>() {
+                            "Invalid login request"
+                        },
+                        Success = false
+                    });
+                }
+
+                var jwtToken = GenerateJwtToken(existingUser);
+
+                return Ok(new RegistrationResponse()
+                {
+                    Success = true,
+                    Token = jwtToken
+                });
+            }
+
+            return BadRequest(new RegistrationResponse()
+            {
+                Errors = new List<string>() {
+                        "Invalid payload"
+                    },
+                Success = false
+            });
+        }
+```
+
 
 ## 驗證合法有效的 JWT Token
 
@@ -335,7 +443,7 @@ namespace Todo5.Helpers
 }
 ```
 
-再在 Startup.cs 檔案中注入 "驗證合法有效 JWT Token 的功能"
+再到 Startup.cs 檔案中注入 "驗證合法有效 JWT Token 的功能"
 
 ```cs
 // 開始: 為 JWT 新增的程式碼

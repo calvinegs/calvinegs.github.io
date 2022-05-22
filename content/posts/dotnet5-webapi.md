@@ -6,7 +6,7 @@ description: "使用 ASP.NET Core 5.0 一步步從無到有 建立一個簡易�
 tags: ["dotnet 5", "webapi"]
 categories: ["webapi"]
 ---
-*[github Source code #tag: identity_jwt](https://github.com/calvinegs/DotNet-Web-Api-5.git)*
+*[github Source code #tag: web_api](https://github.com/calvinegs/DotNet-Web-Api-5/tree/web_api)*
 
 本文將記錄如何一步步從無到有使用 Dotnet Core 5.0 建立 ASP.NET Core 5 Web API，其中將會使用到下列技術:
  - Dotnet cli
