@@ -76,6 +76,19 @@
 </header>
 <article class="post-entry tag-entry">
 <header class=entry-header>
+<h2>使用 .NET 6.0 進行 JWT 身份驗證的 ASP.NET Web Api。並使用 Microsoft Identity 框架來存儲使用者和角色等資料
+</h2>
+</header>
+<section class=entry-content>
+<p>github Source code #tag: minimal_webapi_jwt
+本文將記錄如何一步步從無到有使用 Dotnet Core 6.0 建立 ASP.NET Core Web API，其中將會使用到下列技術:
+Dotnet CLI Entity Framework Json Web Token SQL Server (Docker Version) ASP.NET Core Generator 建立新專案 $ dotnet new webapi -o dotnet6-webapi-jwt 範本「ASP.NET Core Web API」已成功建立。 正在處理建立後的動作... 正在 /home/egs/cal-data/tech-test/webapi/dotnet6-webapi-jwt/dotnet6-webapi-jwt.csproj 上執行 'dotnet restore'... 正在判斷要還原的專案... 已還原 /home/egs/cal-data/tech-test/webapi/dotnet6-webapi-jwt/dotnet6-webapi-jwt.csproj (238 ms 內)。 還原成功。 $ cd dotnet6-webapi-jwt $ ls -al 總用量 40 drwxrwxr-x 5 egs egs 4096 五 20 09:38 ....</p>
+</section>
+<footer class=entry-footer><span title="2022-05-20 00:00:00 +0000 UTC">May 20, 2022</span>&nbsp;·&nbsp;11 min&nbsp;·&nbsp;Theme PaperMod</footer>
+<a class=entry-link aria-label="post link to 使用 .NET 6.0 進行 JWT 身份驗證的 ASP.NET Web Api。並使用 Microsoft Identity 框架來存儲使用者和角色等資料" href=https://calvinegs.github.io/posts/dotnet6-webapi-jwt/></a>
+</article>
+<article class="post-entry tag-entry">
+<header class=entry-header>
 <h2>使用 ASP.NET Core 6 提供的 Minimal APIs 新框架建置一個極簡的 Web API 服務
 </h2>
 </header>
@@ -106,12 +119,12 @@
 </header>
 <section class=entry-content>
 <p>在另一篇筆記中 ASP.NET Core 5 Web API - 從無到有 已經了解如何從無到有 使用 Dotnet core 5.0 建立 一個 Web API，本篇筆記將以此有基礎來記錄如何使用 Asp.Net Core Identity framework 及 JWT 來建置一個簡單又安全的 “使用者權限管理"功能。
-github Source code #tag: web_api
+github Source code #tag: identity_jwt
 使用 Asp.Net Core Identity framework 來管理使用者使用權限 ASP.NET Core Identity:
 支援使用者介面 (UI) 登入功能的 API。 管理使用者、密碼、設定檔資料、角色、宣告、權杖、電子郵件確認等。 ASP.Net Core Identity Framework 是一個很方便且還算完善的使用權限管理架構。
 安裝給 AspNetCore Idendity Framework 使用的相關套件 $ dotnet add package Microsoft.AspNetCore.Identity.EntityFrameworkCore --version 5.0.13 $ dotnet add package Microsoft.AspNetCore.Identity.UI --version 5.0.13 除了安裝相關套件外，還要調整相關程式:...</p>
 </section>
-<footer class=entry-footer><span title="2022-01-20 00:00:00 +0000 UTC">January 20, 2022</span>&nbsp;·&nbsp;5 min&nbsp;·&nbsp;Theme PaperMod</footer>
+<footer class=entry-footer><span title="2022-01-20 00:00:00 +0000 UTC">January 20, 2022</span>&nbsp;·&nbsp;7 min&nbsp;·&nbsp;Theme PaperMod</footer>
 <a class=entry-link aria-label="post link to ASP.NET Core 5 Web API 加入權限管理 (Dotnet Core Identity Framework + JWT)" href=https://calvinegs.github.io/posts/dotnet5-webapi-ii/></a>
 </article>
 <article class="post-entry tag-entry">
@@ -120,7 +133,7 @@ github Source code #tag: web_api
 </h2>
 </header>
 <section class=entry-content>
-<p>github Source code #tag: identity_jwt
+<p>github Source code #tag: web_api
 本文將記錄如何一步步從無到有使用 Dotnet Core 5.0 建立 ASP.NET Core 5 Web API，其中將會使用到下列技術:
 Dotnet cli Entity Framework Sqlite ASP.NET Core Generator 使用 dotnet cli 建立專案 $ dotnet --version # 檢查 dotnet 版本，目前版本為: 5.0.201 $ dotnet new webapi -n "Todo5" && cd "Todo5" $ ls # 查看 專案檔案結構 $ dotnet new gitignore # 使用 dotnet cli 來產生預設的 git ignore 檔案 建立 git 初始版本 $ git init && git add ....</p>
 </section>
