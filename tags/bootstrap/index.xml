@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>angular on 永誌不忘 • 筆記簿</title>
-    <link>https://calvinegs.github.io/categories/angular/</link>
-    <description>Recent content in angular on 永誌不忘 • 筆記簿</description>
+    <title>bootstrap on 永誌不忘 • 筆記簿</title>
+    <link>https://calvinegs.github.io/tags/bootstrap/</link>
+    <description>Recent content in bootstrap on 永誌不忘 • 筆記簿</description>
     <image>
       <url>https://calvinegs.github.io/papermod-cover.png</url>
       <link>https://calvinegs.github.io/papermod-cover.png</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 28 May 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://calvinegs.github.io/categories/angular/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 28 May 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://calvinegs.github.io/tags/bootstrap/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>使用 Angular 13 建立 Reactive Form 表單驗證範例</title>
       <link>https://calvinegs.github.io/posts/angular-formvalidate/</link>
@@ -18,15 +18,6 @@
       
       <guid>https://calvinegs.github.io/posts/angular-formvalidate/</guid>
       <description>在這個範例中可以看到使用 Angular Reactive Form 搭配 Bootstrip UI Framework 所建立的　｀使用者資料註冊｀　功能，同時實現一個簡易版的｀自定驗證器｀(custome validator)</description>
-    </item>
-    
-    <item>
-      <title>Angular cli 與 Node.js 版本對照</title>
-      <link>https://calvinegs.github.io/posts/ngcli-nodejs-verion/</link>
-      <pubDate>Wed, 08 Dec 2021 00:00:00 +0000</pubDate>
-      
-      <guid>https://calvinegs.github.io/posts/ngcli-nodejs-verion/</guid>
-      <description>Angular &amp;amp; cli 與 Node.js &amp;amp; TypeScript 版本對照表</description>
     </item>
     
   </channel>
