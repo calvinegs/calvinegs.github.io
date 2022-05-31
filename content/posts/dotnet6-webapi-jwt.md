@@ -15,7 +15,7 @@ categories: ["webapi"]
 - SQL Server (Docker Version)
 - ASP.NET Core Generator
 
-## 建立新專案
+## 建置新專案
 
 ```bash
 $ dotnet new webapi -o dotnet6-webapi-jwt
@@ -80,7 +80,7 @@ $ dotnet new gitignore
 $ git init && git add . && git commit -m "Initial commit"
 ```
 
-## 安裝本機工具
+### 安裝本機工具
 
 此方式安裝的工具，僅限本機存取(只針對目前的目錄和子目錄)， 首先透過 dotnet new tool-manifest 命令來產生工具資訊清單檔，再使用 dotnet tool install 來安裝各式工具程式。這樣的方式好處是在專案若多人協助方式時，則可利用 dotnet tool restore 命令將紀錄在 .config/dotnet-tools.json 的工具資訊清單檔重建在不同協助人員的電腦中。
 
@@ -114,7 +114,7 @@ $  cat .\.config\dotnet-tools.json # 查看安裝上述二項工具後的設定�
 }
 ```
 
-## 安裝程式使用的相關套件
+### 安裝程式使用的相關套件
 
 ```bash
 $ dotnet add package Microsoft.EntityFrameworkCore.Tools #使用 dotnet Entity Framework時必須安裝此套件
@@ -160,7 +160,7 @@ $ cat dotnet6-webapi-jwt.csproj #查看 安裝套件的相關設定值
 </Project>
 ```
 
-## 建立 git 新版本
+### 建立 git 新版本
 
 ```bash
 $ git add . && git commit -m "Add EFCore NuGet packages"
@@ -188,7 +188,9 @@ $ code .
 ![2022-05-20 10-14-27](https://user-images.githubusercontent.com/21993717/169435113-7c2de7af-6faf-49dd-a58e-2d1e7fdf971e.png)
 
 
-## 新增 database context (自動產生)
+## 設置使用 Entity Framework相關設定
+
+### 新增 database context (自動產生)
 
 > 使用 dotnet ef 工具在專案目錄 ./Data 子目錄下新建立一個 ApiDbContext.cs 的 DB Context file
 
@@ -274,7 +276,7 @@ namespace dotnet6_webapi_jwt.Data
 }
 ```
 
-## 使用 Asp.Net Core Identity framework 來管理使用者使用權限
+### 使用 Asp.Net Core Identity framework 來管理使用者使用權限
 
 ASP.NET Core Identity:
 
@@ -283,7 +285,7 @@ ASP.NET Core Identity:
 
 ASP.Net Core Identity Framework 是一個方便且還完善的使用權限管理架構。
 
-## 將相關 Asp.Net Core Identity framework 功能注入到 container 中
+### 將相關 Asp.Net Core Identity framework 功能注入到 container 中
 
 除了安裝相關套件外，還要調整相關程式:
 
@@ -323,7 +325,7 @@ public partial class ApiDbContext : IdentityDbContext<IdentityUser>
 }
 ```
 
-## 新增一個 entity framework 遷移 並 更新資料庫
+### 新增一個 entity framework 遷移 並 更新資料庫
 
 完成上述程式調整後，來執行資料庫遷移(migrations)
 
@@ -349,14 +351,30 @@ Done. To undo this action, use 'ef migrations remove'
 ![image](https://user-images.githubusercontent.com/21993717/169503362-b93426a4-117a-43ea-be0a-cff9a758c669.png)
 
 
-## 建立 git 新版本
+### 建立 git 新版本
 
 ```bash
 $ git add . && git commit -m "新增一個 entity framework 遷移 並 更新資料庫"
 ```
 
+## 使用 Jason Web Token 
 
-## 新增 使用者註冊和登入時使用的 Data model class (Models/AuthenticateData.cs)
+### 在 appsettings.json 中自定JWT實作會使用到的設定值
+```json {linenos=table,hl_lines=["7-12]}
+{
+// ...  
+  "ConnectionStrings": {
+    "ConnStr": "Data Source=localhost;Initial Catalog=TestDB;User ID=SA;Password=Sql@12345"
+  },
+  "JwtSettings": {
+    "ValidIssuer": "Dotnet6WebApiDemo",
+    "ValidAudience": "Dotnet6WebApiDemo",
+    "Secret": "Dotnet6 WebApi Demo. Using Json Web Token Technology to keep user info."
+  }
+}
+```
+
+### 新增 使用者註冊和登入時使用的 Data model class (Models/AuthenticateData.cs)
 
 ```cs
 using System.ComponentModel.DataAnnotations;
@@ -399,22 +417,8 @@ public static class UserRoles
 }
 ```
 
-## 在 appsettings.json 中自定JWT實作會使用到的設定值
-```json {linenos=table,hl_lines=["7-12]}
-{
-// ...  
-  "ConnectionStrings": {
-    "ConnStr": "Data Source=localhost;Initial Catalog=TestDB;User ID=SA;Password=Sql@12345"
-  },
-  "JwtSettings": {
-    "ValidIssuer": "Dotnet6WebApiDemo",
-    "ValidAudience": "Dotnet6WebApiDemo",
-    "Secret": "Dotnet6 WebApi Demo. Using Json Web Token Technology to keep user info."
-  }
-}
-```
+### 新增 註冊和登入邏輯 (Controllers/AuthenticateControll.cs)
 
-## 新增 註冊和登入邏輯 (Controllers/AuthenticateControll.cs)
 ```cs
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -564,20 +568,25 @@ public class AuthenticateController : ControllerBase
 - 每次收到 request 時驗證是否為合法有效的 JWT Token
 - 在特定 API Endpoint 上驗證是否帶有 “合法有效的 JWT Token”，以達到權限管理的需求
 
-## 産生合法的 Jason Web Token
+### 産生合法的 Jason Web Token
 
 > 在上述 AuthenticateController.cs 程式中，我們建立一個 CreateToken() 的 function，並在登入檢核成功時産生一個 token 回傳。
 
 ![image](https://user-images.githubusercontent.com/21993717/169645083-9cbe450b-e30e-490e-8b66-1c05ea0c9a31.png)
 
 
-## 設置驗證是否為合法有效的 JWT Token
+### 設置驗證是否為合法有效的 JWT Token
 
 > 第一步，透過 DI 將 JWT 相關設定設置好
 
 ```cs
-builder.Services
-    .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+builder.Services.AddAuthentication(options =>
+    {
+        options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+        options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+
+    })
     .AddJwtBearer(options =>
     {
         // 當驗證失敗時，回應標頭會包含 WWW-Authenticate 標頭，這裡會顯示失敗的詳細錯誤原因
@@ -617,7 +626,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 ```
 
-## 在特定 API EndPoint 上驗證是否帶有合法有效的 JWT Token
+### 在特定 API EndPoint 上驗證是否帶有合法有效的 JWT Token
 
 > 在 WeatherForecastController.cs Get() function 上加入`[Authorize]` 即可
 
@@ -650,7 +659,7 @@ app.UseAuthorization();
 ![image](https://user-images.githubusercontent.com/21993717/169676250-eab03c8e-ce1e-4ef5-ac35-15026d058821.png)
 
 
-## 使用 OpenApi Swagger 來測試 API
+### 使用 OpenApi Swagger 來測試 API
 
 > OpenApi Swagger 來測試 API時, 因為　Swagger 測試網頁預設是沒有設定 Token 的功能,必須將程式碼中的 `builder.Services.AddSwaggerGen();`改成以下內容
 
@@ -707,7 +716,7 @@ builder.Services.AddSwaggerGen(c =>
     }
 ```
 
-> 加入 git 版本控制
+### 加入 git 版本控制
 
 ```bash
 $ git commit -m "finished JWT function" -a
