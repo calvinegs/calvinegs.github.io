@@ -76,6 +76,21 @@
 </header>
 <article class="post-entry tag-entry">
 <header class=entry-header>
+<h2>使用 .NET 6.0 進行 JWT 身份驗證的 ASP.NET Web Api。並使用 Microsoft Identity 框架來存儲使用者和角色等資料（使用 PostgresSQL）
+</h2>
+</header>
+<section class=entry-content>
+<p>github Source code
+在之前的筆記中 使用 .NET 6.0 進行 JWT 身份驗證的 ASP.NET Web Api。並使用 Microsoft Identity 框架來存儲使用者和角色等資料 已仔細的紀錄如何使用 .Net 6.0 來建置一個支援 JWT ＆ Identity framework 的 WebApi 網站應用程式，在該篇筆記中所使用的資料庫是 MS SQL 2019，而這篇筆記裡將紀錄如何將它改成支援 PostgresSQL。
+若你還沒有安裝 PostgresSQL 可以參考這筆記先將資料庫管理系統備妥 使用 Docker 執行 PostgresSQL 與 pgAdmin
+git clone Example Code 先 git clone ｀使用 .NET 6.0 進行 JWT 身份驗證的 ASP.NET Web Api。並使用 Microsoft Identity 框架來存儲使用者和角色等資料｀ 這篇筆記的 Source code
+$ git clone https://github.com/calvinegs/dotnet6-webapi-jwt.git dotnet6-webapi-postgress restore 相依的套件 $ cd dotnet6-webapi-postgress $ dotnet restore 正在判斷要還原的專案....</p>
+</section>
+<footer class=entry-footer><span title="2022-06-02 00:00:00 +0000 UTC">June 2, 2022</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;Theme PaperMod</footer>
+<a class=entry-link aria-label="post link to 使用 .NET 6.0 進行 JWT 身份驗證的 ASP.NET Web Api。並使用 Microsoft Identity 框架來存儲使用者和角色等資料（使用 PostgresSQL）" href=https://calvinegs.github.io/posts/dotnet6-webapi-jwt-postgres/></a>
+</article>
+<article class="post-entry tag-entry">
+<header class=entry-header>
 <h2>使用 .NET 6.0 進行 JWT 身份驗證的 ASP.NET Web Api。並使用 Microsoft Identity 框架來存儲使用者和角色等資料
 </h2>
 </header>
@@ -127,19 +142,11 @@ github Source code #tag: identity_jwt
 <footer class=entry-footer><span title="2022-01-20 00:00:00 +0000 UTC">January 20, 2022</span>&nbsp;·&nbsp;7 min&nbsp;·&nbsp;Theme PaperMod</footer>
 <a class=entry-link aria-label="post link to ASP.NET Core 5 Web API 加入權限管理 (Dotnet Core Identity Framework + JWT)" href=https://calvinegs.github.io/posts/dotnet5-webapi-ii/></a>
 </article>
-<article class="post-entry tag-entry">
-<header class=entry-header>
-<h2>ASP.NET Core 5 Web API - 從無到有
-</h2>
-</header>
-<section class=entry-content>
-<p>github Source code #tag: web_api
-本文將記錄如何一步步從無到有使用 Dotnet Core 5.0 建立 ASP.NET Core 5 Web API，其中將會使用到下列技術:
-Dotnet cli Entity Framework Sqlite ASP.NET Core Generator 使用 dotnet cli 建立專案 $ dotnet --version # 檢查 dotnet 版本，目前版本為: 5.0.201 $ dotnet new webapi -n "Todo5" && cd "Todo5" $ ls # 查看 專案檔案結構 $ dotnet new gitignore # 使用 dotnet cli 來產生預設的 git ignore 檔案 建立 git 初始版本 $ git init && git add ....</p>
-</section>
-<footer class=entry-footer><span title="2022-01-11 00:00:00 +0000 UTC">January 11, 2022</span>&nbsp;·&nbsp;4 min&nbsp;·&nbsp;Theme PaperMod</footer>
-<a class=entry-link aria-label="post link to ASP.NET Core 5 Web API - 從無到有" href=https://calvinegs.github.io/posts/dotnet5-webapi/></a>
-</article>
+<footer class=page-footer>
+<nav class=pagination>
+<a class=next href=https://calvinegs.github.io/tags/webapi/page/2/>Next Page »</a>
+</nav>
+</footer>
 </main>
 <footer class=footer>
 <span>&copy; 2022 <a href=https://calvinegs.github.io/>永誌不忘 • 筆記簿</a></span>

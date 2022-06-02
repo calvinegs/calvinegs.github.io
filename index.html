@@ -91,6 +91,21 @@
 </article>
 <article class=post-entry>
 <header class=entry-header>
+<h2>使用 .NET 6.0 進行 JWT 身份驗證的 ASP.NET Web Api。並使用 Microsoft Identity 框架來存儲使用者和角色等資料（使用 PostgresSQL）
+</h2>
+</header>
+<section class=entry-content>
+<p>github Source code
+在之前的筆記中 使用 .NET 6.0 進行 JWT 身份驗證的 ASP.NET Web Api。並使用 Microsoft Identity 框架來存儲使用者和角色等資料 已仔細的紀錄如何使用 .Net 6.0 來建置一個支援 JWT ＆ Identity framework 的 WebApi 網站應用程式，在該篇筆記中所使用的資料庫是 MS SQL 2019，而這篇筆記裡將紀錄如何將它改成支援 PostgresSQL。
+若你還沒有安裝 PostgresSQL 可以參考這筆記先將資料庫管理系統備妥 使用 Docker 執行 PostgresSQL 與 pgAdmin
+git clone Example Code 先 git clone ｀使用 .NET 6.0 進行 JWT 身份驗證的 ASP.NET Web Api。並使用 Microsoft Identity 框架來存儲使用者和角色等資料｀ 這篇筆記的 Source code
+$ git clone https://github.com/calvinegs/dotnet6-webapi-jwt.git dotnet6-webapi-postgress restore 相依的套件 $ cd dotnet6-webapi-postgress $ dotnet restore 正在判斷要還原的專案....</p>
+</section>
+<footer class=entry-footer><span title="2022-06-02 00:00:00 +0000 UTC">June 2, 2022</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;Theme PaperMod</footer>
+<a class=entry-link aria-label="post link to 使用 .NET 6.0 進行 JWT 身份驗證的 ASP.NET Web Api。並使用 Microsoft Identity 框架來存儲使用者和角色等資料（使用 PostgresSQL）" href=https://calvinegs.github.io/posts/dotnet6-webapi-jwt-postgres/></a>
+</article>
+<article class=post-entry>
+<header class=entry-header>
 <h2>使用 Docker 執行 PostgresSQL 與 pgAdmin
 </h2>
 </header>
@@ -140,19 +155,6 @@ Dotnet CLI Entity Framework Json Web Token SQL Server (Docker Version) ASP.NET C
 </section>
 <footer class=entry-footer><span title="2022-05-19 00:00:00 +0000 UTC">May 19, 2022</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;Theme PaperMod</footer>
 <a class=entry-link aria-label="post link to Run SQL Server container images with Docker" href=https://calvinegs.github.io/posts/sqlserver2019-docker/></a>
-</article>
-<article class=post-entry>
-<header class=entry-header>
-<h2>使用 ASP.NET Core 6 提供的 Minimal APIs 新框架建置一個極簡的 Web API 服務
-</h2>
-</header>
-<section class=entry-content>
-<p>github Source code #tag: minimal_webapi_jwt
-本篇筆記中將紀錄如何使用 ASP.NET Core 6 提供的 Minimal APIs 新框架建置一個使用 Token-base 身份驗證的 Web API 網站。
-建立新專案 $ dotnet new webapi -o JwtAuthDemo -minimal 範本「ASP.NET Core Web API」已成功建立。 正在處理建立後的動作... 正在 /home/egs/cal-data/tech-test/webapi/Minimal/JwtAuthDemo/JwtAuthDemo.csproj 上執行 'dotnet restore'... 正在判斷要還原的專案... 已還原 /home/egs/cal-data/tech-test/webapi/Minimal/JwtAuthDemo/JwtAuthDemo.csproj (214 ms 內)。 還原成功。 $ cd JwtAuthDemo $ ls -al 總用量 32 drwxrwxr-x 4 egs egs 4096 五 13 18:36 . drwxrwxr-x 7 egs egs 4096 五 13 18:36 .. -rw-rw-r-- 1 egs egs 127 五 13 18:36 appsettings....</p>
-</section>
-<footer class=entry-footer><span title="2022-05-13 00:00:00 +0000 UTC">May 13, 2022</span>&nbsp;·&nbsp;6 min&nbsp;·&nbsp;Theme PaperMod</footer>
-<a class=entry-link aria-label="post link to 使用 ASP.NET Core 6 提供的 Minimal APIs 新框架建置一個極簡的 Web API 服務" href=https://calvinegs.github.io/posts/dotnet6-minimalapi-jwt/></a>
 </article>
 <footer class=page-footer>
 <nav class=pagination>
