@@ -60,7 +60,7 @@ $ code .
 
 開啟 dotnet6-webapi-jwt.csproj 專案檔可發現已採用 ｀Npgsql.EntityFrameworkCore.PostgreSQL｀套件。
 
-```xml{linenos=table,lines=[22]}
+```xml {linenos=table,lines=[22]}
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
@@ -91,8 +91,8 @@ $ code .
 
 ### 修改 DbContext 參數
 
-```cs
-Program.cs
+修改 Program.cs 中 DbContext 的參數設定
+
 ```cs
 builder.Services.AddDbContext<ApiDbContext>(
     options => options.UseSqlServer(
@@ -101,7 +101,7 @@ builder.Services.AddDbContext<ApiDbContext>(
 );
 ```
 
-改成
+> 改成
 
 ```cs
 builder.Services.AddDbContext<ApiDbContext>(
@@ -119,7 +119,9 @@ builder.Services.AddDbContext<ApiDbContext>(
     "ConnStr": "Data Source=localhost;Initial Catalog=TestDB;User ID=SA;Password=Sql@12345"
   },
 ```
-改成
+
+> 改成
+
 ```json
   "ConnectionStrings": {
     "ConnStr": "User ID =docker;Password=docker;Server=localhost;Port=5432;Database=pg_testdb; Integrated Security=true;Pooling=true"
@@ -127,6 +129,7 @@ builder.Services.AddDbContext<ApiDbContext>(
 ```
 
 ### 將原有專案的 Migrations 子目錄移除
+
 ```bash
 $ rm -f ./Migrations
 
