@@ -10,7 +10,52 @@
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 28 May 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://calvinegs.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 01 Jun 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://calvinegs.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>docker</title>
+      <link>https://calvinegs.github.io/tags/docker/</link>
+      <pubDate>Wed, 01 Jun 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://calvinegs.github.io/tags/docker/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>docker compose</title>
+      <link>https://calvinegs.github.io/tags/docker-compose/</link>
+      <pubDate>Wed, 01 Jun 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://calvinegs.github.io/tags/docker-compose/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>pgadmin</title>
+      <link>https://calvinegs.github.io/tags/pgadmin/</link>
+      <pubDate>Wed, 01 Jun 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://calvinegs.github.io/tags/pgadmin/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>PostgresSQL</title>
+      <link>https://calvinegs.github.io/tags/postgressql/</link>
+      <pubDate>Wed, 01 Jun 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://calvinegs.github.io/tags/postgressql/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Ubuntu</title>
+      <link>https://calvinegs.github.io/tags/ubuntu/</link>
+      <pubDate>Wed, 01 Jun 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://calvinegs.github.io/tags/ubuntu/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>angular</title>
       <link>https://calvinegs.github.io/tags/angular/</link>
@@ -44,15 +89,6 @@
       <pubDate>Sat, 28 May 2022 00:00:00 +0000</pubDate>
       
       <guid>https://calvinegs.github.io/tags/reactive-form/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>docker</title>
-      <link>https://calvinegs.github.io/tags/docker/</link>
-      <pubDate>Fri, 20 May 2022 00:00:00 +0000</pubDate>
-      
-      <guid>https://calvinegs.github.io/tags/docker/</guid>
       <description></description>
     </item>
     
@@ -116,15 +152,6 @@
       <pubDate>Thu, 19 May 2022 00:00:00 +0000</pubDate>
       
       <guid>https://calvinegs.github.io/tags/sql-server/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Ubuntu</title>
-      <link>https://calvinegs.github.io/tags/ubuntu/</link>
-      <pubDate>Thu, 19 May 2022 00:00:00 +0000</pubDate>
-      
-      <guid>https://calvinegs.github.io/tags/ubuntu/</guid>
       <description></description>
     </item>
     
