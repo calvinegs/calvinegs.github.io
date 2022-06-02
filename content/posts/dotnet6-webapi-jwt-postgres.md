@@ -60,7 +60,7 @@ $ code .
 
 開啟 dotnet6-webapi-jwt.csproj 專案檔可發現已採用 ｀Npgsql.EntityFrameworkCore.PostgreSQL｀套件。
 
-```xml {linenos=table,lines=[22]}
+```xml {linenos=table,hl_lines=[22]}
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
