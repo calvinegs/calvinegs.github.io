@@ -111,7 +111,7 @@ export class AppModule { }
 
 > 由於 bootstrap 4 & 5 兩個版本語法有相異處，在範例中將展示不同的寫法
 
-```html　{linenos=table,hl_lines=[9,10]}
+```html {linenos=table,hl_lines=[9,10]}
 <!doctype html>
 <html lang="en">
 <head>
@@ -133,7 +133,7 @@ export class AppModule { }
 > 1.1 先使用 npm install 將 bootstrap 安裝到專案的 node_modules 目錄下
 
 ```bash {linenos=table,hl_lines=[2,10]}
-# 下述版本二擇一
+# 上述版本二擇一
 $ npm install bootstarp@4.6.1
 npm WARN deprecated popper.js@1.16.1: You can find the new Popper v2 at @popperjs/core, this package is dedicated to the legacy v1
 
