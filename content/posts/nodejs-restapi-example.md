@@ -281,6 +281,7 @@ app.listen(process.env.PORT || 5000, ()=>{
 ![image](https://user-images.githubusercontent.com/21993717/165530808-cf061695-7587-4b4a-8201-3dc5a81e6329.png)
 
 > 執行成功後，查看 MongoDB 資料庫的結果：
+
 ![image](https://user-images.githubusercontent.com/21993717/165541279-4867d57f-e13a-46fe-b6a9-8ecac198b379.png)
 
 ### 使用 crypto.js 來為敏感資料加密
@@ -301,7 +302,7 @@ MONGO_URL=mongodb+srv://cal.........
 PASS_SEC=cal
 ```
 加密後的 password 如下：
-```json {linenos=table,hl_lines=[3]}
+```json {linenos=table,hl_lines=[4]}
 {
     "username": "calvin",
     "email": "cal@gmail.com",
@@ -336,6 +337,7 @@ router.post("/login", async (req, res) => {
 
 ```
 > 使用 postman 來執行 Login
+
 ![image](https://user-images.githubusercontent.com/21993717/165663154-a7bf03ff-4676-42a0-8d36-43ef9a51a181.png)
 
 > 上圖的 User 回傳資料中為安全起見，應該把 password 欄位隱蔵起來。透過javascript 解構語法很容易就可完成這個需求。
@@ -482,6 +484,7 @@ router.put("/:id", verifyTokenAndAuthorization, async (req, res) => {
 module.exports = router;
 ```
 > 先取得 user collection 第一個 document 的 key id
+
 ![image](https://user-images.githubusercontent.com/21993717/165723311-a70b9768-55b1-4cfa-9357-ed0a56e18349.png)
 
 > 在 postman 新增一個 put 的 request，URL = localhost:5000/api/users/6269f53be0bd74d778bb8934，其中的“6269f53be0bd74d778bb8934”　指的是要變更的 document 的ID。同時在Headers中新加入一個 token 的　header
@@ -537,15 +540,19 @@ router.get("/find/:id", verifyTokenAndAdmin, async (req, res) => {
 });
 ```
 > 若你使用的 token 所代表的 user isAdmin=false 的話，將回傳"非管理者不允許執行本功能！"的警告訊息。
+
 ![image](https://user-images.githubusercontent.com/21993717/165879359-1ccf574e-7b54-4986-acb2-18d0f1cd9c95.png)
 
 > 我們再新註冊一個新的使用者：
+
 ![image](https://user-images.githubusercontent.com/21993717/165879534-4c7f974d-13a8-4241-918d-0a0747e7ae03.png)
 
 > 並在 MongoDB 中把這個新使用者的isAdmin修改成true
+
 ![image](https://user-images.githubusercontent.com/21993717/165879787-719b465b-8108-4495-9ab0-6e33e6878684.png)
 
 > 使用這個帳號來登入並取後 token 值。
+
 ![image](https://user-images.githubusercontent.com/21993717/165880088-a34e6bca-7c09-4a5d-a25e-f8994ff98f8b.png)
 
 > 使用這個 token 值來呼叫 GET USER 功能就可以正常的取得要查詢的使用者資料了
