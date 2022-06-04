@@ -3,7 +3,7 @@ title: "使用 Node.js + express 建立一個電子商務後端服務的 REST AP
 date: 2022-04-25
 draft: false
 description: "Node.js + express 來建立 REST API 服務，同時為提高網路安全性採取了 JWT JSON Web Token）來實作使用者驗證機制。而資料庫的部份是使用 MongoDB，但為方便起見，採直接使用MongoDB Cloud Services。"
-tags: ["Node.js", "express", "MongoDB", "JWT"]
+tags: ["Node.js", "express", "MongoDB", "JWT", "webapi"]
 categories: ["Node.js"]
 ---
 
@@ -27,7 +27,7 @@ $ echo 'node_modules/' > .gitignore  # 新增 git ignore 設定檔，並設定 n
 $ git add . && git commit -m "Initial commit" 建立第一版本的資訊
 ```
 > 設定專案啟動指令（如第七行的指令設定），當輸入 npm start 時系統自動以 node 來執行 index.js 程式，並即時監測 index.js 檔案有變化存檔時馬上重新啟動 node index.js 來執行該程式。
-```json {hl_lines=[7],linenostart=1}
+```json {linenos=table,hl_lines=[7],linenostart=1}
 {
   "name": "ecom",
   "version": "1.0.0",
@@ -86,7 +86,7 @@ test is successful
 ![image](https://user-images.githubusercontent.com/21993717/165058844-5a1403b6-fd53-43f2-90a7-726a84f42c20.png)
 
 > 在程式中使用了 mongoose 這個套件的功能來連結 MongoDB 資料庫（第三行），並在程式第6行，connect function 中放入“連結字串”
-```js {hl_lines=[3,6],linenostart=1}
+```js {linenos=table,hl_lines=[3,6],linenostart=1}
 const express = require("express");
 const app =  express();
 const mongoose = require("mongoose");
@@ -118,7 +118,7 @@ MONGO_URL=mongodb+srv://cal...............
 ```
 - 在程式中先匯入 dotenv 套件(第1行），再“啟動它”(第2行），使用時透過 “process.env.MONGO_URL" 語法(第4行）
 - 第十行程式碼中的 process.env.PORT 為相同的原則可在 .evn 檔案中加入 PORT 的設定值調整
-```js {hl_lines=[“1-2",4,10],linenostart=1}
+```js {linenos=table,hl_lines=[“1-2",4,10],linenostart=1}
 const dotenv = require("dotenv");
 dotenv.config();
 mongoose
@@ -148,7 +148,7 @@ module.exports = router;
 
 > 在 index.js 程式中先匯入 "./routes/user" 這個 router 設定檔，再透過 app.use 語法來使用這個 router(第18行)。完整的 route 為 http://localhost:5000/api/user/usertest
 
-```js {hl_lines=[6,18],linenostart=1}
+```js {linenos=table,hl_lines=[6,18],linenostart=1}
 const express = require("express");
 const app =  express();
 const mongoose = require("mongoose");
@@ -178,7 +178,7 @@ user test is successfull
 ```
 > 為 routes/user.js 再新增一個 post method
 > 
-```js {hl_lines=["6-9"],linenostart=1}
+```js {linenos=table,hl_lines=["6-9"],linenostart=1}
 const router = require("express").Router();
 router.get("/usertest", (req, res) => {
 	res.send("user test is successful");
@@ -197,7 +197,7 @@ module.exports = router;
 ![image](https://user-images.githubusercontent.com/21993717/165109395-6fe656e9-4d12-448e-9fee-f47e4a6c6d3f.png)
 
 > 在 index.js 程式中加入如第一行的設定
-```js {hl_lines=[1],linenostart=1}
+```js {linenos=table,hl_lines=[1],linenostart=1}
 app.use(express.json());
 app.use("/api/users", userRoute);
 ```
@@ -227,7 +227,7 @@ module.exports = mongoose.model("User", UserSchema);
 
 ### 建立 auth.js router file (routes/auth.js)
 將使用者資料註冊和資用者帳號驗證的機制獨立在這個 route file 中，讓程式結構更清晰。內容如下：
-```js {hl_lines=[6,13],linenostart=1}
+```js {linenos=table,hl_lines=[6,13],linenostart=1}
 const router = require("express").Router();
 const User = require("../models/User");
 
@@ -250,7 +250,7 @@ router.post("/register", async (req, res) => {
 module.exports = router;
 ```
 > 在 index.js 引用這個新的 router
-```js {hl_lines=[7,20],linenostart=1}
+```js {linenos=table,hl_lines=[7,20],linenostart=1}
 const express = require("express");
 const app =  express();
 const mongoose = require("mongoose");
@@ -296,12 +296,12 @@ const CryptoJS = require("crypto-js");
 
 encrypt function 參數除了要加密的字串外，需要一個加密 Key，為彈性起見，把它寫在 .env 檔案中
 
-```ini {hl_lines=[2]}
+```ini {linenos=table,hl_lines=[2]}
 MONGO_URL=mongodb+srv://cal.........
 PASS_SEC=cal
 ```
 加密後的 password 如下：
-```json {hl_lines=[3]}
+```json {linenos=table,hl_lines=[3]}
 {
     "username": "calvin",
     "email": "cal@gmail.com",
@@ -396,7 +396,7 @@ res.status(200).json({ ...others, accessToken });
 
 ```
 > 依照貫例將 Json web token 的 key 值放在 .env 檔案中
-```ini {hl_lines=[3]}
+```ini {linenos=table,hl_lines=[3]}
 MONGO_URL=mongodb+srv://cal.......
 PASS_SEC=cal
 JWT_SEC=cal
@@ -409,7 +409,7 @@ JWT_SEC=cal
 在前端取得合法的 JWT Token後，來看看當使用者在呼叫其他 API 時一併回傳的 Token　如何在 server 端來進行驗證。
 
 首先我們要在 routes 目錄中新增一個名為 verifyToken.js 的 express Middleware
-```js {hl_lines=[3,17,27]}
+```js {linenos=table,hl_lines=[3,17,27]}
 const jwt = require("jsonwebtoken");
 
 const verifyToken = (req, res, next) => {
@@ -450,7 +450,7 @@ module.exports = { verifyToken, verifyTokenAndAuthorization，　verifyTokenAndA
 ```
 
 > 在 user.js　Route file 中加入 update username 的功能
-```js {hl_lines=[3,5,16]}
+```js {linenos=table,hl_lines=[3,5,16]}
 const router = require("express").Router();
 const User = require("../models/User");
 const { verifyToken, verifyTokenAndAuthorization } = require("./verifyToken");
@@ -495,7 +495,7 @@ module.exports = router;
 ![image](https://user-images.githubusercontent.com/21993717/165728220-cc81363a-c2d0-4282-851e-2edd5e92bfe5.png)
 
 > 送出 request 成功後回傳值的是修改後的 user document
-```json {hl_lines=[3]}
+```json {linenos=table,hl_lines=[3]}
 {
     "_id": "6269f53be0bd74d778bb8934",
     "username": "calUpdate",
@@ -513,7 +513,7 @@ module.exports = router;
 > 若送出 request 中包含的是不合法的 Token 則會回傳“Token不合法“。
 
 > 緊接著在 user.js　Route file 中再加入 delete user 資料的功能
-```js {hl_lines=[3]}
+```js {linenos=table,hl_lines=[3]}
 router.delete("/:id", verifyTokenAndAuthorization, async (req, res) => {
     try {
         await User.findByIdAndDelete(req.params.id);
@@ -525,7 +525,7 @@ router.delete("/:id", verifyTokenAndAuthorization, async (req, res) => {
 ```
 
 > 另外在 user.js　Route file 中再加入 get user 的功能，而執行本功能的授權檢核邏輯改成 verifyTokenAndAdmin，也就是必須是具有 admin 身份的使用者才能執行本功能。
-```js {hl_lines=[3]}
+```js {linenos=table,hl_lines=[3]}
 router.get("/find/:id", verifyTokenAndAdmin, async (req, res) => {
     try {
         const user = await User.findById(req.params.id);
@@ -549,7 +549,7 @@ router.get("/find/:id", verifyTokenAndAdmin, async (req, res) => {
 ![image](https://user-images.githubusercontent.com/21993717/165880088-a34e6bca-7c09-4a5d-a25e-f8994ff98f8b.png)
 
 > 使用這個 token 值來呼叫 GET USER 功能就可以正常的取得要查詢的使用者資料了
-``` json {hl_lines=[1]}
+``` json {linenos=table,hl_lines=[1]}
 {
     "_id": "6269f53be0bd74d778bb8934",
     "username": "calvin",
@@ -563,7 +563,7 @@ router.get("/find/:id", verifyTokenAndAdmin, async (req, res) => {
 
 ### 如何處理 URL 中的 query string
 > 在　user.js Route file 中再加入 get all users 的功能。
-```js {hl_lines=[3,4]}
+```js {linenos=table,hl_lines=[3,4]}
 router.get("/", verifyTokenAndAdmin, async (req, res) => {
     try {
         const users = await User.find();
@@ -600,7 +600,7 @@ router.get("/", verifyTokenAndAdmin, async (req, res) => {
 ```
 > 如果想要由 url 中加入額外的 query string 來達到動態執行不同的邏輯，應該憅麼做呢？如：localhost:5000/api/users?new=true
 > 我們來看看程式中要如何來處理 url 所傳入的 query string
-```js {hl_lines=[2,4]}
+```js {linenos=table,hl_lines=[2,4]}
 // GET ALL USERS
 router.get("/", verifyTokenAndAdmin, async (req, res) => {
     const query = req.query.new;    // 透過 req.query.new 來取得 new 這個 query string 的值
