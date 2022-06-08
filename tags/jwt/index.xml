@@ -10,7 +10,16 @@
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 02 Jun 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://calvinegs.github.io/tags/jwt/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 07 Jun 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://calvinegs.github.io/tags/jwt/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>使用 Node.js &#43; express &#43; postgres 建立一個後端服務 REST API</title>
+      <link>https://calvinegs.github.io/posts/nodejs-restapi-postgres/</link>
+      <pubDate>Tue, 07 Jun 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://calvinegs.github.io/posts/nodejs-restapi-postgres/</guid>
+      <description>Node.js &#43; express 來建立 REST API 服務，同時為提高網路安全性採取了 JWT JSON Web Token）來實作使用者驗證機制。資料庫的部份是使用 PostgresSQL，為方便起見，採用 Docker 來執行 PostgresSQL。</description>
+    </item>
+    
     <item>
       <title>使用 .NET 6.0 進行 JWT 身份驗證的 ASP.NET Web Api。並使用 Microsoft Identity 框架來存儲使用者和角色等資料（使用 PostgresSQL）</title>
       <link>https://calvinegs.github.io/posts/dotnet6-webapi-jwt-postgres/</link>

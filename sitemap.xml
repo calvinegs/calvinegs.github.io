@@ -3,7 +3,37 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://calvinegs.github.io/categories/</loc>
-    <lastmod>2022-06-02T00:00:00+00:00</lastmod>
+    <lastmod>2022-06-07T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://calvinegs.github.io/tags/express/</loc>
+    <lastmod>2022-06-07T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://calvinegs.github.io/tags/jwt/</loc>
+    <lastmod>2022-06-07T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://calvinegs.github.io/tags/node.js/</loc>
+    <lastmod>2022-06-07T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://calvinegs.github.io/categories/node.js/</loc>
+    <lastmod>2022-06-07T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://calvinegs.github.io/tags/postgres/</loc>
+    <lastmod>2022-06-07T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://calvinegs.github.io/posts/</loc>
+    <lastmod>2022-06-07T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://calvinegs.github.io/tags/</loc>
+    <lastmod>2022-06-07T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://calvinegs.github.io/tags/webapi/</loc>
+    <lastmod>2022-06-07T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://calvinegs.github.io/posts/nodejs-restapi-postgres/</loc>
+    <lastmod>2022-06-07T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://calvinegs.github.io/</loc>
+    <lastmod>2022-06-07T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://calvinegs.github.io/tags/docker/</loc>
     <lastmod>2022-06-02T00:00:00+00:00</lastmod>
@@ -11,34 +41,16 @@
     <loc>https://calvinegs.github.io/tags/dotnet-6/</loc>
     <lastmod>2022-06-02T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://calvinegs.github.io/tags/jwt/</loc>
-    <lastmod>2022-06-02T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://calvinegs.github.io/tags/openapi/</loc>
     <lastmod>2022-06-02T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://calvinegs.github.io/tags/postgres/</loc>
-    <lastmod>2022-06-02T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://calvinegs.github.io/posts/</loc>
-    <lastmod>2022-06-02T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://calvinegs.github.io/tags/swagger/</loc>
-    <lastmod>2022-06-02T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://calvinegs.github.io/tags/</loc>
-    <lastmod>2022-06-02T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://calvinegs.github.io/tags/webapi/</loc>
     <lastmod>2022-06-02T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://calvinegs.github.io/categories/webapi/</loc>
     <lastmod>2022-06-02T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://calvinegs.github.io/posts/dotnet6-webapi-jwt-postgres/</loc>
-    <lastmod>2022-06-02T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://calvinegs.github.io/</loc>
     <lastmod>2022-06-02T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://calvinegs.github.io/categories/database/</loc>
@@ -110,16 +122,7 @@
     <loc>https://calvinegs.github.io/posts/snowpack-typescript/</loc>
     <lastmod>2022-05-01T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://calvinegs.github.io/tags/express/</loc>
-    <lastmod>2022-04-25T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://calvinegs.github.io/tags/mongodb/</loc>
-    <lastmod>2022-04-25T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://calvinegs.github.io/tags/node.js/</loc>
-    <lastmod>2022-04-25T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://calvinegs.github.io/categories/node.js/</loc>
     <lastmod>2022-04-25T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://calvinegs.github.io/posts/nodejs-restapi-example/</loc>
