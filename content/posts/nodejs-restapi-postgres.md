@@ -12,8 +12,8 @@ categories: ["Node.js"]
 Technology:
 - NodeJs 17.6.0
 - Express 4.17.1
-- cors 
-- crypto-js             // 加密套件
+- cors 2,8.5
+- crypto-js 4.1.1       // 加密套件
 - jsonwebtoken 8.5.1    // 支援 Json Web Token　的功能套件
 - Sequelize 6.20.1      // ORM 套件
 - pg 8.7.3
@@ -879,7 +879,6 @@ module.exports = { allAccess, userBoard, adminBoard, moderatorBoard };
 
 ![image](https://user-images.githubusercontent.com/21993717/172561731-5dd54eb1-edce-47a2-adeb-ac93e26715cc.png)
 
-### 測試
 
 打開瀏覽器，輸入　http://localhost:5000/api/users/test/all，可以發現這個開放式的端點任何人皆可造訪(未註冊的人也可以)。
 
@@ -1016,3 +1015,40 @@ module.exports = router;
 再使用已被註冊過的 UserName 來進行註冊，結果回傳：
 
 ![image](https://user-images.githubusercontent.com/21993717/172578295-91688eb1-4af3-46e5-bdf9-259c61d7a3d4.png)
+
+## cors
+這個後端專案預計要給前端 Angular 來使用，跨域存取問題就用 cors 設定來解決。
+
+先安裝 cors 套件
+```bash
+$ yarn add cors
+
+yarn add v1.22.19
+[1/4] Resolving packages...
+[2/4] Fetching packages...
+[3/4] Linking dependencies...
+[4/4] Building fresh packages...
+success Saved lockfile.
+success Saved 2 new dependencies.
+info Direct dependencies
+└─ cors@2.8.5
+info All dependencies
+├─ cors@2.8.5
+└─ object-assign@4.1.1
+Done in 0.86s.
+```
+打開 server.js，修改如下：
+
+```js {linenos=table,hl_lines=[3,6,7]}
+const express = require("express");
+const dotenv = require("dotenv");
+const cors = require("cors");
+dotenv.config();
+const app = express();
+var corsOptions = {
+    origin: "http://localhost:4200"
+};
+app.use(cors(corsOptions));
+
+//...
+```
