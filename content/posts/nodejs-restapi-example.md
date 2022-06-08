@@ -628,8 +628,8 @@ router.get("/", verifyTokenAndAdmin, async (req, res) => {
     }
 ]
 ```
-> 如果想要由 url 中加入額外的 query string 來達到動態執行不同的邏輯，應該憅麼做呢？如：localhost:5000/api/users?new=true
-> 我們來看看程式中要如何來處理 url 所傳入的 query string
+> 如果想要由 url 中加入額外的 query string 來達到動態執行不同的邏輯，應該怎麼做呢？如：localhost:5000/api/users?new=true
+> 來看看程式中要如何來處理 url 所傳入的 query string
 
 ```js {linenos=table,hl_lines=[2,4]}
 // GET ALL USERS
