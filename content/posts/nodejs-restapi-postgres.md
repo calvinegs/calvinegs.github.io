@@ -12,7 +12,7 @@ categories: ["Node.js"]
 Technology:
 - NodeJs 17.6.0
 - Express 4.17.1
-- cors 2,8.5
+- cors 2.8.5
 - crypto-js 4.1.1       // 加密套件
 - jsonwebtoken 8.5.1    // 支援 Json Web Token　的功能套件
 - Sequelize 6.20.1      // ORM 套件
@@ -182,7 +182,7 @@ test is successful
 
 在程式中使用了 sequelize 這個套件的功能來連結 Postgres 資料庫，直接透過 Sequelize constructor 來給定連結資料庫的參數，包含 “資料庫名稱“、”User Id"、"Password"、“Host Name"、"資料庫類別“(dialect)等。
 
-```js {linenos=table,hl_lines=[4,14],linenostart=1}
+```js {linenos=table,hl_lines=[4-8],linenostart=1}
 const express = require("express");
 const app = express();
 
@@ -224,10 +224,10 @@ Backend server is running on port 5000
 ```
 ./專案目錄
 ├── app/  ＃ 程式目錄
-│	├── config/  ＃ 設置連結 PostgresSQL 資料庫的參數
-│	├── middleware/  
-│	├── models/
-│	├── routes/
+│   ├── config/  ＃ 設置連結 PostgresSQL 資料庫的參數
+│   ├── middleware/  
+│   ├── models/
+│   ├── routes/
 │   └── services/  ＃ 業務邏輯
 ├── node_modules/
 ├── .env  ＃ 程式中的相關“設定值”
@@ -591,7 +591,7 @@ module.exports = { signup, signin };
 
 > 在 server.js 引用這個新的 router
 
-```js {linenos=table,hl_lines=[2,6],linenostart=1}
+```js {linenos=table,hl_lines=[3,7],linenostart=1}
 // ...
 const userRoute = require("./app/routes/user.routes");
 const authRoute = require("./app/routes/auth.routes");
@@ -661,7 +661,7 @@ const jwt = require("jsonwebtoken");  // 匯入 JsonWebToken套件
 
 > encrypt function 參數除了要加密的字串外，需要一個加密 Key，為彈性起見，把它寫在 .env 檔案中 (PASS_SEC)
 
-```ini {linenos=table,hl_lines=[3]}
+```ini {linenos=table,hl_lines=[2]}
 # .env
 JWT_SEC=Jason-Web-Token-Secret-key-jaslkdjfhjwkej01kd1954
 PASS_SEC=cal
@@ -676,7 +676,7 @@ PASS_SEC=cal
 
 在這程式中除了驗證 request 中是否有合法的 Token 外，還有其他授權檢核的邏輯：驗證是否為管理者、驗證是否為版主、驗證是否為管理者或是版主等。
 
-```js {linenos=table,hl_lines=[5,25,43,60]}
+```js {linenos=table,hl_lines=[5,14,25,43,60]}
 const jwt = require("jsonwebtoken");
 const db = require("../models");
 const User = db.user;
@@ -914,7 +914,7 @@ module.exports = { allAccess, userBoard, adminBoard, moderatorBoard };
 
 在 app/middleware 目錄下新增 verify.signup.js，內容如下：
 
-```js
+```js {linenos=table,hl_lines=[5,37]}
 const db = require("../models");
 const ROLES = db.ROLES;
 const User = db.user;
@@ -1006,9 +1006,7 @@ router.post("/signin", authService.signin);
 module.exports = router;
 ```
 
-測試結果：
-
-故意使用已經被註冊過的 EMail，結果回傳 EMail 已被使用。
+先使用已經被註冊過的 EMail來進行測試，結果回傳 EMail 已被使用。
 
 ![image](https://user-images.githubusercontent.com/21993717/172577871-acb686cd-9b5f-4018-87bb-6f3f1d1b47d7.png)
 
