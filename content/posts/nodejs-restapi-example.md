@@ -26,7 +26,9 @@ $ git init
 $ echo 'node_modules/' > .gitignore  # 新增 git ignore 設定檔，並設定 node_modules/ 目錄不加入版控
 $ git add . && git commit -m "Initial commit" 建立第一版本的資訊
 ```
+
 > 設定專案啟動指令（如第七行的指令設定），當輸入 npm start 時系統自動以 node 來執行 index.js 程式，並即時監測 index.js 檔案有變化存檔時馬上重新啟動 node index.js 來執行該程式。
+
 ```json {linenos=table,hl_lines=[7],linenostart=1}
 {
   "name": "ecom",
@@ -50,16 +52,19 @@ $ git add . && git commit -m "Initial commit" 建立第一版本的資訊
 }
 ```
 > 在 index.js 中加入此行程式，並在 vscode Terminal 中輸入 npm start
+
 ```js
 console.log("Hi NodeJS...")	
 ```
 > 顯示結果如下
+
 ```bash
 Hi NodeJS...
 ```
 
 ## 建立一個 Express 應用程式
 > 使用以下程式覆蓋 index.js 檔案
+
 ```js
 const express = require("express");
 const app =  express();
@@ -72,6 +77,7 @@ app.listen(5000, () => {
 })
 ```
 > 存檔後，開啟 瀏覽器，輸入 localhost:5000/api/test，在 vscode terminal 視窗中會顯示：
+
 ```bash
 Backend server is running...
 test is successful
@@ -86,6 +92,7 @@ test is successful
 ![image](https://user-images.githubusercontent.com/21993717/165058844-5a1403b6-fd53-43f2-90a7-726a84f42c20.png)
 
 > 在程式中使用了 mongoose 這個套件的功能來連結 MongoDB 資料庫（第三行），並在程式第6行，connect function 中放入“連結字串”
+
 ```js {linenos=table,hl_lines=[3,6],linenostart=1}
 const express = require("express");
 const app =  express();
@@ -104,6 +111,7 @@ app.listen(5000, () => {
 })
 ```
 > 存檔後，在 vscode terminal 視窗中會顯示：
+
 ```bash
 Backend server is running...
 DB Connection successful
@@ -113,6 +121,7 @@ DB Connection successful
 ### 彈性管理程式中的“設定值”
 > 使用 dotenv 套件的功能來管理程式中相關的設定值
 - 首先在專案根目錄下建立一個名為 ".env" 的檔案
+
 ```json
 MONGO_URL=mongodb+srv://cal...............
 ```
@@ -137,6 +146,7 @@ app.listen(process.env.PORT || 5000, ()=>{  # port 預設為 5000 ，並可以�
 > 新增 routes 目錄，在此目錄下新增 user.js 檔案
 
 > routes/user.js
+
 ```js
 const router = require("express").Router();
 router.get("/usertest", (req, res) => {
@@ -173,11 +183,12 @@ app.listen(process.env.PORT || 5000, ()=>{
 });
 ```
 > 開啟瀏覧器，輸入 http:5000/api/users/usertest，瀏覧器將呈現成功訊息
+
 ```bash
 user test is successfull
 ```
 > 為 routes/user.js 再新增一個 post method
-> 
+
 ```js {linenos=table,hl_lines=["6-9"],linenostart=1}
 const router = require("express").Router();
 router.get("/usertest", (req, res) => {
@@ -197,11 +208,13 @@ module.exports = router;
 ![image](https://user-images.githubusercontent.com/21993717/165109395-6fe656e9-4d12-448e-9fee-f47e4a6c6d3f.png)
 
 > 在 index.js 程式中加入如第一行的設定
+
 ```js {linenos=table,hl_lines=[1],linenostart=1}
 app.use(express.json());
 app.use("/api/users", userRoute);
 ```
 > 設定完成後就可正常了
+
 ![image](https://user-images.githubusercontent.com/21993717/165110665-149df942-59a9-40c4-8de8-8061c2f7af76.png)
 
 
@@ -210,6 +223,7 @@ app.use("/api/users", userRoute);
 
 ### 新增 User 模型檔 (models/User.js)
 > 先新增一個 models 目錄，在目錄下新增一個 User.js，內容如下
+
 ```js
 const mongoose = require("mongoose");
 
@@ -250,6 +264,7 @@ router.post("/register", async (req, res) => {
 module.exports = router;
 ```
 > 在 index.js 引用這個新的 router
+
 ```js {linenos=table,hl_lines=[7,20],linenostart=1}
 const express = require("express");
 const app =  express();
@@ -398,12 +413,13 @@ res.status(200).json({ ...others, accessToken });
 
 ```
 > 依照貫例將 Json web token 的 key 值放在 .env 檔案中
+
 ```ini {linenos=table,hl_lines=[3]}
 MONGO_URL=mongodb+srv://cal.......
 PASS_SEC=cal
 JWT_SEC=cal
 ```
-> 使用 postman 再 Login 一次，會發現回傳的資料中已經包含一個合乎的 JWT Token了
+> 使用 postman 再 Login 一次，會發現回傳的資料中已經包含一個合法的 JWT Token了
 
 ![image](https://user-images.githubusercontent.com/21993717/165675174-ccf7c037-0d02-4f0b-b7c9-e96272d08913.png)
 
@@ -452,6 +468,7 @@ module.exports = { verifyToken, verifyTokenAndAuthorization，　verifyTokenAndA
 ```
 
 > 在 user.js　Route file 中加入 update username 的功能
+
 ```js {linenos=table,hl_lines=[3,5,16]}
 const router = require("express").Router();
 const User = require("../models/User");
@@ -487,7 +504,7 @@ module.exports = router;
 
 ![image](https://user-images.githubusercontent.com/21993717/165723311-a70b9768-55b1-4cfa-9357-ed0a56e18349.png)
 
-> 在 postman 新增一個 put 的 request，URL = localhost:5000/api/users/6269f53be0bd74d778bb8934，其中的“6269f53be0bd74d778bb8934”　指的是要變更的 document 的ID。同時在Headers中新加入一個 token 的　header
+> 在 postman 新增一個 put 的 request，URL = localhost:5000/api/users/6269f53be0bd74d778bb8934，其中的“6269f53be0bd74d778bb8934”　指的是要變更的 document 的ID。同時在Headers中新加入一個 token 的 header
 
 ![image](https://user-images.githubusercontent.com/21993717/165726492-245c4b52-8574-4cb8-b1b5-548fc7a9ad9c.png)
 
@@ -498,6 +515,7 @@ module.exports = router;
 ![image](https://user-images.githubusercontent.com/21993717/165728220-cc81363a-c2d0-4282-851e-2edd5e92bfe5.png)
 
 > 送出 request 成功後回傳值的是修改後的 user document
+
 ```json {linenos=table,hl_lines=[3]}
 {
     "_id": "6269f53be0bd74d778bb8934",
@@ -516,6 +534,7 @@ module.exports = router;
 > 若送出 request 中包含的是不合法的 Token 則會回傳“Token不合法“。
 
 > 緊接著在 user.js　Route file 中再加入 delete user 資料的功能
+
 ```js {linenos=table,hl_lines=[3]}
 router.delete("/:id", verifyTokenAndAuthorization, async (req, res) => {
     try {
@@ -528,6 +547,7 @@ router.delete("/:id", verifyTokenAndAuthorization, async (req, res) => {
 ```
 
 > 另外在 user.js　Route file 中再加入 get user 的功能，而執行本功能的授權檢核邏輯改成 verifyTokenAndAdmin，也就是必須是具有 admin 身份的使用者才能執行本功能。
+
 ```js {linenos=table,hl_lines=[3]}
 router.get("/find/:id", verifyTokenAndAdmin, async (req, res) => {
     try {
@@ -556,6 +576,7 @@ router.get("/find/:id", verifyTokenAndAdmin, async (req, res) => {
 ![image](https://user-images.githubusercontent.com/21993717/165880088-a34e6bca-7c09-4a5d-a25e-f8994ff98f8b.png)
 
 > 使用這個 token 值來呼叫 GET USER 功能就可以正常的取得要查詢的使用者資料了
+
 ``` json {linenos=table,hl_lines=[1]}
 {
     "_id": "6269f53be0bd74d778bb8934",
@@ -570,6 +591,7 @@ router.get("/find/:id", verifyTokenAndAdmin, async (req, res) => {
 
 ### 如何處理 URL 中的 query string
 > 在　user.js Route file 中再加入 get all users 的功能。
+
 ```js {linenos=table,hl_lines=[3,4]}
 router.get("/", verifyTokenAndAdmin, async (req, res) => {
     try {
@@ -581,6 +603,7 @@ router.get("/", verifyTokenAndAdmin, async (req, res) => {
 });
 ```
 > 在 url 中輸入：localhost:5000/api/users/，將回傳所有的 users 資料
+
 ```json
 [
     {
@@ -607,6 +630,7 @@ router.get("/", verifyTokenAndAdmin, async (req, res) => {
 ```
 > 如果想要由 url 中加入額外的 query string 來達到動態執行不同的邏輯，應該憅麼做呢？如：localhost:5000/api/users?new=true
 > 我們來看看程式中要如何來處理 url 所傳入的 query string
+
 ```js {linenos=table,hl_lines=[2,4]}
 // GET ALL USERS
 router.get("/", verifyTokenAndAdmin, async (req, res) => {
