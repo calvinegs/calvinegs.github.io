@@ -17,7 +17,7 @@
       <pubDate>Sat, 28 May 2022 00:00:00 +0000</pubDate>
       
       <guid>https://calvinegs.github.io/posts/angular-formvalidate/</guid>
-      <description>在這個範例中可以看到使用 Angular Reactive Form 搭配 Bootstrip UI Framework 所建立的　｀使用者資料註冊｀　功能，同時實現一個簡易版的｀自定驗證器｀(custome validator)</description>
+      <description>在這個範例中可以看到使用 Angular Reactive Form 搭配 Bootstrip UI Framework 所建立的｀使用者資料註冊｀功能，同時實現一個簡易版的｀自定驗證器｀(custome validator)</description>
     </item>
     
   </channel>
