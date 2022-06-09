@@ -25,22 +25,22 @@ Technology:
 ```
 ./專案目錄
 ├── app/
-│	├── config/
-│   │	└── db.config.js
-│	├── middleware/
-│   │	├── auth.jwt.js
-│   │	├── index.js
-│   │	└── verify.signup.js
-│	├── models/
-│   │	├── index.js
-│   │	├── role.model.js
-│   │	└── user.model.js
-│	├── routes/
-│   │	├── auth.routes.js
-│   │	└── user.routes.js
+│   ├── config/
+│   │   └── db.config.js
+│   ├── middleware/
+│   │   ├── auth.jwt.js
+│   │   ├── index.js
+│   │   └── verify.signup.js
+│   ├── models/
+│   │   ├── index.js
+│   │   ├── role.model.js
+│   │   └── user.model.js
+│   ├── routes/
+│   │   ├── auth.routes.js
+│   │   └── user.routes.js
 │   └── services/
-│   	├── auth.service.js
-│   	└── user.service.js
+│       ├── auth.service.js
+│       └── user.service.js
 ├── node_modules/
 ├── .env
 ├── .gitignore
