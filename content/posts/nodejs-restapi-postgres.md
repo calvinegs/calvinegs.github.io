@@ -13,12 +13,12 @@ Technology:
 - NodeJs 17.6.0
 - Express 4.17.1
 - cors 2.8.5
-- crypto-js 4.1.1       // 加密套件
-- jsonwebtoken 8.5.1    // 支援 Json Web Token　的功能套件
-- Sequelize 6.20.1      // ORM 套件
-- pg 8.7.3
-- pg-hstore 2.3.4
-- PostgreSQL 14.3
+- crypto-js 4.1.1 # 加解密套件
+- jsonwebtoken 8.5.1 # Json Web Token 的功能套件
+- Sequelize 6.20.1 # ORM 套件
+- pg 8.7.3 # PostgreSQL client for Node.js
+- pg-hstore 2.3.4 # serializing and deserializing JSON data to hstore format
+- PostgreSQL 14.3 # 使用的資料庫
 
 ## 專案完成後的檔案結構
 
