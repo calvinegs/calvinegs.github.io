@@ -1,7 +1,7 @@
 ---
 title: "使用 Angular 13 建立 Reactive Form 表單驗證範例"
 date: 2022-05-28
-description: "在這個範例中可以看到使用 Angular Reactive Form 搭配 Bootstrip UI Framework 所建立的　｀使用者資料註冊｀　功能，同時實現一個簡易版的｀自定驗證器｀(custome validator)"
+description: "在這個範例中可以看到使用 Angular Reactive Form 搭配 Bootstrip UI Framework 所建立的｀使用者資料註冊｀功能，同時實現一個簡易版的｀自定驗證器｀(custome validator)"
 tags: ["angular", "reactive form", "custome validator", "bootstrap"]
 categories: ["angular"]
 ---
@@ -10,7 +10,7 @@ categories: ["angular"]
 
 本文將記錄如何一步步從無到有使用 Angular 13 Reactive Form 表單驗證 與 Bootstrap 建立 一個使用者資料註冊的表單　功能，在這個表單中當按下送出時會自動檢核使用者所輸入的資料是否合乎程式中所設定的檢核邏輯，並顯示合適的訊息反應給使用者。其中將會使用到下列技術:
 
-- Ａngular CLI
+- Angular CLI
 - Bootstrap 4 & 5 (UI Framework)
 - Angular Reactive Form
 - Custome Validator
@@ -81,7 +81,7 @@ $ code .　# 打開 vscode
 
 ### 匯入 ReactiveFormModule 模組
 
-> 開啟 src/app/app.module.ts 並由 @angular/forms 匯入 ReactiveFormModule 
+開啟 src/app/app.module.ts 並由 @angular/forms 匯入 ReactiveFormModule 
 
 ```ts {linenos=table,hl_lines=[3,11]}
 import { NgModule } from '@angular/core';
@@ -104,12 +104,12 @@ export class AppModule { }
 
 ### 使用 Bootstrap
 
-> 方法一: 開啟 src/index.html 在 <head> 加入 link tag
+方法一: 開啟 src/index.html 在 <head> 加入 link tag
 - 使用 bootstrap 4 時使用第 9 行匯入語法
 - 使用 bootstrap 5 時使用第 10 行匯入語法　
-> 上述語法二擇一
+上述語法二擇一
 
-> 由於 bootstrap 4 & 5 兩個版本語法有相異處，在範例中將展示不同的寫法
+由於 bootstrap 4 & 5 兩個版本語法有相異處，在範例中將展示不同的寫法
 
 ```html {linenos=table,hl_lines=[9,10]}
 <!doctype html>
@@ -129,8 +129,9 @@ export class AppModule { }
 </html>
 ```
 
-> 方法二: 使用 npm install 來進行安裝
-> 1.1 先使用 npm install 將 bootstrap 安裝到專案的 node_modules 目錄下
+方法二: 使用 npm install 來進行安裝
+
+1.1 先使用 npm install 將 bootstrap 安裝到專案的 node_modules 目錄下
 
 ```bash {linenos=table,hl_lines=[2,10]}
 # 上述版本二擇一
@@ -152,7 +153,7 @@ added 2 packages, and audited 927 packages in 2s
 
 found 0 vulnerabilities
 ```
-> npm install 成功後，可以在 package.json 中查看到已裝 bootstrap 的資訊
+npm install 成功後，可以在 package.json 中查看到已裝 bootstrap 的資訊
 
 ```json {linenos=table,hl_lines=[10]}
  "dependencies": {
@@ -171,7 +172,7 @@ found 0 vulnerabilities
   },
  ```
 
-> 1.2 npm install 成功後，還必須在 angular.json architect/build/options/styles 中匯入已安裝的 bootstrap 
+1.2 npm install 成功後，還必須在 angular.json architect/build/options/styles 中匯入已安裝的 bootstrap 
 
 ```json {linenos=table,hl_lines=[31]}
 {
@@ -218,15 +219,15 @@ found 0 vulnerabilities
 
 ## 開始撰寫程式
 
-開啟 app.component.ts 程式檔案，並先 import @angular/form module 中的　AbstractControl, FormBuilder, FormGroup, Validators。我們會使用 Angular FormBuilder 建立一個 FormGroup 物件（表單屬性），然後綁定到模板 <form> 元素（稍後使用 [formGroup] 指令）。 Validators 提供了一組內置的驗證器（required、minLength、maxLength…），可供表單控件(control)所使用。
+開啟 app.component.ts 程式檔案，並先 import @angular/form module 中的　AbstractControl, FormBuilder, FormGroup, Validators。我們會使用 Angular FormBuilder 建立一個 FormGroup 物件（表單屬性），然後綁定到模板`<form>`元素（稍後使用 `[formGroup]`指令）。 Validators 提供了一組內置的驗證器（required、minLength、maxLength…），可供表單控件(control)所使用。
 
 ```ts {linenos=table,hl_lines=[2]}
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 ```
 
-> 完成後程式如下
-```ts {linenos=table,hl_lines=["10-18",19,"24-50","53-55"]}
+完成後程式如下
+```ts {linenos=table,hl_lines=["11-17",19,"24-50","53-55"]}
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
@@ -297,9 +298,9 @@ export class AppComponent implements OnInit {
   }
 }
 ```
-> 在上述程式裡，我們所建立的 this.form (程式 24-50 行)這個 FormGroup 物件中使用到了許多內建的表單驗證器，如：Validators.required（必填）、Validators.minLength（最小長度）、Validators.maxLength（最大長度）、Validators.requiredTrue（必須為 true）等，同時在程式第 48 行也會使用到｀自定驗證器｀(稍後會進行如何撰寫一個自定驗證器)
+在上述程式裡，我們所建立的 this.form (程式 24-50 行)這個 FormGroup 物件中使用到了許多內建的表單驗證器，如：Validators.required（必填）、Validators.minLength（最小長度）、Validators.maxLength（最大長度）、Validators.requiredTrue（必須為 true）等，同時在程式第 48 行也會使用到｀自定驗證器｀(稍後會進行如何撰寫一個自定驗證器)
 
-> 在程式第51行我們定義了一個 getter 以方便我們在 template 中存取 form 中的控件（contol）。透過這個 getter function 你可以使用｀f.username｀ 來取代 ｀form.controls.username｀，使 template（表單樣版） 看起簡潔些。
+在程式第51行我們定義了一個 getter 以方便我們在 template 中存取 form 中的控件（contol）。透過這個 getter function 你可以使用｀f.username｀ 來取代 ｀form.controls.username｀，使 template（表單樣版） 看起簡潔些。
 
 ## 自定 CSS 設定
 
@@ -343,7 +344,7 @@ export default class Validation {
     }
 }
 ```
-> 完成後的驗證器會被使用在 app.component.ts form 的定義中，見下程式第26行
+完成後的驗證器會被使用在 app.component.ts form 的定義中，見下程式第26行
 
 ```ts {linenos=table,hl_lines=[26]}
   ngOnInit(): void {
@@ -379,34 +380,34 @@ export default class Validation {
 
 ## 執行程式
 
-> 結行結果：
+結行結果：
 
 ![2022-05-28 21-47-28](https://user-images.githubusercontent.com/21993717/170828462-2ecfdd90-6bf5-4f33-8004-b6aabbd5ac4d.png)
 
-> 按下｀送出｀按鈕將所有檢核不合可訊息顯示在欄位下方
+按下｀送出｀按鈕將所有檢核不合可訊息顯示在欄位下方
 
 ![2022-05-28 21-54-29](https://user-images.githubusercontent.com/21993717/170828491-0f43fbec-aaae-4b9e-ae59-c8c39f175258.png)
 
-> email 格式不符的驗證
+email 格式不符的驗證
 
 ![2022-05-28 21-48-39](https://user-images.githubusercontent.com/21993717/170828527-4a43bf29-b996-49b1-b397-6f4bc15c1658.png)
 
-> password 長度的驗證
+password 長度的驗證
 
 ![2022-05-28 21-48-53](https://user-images.githubusercontent.com/21993717/170828578-323a89ce-5b47-42ed-81a9-b0c786799fc6.png)
 
-> confirm password 自定驗證喌右的檢核
+confirm password 自定驗證喌右的檢核
 
 ![2022-05-28 21-49-01](https://user-images.githubusercontent.com/21993717/170828590-11280fa4-198e-4137-9c3b-4e0430c0e3f4.png)
 
-> 檢核完成
+檢核完成
 
 ![2022-05-28 21-49-09](https://user-images.githubusercontent.com/21993717/170828608-74f67436-e4a8-4973-a581-7b4348c08fc6.png)
 
 
 ## 套用 bootstrap 5 的 html 
 
-> index.html 中 link 到 bootstrp@5.1.3 的版本
+index.html 中 link 到 bootstrp@5.1.3 的版本
 
 ```html
 <!doctype html>
@@ -426,7 +427,7 @@ export default class Validation {
 </html>
 ```
 
-> app.component.html 套用的 bootstrp class 需要微調
+app.component.html 套用的 bootstrp class 需要微調
 
 ```html
 <div class="container-fluid register-form">
