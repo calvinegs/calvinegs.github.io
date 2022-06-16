@@ -10,7 +10,16 @@
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 07 Jun 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://calvinegs.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 15 Jun 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://calvinegs.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>angular</title>
+      <link>https://calvinegs.github.io/categories/angular/</link>
+      <pubDate>Wed, 15 Jun 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://calvinegs.github.io/categories/angular/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>Node.js</title>
       <link>https://calvinegs.github.io/categories/node.js/</link>
@@ -35,15 +44,6 @@
       <pubDate>Wed, 01 Jun 2022 00:00:00 +0000</pubDate>
       
       <guid>https://calvinegs.github.io/categories/database/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>angular</title>
-      <link>https://calvinegs.github.io/categories/angular/</link>
-      <pubDate>Sat, 28 May 2022 00:00:00 +0000</pubDate>
-      
-      <guid>https://calvinegs.github.io/categories/angular/</guid>
       <description></description>
     </item>
     
