@@ -2,7 +2,7 @@
 title: "使用 .NET 6.0 進行 JWT 身份驗證的 ASP.NET Web Api。並使用 Microsoft Identity 框架來存儲使用者和角色等資料"
 date: 2022-05-20
 description: "在前面的筆記中已紀錄了使用 ASP.NET Core 所提供的精簡 Minimal APIs 新框架。本篇將要紀錄如何使用　.NET 6.0“正統”的 MVC Web Api 架構來撰寫一個可方便擴展 Web API"
-tags: ["dotnet 6", "webapi", "jwt", "docker", "sqlserver", "openapi", "swagger"]
+tags: ["dotnet 6", "webapi", "jwt", "docker", "SQL Server", "openapi", "swagger"]
 categories: ["webapi"]
 ---
 *[github Source code #tag: dotnet6_webapi_jwt](https://github.com/calvinegs/dotnet6-webapi-jwt)*

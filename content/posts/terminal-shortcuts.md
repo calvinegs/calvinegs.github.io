@@ -3,7 +3,7 @@ title: "Ubuntu 終端機常用快速鍵"
 date: 2022-03-22
 draft: false
 description: "在 Linux 環境中最常用的有概是 ‘終端機’ （Terminal）了，使用快速鍵更能幫助你加快了日常的工作"
-tags: ["nvs", "Terminal", "Ubuntu"]
+tags: ["Terminal", "Ubuntu"]
 categories: ["ubuntu"]
 ---
 
