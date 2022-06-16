@@ -80,9 +80,6 @@
     <loc>https://calvinegs.github.io/tags/pgadmin/</loc>
     <lastmod>2022-06-01T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://calvinegs.github.io/tags/postgressql/</loc>
-    <lastmod>2022-06-01T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://calvinegs.github.io/tags/ubuntu/</loc>
     <lastmod>2022-06-01T00:00:00+00:00</lastmod>
   </url><url>
@@ -92,16 +89,13 @@
     <loc>https://calvinegs.github.io/posts/angular-formvalidate/</loc>
     <lastmod>2022-05-28T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://calvinegs.github.io/tags/sqlserver/</loc>
+    <loc>https://calvinegs.github.io/tags/sql-server/</loc>
     <lastmod>2022-05-20T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://calvinegs.github.io/posts/dotnet6-webapi-jwt/</loc>
     <lastmod>2022-05-20T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://calvinegs.github.io/posts/sqlserver2019-docker/</loc>
-    <lastmod>2022-05-19T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://calvinegs.github.io/tags/sql-server/</loc>
     <lastmod>2022-05-19T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://calvinegs.github.io/tags/minimal-api/</loc>
@@ -148,9 +142,6 @@
   </url><url>
     <loc>https://calvinegs.github.io/posts/destructuring-js/</loc>
     <lastmod>2022-04-11T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://calvinegs.github.io/tags/nvs/</loc>
-    <lastmod>2022-03-22T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://calvinegs.github.io/tags/terminal/</loc>
     <lastmod>2022-03-22T00:00:00+00:00</lastmod>
@@ -220,6 +211,9 @@
   </url><url>
     <loc>https://calvinegs.github.io/posts/dotnet5-webapi/</loc>
     <lastmod>2022-01-11T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://calvinegs.github.io/tags/nvs/</loc>
+    <lastmod>2021-12-12T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://calvinegs.github.io/categories/nvs/</loc>
     <lastmod>2021-12-12T00:00:00+00:00</lastmod>
