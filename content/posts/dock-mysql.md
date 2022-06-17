@@ -54,7 +54,7 @@ $ docker compose version
 Docker Compose version v2.6.0
 ```
 
-## 使用 docker 來執行 MySQL 8.0
+# 使用 docker run 來執行 MySQL 8.0
 
 參數說明：
  --name: docker name
@@ -84,7 +84,7 @@ $ docker run --name mysql-test --rm \
 2022-06-17T04:45:37.667312Z 0 [System] [MY-011323] [Server] X Plugin ready for connections. Bind-address: '::' port: 33060, socket: /var/run/mysqld/mysqlx.sock
 ```
 
-### 查看 docker 執行的情況
+## 查看 docker 執行的情況
 
 ```bash
 $ docker ps
@@ -93,7 +93,7 @@ CONTAINER ID   IMAGE       COMMAND                  CREATED          STATUS     
 986d25a3e618   mysql:8.0   "docker-entrypoint.s…"   37 seconds ago   Up 36 seconds   0.0.0.0:3306->3306/tcp, :::3306->3306/tcp, 33060/tcp   mysql-tes
 ```
 
-### 查看 local MySQL 資料庫目錄 (/tmp/mysqldb)
+## 查看 local MySQL 資料庫目錄 (/tmp/mysqldb)
 
 ```bash
 $ lm /tmp/mysqldb/
@@ -130,7 +130,7 @@ drwxr-x---  2 systemd-coredump systemd-coredump     4096  六  17 15:45  testing
 -rw-r-----  1 systemd-coredump systemd-coredump 16777216  六  17 15:45  undo_002
 ```
 
-### 使用 dbeaver-cd 連結到 MySQL
+## 使用 dbeaver-cd 連結到 MySQL
 
 開啟 dbeaver-cd 程式，按下 ｀New Database Connection` 按鈕
 
@@ -148,6 +148,8 @@ drwxr-x---  2 systemd-coredump systemd-coredump     4096  六  17 15:45  testing
 
 ![image](https://user-images.githubusercontent.com/21993717/174227825-327906b4-a0bf-4869-b6f9-0ff57fe5fd04.png)
 
+![2022-06-17 12-57-27](https://user-images.githubusercontent.com/21993717/174276078-88ef52cb-c38e-48a4-ad85-1589d2a987d0.png)
+
 將"allowPublicKeyRetrieval" 的值改成 True。按下 "Finish"，回到設置主頁面，再按下 Test Connection 測試一次。
 
 ![image](https://user-images.githubusercontent.com/21993717/174239919-4ba22da9-7640-4744-a044-26b01b1b80ad.png)
@@ -156,9 +158,9 @@ drwxr-x---  2 systemd-coredump systemd-coredump     4096  六  17 15:45  testing
 
 ![2022-06-17 14-38-52](https://user-images.githubusercontent.com/21993717/174240215-ecc7430f-4929-4507-bf84-c4f6c14e64cb.png)
 
-## 使用 docker compose 來執行 MySQL 8.0
+# 使用 docker compose 來執行 MySQL 8.0
 
-### 建置專案目錄結構
+## 建置專案目錄結構
 ```bash
 $ mkdir mysql && cd mysql
 $ touch docker-compose.yml README.md
@@ -172,7 +174,7 @@ $ touch ./sql/initdb.sql
     └── initdb.sql
 ```
 
-### 建立 docker-compose.yml
+## 建立 docker-compose.yml
 
 在這個 compse command file 中一個 services: db，用來下載並啟動 MySQL。指令與說明如下
 
@@ -250,7 +252,7 @@ mysql_db  | 2022-06-17T08:24:06.954832Z 0 [Warning] [MY-011810] [Server] Insecur
 mysql_db  | 2022-06-17T08:24:06.973370Z 0 [System] [MY-010931] [Server] /usr/sbin/mysqld: ready for connections. Version: '8.0.29'  socket: '/var/run/mysqld/mysqld.sock'  port: 3306  MySQL Community Server - GPL.
 mysql_db  | 2022-06-17T08:24:06.973520Z 0 [System] [MY-011323] [Server] X Plugin ready for connections. Bind-address: '::' port: 33060, socket: /var/run/mysqld/mysqlx.sock
 ```
-> 查看 docker 執行的情況
+### 查看 docker 執行的情況
 
 ```bash
 $ docker ps
@@ -258,7 +260,7 @@ CONTAINER ID   IMAGE       COMMAND                  CREATED              STATUS 
 d081aaf01c4e   mysql:8.0   "docker-entrypoint.s…"   About a minute ago   Up About a minute   0.0.0.0:3306->3306/tcp, :::3306->3306/tcp, 33060/tcp   mysql_db
 ```
 
-## 使用 dbeaver-cd 連結到 Postgres DB
+## 使用 dbeaver-cd 連結到 MySQL DB
 
 開啟 dbeaver-cd 程式，按下 ｀New Database Connection` 按鈕
 
