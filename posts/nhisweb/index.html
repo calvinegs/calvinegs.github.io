@@ -1,0 +1,941 @@
+<!doctype html><html lang=en dir=auto>
+<head><meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no">
+<meta name=robots content="index, follow">
+<title>國民健康訪問調整網站維護說明 | 永誌不忘 • 筆記簿</title>
+<meta name=keywords content>
+<meta name=description content="在本說明文件中會介紹如使用 VSCode 來維護網站中的各網頁內容及如何更新至伺服器。">
+<meta name=author content="Theme PaperMod">
+<link rel=canonical href=https://calvinegs.github.io/posts/nhisweb/>
+<link crossorigin=anonymous href=/assets/css/stylesheet.min.c88963fe2d79462000fd0fb1b3737783c32855d340583e4523343f8735c787f0.css integrity="sha256-yIlj/i15RiAA/Q+xs3N3g8MoVdNAWD5FIzQ/hzXHh/A=" rel="preload stylesheet" as=style>
+<script defer crossorigin=anonymous src=/assets/js/highlight.min.7680afc38aa6b15ddf158a4f3780b7b1f7dde7e91d26f073e6229bb7a0793c92.js integrity="sha256-doCvw4qmsV3fFYpPN4C3sffd5+kdJvBz5iKbt6B5PJI=" onload=hljs.initHighlightingOnLoad()></script>
+<link rel=icon href=https://calvinegs.github.io/img/favicon.png>
+<link rel=icon type=image/png sizes=16x16 href=https://calvinegs.github.io/favicon-16x16.png>
+<link rel=icon type=image/png sizes=32x32 href=https://calvinegs.github.io/favicon-32x32.png>
+<link rel=apple-touch-icon href=https://calvinegs.github.io/apple-touch-icon.png>
+<link rel=mask-icon href=https://calvinegs.github.io/safari-pinned-tab.svg>
+<meta name=theme-color content="#2e2e33">
+<meta name=msapplication-TileColor content="#2e2e33">
+<meta name=generator content="Hugo 0.89.3">
+<noscript>
+<style>#theme-toggle,.top-link{display:none}</style>
+<style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--hljs-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style>
+</noscript><meta property="og:title" content="國民健康訪問調整網站維護說明">
+<meta property="og:description" content="在本說明文件中會介紹如使用 VSCode 來維護網站中的各網頁內容及如何更新至伺服器。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://calvinegs.github.io/posts/nhisweb/"><meta property="og:image" content="https://calvinegs.github.io/papermod-cover.png"><meta property="article:section" content="posts">
+<meta property="article:published_time" content="2022-06-15T00:00:00+00:00">
+<meta property="article:modified_time" content="2022-06-15T00:00:00+00:00">
+<meta name=twitter:card content="summary_large_image">
+<meta name=twitter:image content="https://calvinegs.github.io/papermod-cover.png">
+<meta name=twitter:title content="國民健康訪問調整網站維護說明">
+<meta name=twitter:description content="在本說明文件中會介紹如使用 VSCode 來維護網站中的各網頁內容及如何更新至伺服器。">
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Posts","item":"https://calvinegs.github.io/posts/"},{"@type":"ListItem","position":2,"name":"國民健康訪問調整網站維護說明","item":"https://calvinegs.github.io/posts/nhisweb/"}]}</script>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"國民健康訪問調整網站維護說明","name":"國民健康訪問調整網站維護說明","description":"在本說明文件中會介紹如使用 VSCode 來維護網站中的各網頁內容及如何更新至伺服器。","keywords":[],"articleBody":"安裝工具 VSCode 在 windows 10 下安裝 VSCode，首先先下載安裝程式 （https://code.visualstudio.com/Download)，依照你的電腦選擇要安裝的版本，若是比較新的PC大都為 64 bit，可點選 for Windows 8，10，11 的 User Installer 64 位元使用。\n下載完成點選“開啟檔案”後即進行安裝。\n點選“我同意”選項後按下“下一步“\n選擇安裝路徑後按下“下一步”\n“下一步” = “下一步” = “下一步” = “安裝“\n完成\n更多資訊可參考 https://code.visualstudiocom/docs/?dv=win64user\nLive Server Extension for VSCode 在 VSCode 中 Ctrl+Shift+X 打開 Extensions 功能\n在搜尋框內輸入 live server，找到 Live Server Extension，按下“Install”\n安裝好 Live Server Extension 後在右下角會出現 “Go Live\" 的功能按鈕\ngit for windows git 是目前最火紅的 “程式碼版本控制管理系統”，用這個工具可以協助你管理你的網頁程式。\ngit for windows 安裝程式下載 https://git-scm.com/downloads\n依你的作業系統選擇合適版本，下載後“開啟檔案” 進行安裝。\n選擇“是”進行安裝\n依序選擇預計值“Next”進行安裝\n安裝完成!\n測試 git 功能，先打開“命令提示字元”輸入git version\nC:\\git version git version 2.36.1.windows.1 在使用 git 前要先設定初次設定，包含 user name 及 email\nc:\\ git config --global user.name \"Tim Doe\" c:\\ git config --global user.email timdoe@example.com 測試 git 功能，打開“命令提示字元”，先輸入E: + Enter，再輸入 cd \\Sources\\Nhis2WebNew ，這個目錄是網頁程式碼所在的位置。\n輸入 git log 指令會顯示目前目錄下的程式碼的版本歴程\n至此相關的工具已安裝完成！\n使用的技術  VSCode HTML Tag  headings (標題) paragraphs (段落) a tag (連結) images (影像檔) buttons (按鈕) lists (清單) div (區塊) id comments (註解) br (換行)   JavsScript CSS  Classes   git  網頁程式架構 程式檔案結構 ./NHIS2WebNew ├── bak/ │ └── *.html # 備份檔 ├── css/ │ ├── base.css │ ├── extend.css │ └── table.css ├── files/ │ └── *.pdf, *.zip ├── img/ │ └── *.jpg, *.gif # 網頁使用的影像檔 ├── javascript/ # JavaScript 程式碼 │ ├── imgshow.js │ ├── news_e.js │ └── news.js ├── templates/ │ └── *.txt └── HTML files # 網頁程式檔 網頁程式碼基本架構 基本上網頁程式碼架構是相似的，以 index.html 和 nhri.html 兩支程式來比較，會發現他們都是由 “head\" \u0026 “cont” \u0026 “功能選單“ \u0026 “foot” 以及最下方的“來訪人數和版權宣告”區。\n網頁呈現在瀏覽器上的結果如下圖，上述的五個區塊分別對應到\n 最上方的紅色區塊 對應的是: “head” 中間左方的紅色區塊 對應的是: “功能選單” 中間右方的紅色區塊 對應的是: “cont” （內文區塊） 下方的倒數第二個紅色區塊 對應的是: “foot” 最下方的紅色區塊 對應的是: “來訪人數和版權宣告”  由上面的說明可以了解每一個網頁中的五個區塊除了“3.cont”(內文)這個區塊外都是共用的，換句話，內文區塊是每一個網頁的主角，這個區塊內容就是這個網頁的最重要內函，其他四個區塊每個網頁都是一樣的。\nHTML 基本語法的使用 使用 VSCode　編輯網頁 啟動 VSCode\n點選 “Open Folder“ 按鈕\n選擇 Source 所在的目錄 E:\\Sources\\Learning\\ 按下 選擇資料夾 按鍵\n第一次開啟一個目錄時須要使用者的授權，請按“Yes\"\n目錄開啟成功後，使用滑鼠點選 New File。\n輸入新檔檔名: index.html 按下 Enter\n在檔案編輯區輸入! (驚嘆號)再按下 Enter 鍵，VSCode 自動補齊 Html 的基本內容。 自動補齊的預設內容： HTML document HTML heading HTML paragraphs HTML links HTML images HTML buttons HTML lists HTML table 一. 簡易表格範例\n二. 表格範例\n html head style table { font-family: arial, sans-serif; border-collapse: collapse; width: 100%; } td, th { border: 1px solid #dddddd; text-align: left; padding: 8px; } tr:nth-child(even) { background-color: #dddddd; } style head body h2HTML Tableh2 table tr thCompanyth thContactth thCountryth tr tr tdAlfreds Futterkistetd tdMaria Anderstd tdGermanytd tr tr tdCentro comercial Moctezumatd tdFrancisco Changtd tdMexicotd tr tr tdErnst Handeltd tdRoland Mendeltd tdAustriatd tr tr tdIsland Tradingtd tdHelen Bennetttd tdUKtd tr tr tdLaughing Bacchus Winecellarstd tdYoshi Tannamuritd tdCanadatd tr tr tdMagazzini Alimentari Riunititd tdGiovanni Rovellitd tdItalytd tr table body html 三. 表格框線一\ntable, th, td { border: 1px solid black; } 四. 表格框線二\ntable, th, td { border: 1px solid black; border-collapse: collapse; } 五. 表格框線三\ntable, th, td { border: 1px solid white; border-collapse: collapse; } th, td { background-color: #96D4D4; } 六. 表格框線四\ntable, th, td { border: 1px solid black; border-radius: 10px; } 七. 表格大小\n八. 表頭欄位合併\n九. 表格列合併 十. 斑馬紋表格\nstyle table { border-collapse: collapse; width: 100%; } th, td { text-align: left; padding: 8px; } tr:nth-child(even) { background-color: #D6EEEE; } style HTML 語法參考網站   W3School\n  MDN web docs\n  國民健康調查網頁維護 使用 VSCode　編輯網頁 啟動 VSCode\n點選 “Open Folder“ 按鈕\n選擇 Source 所在的目錄 E:\\Sources\\Nhis2WebNew\\\n第一次開啟一個目錄時須要使用者的授權，請按“Yes\"\n開啟成功後，VSCode 檢核出你所在的作業系統是中文繁體的環境會顯示你可選擇安裝“語言套件”，若你選擇“安裝並重新啟動”\n語言套件安裝成功重新啟動後操作介面變成了中文繁體\nindex.html index.html 是網站的預設網頁，來看看它的組成有那些部分，在前面我們提過每一個網頁程式碼皆包含了五個部分：\n 最上方的紅色區塊 對應的是: “head” 中間左方的紅色區塊 對應的是: “功能選單” 中間右方的紅色區塊 對應的是: “cont” （內文區塊） 下方的倒數第二個紅色區塊 對應的是: “foot” 最下方的紅色區塊 對應的是: “來訪人數和版權宣告”  也提到過其他\"3.cont\"(內文)區塊是每一個網頁的主角，這個區塊內容就是這個網頁的最重要內函，其他區塊外都是共用的，所以我們把眼光專注在 cont，以 index.html 為例，內文的部分除了最上方的“網頁路徑“（首頁最新消息）資訊外，又分成二大塊，位在上方的是\"最新消息\"，和下方的是“計畫緣起”。“最新消息”是一個比較特殊的內文，我們在下面章節中會獨立出來說明，先來了解一下“計畫緣起”的部分。\n配合程式碼的部分，可以發現“計畫緣起”是由一個  和一個  以及一個 等三個元素所組成。\n  的部份是顯示一個“地球“的圖檔，在 src 這個屬性可以了解實際對應到的檔案的目錄及檔名。  則是使用最大號字型的標題用來顯示“計畫緣起“這個標題。 至於  的部分是一個有一列一欄的表格，內容物則由一個 和二段文字 以及一個 連結按鈕所組成。  中的這個只是單純一個占位符，實際上顯示的圖檔是透過 javascript 程式碼來控制的。其中被呼叫的 function 是位於 /javascript/imgshow.js 程式中。在這支程式中可以很清楚的看到用來輸替顯示的圖檔是位於 /img/img01.jpg、img02.jpg、img03.jpg、img04.jpg、img05.jpg 等五個檔。\n//基礎參數設置 number_of_sponsors=5; //設定展示圖片總頁數 var showTimeOut=2000; //捲動更新時間 var sctr=0; var halt=0; var isn=new Array(); for (i=0;inumber_of_sponsors;i++){ isn[i]=new Image(); } //設定每張展示圖片的圖檔連結 isn[0].src=\"/img/img01.jpg\"; isn[1].src=\"/img/img02.jpg\"; isn[2].src=\"/img/img03.jpg\"; isn[3].src=\"/img/img04.jpg\"; isn[4].src=\"/img/img05.jpg\"; function rotateIt(){ if (halt!=1){ sctr++; if (sctrnumber_of_sponsors-1){ sctr=0; } document.sponsor.src=isn[sctr].src; setTimeout(\"rotateIt()\",showTimeOut); } } function doIt(){ halt=1; location.href=durl[sctr]; } function dispIt(){ parent.window.status=durl[sctr]; } 功能表選單 接下來來看看“功能表選單區”。在前面有提過“功能表選單區”的內容在每一個網頁程式檔中都是一樣的。也就是說選單區中有任何的異動，必須同時更新到每一支網頁程式中。這時你就要善用VSCode中的全域置換功能。\n以下模擬一個修改選單文字的案例來說明如何使用全域置換功能。假設我們要把選單中第一行的“計畫內容”這個標題改成“計畫內容說明”\n首先，按下 Ctrl+Shift+F 叫出\"搜尋/置換“功能（如下圖），輸入要修改的內容，請注意以本例而語應該要輸入計畫內容這個“完整”的完串，這樣才能表示是“在選單中的計畫內容這個選項的標題“，如此才不會改到其他內容中的計畫內容這樣樣字串，此處要特別小心緊慎。\n在SEARCH 功能中輸入計畫內容這個“完整”的字串後，在輸入文字框的下方會出現本專案中所有符合條件的清單，也就是說這些地方都是我們必須去更改的地方。\n確認完這38個地方是我們要變更後，接著以滑鼠點選“Toggle Replace“按鈕打開”Replace\"文字輸入框。\n在”Replace\"文字輸入框中輸入要變更成結果，以本例而言就是計畫內容說明這樣的字串。再按下“置換”按鈕\n於“再次確認”的視窗中按下 “取代“，VSCode 將會自動修所有38個相符的地方。\n新增一個頁面 假設我們要新增一個 “網頁Q\u0026A II“ 的新網頁，並且希望在“網頁Q\u0026A“功能選項下方新增一個“網頁Q\u0026A II“的功能項目。 由於“網頁Q\u0026A II“可能類似“網頁Q\u0026A“，所以可以考慮透過複制的方式來産生這個新頁面。　首先在瀏覽器上功能選項中點選\"網頁Q\u0026A\"查看實際檔名，發現它的檔名是“Q\u0026A.html”\n然後在VSCode找到“Q\u0026A.html”，以滑鼠右鍵點選\"Q\u0026A.html\"這個檔案，並點選 “copy” 功能。\n再到 VSCode 檔案總管功能中最下方的空白處按下滑鼠右鍵，叫出功能選單，選擇“Paste”(貼上)\n貼上完成後，會發現在 “Q\u0026A.html”上方已經多了一個名為　“Q\u0026A copy.html”　的新網頁。\n接下來先把它改名成為 “Q\u0026A II.html”\n修改好檔名後，接著就是要週整網頁內容了，從前面章節的說明裡可以知道在這個網頁中我們要節整的地方，基本上有二個地方：一是“cont\"（內文）、二是“功能選項”。\n“cont\"（內文）的部份依需求把原有的內容改成你需要的內容，此處說明方便起見，只將\"網站Q\u0026A\"的字串改成“網站Q\u0026A II\"\ndiv id=\"cont\" font color=#ff6e00網站內容網站Q\u0026Afont img STYLE=\"FLOAT: LEFT; MARGIN: 10PX\" src=\"/img/icon1.jpg\" alt=\"\" width=\"50\" height=\"48\" class=\"left\" / h1網站Q\u0026Ah1 改完後\ndiv id=\"cont\" font color=#ff6e00網站內容網站Q\u0026A IIfont img STYLE=\"FLOAT: LEFT; MARGIN: 10PX\" src=\"/img/icon1.jpg\" alt=\"\" width=\"50\" height=\"48\" class=\"left\" / h1網站Q\u0026A IIh1 內文內容完成後，接下來是要在功能選項中新加入一個“網頁Q\u0026A II“的功能項目在“網頁Q\u0026A“功能選項下方。這裡值得注意的是這個新增功能選項的動作除了在“Q\u0026A II.html\"檔案內必須新加入外，在其他的網頁程式(.html)中也要加入，所以這裡新加入的動作可以利用前面章節介紹的“全域修改“的方法來完成。\n首先找到 “Q\u0026A.html” 這個選項的程式碼，即“網站Q\u0026A”，利用滑鼠將這整個字串“選取”起來，再按下 Ctrl+Shift+H 叫出搜尋/置換功能視窗，在“置換”文字框輸入要置換的字串。這裡要特別注意的是我們使用了“置換”功能來完成“新增功能選項”的需求，而不是真的要把“網站Q\u0026A”這個字串置換掉，所以在取代的文字框內除了保留原來的“網站Q\u0026A”字串外，將游標停在在這個字中最後的位置，並按下 Ctrl+Enter 按鈕來新增一個“換行”，然後再將“網站Q\u0026A II” 這個新的功能選項程式碼繼續加在取代的文字框內，如下圖\n輸入就續後按下“置換”按鈕\n確認要進行所有檔案的置換則按下 replace\n完成置換\n完後瀏覽結果\n修改頁面 接下來我們以 nhri.html 來介紹修改的功能，在這個網頁的內容中主角是 。\ndiv id=\"cont\"\tfont color=#ff6e00工作團隊財團法人國家衛生研究院font img STYLE=\"FLOAT: LEFT; MARGIN: 10PX\" src=\"img/icon1.jpg\" alt=\"\" width=\"50\" height=\"48\" class=\"left\"/ h1工作團隊h1\ttable summary=\"Submitted 財團法人國家衛生研究院\" caption財團法人國家衛生研究院caption caption電話:(037)246-166　地址:350 苗栗縣竹南鎮科研路35號caption thead tr th width=\"30%\" scope=\"col\"服務單位th th width=\"25%\" scope=\"col\"人員th th width=\"15%\" scope=\"col\"電話分機th th width=\"30%\" scope=\"col\"電子郵件信箱th tr thead\ttfoot tr\ttr tfoot tbody tr th群體健康科學研究所th td熊昭 所長兼生統生資組組主任td td36100td tda href=\"mailto:hsiung@nhri.org.tw\" class=\"style1\"hsiung@nhri.org.twatd tr tr class=\"odd\" th群健所醫療保健研究組th td張新儀 研究員td td36333td tda href=\"mailto:hsingyi@nhri.org.tw\" class=\"style1\"hsingyi@nhri.org.twatd tr tr  th群健所醫療保健研究組th td于勝宗 研究助理td td36343td tda href=\"mailto:yu650911@nhri.org.tw\" class=\"style1\"yu650911@nhri.org.twatd tr tr class=\"odd\" th群健所醫療保健研究組th td江啟永 研究助理td td36329td tda href=\"mailto:ccy@nhri.org.tw\" class=\"style1\"ccy@nhri.org.twatd tr tr  th群健所醫療保健研究組th td方心伶 研究助理td td36373td tda href=\"mailto:sling0329@nhri.org.tw\" class=\"style1\"sling0329@nhri.org.twatd tr tr class=\"odd\" th群健所生物統計與生物資訊研究組th td陳主智 研究員td td36186td tda href=\"mailto:ccchen@nhri.org.tw\" class=\"style1\"ccchen@nhri.org.twatd tr tr  th群健所生物統計與生物資訊研究組th td翁文舜 研究助理td td36129td tda href=\"mailto:wengws@nhri.org.tw\" class=\"style1\"wengws@nhri.org.twatd tr tr class=\"odd\" th群健所生物統計與生物資訊研究組th td劉季鑫 研究助理td td36144td tda href=\"mailto:jihshin@nhri.org.tw\" class=\"style1\"jihshin@nhri.org.twatd tr tr  th群健所生物統計與生物資訊研究組th td鍾曉君 研究助理td td36131td tda href=\"mailto:941014@nhri.org.tw\" class=\"style1\"941014@nhri.org.twatd tr tr class=\"odd\" th群健所老年醫學研究組th td許志成 主任td td36336td tda href=\"mailto:cch@nhri.org.tw\" class=\"style1\"cch@nhri.org.twatd tr tr  th群健所老年醫學研究組th td吳名祥 研究助理td td37319td tda href=\"mailto:start082105@nhri.org.tw\" class=\"style1\"start082105@nhri.org.twatd tr tr class=\"odd\"  th群健所精神與成癮醫學研究組th td陳娟瑜 副研究員td td36705td tda href=\"mailto:cychen@nhri.org.tw\" class=\"style1\"cychen@nhri.org.twatd tr\ttr  th群健所精神與成癮醫學研究組th td陳光宏 博士生td td td tda href=\"mailto: d49907004@ym.edu.tw\" class=\"style1\" d49907004@ym.edu.twatd tr\ttbody\ttable a STYLE=\"FLOAT: RIGHT; MARGIN: 5PX\" href=\"#\" class=\"top\"【回到頁首】a div 修改後\ndiv id=\"cont\" font color=#ff6e00工作團隊財團法人國家衛生研究院font img STYLE=\"FLOAT: LEFT; MARGIN: 10PX\" src=\"/img/icon1.jpg\" alt=\"\" width=\"50\" height=\"48\" class=\"left\" / h1工作團隊h1 table summary=\"Submitted 財團法人國家衛生研究院\" caption財團法人國家衛生研究院caption caption電話:(037)206-166　地址:350 苗栗縣竹南鎮科研路35號caption thead tr th width=\"30%\" scope=\"col\"服務單位th th width=\"25%\" scope=\"col\"人員th th width=\"15%\" scope=\"col\"電話分機th th width=\"30%\" scope=\"col\"電子郵件信箱th tr thead tfoot tr tr tfoot tbody tr th群體健康科學研究所th td邱弘毅特聘研究員兼所長td td36100td tda href=\"mailto:hychiou@nhri.edu.tw\" class=\"style1\"hychiou@nhri.edu.twatd tr tr class=\"odd\" thth td許志成研究員br兼副所長td td36336td tda href=\"mailto:cch@nhri.edu.tw\" class=\"style1\"cch@nhri.edu.twatd tr tr thth td張新儀研究員td td36333td tda href=\"mailto:hsingyi@nhri.edu.tw\" class=\"style1\"hsingyi@nhri.edu.twatd tr tr class=\"odd\" thth td align=\"right\"于勝宗研究助理td td36343td tda href=\"mailto:yu650911@nhri.edu.tw\" class=\"style1\"yu650911@nhri.edu.twatd tr tr thth td align=\"right\"江啟永研究助理td td36329td tda href=\"mailto:ccy@nhri.edu.tw\" class=\"style1\"ccy@nhri.edu.twatd tr tr class=\"odd\" thth td align=\"right\"方心伶研究助理td td36373td tda href=\"mailto:sling0329@nhri.edu.tw\" class=\"style1\"sling0329@nhri.edu.twatd tr tr thth td陳主智研究員td td36186td tda href=\"mailto:ccchen@nhri.edu.tw\" class=\"style1\"ccchen@nhri.edu.twatd tr tr class=\"odd\" thth td align=\"right\"翁文舜研究助理td td36129td tda href=\"mailto:wengws@nhri.edu.tw\" class=\"style1\"wengws@nhri.edu.twatd tr tr th神經及精神醫學研究中心th td陳娟瑜合聘研究員td td(02)2826-7000 #65034td tda href=\"mailto:cychen@nhri.edu.tw\" class=\"style1\"chuanychen@gmail.comatd tr tbody table a STYLE=\"FLOAT: RIGHT; MARGIN: 5PX\" href=\"#\" class=\"top\"【回到頁首】a div 刪除一個頁面 假設我們要移除“工作團隊”中的“衛生福利部食品藥物管理署“這個網頁，主要有二個步驟：一是把選項中的“衛生福利部食品藥物管理署“移除，第二步驟是：nbcd.html 這個網頁檔案刪除。\n先找到 “nhri.html\"中“衛生福利部食品藥物管理署“這個選項的程式碼，即“衛生福利部食品藥物管理署”，利用滑鼠將這整個字串“選取”起來，再按下 Ctrl+Shift+H 叫出搜尋/置換功能視窗，在“置換”文字框中直接留著空白，再按下“置換”按鈕進行“全域置換“的動作即可。\n另外也可以把　“衛生福利部食品藥物管理署”　置換成 “衛生福利部食品藥物管理署 --” 來達成同樣的效果，不同處是：這個作法是透過“註解“的方式來“隱蔵這個選項而不是這個段網頁程式碼”刪除“了。\n最新消息清單維護 接下來“最新消息”的網頁修改是屬比較特殊的部分。先來介紹“清單”的部分。在 VSCode 找到 /javascript/news.js 這支 JavaScript 程式檔。在這程式中只有“設定新聞訊息與連結”這個部分是需要被維護的，其餘皆是固定的 JS 程式碼，不要作任何變更。\n以上圖為例，可以看到二個陣列，newText[] 這個陣列是用來將 “最新消息“ 的標題顯在網站的“預設網頁”(index.html)中，當使用者透過滑鼠點選在這四個清單中任一項時，系統會自動開啟對應各最新消息的詳細說明網頁。而這些“最新消息的詳細說明網頁”則是透過第二個陣列 newsURL 來設定的。以第一則最新消息來看，標題是“「國民健康訪問調查」資料管理中心暫停受理各項資料使用申請的業務。 因應目前正在進行「國民健康訪問調查」問卷資料檔的去識別化驗證，自2021年2月3日起「國民健康訪問調查」資料管理中心暫停受理各項資料使用申請的業務。(2021/02/03公告)”，而更詳細的說明則是在 “20210203.html” 檔案中。\n滑鼠點選在這四個清單中第一則消息，系統會自動打開\"20210203.html\"最新消息的詳細說明。\n按下 “close” 按鈕時，系統會自動關閉這個詳細說明頁面。\n最新消息明細網頁維護 至於“最新消息明細網頁維護”則如同一般 HTML 網頁程式一樣。\n其中需要被維護的部分就是紅框反白處（也就是內容區塊的部分）。這區塊內可以支支所有 HTML 格式的設定。以下圖為例，先有個“標題”（h2)，再放了一個段落。你也依需求放入一個或是區塊…等。\n在開發環境查看網站成果 在開發維護中如何查看網頁的成果呢？一般而言，瀏覽器是連結到伺服器上去要求回應網頁內容，再由瀏覽器呈現網頁的最終成果。透過 VSCode 在網頁開發階段時不需這麼複雜，只要透過前面“開發環境安裝”章節介紹的 Live Server 套件就可以看到與伺服器支援相同效果的成果。\n啟動網站 以 “20210203.html” 為例，要查看它的實際成果，先在 VSCode 找到這檔案並打開它。\n只須按下視窗右下方的\"Go Live\"按鈕，VSCode即自動打開瀏覽器並將成果顯示在瀏覽器中。\n註：“Go Live\"按鈕功能是由\"Live Server 套件”　所提供，要依前面章節所介紹的先進行安裝。\n更新到主機 當已完成所有新增／修改作業後，必須把相關的收到更新到伺服器上(10.64.18.223)。\n主機上網頁程式目錄 在伺服器上打開桌面上的“Internet Information Services (IIS) 管理員”\n其他站台 - NHIS2Web 就是 “NHIS 國民健康訪問調整網站”，要查看這個網站的相關程式碼檔案所存放的位置，將滑鼠點選“IIS管理員“中“動作”中的“瀏覽”，系統會自動打開檔案管理員，並顯示出程式碼檔案所存放的路徑及檔案。\n將你在local 已修改的所有檔案傳送到這個目錄來，覆蓋掉舊檔即可。\nIIS 操作 在更新好有修改／變更的檔案後，你可以操作 “IIS管理員“ 的相關功能先來確認網頁是否有正常作業。\n為確保 IIS Server 有讀到最新更新的檔案，你可以執行 “IIS管理員“ 中的 “重新啟動“ 功能。\n","wordCount":"1101","inLanguage":"en","datePublished":"2022-06-15T00:00:00Z","dateModified":"2022-06-15T00:00:00Z","author":{"@type":"Person","name":"Theme PaperMod"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://calvinegs.github.io/posts/nhisweb/"},"publisher":{"@type":"Organization","name":"永誌不忘 • 筆記簿","logo":{"@type":"ImageObject","url":"https://calvinegs.github.io/img/favicon.png"}}}</script>
+</head>
+<body id=top>
+<script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
+<header class=header>
+<nav class=nav>
+<div class=logo>
+<a href=https://calvinegs.github.io/ accesskey=h title="永誌不忘 • 筆記簿 (Alt + H)">永誌不忘 • 筆記簿</a>
+<span class=logo-switches>
+<button id=theme-toggle accesskey=t title="(Alt + T)"><svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+</button>
+</span>
+</div>
+<ul id=menu>
+<li>
+<a href=https://calvinegs.github.io/posts/ title=Posts>
+<span>Posts</span>
+</a>
+</li>
+<li>
+<a href=https://calvinegs.github.io/archives/ title=Archive>
+<span>Archive</span>
+</a>
+</li>
+<li>
+<a href=https://calvinegs.github.io/categories/ title=Categories>
+<span>Categories</span>
+</a>
+</li>
+<li>
+<a href=https://calvinegs.github.io/tags/ title=Tags>
+<span>Tags</span>
+</a>
+</li>
+<li>
+<a href=https://calvinegs.github.io/search/ title="Search (Alt + /)" accesskey=/>
+<span>Search</span>
+</a>
+</li>
+</ul>
+</nav>
+</header>
+<main class=main>
+<article class=post-single>
+<header class=post-header>
+<div class=breadcrumbs><a href=https://calvinegs.github.io/>Home</a>&nbsp;»&nbsp;<a href=https://calvinegs.github.io/posts/>Posts</a></div>
+<h1 class=post-title>
+國民健康訪問調整網站維護說明
+</h1>
+<div class=post-description>
+在本說明文件中會介紹如使用 VSCode 來維護網站中的各網頁內容及如何更新至伺服器。
+</div>
+<div class=post-meta><span title="2022-06-15 00:00:00 +0000 UTC">June 15, 2022</span>&nbsp;·&nbsp;6 min&nbsp;·&nbsp;Theme PaperMod&nbsp;|&nbsp;<a href=https://github.com/adityatelange/hugo-PaperMod/tree/exampleSite/content/posts/nhisweb.md rel="noopener noreferrer" target=_blank>Suggest Changes</a>
+</div>
+</header> <div class=toc>
+<details>
+<summary accesskey=c title="(Alt + C)">
+<span class=details>Table of Contents</span>
+</summary>
+<div class=inner><ul>
+<li>
+<a href=#%e5%ae%89%e8%a3%9d%e5%b7%a5%e5%85%b7 aria-label=安裝工具>安裝工具</a><ul>
+<li>
+<a href=#vscode aria-label=VSCode>VSCode</a></li>
+<li>
+<a href=#live-server-extension-for-vscode aria-label="Live Server Extension for VSCode">Live Server Extension for VSCode</a></li>
+<li>
+<a href=#git-for-windows aria-label="git for windows">git for windows</a></li></ul>
+</li>
+<li>
+<a href=#%e4%bd%bf%e7%94%a8%e7%9a%84%e6%8a%80%e8%a1%93 aria-label=使用的技術>使用的技術</a></li>
+<li>
+<a href=#%e7%b6%b2%e9%a0%81%e7%a8%8b%e5%bc%8f%e6%9e%b6%e6%a7%8b aria-label=網頁程式架構>網頁程式架構</a><ul>
+<li>
+<a href=#%e7%a8%8b%e5%bc%8f%e6%aa%94%e6%a1%88%e7%b5%90%e6%a7%8b aria-label=程式檔案結構>程式檔案結構</a></li>
+<li>
+<a href=#%e7%b6%b2%e9%a0%81%e7%a8%8b%e5%bc%8f%e7%a2%bc%e5%9f%ba%e6%9c%ac%e6%9e%b6%e6%a7%8b aria-label=網頁程式碼基本架構>網頁程式碼基本架構</a></li></ul>
+</li>
+<li>
+<a href=#html-%e5%9f%ba%e6%9c%ac%e8%aa%9e%e6%b3%95%e7%9a%84%e4%bd%bf%e7%94%a8 aria-label="HTML 基本語法的使用">HTML 基本語法的使用</a><ul>
+<li>
+<a href=#%e4%bd%bf%e7%94%a8-vscode%e7%b7%a8%e8%bc%af%e7%b6%b2%e9%a0%81 aria-label="使用 VSCode　編輯網頁">使用 VSCode　編輯網頁</a></li>
+<li>
+<a href=#html-document aria-label="HTML document">HTML document</a></li>
+<li>
+<a href=#html-heading aria-label="HTML heading">HTML heading</a></li>
+<li>
+<a href=#html-paragraphs aria-label="HTML paragraphs">HTML paragraphs</a></li>
+<li>
+<a href=#html-links aria-label="HTML links">HTML links</a></li>
+<li>
+<a href=#html-images aria-label="HTML images">HTML images</a></li>
+<li>
+<a href=#html-buttons aria-label="HTML buttons">HTML buttons</a></li>
+<li>
+<a href=#html-lists aria-label="HTML lists">HTML lists</a></li>
+<li>
+<a href=#html-table aria-label="HTML table">HTML table</a></li></ul>
+</li>
+<li>
+<a href=#html-%e8%aa%9e%e6%b3%95%e5%8f%83%e8%80%83%e7%b6%b2%e7%ab%99 aria-label="HTML 語法參考網站">HTML 語法參考網站</a></li>
+<li>
+<a href=#%e5%9c%8b%e6%b0%91%e5%81%a5%e5%ba%b7%e8%aa%bf%e6%9f%a5%e7%b6%b2%e9%a0%81%e7%b6%ad%e8%ad%b7 aria-label=國民健康調查網頁維護>國民健康調查網頁維護</a><ul>
+<li>
+<a href=#%e4%bd%bf%e7%94%a8-vscode%e7%b7%a8%e8%bc%af%e7%b6%b2%e9%a0%81-1 aria-label="使用 VSCode　編輯網頁">使用 VSCode　編輯網頁</a></li>
+<li>
+<a href=#indexhtml aria-label=index.html>index.html</a></li>
+<li>
+<a href=#%e5%8a%9f%e8%83%bd%e8%a1%a8%e9%81%b8%e5%96%ae aria-label=功能表選單>功能表選單</a></li>
+<li>
+<a href=#%e6%96%b0%e5%a2%9e%e4%b8%80%e5%80%8b%e9%a0%81%e9%9d%a2 aria-label=新增一個頁面>新增一個頁面</a></li>
+<li>
+<a href=#%e4%bf%ae%e6%94%b9%e9%a0%81%e9%9d%a2 aria-label=修改頁面>修改頁面</a></li>
+<li>
+<a href=#%e5%88%aa%e9%99%a4%e4%b8%80%e5%80%8b%e9%a0%81%e9%9d%a2 aria-label=刪除一個頁面>刪除一個頁面</a></li>
+<li>
+<a href=#%e6%9c%80%e6%96%b0%e6%b6%88%e6%81%af%e6%b8%85%e5%96%ae%e7%b6%ad%e8%ad%b7 aria-label=最新消息清單維護>最新消息清單維護</a></li>
+<li>
+<a href=#%e6%9c%80%e6%96%b0%e6%b6%88%e6%81%af%e6%98%8e%e7%b4%b0%e7%b6%b2%e9%a0%81%e7%b6%ad%e8%ad%b7 aria-label=最新消息明細網頁維護>最新消息明細網頁維護</a></li></ul>
+</li>
+<li>
+<a href=#%e5%9c%a8%e9%96%8b%e7%99%bc%e7%92%b0%e5%a2%83%e6%9f%a5%e7%9c%8b%e7%b6%b2%e7%ab%99%e6%88%90%e6%9e%9c aria-label=在開發環境查看網站成果>在開發環境查看網站成果</a><ul>
+<li>
+<a href=#%e5%95%9f%e5%8b%95%e7%b6%b2%e7%ab%99 aria-label=啟動網站>啟動網站</a></li></ul>
+</li>
+<li>
+<a href=#%e6%9b%b4%e6%96%b0%e5%88%b0%e4%b8%bb%e6%a9%9f aria-label=更新到主機>更新到主機</a><ul>
+<li>
+<a href=#%e4%b8%bb%e6%a9%9f%e4%b8%8a%e7%b6%b2%e9%a0%81%e7%a8%8b%e5%bc%8f%e7%9b%ae%e9%8c%84 aria-label=主機上網頁程式目錄>主機上網頁程式目錄</a></li>
+<li>
+<a href=#iis-%e6%93%8d%e4%bd%9c aria-label="IIS 操作">IIS 操作</a>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</details>
+</div>
+<div class=post-content><h2 id=安裝工具>安裝工具<a hidden class=anchor aria-hidden=true href=#安裝工具>#</a></h2>
+<h3 id=vscode>VSCode<a hidden class=anchor aria-hidden=true href=#vscode>#</a></h3>
+<p>在 windows 10 下安裝 VSCode，首先先下載安裝程式 （https://code.visualstudio.com/Download)，依照你的電腦選擇要安裝的版本，若是比較新的PC大都為 64 bit，可點選 for Windows 8，10，11 的 User Installer 64 位元使用。</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/175248304-8c1a6fb0-4ee9-44c1-8972-8ca2d9c349fc.png alt=image>
+</p>
+<p>下載完成點選“開啟檔案”後即進行安裝。</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/175250466-aeafcf24-8082-49e5-84b6-98ec9b67ff77.png alt=image>
+</p>
+<p>點選“我同意”選項後按下“下一步“</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/175250601-560c025c-fd08-4ba1-a66b-fcad887afc3f.png alt=image>
+</p>
+<p>選擇安裝路徑後按下“下一步”</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/175250827-c3e0e7e5-9253-49a7-81c1-588f815e9847.png alt=image>
+</p>
+<p>“下一步” => “下一步” => “下一步” => &ldquo;安裝“</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/175261732-2ad9e2e0-baea-48bb-a733-d4e8a999f51c.png alt="2022-06-21 11-48-36">
+</p>
+<p>完成</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/175261847-e4483eb5-018c-47ec-be3e-69016a9037c6.png alt="2022-06-21 11-49-03">
+</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/175262000-6f5d086c-ebcc-4202-bb06-19deba70c268.png alt="2022-06-21 11-50-01">
+</p>
+<p>更多資訊可參考 <a href="https://code.visualstudiocom/docs/?dv=win64user">https://code.visualstudiocom/docs/?dv=win64user</a></p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/175262513-5662737c-1eea-4cb3-841a-2a9cf3c13488.png alt="2022-06-21 11-50-41">
+</p>
+<h3 id=live-server-extension-for-vscode>Live Server Extension for VSCode<a hidden class=anchor aria-hidden=true href=#live-server-extension-for-vscode>#</a></h3>
+<p>在 VSCode 中 Ctrl+Shift+X 打開 Extensions 功能</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/175263357-892b5891-2d55-47ea-8202-7ddf463b7799.png alt=image>
+</p>
+<p>在搜尋框內輸入 live server，找到 Live Server Extension，按下“Install&rdquo;</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/175264059-5b59cf4e-650c-41fe-a928-7b73ac21dce3.png alt=image>
+</p>
+<p>安裝好 Live Server Extension 後在右下角會出現 “Go Live" 的功能按鈕</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/175264059-5b59cf4e-650c-41fe-a928-7b73ac21dce3.png alt=image>
+</p>
+<h3 id=git-for-windows>git for windows<a hidden class=anchor aria-hidden=true href=#git-for-windows>#</a></h3>
+<p>git 是目前最火紅的 “程式碼版本控制管理系統”，用這個工具可以協助你管理你的網頁程式。</p>
+<p>git for windows 安裝程式下載 <a href=https://git-scm.com/downloads>https://git-scm.com/downloads</a></p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/175267461-dfa72690-3638-4c7f-8d88-11942838ba56.png alt=image>
+</p>
+<p>依你的作業系統選擇合適版本，下載後“開啟檔案” 進行安裝。</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/175267671-77cde4a3-4242-4357-8034-e49e666ad5c0.png alt=image>
+</p>
+<p>選擇“是”進行安裝</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/175268997-7710fe49-0f8c-4850-8441-9f46d9c96149.png alt="2022-06-23 17-35-37">
+</p>
+<p>依序選擇預計值“Next”進行安裝</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/175269295-f6ebd0a0-a2ae-4216-91d4-27ff0bdfb7f4.png alt="2022-06-23 17-35-48">
+</p>
+<p>安裝完成!</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/175269633-18951f51-b719-43b5-b7c7-ab904004029b.png alt="2022-06-23 17-37-46">
+</p>
+<p>測試 git 功能，先打開“命令提示字元”輸入<code>git version</code></p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>C:<span style=color:#ae81ff>\g</span>it version
+
+git version 2.36.1.windows.1
+</code></pre></div><p>在使用 git 前要先設定<code>初次設定</code>，包含 user name 及 email</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>c:<span style=color:#ae81ff>\&gt;</span> git config --global user.name <span style=color:#e6db74>&#34;Tim Doe&#34;</span>
+c:<span style=color:#ae81ff>\&gt;</span> git config --global user.email timdoe@example.com
+</code></pre></div><p>測試 git 功能，打開“命令提示字元”，先輸入<code>E:</code> + Enter，再輸入 <code>cd \Sources\Nhis2WebNew</code> ，這個目錄是網頁程式碼所在的位置。</p>
+<p>輸入 git log 指令會顯示目前目錄下的程式碼的版本歴程</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/175270144-62a4ca9c-2dcd-4027-9abb-45deffceb30f.png alt=image>
+</p>
+<p>至此相關的工具已安裝完成！</p>
+<h2 id=使用的技術>使用的技術<a hidden class=anchor aria-hidden=true href=#使用的技術>#</a></h2>
+<ul>
+<li>VSCode</li>
+<li>HTML Tag
+<ul>
+<li>headings (標題)</li>
+<li>paragraphs (段落)</li>
+<li>a tag (連結)</li>
+<li>images (影像檔)</li>
+<li>buttons (按鈕)</li>
+<li>lists (清單)</li>
+<li>div (區塊)</li>
+<li>id</li>
+<li>comments (註解)</li>
+<li>br (換行)</li>
+</ul>
+</li>
+<li>JavsScript</li>
+<li>CSS
+<ul>
+<li>Classes</li>
+</ul>
+</li>
+<li>git</li>
+</ul>
+<h2 id=網頁程式架構>網頁程式架構<a hidden class=anchor aria-hidden=true href=#網頁程式架構>#</a></h2>
+<h3 id=程式檔案結構>程式檔案結構<a hidden class=anchor aria-hidden=true href=#程式檔案結構>#</a></h3>
+<pre tabindex=0><code>./NHIS2WebNew
+├── bak/
+│   └── *.html        # 備份檔
+├── css/
+│   ├── base.css
+│   ├── extend.css
+│   └── table.css
+├── files/
+│   └── *.pdf, *.zip
+├── img/
+│   └── *.jpg, *.gif  # 網頁使用的影像檔
+├── javascript/       # JavaScript 程式碼
+│   ├── imgshow.js
+│   ├── news_e.js
+│   └── news.js
+├── templates/
+│   └── *.txt
+└── HTML files        # 網頁程式檔
+</code></pre><h3 id=網頁程式碼基本架構>網頁程式碼基本架構<a hidden class=anchor aria-hidden=true href=#網頁程式碼基本架構>#</a></h3>
+<p>基本上網頁程式碼架構是相似的，以 index.html 和 nhri.html 兩支程式來比較，會發現他們都是由 “head" & &ldquo;cont&rdquo; & &ldquo;功能選單“ & &ldquo;foot&rdquo; 以及最下方的“來訪人數和版權宣告”區。</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/175281097-c4b118a4-f5be-4454-8ca7-d37b1c337ee0.png alt=image>
+</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/175281653-da7eeb90-5a76-4b3a-85f9-81bdf9d1cddb.png alt=image>
+</p>
+<p>網頁呈現在瀏覽器上的結果如下圖，上述的五個區塊分別對應到</p>
+<ol>
+<li>最上方的紅色區塊 對應的是: &ldquo;head&rdquo;</li>
+<li>中間左方的紅色區塊 對應的是: &ldquo;功能選單&rdquo;</li>
+<li>中間右方的紅色區塊 對應的是: &ldquo;cont&rdquo; （內文區塊）</li>
+<li>下方的倒數第二個紅色區塊 對應的是: &ldquo;foot&rdquo;</li>
+<li>最下方的紅色區塊 對應的是: &ldquo;來訪人數和版權宣告&rdquo;</li>
+</ol>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/175757280-a7917225-df27-43db-ad18-bf563589cc82.png alt=image>
+</p>
+<p>由上面的說明可以了解每一個網頁中的五個區塊除了“3.cont&rdquo;(內文)這個區塊外都是共用的，換句話，內文區塊是每一個網頁的主角，這個區塊內容就是這個網頁的最重要內函，其他四個區塊每個網頁都是一樣的。</p>
+<h2 id=html-基本語法的使用>HTML 基本語法的使用<a hidden class=anchor aria-hidden=true href=#html-基本語法的使用>#</a></h2>
+<h3 id=使用-vscode編輯網頁>使用 VSCode　編輯網頁<a hidden class=anchor aria-hidden=true href=#使用-vscode編輯網頁>#</a></h3>
+<p>啟動 VSCode</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/175278234-44966d17-f172-4c9c-9cbc-131ac1ca4bfa.png alt=image>
+</p>
+<p>點選 “Open Folder“ 按鈕</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/175278492-3d94d6ff-ab5b-4193-a43c-92c9847c53bc.png alt=image>
+</p>
+<p>選擇 Source 所在的目錄 <code>E:\Sources\Learning\</code> 按下 <code>選擇資料夾</code> 按鍵</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/175768016-7c6d5f30-5cd9-44ec-9f53-5c2ef118af9f.png alt="2022-06-25 16-56-59">
+</p>
+<p>第一次開啟一個目錄時須要使用者的授權，請按“Yes"</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/175768051-2d234153-6b66-4c46-8943-ce7e1f6c0c21.png alt="2022-06-25 16-58-31">
+</p>
+<p>目錄開啟成功後，使用滑鼠點選 <code>New File</code>。</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/175768145-3388ba91-1256-4e20-b347-6c2249fd6ce5.png alt=image>
+</p>
+<p>輸入新檔檔名: index.html 按下 Enter</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/175768211-686b402f-9f72-4887-b99f-39e2b16da8a9.png alt="2022-06-25 16-59-59">
+</p>
+<p>在檔案編輯區輸入<code>!</code> (驚嘆號)再按下 Enter 鍵，VSCode 自動補齊 Html 的基本內容。
+<img loading=lazy src=https://user-images.githubusercontent.com/21993717/175768234-12d274af-80df-4e9c-a0d9-3cdbf0ac6387.png alt="2022-06-25 17-00-45">
+</p>
+<p>自動補齊的預設內容：
+<img loading=lazy src=https://user-images.githubusercontent.com/21993717/175768266-9bfef29b-8641-47ef-9f0c-34d816e13ac3.png alt="2022-06-25 17-02-06">
+</p>
+<h3 id=html-document>HTML document<a hidden class=anchor aria-hidden=true href=#html-document>#</a></h3>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/175759112-5a0d2e72-2155-480c-a94d-7f2a75009d49.png alt="2022-06-25 13-07-00 的螢幕擷圖">
+</p>
+<h3 id=html-heading>HTML heading<a hidden class=anchor aria-hidden=true href=#html-heading>#</a></h3>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/175759249-846288aa-c383-4d1a-ad83-8aa6df24d6a4.png alt=image>
+</p>
+<h3 id=html-paragraphs>HTML paragraphs<a hidden class=anchor aria-hidden=true href=#html-paragraphs>#</a></h3>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/175768431-fc4d1bcb-9eb1-465f-bc42-4286bce7cf24.png alt=image>
+</p>
+<h3 id=html-links>HTML links<a hidden class=anchor aria-hidden=true href=#html-links>#</a></h3>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/175768535-2bbebb6c-cdfb-4fec-bded-497104ffaee8.png alt=image>
+</p>
+<h3 id=html-images>HTML images<a hidden class=anchor aria-hidden=true href=#html-images>#</a></h3>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/175768591-8891e576-a5ac-44e2-85e7-7d4d2f56c289.png alt=image>
+</p>
+<h3 id=html-buttons>HTML buttons<a hidden class=anchor aria-hidden=true href=#html-buttons>#</a></h3>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/175768642-d2aa6fe5-b25a-45c1-8bd2-e0719b55cce4.png alt=image>
+</p>
+<h3 id=html-lists>HTML lists<a hidden class=anchor aria-hidden=true href=#html-lists>#</a></h3>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/175768701-2849fb01-fead-48d2-b1ba-4e3e1fc7ccf8.png alt=image>
+</p>
+<h3 id=html-table>HTML table<a hidden class=anchor aria-hidden=true href=#html-table>#</a></h3>
+<p>一. 簡易表格範例</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/175768868-4f0519f3-6443-4d78-ae97-08a4241b31b2.png alt=image>
+</p>
+<p>二. 表格範例</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html><span style=color:#75715e>&lt;!DOCTYPE html&gt;</span>
+&lt;<span style=color:#f92672>html</span>&gt;
+&lt;<span style=color:#f92672>head</span>&gt;
+&lt;<span style=color:#f92672>style</span>&gt;
+<span style=color:#f92672>table</span> {
+  <span style=color:#66d9ef>font-family</span>: arial, <span style=color:#66d9ef>sans-serif</span>;
+  <span style=color:#66d9ef>border-collapse</span>: <span style=color:#66d9ef>collapse</span>;
+  <span style=color:#66d9ef>width</span>: <span style=color:#ae81ff>100</span><span style=color:#66d9ef>%</span>;
+}
+
+<span style=color:#f92672>td</span><span style=color:#f92672>,</span> <span style=color:#f92672>th</span> {
+  <span style=color:#66d9ef>border</span>: <span style=color:#ae81ff>1</span><span style=color:#66d9ef>px</span> <span style=color:#66d9ef>solid</span> <span style=color:#ae81ff>#dddddd</span>;
+  <span style=color:#66d9ef>text-align</span>: <span style=color:#66d9ef>left</span>;
+  <span style=color:#66d9ef>padding</span>: <span style=color:#ae81ff>8</span><span style=color:#66d9ef>px</span>;
+}
+
+<span style=color:#f92672>tr</span>:<span style=color:#a6e22e>nth-child</span><span style=color:#f92672>(</span><span style=color:#f92672>even</span><span style=color:#f92672>)</span> {
+  <span style=color:#66d9ef>background-color</span>: <span style=color:#ae81ff>#dddddd</span>;
+}
+&lt;/<span style=color:#f92672>style</span>&gt;
+&lt;/<span style=color:#f92672>head</span>&gt;
+&lt;<span style=color:#f92672>body</span>&gt;
+
+&lt;<span style=color:#f92672>h2</span>&gt;HTML Table&lt;/<span style=color:#f92672>h2</span>&gt;
+
+&lt;<span style=color:#f92672>table</span>&gt;
+  &lt;<span style=color:#f92672>tr</span>&gt;
+    &lt;<span style=color:#f92672>th</span>&gt;Company&lt;/<span style=color:#f92672>th</span>&gt;
+    &lt;<span style=color:#f92672>th</span>&gt;Contact&lt;/<span style=color:#f92672>th</span>&gt;
+    &lt;<span style=color:#f92672>th</span>&gt;Country&lt;/<span style=color:#f92672>th</span>&gt;
+  &lt;/<span style=color:#f92672>tr</span>&gt;
+  &lt;<span style=color:#f92672>tr</span>&gt;
+    &lt;<span style=color:#f92672>td</span>&gt;Alfreds Futterkiste&lt;/<span style=color:#f92672>td</span>&gt;
+    &lt;<span style=color:#f92672>td</span>&gt;Maria Anders&lt;/<span style=color:#f92672>td</span>&gt;
+    &lt;<span style=color:#f92672>td</span>&gt;Germany&lt;/<span style=color:#f92672>td</span>&gt;
+  &lt;/<span style=color:#f92672>tr</span>&gt;
+  &lt;<span style=color:#f92672>tr</span>&gt;
+    &lt;<span style=color:#f92672>td</span>&gt;Centro comercial Moctezuma&lt;/<span style=color:#f92672>td</span>&gt;
+    &lt;<span style=color:#f92672>td</span>&gt;Francisco Chang&lt;/<span style=color:#f92672>td</span>&gt;
+    &lt;<span style=color:#f92672>td</span>&gt;Mexico&lt;/<span style=color:#f92672>td</span>&gt;
+  &lt;/<span style=color:#f92672>tr</span>&gt;
+  &lt;<span style=color:#f92672>tr</span>&gt;
+    &lt;<span style=color:#f92672>td</span>&gt;Ernst Handel&lt;/<span style=color:#f92672>td</span>&gt;
+    &lt;<span style=color:#f92672>td</span>&gt;Roland Mendel&lt;/<span style=color:#f92672>td</span>&gt;
+    &lt;<span style=color:#f92672>td</span>&gt;Austria&lt;/<span style=color:#f92672>td</span>&gt;
+  &lt;/<span style=color:#f92672>tr</span>&gt;
+  &lt;<span style=color:#f92672>tr</span>&gt;
+    &lt;<span style=color:#f92672>td</span>&gt;Island Trading&lt;/<span style=color:#f92672>td</span>&gt;
+    &lt;<span style=color:#f92672>td</span>&gt;Helen Bennett&lt;/<span style=color:#f92672>td</span>&gt;
+    &lt;<span style=color:#f92672>td</span>&gt;UK&lt;/<span style=color:#f92672>td</span>&gt;
+  &lt;/<span style=color:#f92672>tr</span>&gt;
+  &lt;<span style=color:#f92672>tr</span>&gt;
+    &lt;<span style=color:#f92672>td</span>&gt;Laughing Bacchus Winecellars&lt;/<span style=color:#f92672>td</span>&gt;
+    &lt;<span style=color:#f92672>td</span>&gt;Yoshi Tannamuri&lt;/<span style=color:#f92672>td</span>&gt;
+    &lt;<span style=color:#f92672>td</span>&gt;Canada&lt;/<span style=color:#f92672>td</span>&gt;
+  &lt;/<span style=color:#f92672>tr</span>&gt;
+  &lt;<span style=color:#f92672>tr</span>&gt;
+    &lt;<span style=color:#f92672>td</span>&gt;Magazzini Alimentari Riuniti&lt;/<span style=color:#f92672>td</span>&gt;
+    &lt;<span style=color:#f92672>td</span>&gt;Giovanni Rovelli&lt;/<span style=color:#f92672>td</span>&gt;
+    &lt;<span style=color:#f92672>td</span>&gt;Italy&lt;/<span style=color:#f92672>td</span>&gt;
+  &lt;/<span style=color:#f92672>tr</span>&gt;
+&lt;/<span style=color:#f92672>table</span>&gt;
+
+&lt;/<span style=color:#f92672>body</span>&gt;
+&lt;/<span style=color:#f92672>html</span>&gt;
+
+</code></pre></div><p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/175768925-fc0bf328-3c03-4a63-8582-af48c94fa91d.png alt=image>
+</p>
+<p>三. 表格框線一</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-css data-lang=css><span style=color:#f92672>table</span><span style=color:#f92672>,</span> <span style=color:#f92672>th</span><span style=color:#f92672>,</span> <span style=color:#f92672>td</span> {
+  <span style=color:#66d9ef>border</span>: <span style=color:#ae81ff>1</span><span style=color:#66d9ef>px</span> <span style=color:#66d9ef>solid</span> <span style=color:#66d9ef>black</span>;
+}
+</code></pre></div><p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/175769179-8085bfb9-ad94-47fe-ae79-195192c6e028.png alt=image>
+</p>
+<p>四. 表格框線二</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-css data-lang=css><span style=color:#f92672>table</span><span style=color:#f92672>,</span> <span style=color:#f92672>th</span><span style=color:#f92672>,</span> <span style=color:#f92672>td</span> {
+  <span style=color:#66d9ef>border</span>: <span style=color:#ae81ff>1</span><span style=color:#66d9ef>px</span> <span style=color:#66d9ef>solid</span> <span style=color:#66d9ef>black</span>;
+  <span style=color:#66d9ef>border-collapse</span>: <span style=color:#66d9ef>collapse</span>;
+}
+</code></pre></div><p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/175769214-fa9a8e32-3a81-4277-a0b0-52b9896d47d2.png alt=image>
+</p>
+<p>五. 表格框線三</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-css data-lang=css><span style=color:#f92672>table</span><span style=color:#f92672>,</span> <span style=color:#f92672>th</span><span style=color:#f92672>,</span> <span style=color:#f92672>td</span> {
+  <span style=color:#66d9ef>border</span>: <span style=color:#ae81ff>1</span><span style=color:#66d9ef>px</span> <span style=color:#66d9ef>solid</span> <span style=color:#66d9ef>white</span>;
+  <span style=color:#66d9ef>border-collapse</span>: <span style=color:#66d9ef>collapse</span>;
+}
+<span style=color:#f92672>th</span><span style=color:#f92672>,</span> <span style=color:#f92672>td</span> {
+  <span style=color:#66d9ef>background-color</span>: <span style=color:#ae81ff>#96D4D4</span>;
+}
+</code></pre></div><p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/175769260-b2481212-3dab-441d-b707-a50f195d6cb4.png alt=image>
+</p>
+<p>六. 表格框線四</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-css data-lang=css><span style=color:#f92672>table</span><span style=color:#f92672>,</span> <span style=color:#f92672>th</span><span style=color:#f92672>,</span> <span style=color:#f92672>td</span> {
+  <span style=color:#66d9ef>border</span>: <span style=color:#ae81ff>1</span><span style=color:#66d9ef>px</span> <span style=color:#66d9ef>solid</span> <span style=color:#66d9ef>black</span>;
+  <span style=color:#66d9ef>border-radius</span>: <span style=color:#ae81ff>10</span><span style=color:#66d9ef>px</span>;
+}
+</code></pre></div><p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/175769292-1c093f3d-c0fd-4b46-9a62-321cde5bb648.png alt=image>
+</p>
+<p>七. 表格大小</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/175769993-1cb6debd-cc12-4a35-9d2c-19217241ad5b.png alt=image>
+</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/175770054-ed86873a-2914-461f-b7fb-c08b70ac0913.png alt=image>
+</p>
+<p>八. 表頭欄位合併</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/175770274-26fef119-1f5b-4096-8f1b-d4f400ada8d2.png alt=image>
+</p>
+<p>九. 表格列合併
+<img loading=lazy src=https://user-images.githubusercontent.com/21993717/175770499-1b8de51d-dae4-43c5-873d-db8f6600b5a7.png alt=image>
+</p>
+<p>十. 斑馬紋表格</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html>&lt;<span style=color:#f92672>style</span>&gt;
+<span style=color:#f92672>table</span> {
+  <span style=color:#66d9ef>border-collapse</span>: <span style=color:#66d9ef>collapse</span>;
+  <span style=color:#66d9ef>width</span>: <span style=color:#ae81ff>100</span><span style=color:#66d9ef>%</span>;
+}
+
+<span style=color:#f92672>th</span><span style=color:#f92672>,</span> <span style=color:#f92672>td</span> {
+  <span style=color:#66d9ef>text-align</span>: <span style=color:#66d9ef>left</span>;
+  <span style=color:#66d9ef>padding</span>: <span style=color:#ae81ff>8</span><span style=color:#66d9ef>px</span>;
+}
+
+<span style=color:#f92672>tr</span>:<span style=color:#a6e22e>nth-child</span><span style=color:#f92672>(</span><span style=color:#f92672>even</span><span style=color:#f92672>)</span> {
+  <span style=color:#66d9ef>background-color</span>: <span style=color:#ae81ff>#D6EEEE</span>;
+}
+&lt;/<span style=color:#f92672>style</span>&gt;
+</code></pre></div><p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/175776767-862f4cb3-e58e-45bf-af50-641d2f740310.png alt=image>
+</p>
+<h2 id=html-語法參考網站>HTML 語法參考網站<a hidden class=anchor aria-hidden=true href=#html-語法參考網站>#</a></h2>
+<ul>
+<li>
+<p><em><a href=https://www.w3schools.com/html/default.asp>W3School</a></em></p>
+</li>
+<li>
+<p><em><a href=https://developer.mozilla.org/zh-TW/docs/Learn/HTML>MDN web docs</a></em></p>
+</li>
+</ul>
+<h2 id=國民健康調查網頁維護>國民健康調查網頁維護<a hidden class=anchor aria-hidden=true href=#國民健康調查網頁維護>#</a></h2>
+<h3 id=使用-vscode編輯網頁-1>使用 VSCode　編輯網頁<a hidden class=anchor aria-hidden=true href=#使用-vscode編輯網頁-1>#</a></h3>
+<p>啟動 VSCode</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/175278234-44966d17-f172-4c9c-9cbc-131ac1ca4bfa.png alt=image>
+</p>
+<p>點選 “Open Folder“ 按鈕</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/175278492-3d94d6ff-ab5b-4193-a43c-92c9847c53bc.png alt=image>
+</p>
+<p>選擇 Source 所在的目錄 E:\Sources\Nhis2WebNew\</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/175278821-039bbc50-ab2d-4bb5-935b-389127b6aadd.png alt=image>
+</p>
+<p>第一次開啟一個目錄時須要使用者的授權，請按“Yes"</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/175279396-5d1f5692-e41d-43b0-a9e4-021c6e8861f4.png alt=image>
+</p>
+<p>開啟成功後，VSCode 檢核出你所在的作業系統是中文繁體的環境會顯示你可選擇安裝“語言套件”，若你選擇“安裝並重新啟動”</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/175280053-d06d957f-879e-4a25-8ff4-5b003ddc7da3.png alt=image>
+</p>
+<p>語言套件安裝成功重新啟動後操作介面變成了中文繁體</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/175280387-1d4ef245-67e4-4516-a5d9-44b6de91b579.png alt=image>
+</p>
+<h3 id=indexhtml>index.html<a hidden class=anchor aria-hidden=true href=#indexhtml>#</a></h3>
+<p>index.html 是網站的預設網頁，來看看它的組成有那些部分，在前面我們提過每一個網頁程式碼皆包含了五個部分：</p>
+<ol>
+<li>最上方的紅色區塊 對應的是: &ldquo;head&rdquo;</li>
+<li>中間左方的紅色區塊 對應的是: &ldquo;功能選單&rdquo;</li>
+<li>中間右方的紅色區塊 對應的是: &ldquo;cont&rdquo; （內文區塊）</li>
+<li>下方的倒數第二個紅色區塊 對應的是: &ldquo;foot&rdquo;</li>
+<li>最下方的紅色區塊 對應的是: &ldquo;來訪人數和版權宣告&rdquo;</li>
+</ol>
+<p>也提到過其他"3.cont"(內文)區塊是每一個網頁的主角，這個區塊內容就是這個網頁的最重要內函，其他區塊外都是共用的，所以我們把眼光專注在 cont，以 index.html 為例，內文的部分除了最上方的“網頁路徑“（>首頁>最新消息）資訊外，又分成二大塊，位在上方的是"最新消息"，和下方的是“計畫緣起”。“最新消息”是一個比較特殊的內文，我們在下面章節中會獨立出來說明，先來了解一下“計畫緣起”的部分。</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/175777757-e8e9c0df-8af2-42a2-810c-af9c27f53a74.png alt=image>
+</p>
+<p>配合程式碼的部分，可以發現“計畫緣起”是由一個 <code>&lt;img></code> 和一個 <code>&lt;h1></code> 以及一個 <code>&lt;table></code>等三個元素所組成。</p>
+<ul>
+<li><code>&lt;img></code> 的部份是顯示一個“地球“的圖檔，在 src 這個屬性可以了解實際對應到的檔案的目錄及檔名。</li>
+<li><code>&lt;h1></code> 則是使用最大號字型的標題用來顯示“計畫緣起“這個標題。</li>
+<li>至於 <code>&lt;table></code> 的部分是一個有一列一欄的表格，內容物則由一個<code>&lt;img></code> 和二段文字 以及一個 <code>&lt;a></code>連結按鈕所組成。</li>
+</ul>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/175777123-6b74140c-931b-40c2-9c03-4ec6ba107029.png alt=image>
+</p>
+<p><code>&lt;table></code>中的這個<code>&lt;img></code>只是單純一個占位符，實際上顯示的圖檔是透過 javascript 程式碼來控制的。其中被呼叫的 function 是位於 /javascript/imgshow.js 程式中。在這支程式中可以很清楚的看到用來輸替顯示的圖檔是位於 /img/img01.jpg、img02.jpg、img03.jpg、img04.jpg、img05.jpg 等五個檔。</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-js data-lang=js><span style=color:#75715e>//基礎參數設置
+</span><span style=color:#75715e></span><span style=color:#a6e22e>number_of_sponsors</span><span style=color:#f92672>=</span><span style=color:#ae81ff>5</span>;   <span style=color:#75715e>//設定展示圖片總頁數
+</span><span style=color:#75715e></span><span style=color:#66d9ef>var</span>   <span style=color:#a6e22e>showTimeOut</span><span style=color:#f92672>=</span><span style=color:#ae81ff>2000</span>; <span style=color:#75715e>//捲動更新時間
+</span><span style=color:#75715e></span><span style=color:#66d9ef>var</span>   <span style=color:#a6e22e>sctr</span><span style=color:#f92672>=</span><span style=color:#ae81ff>0</span>;  
+<span style=color:#66d9ef>var</span>   <span style=color:#a6e22e>halt</span><span style=color:#f92672>=</span><span style=color:#ae81ff>0</span>;  
+<span style=color:#66d9ef>var</span>   <span style=color:#a6e22e>isn</span><span style=color:#f92672>=</span><span style=color:#66d9ef>new</span>   Array();  
+<span style=color:#66d9ef>for</span>   (<span style=color:#a6e22e>i</span><span style=color:#f92672>=</span><span style=color:#ae81ff>0</span>;<span style=color:#a6e22e>i</span><span style=color:#f92672>&lt;</span><span style=color:#a6e22e>number_of_sponsors</span>;<span style=color:#a6e22e>i</span><span style=color:#f92672>++</span>){  
+  <span style=color:#a6e22e>isn</span>[<span style=color:#a6e22e>i</span>]<span style=color:#f92672>=</span><span style=color:#66d9ef>new</span> <span style=color:#a6e22e>Image</span>();  
+}  
+
+<span style=color:#75715e>//設定每張展示圖片的圖檔連結   
+</span><span style=color:#75715e></span><span style=color:#a6e22e>isn</span>[<span style=color:#ae81ff>0</span>].<span style=color:#a6e22e>src</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;/img/img01.jpg&#34;</span>;  
+<span style=color:#a6e22e>isn</span>[<span style=color:#ae81ff>1</span>].<span style=color:#a6e22e>src</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;/img/img02.jpg&#34;</span>;  
+<span style=color:#a6e22e>isn</span>[<span style=color:#ae81ff>2</span>].<span style=color:#a6e22e>src</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;/img/img03.jpg&#34;</span>; 
+<span style=color:#a6e22e>isn</span>[<span style=color:#ae81ff>3</span>].<span style=color:#a6e22e>src</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;/img/img04.jpg&#34;</span>; 
+<span style=color:#a6e22e>isn</span>[<span style=color:#ae81ff>4</span>].<span style=color:#a6e22e>src</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;/img/img05.jpg&#34;</span>;   
+  
+<span style=color:#66d9ef>function</span>   <span style=color:#a6e22e>rotateIt</span>(){  
+  <span style=color:#66d9ef>if</span>   (<span style=color:#a6e22e>halt</span><span style=color:#f92672>!=</span><span style=color:#ae81ff>1</span>){  
+    <span style=color:#a6e22e>sctr</span><span style=color:#f92672>++</span>;  
+    <span style=color:#66d9ef>if</span>   (<span style=color:#a6e22e>sctr</span><span style=color:#f92672>&gt;</span><span style=color:#a6e22e>number_of_sponsors</span><span style=color:#f92672>-</span><span style=color:#ae81ff>1</span>){  
+      <span style=color:#a6e22e>sctr</span><span style=color:#f92672>=</span><span style=color:#ae81ff>0</span>;  
+      }  
+    document.<span style=color:#a6e22e>sponsor</span>.<span style=color:#a6e22e>src</span><span style=color:#f92672>=</span><span style=color:#a6e22e>isn</span>[<span style=color:#a6e22e>sctr</span>].<span style=color:#a6e22e>src</span>;  
+    <span style=color:#a6e22e>setTimeout</span>(<span style=color:#e6db74>&#34;rotateIt()&#34;</span>,<span style=color:#a6e22e>showTimeOut</span>);  
+    }  
+  }  
+  
+<span style=color:#66d9ef>function</span>   <span style=color:#a6e22e>doIt</span>(){  
+  <span style=color:#a6e22e>halt</span><span style=color:#f92672>=</span><span style=color:#ae81ff>1</span>;  
+  <span style=color:#a6e22e>location</span>.<span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#a6e22e>durl</span>[<span style=color:#a6e22e>sctr</span>];  
+  }  
+   
+<span style=color:#66d9ef>function</span>   <span style=color:#a6e22e>dispIt</span>(){  
+  <span style=color:#a6e22e>parent</span>.window.<span style=color:#a6e22e>status</span><span style=color:#f92672>=</span><span style=color:#a6e22e>durl</span>[<span style=color:#a6e22e>sctr</span>];  
+  }  
+</code></pre></div><h3 id=功能表選單>功能表選單<a hidden class=anchor aria-hidden=true href=#功能表選單>#</a></h3>
+<p>接下來來看看“功能表選單區”。在前面有提過“功能表選單區”的內容在每一個網頁程式檔中都是一樣的。也就是說選單區中有任何的異動，必須同時更新到每一支網頁程式中。這時你就要善用VSCode中的全域置換功能。</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/175797945-3c8668d6-43bd-46c3-9be7-1d013127db35.png alt=image>
+</p>
+<p>以下模擬一個修改選單文字的案例來說明如何使用全域置換功能。假設我們要把選單中第一行的“計畫內容”這個標題改成“計畫內容說明”</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/175799169-2f904a37-b98f-43d0-a61a-45029cd47276.png alt=image>
+</p>
+<p>首先，按下 Ctrl+Shift+F 叫出"搜尋/置換“功能（如下圖），輸入要修改的內容，請注意以本例而語應該要輸入<code>&lt;h5>&lt;a href="2001nhis.html">計畫內容&lt;/a>&lt;/h5></code>這個“完整”的完串，這樣才能表示是“在選單中的<code>計畫內容</code>這個選項的標題“，如此才不會改到其他內容中的<code>計畫內容</code>這樣樣字串，此處要特別小心緊慎。</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/175799291-b1ece5ff-fff3-4bbc-96f3-f672ad052e67.png alt=image>
+</p>
+<p>在SEARCH 功能中輸入<code>&lt;h5>&lt;a href="2001nhis.html">計畫內容&lt;/a>&lt;/h5></code>這個“完整”的字串後，在輸入文字框的下方會出現本專案中所有符合條件的清單，也就是說這些地方都是我們必須去更改的地方。</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/175799413-52a76c23-195b-4722-ad43-e7a9d8add438.png alt=image>
+</p>
+<p>確認完這38個地方是我們要變更後，接著以滑鼠點選“Toggle Replace“按鈕打開”Replace"文字輸入框。</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/175799540-13f8e730-4dbd-4876-8cd5-b88fc1a6faa2.png alt=image>
+</p>
+<p>在”Replace"文字輸入框中輸入要變更成結果，以本例而言就是<code>&lt;h5>&lt;a href="2001nhis.html">計畫內容說明&lt;/a>&lt;/h5></code>這樣的字串。再按下“置換”按鈕</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/175799645-125a1fc6-43a5-48cc-8fe6-3cfdc3fe1231.png alt=image>
+</p>
+<p>於“再次確認”的視窗中按下 &ldquo;取代“，VSCode 將會自動修所有38個相符的地方。</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/175799762-fd202c2b-9084-456a-9405-4ea29ed815f1.png alt=image>
+</p>
+<h3 id=新增一個頁面>新增一個頁面<a hidden class=anchor aria-hidden=true href=#新增一個頁面>#</a></h3>
+<p>假設我們要新增一個 “網頁Q&A II“ 的新網頁，並且希望在“網頁Q&A“功能選項下方新增一個“網頁Q&A II“的功能項目。
+由於“網頁Q&A II“可能類似“網頁Q&A“，所以可以考慮透過複制的方式來産生這個新頁面。　
+首先在瀏覽器上功能選項中點選"網頁Q&A"查看實際檔名，發現它的檔名是“Q&A.html”</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/175850263-8b86473b-93cb-495c-afc4-9fedc8f0403c.png alt=image>
+</p>
+<p>然後在VSCode找到“Q&A.html”，以滑鼠右鍵點選"Q&A.html"這個檔案，並點選 &ldquo;copy&rdquo; 功能。</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/175852117-cceae23b-6b75-4061-a56d-48d14ec8772c.png alt=image>
+</p>
+<p>再到 VSCode 檔案總管功能中最下方的空白處按下滑鼠右鍵，叫出功能選單，選擇“Paste&rdquo;(貼上)</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/175851620-0378ba4a-6c2e-4c25-8f5d-fa5036a424b3.png alt=image>
+</p>
+<p>貼上完成後，會發現在 “Q&A.html”上方已經多了一個名為　“Q&A copy.html”　的新網頁。</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/175851899-29f042b0-2e29-47e1-ace4-b0878422d2e2.png alt=image>
+</p>
+<p>接下來先把它改名成為 “Q&A II.html”</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/175852439-590721fa-efc8-4ce1-bd51-0a1e68b8da60.png alt=image>
+</p>
+<p>修改好檔名後，接著就是要週整網頁內容了，從前面章節的說明裡可以知道在這個網頁中我們要節整的地方，基本上有二個地方：一是“cont"（內文）、二是“功能選項”。</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/175852667-d7958407-9f47-41c1-be90-7e2e5746c7d8.png alt=image>
+</p>
+<p>“cont"（內文）的部份依需求把原有的內容改成你需要的內容，此處說明方便起見，只將"網站Q&A"的字串改成“網站Q&A II"</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html>&lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>id</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;cont&#34;</span>&gt;
+				&lt;<span style=color:#f92672>font</span> <span style=color:#a6e22e>color</span><span style=color:#f92672>=</span><span style=color:#e6db74>#ff6e00</span>&gt;&gt;網站內容&gt;網站Q<span style=color:#960050;background-color:#1e0010>&amp;</span>A&lt;/<span style=color:#f92672>font</span>&gt;
+				&lt;<span style=color:#f92672>img</span> <span style=color:#a6e22e>STYLE</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;FLOAT: LEFT; MARGIN: 10PX&#34;</span> <span style=color:#a6e22e>src</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;/img/icon1.jpg&#34;</span> <span style=color:#a6e22e>alt</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;&#34;</span> <span style=color:#a6e22e>width</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;50&#34;</span> <span style=color:#a6e22e>height</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;48&#34;</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;left&#34;</span> /&gt;
+				&lt;<span style=color:#f92672>h1</span>&gt;網站Q<span style=color:#960050;background-color:#1e0010>&amp;</span>A&lt;/<span style=color:#f92672>h1</span>&gt;
+</code></pre></div><p>改完後</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html>&lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>id</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;cont&#34;</span>&gt;
+				&lt;<span style=color:#f92672>font</span> <span style=color:#a6e22e>color</span><span style=color:#f92672>=</span><span style=color:#e6db74>#ff6e00</span>&gt;&gt;網站內容&gt;網站Q<span style=color:#960050;background-color:#1e0010>&amp;</span>A II&lt;/<span style=color:#f92672>font</span>&gt;
+				&lt;<span style=color:#f92672>img</span> <span style=color:#a6e22e>STYLE</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;FLOAT: LEFT; MARGIN: 10PX&#34;</span> <span style=color:#a6e22e>src</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;/img/icon1.jpg&#34;</span> <span style=color:#a6e22e>alt</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;&#34;</span> <span style=color:#a6e22e>width</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;50&#34;</span> <span style=color:#a6e22e>height</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;48&#34;</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;left&#34;</span> /&gt;
+				&lt;<span style=color:#f92672>h1</span>&gt;網站Q<span style=color:#960050;background-color:#1e0010>&amp;</span>A II&lt;/<span style=color:#f92672>h1</span>&gt;
+</code></pre></div><p>內文內容完成後，接下來是要在功能選項中新加入一個“網頁Q&A II“的功能項目在“網頁Q&A“功能選項下方。這裡值得注意的是這個新增功能選項的動作除了在“Q&A II.html"檔案內必須新加入外，在其他的網頁程式(.html)中也要加入，所以這裡新加入的動作可以利用前面章節介紹的“全域修改“的方法來完成。</p>
+<p>首先找到 &ldquo;Q&A.html&rdquo; 這個選項的程式碼，即“<a href=Q&A.html>網站Q&A</a>”，利用滑鼠將這整個字串“選取”起來，再按下 Ctrl+Shift+H 叫出搜尋/置換功能視窗，在“置換”文字框輸入要置換的字串。這裡要特別注意的是我們使用了“置換”功能來完成“新增功能選項”的需求，而不是真的要把“<a href=Q&A.html>網站Q&A</a>”這個字串置換掉，所以在取代的文字框內除了保留原來的“<a href=Q&A.html>網站Q&A</a>”字串外，將游標停在在這個字中最後的位置，並按下 Ctrl+Enter 按鈕來新增一個“換行”，然後再將“<a href=Q&A.html>網站Q&A II</a>” 這個新的功能選項程式碼繼續加在取代的文字框內，如下圖</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/175855885-e21bd426-99be-4129-a34b-b58321c77031.png alt=image>
+</p>
+<p>輸入就續後按下“置換”按鈕</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/175854827-e28f343a-6d0e-498f-ae50-d8b0281df4d8.png alt=image>
+</p>
+<p>確認要進行所有檔案的置換則按下 replace</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/175854938-29155881-d4c7-49a1-a3da-77b913d72f0d.png alt=image>
+</p>
+<p>完成置換</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/175855183-0b3bcb92-3331-4c9e-8b04-7a5963e8265f.png alt=image>
+</p>
+<p>完後瀏覽結果</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/175856132-86308603-3743-4752-ae43-870111c81b85.png alt=image>
+</p>
+<h3 id=修改頁面>修改頁面<a hidden class=anchor aria-hidden=true href=#修改頁面>#</a></h3>
+<p>接下來我們以 nhri.html 來介紹修改的功能，在這個網頁的內容中主角是 <code>&lt;table></code>。</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html>  &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>id</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;cont&#34;</span>&gt;		
+		&lt;<span style=color:#f92672>font</span> <span style=color:#a6e22e>color</span><span style=color:#f92672>=</span><span style=color:#e6db74>#ff6e00</span>&gt;&gt;工作團隊&gt;財團法人國家衛生研究院&lt;/<span style=color:#f92672>font</span>&gt;
+		&lt;<span style=color:#f92672>img</span> <span style=color:#a6e22e>STYLE</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;FLOAT: LEFT; MARGIN: 10PX&#34;</span> <span style=color:#a6e22e>src</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;img/icon1.jpg&#34;</span> <span style=color:#a6e22e>alt</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;&#34;</span> <span style=color:#a6e22e>width</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;50&#34;</span> <span style=color:#a6e22e>height</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;48&#34;</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;left&#34;</span>/&gt;
+		&lt;<span style=color:#f92672>h1</span>&gt;工作團隊&lt;/<span style=color:#f92672>h1</span>&gt;				
+
+		&lt;<span style=color:#f92672>table</span> <span style=color:#a6e22e>summary</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;Submitted 財團法人國家衛生研究院&#34;</span>&gt;
+			&lt;<span style=color:#f92672>caption</span>&gt;財團法人國家衛生研究院&lt;/<span style=color:#f92672>caption</span>&gt;
+			&lt;<span style=color:#f92672>caption</span>&gt;電話:(037)246-166　　　地址:350 苗栗縣竹南鎮科研路35號&lt;/<span style=color:#f92672>caption</span>&gt;
+			&lt;<span style=color:#f92672>thead</span>&gt;
+				&lt;<span style=color:#f92672>tr</span>&gt;
+					&lt;<span style=color:#f92672>th</span> <span style=color:#a6e22e>width</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;30%&#34;</span> <span style=color:#a6e22e>scope</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;col&#34;</span>&gt;服務單位&lt;/<span style=color:#f92672>th</span>&gt;
+					&lt;<span style=color:#f92672>th</span> <span style=color:#a6e22e>width</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;25%&#34;</span> <span style=color:#a6e22e>scope</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;col&#34;</span>&gt;人員&lt;/<span style=color:#f92672>th</span>&gt;
+					&lt;<span style=color:#f92672>th</span> <span style=color:#a6e22e>width</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;15%&#34;</span> <span style=color:#a6e22e>scope</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;col&#34;</span>&gt;電話分機&lt;/<span style=color:#f92672>th</span>&gt;
+					&lt;<span style=color:#f92672>th</span> <span style=color:#a6e22e>width</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;30%&#34;</span> <span style=color:#a6e22e>scope</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;col&#34;</span>&gt;電子郵件信箱&lt;/<span style=color:#f92672>th</span>&gt;
+				&lt;/<span style=color:#f92672>tr</span>&gt;
+			&lt;/<span style=color:#f92672>thead</span>&gt;	
+			&lt;<span style=color:#f92672>tfoot</span>&gt;
+				&lt;<span style=color:#f92672>tr</span>&gt;				&lt;/<span style=color:#f92672>tr</span>&gt;
+			&lt;/<span style=color:#f92672>tfoot</span>&gt;
+			&lt;<span style=color:#f92672>tbody</span>&gt;
+				&lt;<span style=color:#f92672>tr</span>&gt;
+					&lt;<span style=color:#f92672>th</span>&gt;群體健康科學研究所&lt;/<span style=color:#f92672>th</span>&gt;
+					&lt;<span style=color:#f92672>td</span>&gt;熊昭 所長兼生統生資組組主任&lt;/<span style=color:#f92672>td</span>&gt;
+					&lt;<span style=color:#f92672>td</span>&gt;36100&lt;/<span style=color:#f92672>td</span>&gt;
+					&lt;<span style=color:#f92672>td</span>&gt;&lt;<span style=color:#f92672>a</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;mailto:hsiung@nhri.org.tw&#34;</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;style1&#34;</span>&gt;hsiung@nhri.org.tw&lt;/<span style=color:#f92672>a</span>&gt;&lt;/<span style=color:#f92672>td</span>&gt;
+			  &lt;/<span style=color:#f92672>tr</span>&gt;
+	
+			  			  
+				&lt;<span style=color:#f92672>tr</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;odd&#34;</span>&gt;
+					&lt;<span style=color:#f92672>th</span>&gt;群健所醫療保健研究組&lt;/<span style=color:#f92672>th</span>&gt;
+					&lt;<span style=color:#f92672>td</span>&gt;張新儀 研究員&lt;/<span style=color:#f92672>td</span>&gt;
+					&lt;<span style=color:#f92672>td</span>&gt;36333&lt;/<span style=color:#f92672>td</span>&gt;
+					&lt;<span style=color:#f92672>td</span>&gt;&lt;<span style=color:#f92672>a</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;mailto:hsingyi@nhri.org.tw&#34;</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;style1&#34;</span>&gt;hsingyi@nhri.org.tw&lt;/<span style=color:#f92672>a</span>&gt;&lt;/<span style=color:#f92672>td</span>&gt;
+			  &lt;/<span style=color:#f92672>tr</span>&gt;
+				&lt;<span style=color:#f92672>tr</span>  &gt;
+					&lt;<span style=color:#f92672>th</span>&gt;群健所醫療保健研究組&lt;/<span style=color:#f92672>th</span>&gt;
+					&lt;<span style=color:#f92672>td</span>&gt;于勝宗 研究助理&lt;/<span style=color:#f92672>td</span>&gt;
+					&lt;<span style=color:#f92672>td</span>&gt;36343&lt;/<span style=color:#f92672>td</span>&gt;
+					&lt;<span style=color:#f92672>td</span>&gt;&lt;<span style=color:#f92672>a</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;mailto:yu650911@nhri.org.tw&#34;</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;style1&#34;</span>&gt;yu650911@nhri.org.tw&lt;/<span style=color:#f92672>a</span>&gt;&lt;/<span style=color:#f92672>td</span>&gt;
+			  &lt;/<span style=color:#f92672>tr</span>&gt;
+				&lt;<span style=color:#f92672>tr</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;odd&#34;</span>&gt;
+					&lt;<span style=color:#f92672>th</span>&gt;群健所醫療保健研究組&lt;/<span style=color:#f92672>th</span>&gt;
+					&lt;<span style=color:#f92672>td</span>&gt;江啟永 研究助理&lt;/<span style=color:#f92672>td</span>&gt;
+					&lt;<span style=color:#f92672>td</span>&gt;36329&lt;/<span style=color:#f92672>td</span>&gt;
+					&lt;<span style=color:#f92672>td</span>&gt;&lt;<span style=color:#f92672>a</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;mailto:ccy@nhri.org.tw&#34;</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;style1&#34;</span>&gt;ccy@nhri.org.tw&lt;/<span style=color:#f92672>a</span>&gt;&lt;/<span style=color:#f92672>td</span>&gt;
+			  &lt;/<span style=color:#f92672>tr</span>&gt;
+				&lt;<span style=color:#f92672>tr</span>  &gt;
+					&lt;<span style=color:#f92672>th</span>&gt;群健所醫療保健研究組&lt;/<span style=color:#f92672>th</span>&gt;
+					&lt;<span style=color:#f92672>td</span>&gt;方心伶 研究助理&lt;/<span style=color:#f92672>td</span>&gt;
+					&lt;<span style=color:#f92672>td</span>&gt;36373&lt;/<span style=color:#f92672>td</span>&gt;
+					&lt;<span style=color:#f92672>td</span>&gt;&lt;<span style=color:#f92672>a</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;mailto:sling0329@nhri.org.tw&#34;</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;style1&#34;</span>&gt;sling0329@nhri.org.tw&lt;/<span style=color:#f92672>a</span>&gt;&lt;/<span style=color:#f92672>td</span>&gt;
+			  &lt;/<span style=color:#f92672>tr</span>&gt;
+
+				&lt;<span style=color:#f92672>tr</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;odd&#34;</span>&gt;
+					&lt;<span style=color:#f92672>th</span>&gt;群健所生物統計與生物資訊研究組&lt;/<span style=color:#f92672>th</span>&gt;
+					&lt;<span style=color:#f92672>td</span>&gt;陳主智 研究員&lt;/<span style=color:#f92672>td</span>&gt;
+					&lt;<span style=color:#f92672>td</span>&gt;36186&lt;/<span style=color:#f92672>td</span>&gt;
+					&lt;<span style=color:#f92672>td</span>&gt;&lt;<span style=color:#f92672>a</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;mailto:ccchen@nhri.org.tw&#34;</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;style1&#34;</span>&gt;ccchen@nhri.org.tw&lt;/<span style=color:#f92672>a</span>&gt;&lt;/<span style=color:#f92672>td</span>&gt;
+			  &lt;/<span style=color:#f92672>tr</span>&gt;
+
+				&lt;<span style=color:#f92672>tr</span> &gt;
+					&lt;<span style=color:#f92672>th</span>&gt;群健所生物統計與生物資訊研究組&lt;/<span style=color:#f92672>th</span>&gt;
+					&lt;<span style=color:#f92672>td</span>&gt;翁文舜 研究助理&lt;/<span style=color:#f92672>td</span>&gt;
+					&lt;<span style=color:#f92672>td</span>&gt;36129&lt;/<span style=color:#f92672>td</span>&gt;
+					&lt;<span style=color:#f92672>td</span>&gt;&lt;<span style=color:#f92672>a</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;mailto:wengws@nhri.org.tw&#34;</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;style1&#34;</span>&gt;wengws@nhri.org.tw&lt;/<span style=color:#f92672>a</span>&gt;&lt;/<span style=color:#f92672>td</span>&gt;
+			  &lt;/<span style=color:#f92672>tr</span>&gt;
+				&lt;<span style=color:#f92672>tr</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;odd&#34;</span>&gt;
+					&lt;<span style=color:#f92672>th</span>&gt;群健所生物統計與生物資訊研究組&lt;/<span style=color:#f92672>th</span>&gt;
+					&lt;<span style=color:#f92672>td</span>&gt;劉季鑫 研究助理&lt;/<span style=color:#f92672>td</span>&gt;
+					&lt;<span style=color:#f92672>td</span>&gt;36144&lt;/<span style=color:#f92672>td</span>&gt;
+					&lt;<span style=color:#f92672>td</span>&gt;&lt;<span style=color:#f92672>a</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;mailto:jihshin@nhri.org.tw&#34;</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;style1&#34;</span>&gt;jihshin@nhri.org.tw&lt;/<span style=color:#f92672>a</span>&gt;&lt;/<span style=color:#f92672>td</span>&gt;
+			  &lt;/<span style=color:#f92672>tr</span>&gt;
+				&lt;<span style=color:#f92672>tr</span> &gt;
+					&lt;<span style=color:#f92672>th</span>&gt;群健所生物統計與生物資訊研究組&lt;/<span style=color:#f92672>th</span>&gt;
+					&lt;<span style=color:#f92672>td</span>&gt;鍾曉君 研究助理&lt;/<span style=color:#f92672>td</span>&gt;
+					&lt;<span style=color:#f92672>td</span>&gt;36131&lt;/<span style=color:#f92672>td</span>&gt;
+					&lt;<span style=color:#f92672>td</span>&gt;&lt;<span style=color:#f92672>a</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;mailto:941014@nhri.org.tw&#34;</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;style1&#34;</span>&gt;941014@nhri.org.tw&lt;/<span style=color:#f92672>a</span>&gt;&lt;/<span style=color:#f92672>td</span>&gt;
+			  &lt;/<span style=color:#f92672>tr</span>&gt;
+				&lt;<span style=color:#f92672>tr</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;odd&#34;</span>&gt;
+				  &lt;<span style=color:#f92672>th</span>&gt;群健所老年醫學研究組&lt;/<span style=color:#f92672>th</span>&gt;
+				  &lt;<span style=color:#f92672>td</span>&gt;許志成 主任&lt;/<span style=color:#f92672>td</span>&gt;
+				  &lt;<span style=color:#f92672>td</span>&gt;36336&lt;/<span style=color:#f92672>td</span>&gt;
+				  &lt;<span style=color:#f92672>td</span>&gt;&lt;<span style=color:#f92672>a</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;mailto:cch@nhri.org.tw&#34;</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;style1&#34;</span>&gt;cch@nhri.org.tw&lt;/<span style=color:#f92672>a</span>&gt;&lt;/<span style=color:#f92672>td</span>&gt;
+			  &lt;/<span style=color:#f92672>tr</span>&gt;
+				&lt;<span style=color:#f92672>tr</span> &gt;
+				  &lt;<span style=color:#f92672>th</span>&gt;群健所老年醫學研究組&lt;/<span style=color:#f92672>th</span>&gt;
+				  &lt;<span style=color:#f92672>td</span>&gt;吳名祥 研究助理&lt;/<span style=color:#f92672>td</span>&gt;
+				  &lt;<span style=color:#f92672>td</span>&gt;37319&lt;/<span style=color:#f92672>td</span>&gt;
+				  &lt;<span style=color:#f92672>td</span>&gt;&lt;<span style=color:#f92672>a</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;mailto:start082105@nhri.org.tw&#34;</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;style1&#34;</span>&gt;start082105@nhri.org.tw&lt;/<span style=color:#f92672>a</span>&gt;&lt;/<span style=color:#f92672>td</span>&gt;
+			  &lt;/<span style=color:#f92672>tr</span>&gt;
+					
+	       &lt;<span style=color:#f92672>tr</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;odd&#34;</span> &gt;
+				  &lt;<span style=color:#f92672>th</span>&gt;群健所精神與成癮醫學研究組&lt;/<span style=color:#f92672>th</span>&gt;
+				  &lt;<span style=color:#f92672>td</span>&gt;陳娟瑜 副研究員&lt;/<span style=color:#f92672>td</span>&gt;
+				  &lt;<span style=color:#f92672>td</span>&gt;36705&lt;/<span style=color:#f92672>td</span>&gt;
+				  &lt;<span style=color:#f92672>td</span>&gt;&lt;<span style=color:#f92672>a</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;mailto:cychen@nhri.org.tw&#34;</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;style1&#34;</span>&gt;cychen@nhri.org.tw&lt;/<span style=color:#f92672>a</span>&gt;&lt;/<span style=color:#f92672>td</span>&gt;
+			  &lt;/<span style=color:#f92672>tr</span>&gt;		  
+			  &lt;<span style=color:#f92672>tr</span> &gt;
+				  &lt;<span style=color:#f92672>th</span>&gt;群健所精神與成癮醫學研究組&lt;/<span style=color:#f92672>th</span>&gt;
+				  &lt;<span style=color:#f92672>td</span>&gt;陳光宏 博士生&lt;/<span style=color:#f92672>td</span>&gt;
+				  &lt;<span style=color:#f92672>td</span>&gt; &lt;/<span style=color:#f92672>td</span>&gt;
+				  &lt;<span style=color:#f92672>td</span>&gt;&lt;<span style=color:#f92672>a</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;mailto: d49907004@ym.edu.tw&#34;</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;style1&#34;</span>&gt; d49907004@ym.edu.tw&lt;/<span style=color:#f92672>a</span>&gt;&lt;/<span style=color:#f92672>td</span>&gt;
+			  &lt;/<span style=color:#f92672>tr</span>&gt;	  
+			  
+			  
+			  
+			  		
+			&lt;/<span style=color:#f92672>tbody</span>&gt;	
+		&lt;/<span style=color:#f92672>table</span>&gt;
+	  &lt;<span style=color:#f92672>a</span> <span style=color:#a6e22e>STYLE</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;FLOAT: RIGHT; MARGIN: 5PX&#34;</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;#&#34;</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;top&#34;</span>&gt;【回到頁首】&lt;/<span style=color:#f92672>a</span>&gt;
+	&lt;/<span style=color:#f92672>div</span>&gt; 
+</code></pre></div><p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/175860528-1be89375-34cd-424f-99be-8f3ee8d2f8cf.png alt=image>
+</p>
+<p>修改後</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html>			&lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>id</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;cont&#34;</span>&gt;
+				&lt;<span style=color:#f92672>font</span> <span style=color:#a6e22e>color</span><span style=color:#f92672>=</span><span style=color:#e6db74>#ff6e00</span>&gt;&gt;工作團隊&gt;財團法人國家衛生研究院&lt;/<span style=color:#f92672>font</span>&gt;
+				&lt;<span style=color:#f92672>img</span> <span style=color:#a6e22e>STYLE</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;FLOAT: LEFT; MARGIN: 10PX&#34;</span> <span style=color:#a6e22e>src</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;/img/icon1.jpg&#34;</span> <span style=color:#a6e22e>alt</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;&#34;</span> <span style=color:#a6e22e>width</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;50&#34;</span> <span style=color:#a6e22e>height</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;48&#34;</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;left&#34;</span> /&gt;
+				&lt;<span style=color:#f92672>h1</span>&gt;工作團隊&lt;/<span style=color:#f92672>h1</span>&gt;
+
+				&lt;<span style=color:#f92672>table</span> <span style=color:#a6e22e>summary</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;Submitted 財團法人國家衛生研究院&#34;</span>&gt;
+					&lt;<span style=color:#f92672>caption</span>&gt;財團法人國家衛生研究院&lt;/<span style=color:#f92672>caption</span>&gt;
+					&lt;<span style=color:#f92672>caption</span>&gt;電話:(037)206-166　　　地址:350 苗栗縣竹南鎮科研路35號&lt;/<span style=color:#f92672>caption</span>&gt;
+					&lt;<span style=color:#f92672>thead</span>&gt;
+						&lt;<span style=color:#f92672>tr</span>&gt;
+							&lt;<span style=color:#f92672>th</span> <span style=color:#a6e22e>width</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;30%&#34;</span> <span style=color:#a6e22e>scope</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;col&#34;</span>&gt;服務單位&lt;/<span style=color:#f92672>th</span>&gt;
+							&lt;<span style=color:#f92672>th</span> <span style=color:#a6e22e>width</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;25%&#34;</span> <span style=color:#a6e22e>scope</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;col&#34;</span>&gt;人員&lt;/<span style=color:#f92672>th</span>&gt;
+							&lt;<span style=color:#f92672>th</span> <span style=color:#a6e22e>width</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;15%&#34;</span> <span style=color:#a6e22e>scope</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;col&#34;</span>&gt;電話分機&lt;/<span style=color:#f92672>th</span>&gt;
+							&lt;<span style=color:#f92672>th</span> <span style=color:#a6e22e>width</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;30%&#34;</span> <span style=color:#a6e22e>scope</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;col&#34;</span>&gt;電子郵件信箱&lt;/<span style=color:#f92672>th</span>&gt;
+						&lt;/<span style=color:#f92672>tr</span>&gt;
+					&lt;/<span style=color:#f92672>thead</span>&gt;
+					&lt;<span style=color:#f92672>tfoot</span>&gt;
+						&lt;<span style=color:#f92672>tr</span>&gt; &lt;/<span style=color:#f92672>tr</span>&gt;
+					&lt;/<span style=color:#f92672>tfoot</span>&gt;
+					&lt;<span style=color:#f92672>tbody</span>&gt;
+						&lt;<span style=color:#f92672>tr</span>&gt;
+							&lt;<span style=color:#f92672>th</span>&gt;群體健康科學研究所&lt;/<span style=color:#f92672>th</span>&gt;
+							&lt;<span style=color:#f92672>td</span>&gt;邱弘毅特聘研究員兼所長&lt;/<span style=color:#f92672>td</span>&gt;
+							&lt;<span style=color:#f92672>td</span>&gt;36100&lt;/<span style=color:#f92672>td</span>&gt;
+							&lt;<span style=color:#f92672>td</span>&gt;&lt;<span style=color:#f92672>a</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;mailto:hychiou@nhri.edu.tw&#34;</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;style1&#34;</span>&gt;hychiou@nhri.edu.tw&lt;/<span style=color:#f92672>a</span>&gt;&lt;/<span style=color:#f92672>td</span>&gt;
+						&lt;/<span style=color:#f92672>tr</span>&gt;
+						&lt;<span style=color:#f92672>tr</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;odd&#34;</span>&gt;
+							&lt;<span style=color:#f92672>th</span>&gt;&lt;/<span style=color:#f92672>th</span>&gt;
+							&lt;<span style=color:#f92672>td</span>&gt;許志成研究員&lt;<span style=color:#f92672>br</span>&gt;兼副所長&lt;/<span style=color:#f92672>td</span>&gt;
+							&lt;<span style=color:#f92672>td</span>&gt;36336&lt;/<span style=color:#f92672>td</span>&gt;
+							&lt;<span style=color:#f92672>td</span>&gt;&lt;<span style=color:#f92672>a</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;mailto:cch@nhri.edu.tw&#34;</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;style1&#34;</span>&gt;cch@nhri.edu.tw&lt;/<span style=color:#f92672>a</span>&gt;&lt;/<span style=color:#f92672>td</span>&gt;
+						&lt;/<span style=color:#f92672>tr</span>&gt;
+
+						&lt;<span style=color:#f92672>tr</span>&gt;
+							&lt;<span style=color:#f92672>th</span>&gt;&lt;/<span style=color:#f92672>th</span>&gt;
+							&lt;<span style=color:#f92672>td</span>&gt;張新儀研究員&lt;/<span style=color:#f92672>td</span>&gt;
+							&lt;<span style=color:#f92672>td</span>&gt;36333&lt;/<span style=color:#f92672>td</span>&gt;
+							&lt;<span style=color:#f92672>td</span>&gt;&lt;<span style=color:#f92672>a</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;mailto:hsingyi@nhri.edu.tw&#34;</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;style1&#34;</span>&gt;hsingyi@nhri.edu.tw&lt;/<span style=color:#f92672>a</span>&gt;&lt;/<span style=color:#f92672>td</span>&gt;
+						&lt;/<span style=color:#f92672>tr</span>&gt;
+						&lt;<span style=color:#f92672>tr</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;odd&#34;</span>&gt;
+							&lt;<span style=color:#f92672>th</span>&gt;&lt;/<span style=color:#f92672>th</span>&gt;
+							&lt;<span style=color:#f92672>td</span> <span style=color:#a6e22e>align</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;right&#34;</span>&gt;于勝宗研究助理&lt;/<span style=color:#f92672>td</span>&gt;
+							&lt;<span style=color:#f92672>td</span>&gt;36343&lt;/<span style=color:#f92672>td</span>&gt;
+							&lt;<span style=color:#f92672>td</span>&gt;&lt;<span style=color:#f92672>a</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;mailto:yu650911@nhri.edu.tw&#34;</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;style1&#34;</span>&gt;yu650911@nhri.edu.tw&lt;/<span style=color:#f92672>a</span>&gt;&lt;/<span style=color:#f92672>td</span>&gt;
+						&lt;/<span style=color:#f92672>tr</span>&gt;
+						&lt;<span style=color:#f92672>tr</span>&gt;
+							&lt;<span style=color:#f92672>th</span>&gt;&lt;/<span style=color:#f92672>th</span>&gt;
+							&lt;<span style=color:#f92672>td</span> <span style=color:#a6e22e>align</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;right&#34;</span>&gt;江啟永研究助理&lt;/<span style=color:#f92672>td</span>&gt;
+							&lt;<span style=color:#f92672>td</span>&gt;36329&lt;/<span style=color:#f92672>td</span>&gt;
+							&lt;<span style=color:#f92672>td</span>&gt;&lt;<span style=color:#f92672>a</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;mailto:ccy@nhri.edu.tw&#34;</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;style1&#34;</span>&gt;ccy@nhri.edu.tw&lt;/<span style=color:#f92672>a</span>&gt;&lt;/<span style=color:#f92672>td</span>&gt;
+						&lt;/<span style=color:#f92672>tr</span>&gt;
+						&lt;<span style=color:#f92672>tr</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;odd&#34;</span>&gt;
+							&lt;<span style=color:#f92672>th</span>&gt;&lt;/<span style=color:#f92672>th</span>&gt;
+							&lt;<span style=color:#f92672>td</span> <span style=color:#a6e22e>align</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;right&#34;</span>&gt;方心伶研究助理&lt;/<span style=color:#f92672>td</span>&gt;
+							&lt;<span style=color:#f92672>td</span>&gt;36373&lt;/<span style=color:#f92672>td</span>&gt;
+							&lt;<span style=color:#f92672>td</span>&gt;&lt;<span style=color:#f92672>a</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;mailto:sling0329@nhri.edu.tw&#34;</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;style1&#34;</span>&gt;sling0329@nhri.edu.tw&lt;/<span style=color:#f92672>a</span>&gt;&lt;/<span style=color:#f92672>td</span>&gt;
+						&lt;/<span style=color:#f92672>tr</span>&gt;
+
+						&lt;<span style=color:#f92672>tr</span>&gt;
+							&lt;<span style=color:#f92672>th</span>&gt;&lt;/<span style=color:#f92672>th</span>&gt;
+							&lt;<span style=color:#f92672>td</span>&gt;陳主智研究員&lt;/<span style=color:#f92672>td</span>&gt;
+							&lt;<span style=color:#f92672>td</span>&gt;36186&lt;/<span style=color:#f92672>td</span>&gt;
+							&lt;<span style=color:#f92672>td</span>&gt;&lt;<span style=color:#f92672>a</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;mailto:ccchen@nhri.edu.tw&#34;</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;style1&#34;</span>&gt;ccchen@nhri.edu.tw&lt;/<span style=color:#f92672>a</span>&gt;&lt;/<span style=color:#f92672>td</span>&gt;
+						&lt;/<span style=color:#f92672>tr</span>&gt;
+						&lt;<span style=color:#f92672>tr</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;odd&#34;</span>&gt;
+							&lt;<span style=color:#f92672>th</span>&gt;&lt;/<span style=color:#f92672>th</span>&gt;
+							&lt;<span style=color:#f92672>td</span> <span style=color:#a6e22e>align</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;right&#34;</span>&gt;翁文舜研究助理&lt;/<span style=color:#f92672>td</span>&gt;
+							&lt;<span style=color:#f92672>td</span>&gt;36129&lt;/<span style=color:#f92672>td</span>&gt;
+							&lt;<span style=color:#f92672>td</span>&gt;&lt;<span style=color:#f92672>a</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;mailto:wengws@nhri.edu.tw&#34;</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;style1&#34;</span>&gt;wengws@nhri.edu.tw&lt;/<span style=color:#f92672>a</span>&gt;&lt;/<span style=color:#f92672>td</span>&gt;
+						&lt;/<span style=color:#f92672>tr</span>&gt;
+
+						&lt;<span style=color:#f92672>tr</span>&gt;
+							&lt;<span style=color:#f92672>th</span>&gt;神經及精神醫學研究中心&lt;/<span style=color:#f92672>th</span>&gt;
+							&lt;<span style=color:#f92672>td</span>&gt;陳娟瑜合聘研究員&lt;/<span style=color:#f92672>td</span>&gt;
+							&lt;<span style=color:#f92672>td</span>&gt;(02)2826-7000 #65034&lt;/<span style=color:#f92672>td</span>&gt;
+							&lt;<span style=color:#f92672>td</span>&gt;&lt;<span style=color:#f92672>a</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;mailto:cychen@nhri.edu.tw&#34;</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;style1&#34;</span>&gt;chuanychen@gmail.com&lt;/<span style=color:#f92672>a</span>&gt;&lt;/<span style=color:#f92672>td</span>&gt;
+						&lt;/<span style=color:#f92672>tr</span>&gt;
+
+					&lt;/<span style=color:#f92672>tbody</span>&gt;
+				&lt;/<span style=color:#f92672>table</span>&gt;
+				&lt;<span style=color:#f92672>a</span> <span style=color:#a6e22e>STYLE</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;FLOAT: RIGHT; MARGIN: 5PX&#34;</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;#&#34;</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;top&#34;</span>&gt;【回到頁首】&lt;/<span style=color:#f92672>a</span>&gt;
+			&lt;/<span style=color:#f92672>div</span>&gt;
+
+</code></pre></div><p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/175860631-b6708e6e-63ae-4c58-b196-1eaaf2bde612.png alt=image>
+</p>
+<h3 id=刪除一個頁面>刪除一個頁面<a hidden class=anchor aria-hidden=true href=#刪除一個頁面>#</a></h3>
+<p>假設我們要移除“工作團隊”中的“衛生福利部食品藥物管理署“這個網頁，主要有二個步驟：一是把選項中的“衛生福利部食品藥物管理署“移除，第二步驟是：nbcd.html 這個網頁檔案刪除。</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/175860952-64e2c0fb-5ffc-4380-8f7f-01318d6a8330.png alt=image>
+</p>
+<p>先找到 &ldquo;nhri.html"中“衛生福利部食品藥物管理署“這個選項的程式碼，即“<a href=nbcd.html>衛生福利部食品藥物管理署</a>”，利用滑鼠將這整個字串“選取”起來，再按下 Ctrl+Shift+H 叫出搜尋/置換功能視窗，在“置換”文字框中直接留著空白，再按下“置換”按鈕進行“全域置換“的動作即可。</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/175861525-15946cf5-7bc4-4495-922b-7e75263db4fb.png alt=image>
+</p>
+<p>另外也可以把　“<a href=nbcd.html>衛生福利部食品藥物管理署</a>”　置換成 &ldquo;<code>&lt;!-- &lt;a href="nbcd.html">衛生福利部食品藥物管理署&lt;/a> --></code>&rdquo; 來達成同樣的效果，不同處是：這個作法是透過“註解“的方式來“隱蔵這個選項而不是這個段網頁程式碼”刪除“了。</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/175862217-b3b7a197-a81c-4cc2-8546-442a42a2385f.png alt=image>
+</p>
+<h3 id=最新消息清單維護>最新消息清單維護<a hidden class=anchor aria-hidden=true href=#最新消息清單維護>#</a></h3>
+<p>接下來“最新消息”的網頁修改是屬比較特殊的部分。先來介紹“清單”的部分。在 VSCode 找到 /javascript/news.js 這支 JavaScript 程式檔。在這程式中只有“設定新聞訊息與連結”這個部分是需要被維護的，其餘皆是固定的 JS 程式碼，不要作任何變更。</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/175892155-21f0a14e-8d50-4b69-ab16-8f8326b73a86.png alt=image>
+</p>
+<p>以上圖為例，可以看到二個陣列，newText[] 這個陣列是用來將 &ldquo;最新消息“ 的標題顯在網站的“預設網頁”(index.html)中，當使用者透過滑鼠點選在這四個清單中任一項時，系統會自動開啟對應各最新消息的詳細說明網頁。而這些“最新消息的詳細說明網頁”則是透過第二個陣列 newsURL 來設定的。以第一則最新消息來看，標題是“「國民健康訪問調查」資料管理中心暫停受理各項資料使用申請的業務。 因應目前正在進行「國民健康訪問調查」問卷資料檔的去識別化驗證，自2021年2月3日起「國民健康訪問調查」資料管理中心暫停受理各項資料使用申請的業務。(2021/02/03公告)”，而更詳細的說明則是在 &ldquo;20210203.html&rdquo; 檔案中。</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/175894130-e35f420e-0c66-4296-b45f-95a877963c55.png alt=image>
+</p>
+<p>滑鼠點選在這四個清單中第一則消息，系統會自動打開"20210203.html"最新消息的詳細說明。</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/175894783-77748c8f-7ac0-41f4-9aea-de8d2829bd84.png alt=image>
+</p>
+<p>按下 &ldquo;close&rdquo; 按鈕時，系統會自動關閉這個詳細說明頁面。</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/175895002-865f1031-df96-4a50-b0ba-e3adf18c88e4.png alt=image>
+</p>
+<h3 id=最新消息明細網頁維護>最新消息明細網頁維護<a hidden class=anchor aria-hidden=true href=#最新消息明細網頁維護>#</a></h3>
+<p>至於“最新消息明細網頁維護”則如同一般 HTML 網頁程式一樣。</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/175895789-0e987a71-e31f-4e3c-9f34-5c3d4ff8e053.png alt=image>
+</p>
+<p>其中需要被維護的部分就是紅框反白處（也就是內容區塊的部分）。這區塊內可以支支所有 HTML 格式的設定。以下圖為例，先有個“標題”（h2)，再放了一個段落。你也依需求放入一個<code>&lt;table></code>或是<code>&lt;div></code>區塊&mldr;等。</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/175896569-48505dbe-0f86-479f-a480-5adca3314eee.png alt=image>
+</p>
+<h2 id=在開發環境查看網站成果>在開發環境查看網站成果<a hidden class=anchor aria-hidden=true href=#在開發環境查看網站成果>#</a></h2>
+<p>在開發維護中如何查看網頁的成果呢？一般而言，瀏覽器是連結到伺服器上去要求回應網頁內容，再由瀏覽器呈現網頁的最終成果。透過 VSCode 在網頁開發階段時不需這麼複雜，只要透過前面“開發環境安裝”章節介紹的 Live Server 套件就可以看到與伺服器支援相同效果的成果。</p>
+<h3 id=啟動網站>啟動網站<a hidden class=anchor aria-hidden=true href=#啟動網站>#</a></h3>
+<p>以 &ldquo;20210203.html&rdquo; 為例，要查看它的實際成果，先在 VSCode 找到這檔案並打開它。</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/175903059-6100657c-772b-4990-9f96-a1a2a6d42446.png alt=image>
+</p>
+<p>只須按下視窗右下方的"Go Live"按鈕，VSCode即自動打開瀏覽器並將成果顯示在瀏覽器中。</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/175903817-474e63d7-3f82-4983-be6c-16f0ddb8b540.png alt=image>
+</p>
+<p>註：&ldquo;Go Live"按鈕功能是由"Live Server 套件&rdquo;　所提供，要依前面章節所介紹的先進行安裝。</p>
+<h2 id=更新到主機>更新到主機<a hidden class=anchor aria-hidden=true href=#更新到主機>#</a></h2>
+<p>當已完成所有新增／修改作業後，必須把相關的收到更新到伺服器上(10.64.18.223)。</p>
+<h3 id=主機上網頁程式目錄>主機上網頁程式目錄<a hidden class=anchor aria-hidden=true href=#主機上網頁程式目錄>#</a></h3>
+<p>在伺服器上打開桌面上的“Internet Information Services (IIS) 管理員”</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/175909731-a1fc017a-8153-484f-bc3f-b19ac545d8e3.png alt=image>
+</p>
+<p>其他站台 - NHIS2Web 就是 &ldquo;NHIS 國民健康訪問調整網站&rdquo;，要查看這個網站的相關程式碼檔案所存放的位置，將滑鼠點選“IIS管理員“中“動作”中的“瀏覽”，系統會自動打開檔案管理員，並顯示出程式碼檔案所存放的路徑及檔案。</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/175910597-82dec717-40d0-4809-8801-e989c261b7da.png alt=image>
+</p>
+<p>將你在local 已修改的所有檔案傳送到這個目錄來，覆蓋掉舊檔即可。</p>
+<h3 id=iis-操作>IIS 操作<a hidden class=anchor aria-hidden=true href=#iis-操作>#</a></h3>
+<p>在更新好有修改／變更的檔案後，你可以操作 “IIS管理員“ 的相關功能先來確認網頁是否有正常作業。</p>
+<p>為確保 IIS Server 有讀到最新更新的檔案，你可以執行 “IIS管理員“ 中的 &ldquo;重新啟動“ 功能。</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/175914054-7bed70e2-2ca6-4329-b8a7-1ff31dfdf2de.png alt=image>
+</p>
+</div>
+<footer class=post-footer>
+<nav class=paginav>
+<a class=prev href=https://calvinegs.github.io/posts/angular-auth-jwt/>
+<span class=title>« Prev Page</span>
+<br>
+<span>使用 Angular 14 建立 Reactive Form 表單驗證範例</span>
+</a>
+<a class=next href=https://calvinegs.github.io/posts/nodejs-restapi-postgres/>
+<span class=title>Next Page »</span>
+<br>
+<span>使用 Node.js + express + postgres 建立一個後端服務 REST API</span>
+</a>
+</nav>
+<div class=share-buttons>
+<a target=_blank rel="noopener noreferrer" aria-label="share 國民健康訪問調整網站維護說明 on twitter" href="https://twitter.com/intent/tweet/?text=%e5%9c%8b%e6%b0%91%e5%81%a5%e5%ba%b7%e8%a8%aa%e5%95%8f%e8%aa%bf%e6%95%b4%e7%b6%b2%e7%ab%99%e7%b6%ad%e8%ad%b7%e8%aa%aa%e6%98%8e&url=https%3a%2f%2fcalvinegs.github.io%2fposts%2fnhisweb%2f&hashtags="><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zM195.519 424.544c135.939.0 210.268-112.643 210.268-210.268.0-3.218.0-6.437-.153-9.502 14.406-10.421 26.973-23.448 36.935-38.314-13.18 5.824-27.433 9.809-42.452 11.648 15.326-9.196 26.973-23.602 32.49-40.92-14.252 8.429-30.038 14.56-46.896 17.931-13.487-14.406-32.644-23.295-53.946-23.295-40.767.0-73.87 33.104-73.87 73.87.0 5.824.613 11.494 1.992 16.858-61.456-3.065-115.862-32.49-152.337-77.241-6.284 10.881-9.962 23.601-9.962 37.088.0 25.594 13.027 48.276 32.95 61.456-12.107-.307-23.448-3.678-33.41-9.196v.92c0 35.862 25.441 65.594 59.311 72.49-6.13 1.686-12.72 2.606-19.464 2.606-4.751.0-9.348-.46-13.946-1.38 9.349 29.426 36.628 50.728 68.965 51.341-25.287 19.771-57.164 31.571-91.8 31.571-5.977.0-11.801-.306-17.625-1.073 32.337 21.15 71.264 33.41 112.95 33.41z"/></svg>
+</a>
+<a target=_blank rel="noopener noreferrer" aria-label="share 國民健康訪問調整網站維護說明 on linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2fcalvinegs.github.io%2fposts%2fnhisweb%2f&title=%e5%9c%8b%e6%b0%91%e5%81%a5%e5%ba%b7%e8%a8%aa%e5%95%8f%e8%aa%bf%e6%95%b4%e7%b6%b2%e7%ab%99%e7%b6%ad%e8%ad%b7%e8%aa%aa%e6%98%8e&summary=%e5%9c%8b%e6%b0%91%e5%81%a5%e5%ba%b7%e8%a8%aa%e5%95%8f%e8%aa%bf%e6%95%b4%e7%b6%b2%e7%ab%99%e7%b6%ad%e8%ad%b7%e8%aa%aa%e6%98%8e&source=https%3a%2f%2fcalvinegs.github.io%2fposts%2fnhisweb%2f"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zM160.461 423.278V197.561h-75.04v225.717h75.04zm270.539.0V293.839c0-69.333-37.018-101.586-86.381-101.586-39.804.0-57.634 21.891-67.617 37.266v-31.958h-75.021c.995 21.181.0 225.717.0 225.717h75.02V297.222c0-6.748.486-13.492 2.474-18.315 5.414-13.475 17.767-27.434 38.494-27.434 27.135.0 38.007 20.707 38.007 51.037v120.768H431zM123.448 88.722C97.774 88.722 81 105.601 81 127.724c0 21.658 16.264 39.002 41.455 39.002h.484c26.165.0 42.452-17.344 42.452-39.002-.485-22.092-16.241-38.954-41.943-39.002z"/></svg>
+</a>
+<a target=_blank rel="noopener noreferrer" aria-label="share 國民健康訪問調整網站維護說明 on reddit" href="https://reddit.com/submit?url=https%3a%2f%2fcalvinegs.github.io%2fposts%2fnhisweb%2f&title=%e5%9c%8b%e6%b0%91%e5%81%a5%e5%ba%b7%e8%a8%aa%e5%95%8f%e8%aa%bf%e6%95%b4%e7%b6%b2%e7%ab%99%e7%b6%ad%e8%ad%b7%e8%aa%aa%e6%98%8e"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zM446 265.638c0-22.964-18.616-41.58-41.58-41.58-11.211.0-21.361 4.457-28.841 11.666-28.424-20.508-67.586-33.757-111.204-35.278l18.941-89.121 61.884 13.157c.756 15.734 13.642 28.29 29.56 28.29 16.407.0 29.706-13.299 29.706-29.701.0-16.403-13.299-29.702-29.706-29.702-11.666.0-21.657 6.792-26.515 16.578l-69.105-14.69c-1.922-.418-3.939-.042-5.585 1.036-1.658 1.073-2.811 2.761-3.224 4.686l-21.152 99.438c-44.258 1.228-84.046 14.494-112.837 35.232-7.468-7.164-17.589-11.591-28.757-11.591-22.965.0-41.585 18.616-41.585 41.58.0 16.896 10.095 31.41 24.568 37.918-.639 4.135-.99 8.328-.99 12.576.0 63.977 74.469 115.836 166.33 115.836s166.334-51.859 166.334-115.836c0-4.218-.347-8.387-.977-12.493 14.564-6.47 24.735-21.034 24.735-38.001zM326.526 373.831c-20.27 20.241-59.115 21.816-70.534 21.816-11.428.0-50.277-1.575-70.522-21.82-3.007-3.008-3.007-7.882.0-10.889 3.003-2.999 7.882-3.003 10.885.0 12.777 12.781 40.11 17.317 59.637 17.317 19.522.0 46.86-4.536 59.657-17.321 3.016-2.999 7.886-2.995 10.885.008 3.008 3.011 3.003 7.882-.008 10.889zm-5.23-48.781c-16.373.0-29.701-13.324-29.701-29.698.0-16.381 13.328-29.714 29.701-29.714 16.378.0 29.706 13.333 29.706 29.714.0 16.374-13.328 29.698-29.706 29.698zM160.91 295.348c0-16.381 13.328-29.71 29.714-29.71 16.369.0 29.689 13.329 29.689 29.71.0 16.373-13.32 29.693-29.689 29.693-16.386.0-29.714-13.32-29.714-29.693z"/></svg>
+</a>
+<a target=_blank rel="noopener noreferrer" aria-label="share 國民健康訪問調整網站維護說明 on facebook" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fcalvinegs.github.io%2fposts%2fnhisweb%2f"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H342.978V319.085h66.6l12.672-82.621h-79.272v-53.617c0-22.603 11.073-44.636 46.58-44.636H425.6v-70.34s-32.71-5.582-63.982-5.582c-65.288.0-107.96 39.569-107.96 111.204v62.971h-72.573v82.621h72.573V512h-191.104c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892z"/></svg>
+</a>
+<a target=_blank rel="noopener noreferrer" aria-label="share 國民健康訪問調整網站維護說明 on whatsapp" href="https://api.whatsapp.com/send?text=%e5%9c%8b%e6%b0%91%e5%81%a5%e5%ba%b7%e8%a8%aa%e5%95%8f%e8%aa%bf%e6%95%b4%e7%b6%b2%e7%ab%99%e7%b6%ad%e8%ad%b7%e8%aa%aa%e6%98%8e%20-%20https%3a%2f%2fcalvinegs.github.io%2fposts%2fnhisweb%2f"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zm-58.673 127.703c-33.842-33.881-78.847-52.548-126.798-52.568-98.799.0-179.21 80.405-179.249 179.234-.013 31.593 8.241 62.428 23.927 89.612l-25.429 92.884 95.021-24.925c26.181 14.28 55.659 21.807 85.658 21.816h.074c98.789.0 179.206-80.413 179.247-179.243.018-47.895-18.61-92.93-52.451-126.81zM263.976 403.485h-.06c-26.734-.01-52.954-7.193-75.828-20.767l-5.441-3.229-56.386 14.792 15.05-54.977-3.542-5.637c-14.913-23.72-22.791-51.136-22.779-79.287.033-82.142 66.867-148.971 149.046-148.971 39.793.014 77.199 15.531 105.329 43.692 28.128 28.16 43.609 65.592 43.594 105.4-.034 82.149-66.866 148.983-148.983 148.984zm81.721-111.581c-4.479-2.242-26.499-13.075-30.604-14.571-4.105-1.495-7.091-2.241-10.077 2.241-2.986 4.483-11.569 14.572-14.182 17.562-2.612 2.988-5.225 3.364-9.703 1.12-4.479-2.241-18.91-6.97-36.017-22.23C231.8 264.15 222.81 249.484 220.198 245s-.279-6.908 1.963-9.14c2.016-2.007 4.48-5.232 6.719-7.847 2.24-2.615 2.986-4.484 4.479-7.472 1.493-2.99.747-5.604-.374-7.846-1.119-2.241-10.077-24.288-13.809-33.256-3.635-8.733-7.327-7.55-10.077-7.688-2.609-.13-5.598-.158-8.583-.158-2.986.0-7.839 1.121-11.944 5.604-4.105 4.484-15.675 15.32-15.675 37.364.0 22.046 16.048 43.342 18.287 46.332 2.24 2.99 31.582 48.227 76.511 67.627 10.685 4.615 19.028 7.371 25.533 9.434 10.728 3.41 20.492 2.929 28.209 1.775 8.605-1.285 26.499-10.833 30.231-21.295 3.732-10.464 3.732-19.431 2.612-21.298-1.119-1.869-4.105-2.99-8.583-5.232z"/></svg>
+</a>
+<a target=_blank rel="noopener noreferrer" aria-label="share 國民健康訪問調整網站維護說明 on telegram" href="https://telegram.me/share/url?text=%e5%9c%8b%e6%b0%91%e5%81%a5%e5%ba%b7%e8%a8%aa%e5%95%8f%e8%aa%bf%e6%95%b4%e7%b6%b2%e7%ab%99%e7%b6%ad%e8%ad%b7%e8%aa%aa%e6%98%8e&url=https%3a%2f%2fcalvinegs.github.io%2fposts%2fnhisweb%2f"><svg viewBox="2 2 28 28"><path d="M26.49 29.86H5.5a3.37 3.37.0 01-2.47-1 3.35 3.35.0 01-1-2.47V5.48A3.36 3.36.0 013 3 3.37 3.37.0 015.5 2h21A3.38 3.38.0 0129 3a3.36 3.36.0 011 2.46V26.37a3.35 3.35.0 01-1 2.47 3.38 3.38.0 01-2.51 1.02zm-5.38-6.71a.79.79.0 00.85-.66L24.73 9.24a.55.55.0 00-.18-.46.62.62.0 00-.41-.17q-.08.0-16.53 6.11a.59.59.0 00-.41.59.57.57.0 00.43.52l4 1.24 1.61 4.83a.62.62.0 00.63.43.56.56.0 00.4-.17L16.54 20l4.09 3A.9.9.0 0021.11 23.15zM13.8 20.71l-1.21-4q8.72-5.55 8.78-5.55c.15.0.23.0.23.16a.18.18.0 010 .06s-2.51 2.3-7.52 6.8z"/></svg>
+</a>
+</div>
+</footer>
+<div>
+<div id=disqus_thread></div>
+<script type=text/javascript>(function(){var a,b;if(window.location.hostname=="localhost")return;a=document.createElement('script'),a.type='text/javascript',a.async=!0,b='calvinegs-github-io',a.src='//'+b+'.disqus.com/embed.js',(document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild(a)})()</script>
+<noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript>
+<a href=https://disqus.com/ class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a>
+</div>
+</article>
+</main>
+<footer class=footer>
+<span>&copy; 2022 <a href=https://calvinegs.github.io/>永誌不忘 • 筆記簿</a></span>
+<span>
+Powered by
+<a href=https://gohugo.io/ rel="noopener noreferrer" target=_blank>Hugo</a> &
+        <a href=https://git.io/hugopapermod rel=noopener target=_blank>PaperMod</a>
+</span>
+</footer>
+<a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentcolor"><path d="M12 6H0l6-6z"/></svg>
+</a>
+<script>let menu=document.getElementById('menu');menu&&(menu.scrollLeft=localStorage.getItem("menu-scroll-position"),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}),document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener("click",function(b){b.preventDefault();var a=this.getAttribute("href").substr(1);window.matchMedia('(prefers-reduced-motion: reduce)').matches?document.querySelector(`[id='${decodeURIComponent(a)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(a)}']`).scrollIntoView({behavior:"smooth"}),a==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${a}`)})})</script>
+<script>var mybutton=document.getElementById("top-link");window.onscroll=function(){document.body.scrollTop>800||document.documentElement.scrollTop>800?(mybutton.style.visibility="visible",mybutton.style.opacity="1"):(mybutton.style.visibility="hidden",mybutton.style.opacity="0")}</script>
+<script>document.getElementById("theme-toggle").addEventListener("click",()=>{document.body.className.includes("dark")?(document.body.classList.remove('dark'),localStorage.setItem("pref-theme",'light')):(document.body.classList.add('dark'),localStorage.setItem("pref-theme",'dark'))})</script>
+<script>document.querySelectorAll('pre > code').forEach(b=>{const c=b.parentNode.parentNode,a=document.createElement('button');a.classList.add('copy-code'),a.innerText='copy';function d(){a.innerText='copied!',setTimeout(()=>{a.innerText='copy'},2e3)}a.addEventListener('click',e=>{if('clipboard'in navigator){navigator.clipboard.writeText(b.textContent),d();return}const a=document.createRange();a.selectNodeContents(b);const c=window.getSelection();c.removeAllRanges(),c.addRange(a);try{document.execCommand('copy'),d()}catch(a){}c.removeRange(a)}),c.classList.contains("highlight")?c.appendChild(a):c.parentNode.firstChild==c||(b.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName=="TABLE"?b.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(a):b.parentNode.appendChild(a))})</script>
+</body>
+</html>
