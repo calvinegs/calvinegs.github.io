@@ -3,7 +3,34 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://calvinegs.github.io/categories/</loc>
-    <lastmod>2022-07-04T00:00:00+00:00</lastmod>
+    <lastmod>2022-07-07T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://calvinegs.github.io/categories/database/</loc>
+    <lastmod>2022-07-07T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://calvinegs.github.io/tags/docker/</loc>
+    <lastmod>2022-07-07T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://calvinegs.github.io/tags/docker-compose/</loc>
+    <lastmod>2022-07-07T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://calvinegs.github.io/tags/mariadb/</loc>
+    <lastmod>2022-07-07T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://calvinegs.github.io/posts/</loc>
+    <lastmod>2022-07-07T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://calvinegs.github.io/tags/</loc>
+    <lastmod>2022-07-07T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://calvinegs.github.io/tags/ubuntu/</loc>
+    <lastmod>2022-07-07T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://calvinegs.github.io/posts/docker-mariadb/</loc>
+    <lastmod>2022-07-07T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://calvinegs.github.io/</loc>
+    <lastmod>2022-07-07T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://calvinegs.github.io/tags/express/</loc>
     <lastmod>2022-07-04T00:00:00+00:00</lastmod>
@@ -20,32 +47,11 @@
     <loc>https://calvinegs.github.io/categories/node.js/</loc>
     <lastmod>2022-07-04T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://calvinegs.github.io/posts/</loc>
-    <lastmod>2022-07-04T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://calvinegs.github.io/tags/</loc>
-    <lastmod>2022-07-04T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://calvinegs.github.io/tags/webapi/</loc>
     <lastmod>2022-07-04T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://calvinegs.github.io/posts/nodejs-restapi-mysql/</loc>
     <lastmod>2022-07-04T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://calvinegs.github.io/</loc>
-    <lastmod>2022-07-04T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://calvinegs.github.io/categories/database/</loc>
-    <lastmod>2022-06-17T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://calvinegs.github.io/tags/docker/</loc>
-    <lastmod>2022-06-17T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://calvinegs.github.io/tags/docker-compose/</loc>
-    <lastmod>2022-06-17T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://calvinegs.github.io/tags/ubuntu/</loc>
-    <lastmod>2022-06-17T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://calvinegs.github.io/posts/docker-mysql/</loc>
     <lastmod>2022-06-17T00:00:00+00:00</lastmod>

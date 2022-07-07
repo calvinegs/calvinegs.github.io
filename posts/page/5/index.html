@@ -77,6 +77,21 @@
 </header>
 <article class=post-entry>
 <header class=entry-header>
+<h2>ASP.NET Core 5 Web API 加入權限管理 (Dotnet Core Identity Framework + JWT)
+</h2>
+</header>
+<section class=entry-content>
+<p>在另一篇筆記中 ASP.NET Core 5 Web API - 從無到有 已經了解如何從無到有 使用 Dotnet core 5.0 建立 一個 Web API，本篇筆記將以此有基礎來記錄如何使用 Asp.Net Core Identity framework 及 JWT 來建置一個簡單又安全的 “使用者權限管理"功能。
+github Source code #tag: identity_jwt
+使用 Asp.Net Core Identity framework 來管理使用者使用權限 ASP.NET Core Identity:
+支援使用者介面 (UI) 登入功能的 API。 管理使用者、密碼、設定檔資料、角色、宣告、權杖、電子郵件確認等。 ASP.Net Core Identity Framework 是一個很方便且還算完善的使用權限管理架構。
+安裝給 AspNetCore Idendity Framework 使用的相關套件 $ dotnet add package Microsoft.AspNetCore.Identity.EntityFrameworkCore --version 5.0.13 $ dotnet add package Microsoft.AspNetCore.Identity.UI --version 5.0.13 除了安裝相關套件外，還要調整相關程式:...</p>
+</section>
+<footer class=entry-footer><span title="2022-01-20 00:00:00 +0000 UTC">January 20, 2022</span>&nbsp;·&nbsp;7 min&nbsp;·&nbsp;Theme PaperMod</footer>
+<a class=entry-link aria-label="post link to ASP.NET Core 5 Web API 加入權限管理 (Dotnet Core Identity Framework + JWT)" href=https://calvinegs.github.io/posts/dotnet5-webapi-ii/></a>
+</article>
+<article class=post-entry>
+<header class=entry-header>
 <h2>型別推論(type inference) 與 型別註記(type annotation)
 </h2>
 </header>
@@ -127,25 +142,6 @@ Dotnet cli Entity Framework Sqlite ASP.NET Core Generator 使用 dotnet cli 建�
 </section>
 <footer class=entry-footer><span title="2021-12-08 00:00:00 +0000 UTC">December 8, 2021</span>&nbsp;·&nbsp;0 min&nbsp;·&nbsp;Theme PaperMod</footer>
 <a class=entry-link aria-label="post link to Angular cli 與 Node.js 版本對照" href=https://calvinegs.github.io/posts/ngcli-nodejs-verion/></a>
-</article>
-<article class=post-entry>
-<header class=entry-header>
-<h2>設置 TypeScript 開發環境 (Node.js)
-</h2>
-</header>
-<section class=entry-content>
-<p>TypeScript 不僅已可使用在主機端來進行 Node.js 程式的開發，也支援前端開發的眾多架構，使用 TypeScript 有許多額外的好處，因此學習 TypeScript 是現在軟體開發工程師不可缺的一項技能。本文是用來記錄如何設置一個簡易的 TypeScript 開發環境，用來學習 TypeScript。
-開始設置 建立一個目錄
-$ mkdir typescript-starter $ cd typescript-starter 透過 npm 產生 package.json 檔案
-$ npm init -y 在 Local 端安裝 TypeScript
-$ npm install typescript --save-dev #or -D 為 Node.js 安裝類型檔
-$ npm install @types/node --save-dev 透過 tsc 建立 TypeScript 的設定檔 (tsconfig.json)
-$ npx tsc --init P.S. 由於 typescript 是安裝在 local，執行時要透過 npx 指令(由 npm 所提供)
-指定額外的參數
-$ npx tsc --init --init --rootDir src --outDir build --esModuleInterop --resolveJsonModule --lib es6 --module commonjs --allowJs true --noImplicitAny true rootDir: tsc 轉碼器找尋程式的地方。 outDir: TypeScript 轉譯成 JavaScript 所存放的地方。 esModuleInterop: 若使用 commonjs 為此專案的 module system，則此設定值必須設定為 true。 resolveJsonModule: 若此專案會使用 JSON，則此設定值必須設定為 true。 lib: 指定為 ‘es6’ 指可使用到新版 JS 的一些語言特性，指定 ‘es5’ 則會有較高的相容易。 module: 指存 module system，如: commonjs。 allowJs: 此選項將允許您在 ....</p>
-</section>
-<footer class=entry-footer><span title="2021-12-07 00:00:00 +0000 UTC">December 7, 2021</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;Theme PaperMod</footer>
-<a class=entry-link aria-label="post link to 設置 TypeScript 開發環境 (Node.js)" href=https://calvinegs.github.io/posts/setup-typescript-env/></a>
 </article>
 <footer class=page-footer>
 <nav class=pagination>

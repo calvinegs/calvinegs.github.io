@@ -10,22 +10,22 @@
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 04 Jul 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://calvinegs.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 07 Jul 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://calvinegs.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Database</title>
+      <link>https://calvinegs.github.io/categories/database/</link>
+      <pubDate>Thu, 07 Jul 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://calvinegs.github.io/categories/database/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>Node.js</title>
       <link>https://calvinegs.github.io/categories/node.js/</link>
       <pubDate>Mon, 04 Jul 2022 00:00:00 +0000</pubDate>
       
       <guid>https://calvinegs.github.io/categories/node.js/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Database</title>
-      <link>https://calvinegs.github.io/categories/database/</link>
-      <pubDate>Fri, 17 Jun 2022 00:00:00 +0000</pubDate>
-      
-      <guid>https://calvinegs.github.io/categories/database/</guid>
       <description></description>
     </item>
     
