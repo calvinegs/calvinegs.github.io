@@ -164,13 +164,13 @@ drwxr-x---  2 systemd-coredump systemd-coredump     4096  六  17 15:45  testing
 ```bash
 $ mkdir mysql && cd mysql
 $ touch docker-compose.yml README.md
-$ touch ./sql/initdb.sql
+$ mkdir ./db ./db/initdb.sql
 ``` 
 ```
 ./mysql
 ├── docker-compose.yml
 ├── README.md
-└── sql
+└── db
     └── initdb.sql
 ```
 
