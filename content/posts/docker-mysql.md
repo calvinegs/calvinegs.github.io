@@ -164,13 +164,14 @@ drwxr-x---  2 systemd-coredump systemd-coredump     4096  六  17 15:45  testing
 ```bash
 $ mkdir mysql && cd mysql
 $ touch docker-compose.yml README.md
-$ mkdir ./db ./db/initdb.sql
+$ mkdir sql
+$ touch ./sql/initdb.sql
 ``` 
 ```
 ./mysql
 ├── docker-compose.yml
 ├── README.md
-└── db
+└── sql
     └── initdb.sql
 ```
 
@@ -195,7 +196,7 @@ services:
     volumes:
       - /tmp/mysqldb:/var/lib/mysql # 將 local /tmp/mysqldb 映射成 MySQL 實際資料庫檔案
       #- db:/var/lib/mysql  # 若以此語法將可搭配下面 volumes 的額外參數來指定實際資料庫檔案存放的位置，預設是 /var/lib/docker/volumes/mysqldb/_data
-      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql # 在 local 目錄中可置入相關的 sql 檔案來進行資料庫資料 initial 的動作。
+      - ./sql/init.sql:/docker-entrypoint-initdb.d/init.sql # 在 local 目錄中可置入相關的 sql 到init.sql檔案中來進行資料庫資料 initial 的動作。
 #volumes:
 #  db:
 #    driver: local
