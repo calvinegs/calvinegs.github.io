@@ -1,0 +1,474 @@
+<!doctype html><html lang=en dir=auto>
+<head><meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no">
+<meta name=robots content="index, follow">
+<title>使用 Node.js + express + MariaDB 建立一個後端服務 REST API | 永誌不忘 • 筆記簿</title>
+<meta name=keywords content="Node.js,express,mariadb,JWT,webapi">
+<meta name=description content="Node.js + express 來建立 REST API 服務，同時為提高網路安全性採取了 JWT JSON Web Token）來實作使用者驗證機制。資料庫的部份是使用 MySQL，為方便起見，採用 Docker 來執行 MySQL。">
+<meta name=author content="Theme PaperMod">
+<link rel=canonical href=https://calvinegs.github.io/posts/nodejs-restapi-mariadb/>
+<link crossorigin=anonymous href=/assets/css/stylesheet.min.c88963fe2d79462000fd0fb1b3737783c32855d340583e4523343f8735c787f0.css integrity="sha256-yIlj/i15RiAA/Q+xs3N3g8MoVdNAWD5FIzQ/hzXHh/A=" rel="preload stylesheet" as=style>
+<script defer crossorigin=anonymous src=/assets/js/highlight.min.7680afc38aa6b15ddf158a4f3780b7b1f7dde7e91d26f073e6229bb7a0793c92.js integrity="sha256-doCvw4qmsV3fFYpPN4C3sffd5+kdJvBz5iKbt6B5PJI=" onload=hljs.initHighlightingOnLoad()></script>
+<link rel=icon href=https://calvinegs.github.io/img/favicon.png>
+<link rel=icon type=image/png sizes=16x16 href=https://calvinegs.github.io/favicon-16x16.png>
+<link rel=icon type=image/png sizes=32x32 href=https://calvinegs.github.io/favicon-32x32.png>
+<link rel=apple-touch-icon href=https://calvinegs.github.io/apple-touch-icon.png>
+<link rel=mask-icon href=https://calvinegs.github.io/safari-pinned-tab.svg>
+<meta name=theme-color content="#2e2e33">
+<meta name=msapplication-TileColor content="#2e2e33">
+<meta name=generator content="Hugo 0.89.3">
+<noscript>
+<style>#theme-toggle,.top-link{display:none}</style>
+<style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--hljs-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style>
+</noscript><meta property="og:title" content="使用 Node.js + express + MariaDB 建立一個後端服務 REST API">
+<meta property="og:description" content="Node.js + express 來建立 REST API 服務，同時為提高網路安全性採取了 JWT JSON Web Token）來實作使用者驗證機制。資料庫的部份是使用 MySQL，為方便起見，採用 Docker 來執行 MySQL。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://calvinegs.github.io/posts/nodejs-restapi-mariadb/"><meta property="og:image" content="https://calvinegs.github.io/papermod-cover.png"><meta property="article:section" content="posts">
+<meta property="article:published_time" content="2022-07-08T00:00:00+00:00">
+<meta property="article:modified_time" content="2022-07-08T00:00:00+00:00">
+<meta name=twitter:card content="summary_large_image">
+<meta name=twitter:image content="https://calvinegs.github.io/papermod-cover.png">
+<meta name=twitter:title content="使用 Node.js + express + MariaDB 建立一個後端服務 REST API">
+<meta name=twitter:description content="Node.js + express 來建立 REST API 服務，同時為提高網路安全性採取了 JWT JSON Web Token）來實作使用者驗證機制。資料庫的部份是使用 MySQL，為方便起見，採用 Docker 來執行 MySQL。">
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Posts","item":"https://calvinegs.github.io/posts/"},{"@type":"ListItem","position":2,"name":"使用 Node.js + express + MariaDB 建立一個後端服務 REST API","item":"https://calvinegs.github.io/posts/nodejs-restapi-mariadb/"}]}</script>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"使用 Node.js + express + MariaDB 建立一個後端服務 REST API","name":"使用 Node.js \u002b express \u002b MariaDB 建立一個後端服務 REST API","description":"Node.js + express 來建立 REST API 服務，同時為提高網路安全性採取了 JWT JSON Web Token）來實作使用者驗證機制。資料庫的部份是使用 MySQL，為方便起見，採用 Docker 來執行 MySQL。","keywords":["Node.js","express","mariadb","JWT","webapi"],"articleBody":"github Source code\nTechnology:\n NodeJs 17.6.0 Express 4.18.1 cors 2.8.5 crypto-js 4.1.1 # 加解密套件 jsonwebtoken 8.5.1 # Json Web Token 的功能套件 sequelize 6.20.2 # ORM 套件 mysql2 2.3.3 # MySQL client for Node.js MariaDB 10.8.3 # 使用的資料庫  專案完成後的檔案結構 ./專案目錄 ├── app/ │ ├── config/ │ │ └── db.config.js │ ├── middleware/ │ │ ├── auth.jwt.js │ │ ├── index.js │ │ └── verify.signup.js │ ├── models/ │ │ ├── index.js │ │ ├── role.model.js │ │ ├── todo.model.js │ │ └── user.model.js │ ├── routes/ │ │ ├── auth.routes.js │ │ ├── todo.routes.js │ │ └── user.routes.js │ └── services/ │ ├── auth.service.js │ ├── todo.service.js │ └── user.service.js ├── node_modules/ ├── .env ├── .gitignore ├── package.json ├── README.md ├── server.js └── yarn-lock 專案完成後所提供的 API 端點    Methods Urls Actions     POST /api/auth/signup 註冊新使用者帳號   POST /api/auth/signin 使用者帳號登入   GET /api/todos get all Todos   GET /api/todos/:id get Todo by id   GET /api/todos/done find all done Todos   GET /api/todos/title=[keyword] find all Todos whick title contains keyword   POST /api/todos add New Todo   PUT /api/todos/:id update Todo by id   DELETE /api/todos/:id remove Todo by id   DELETE /api/todos remove all Todos    設置專案環境 這個專案不會從頭從無到有紀錄每一個建置的步驟，而是採取套用 “使用 Node.js + express + MySQL 建立一個後端服務 REST API” 這篇筆記內容來修改成為使用 Mariadb 資料庫而完成。\n複製即有專案 首先 git clone 即有的 MySQL 專案\n$ git clone https://github.com/calvinegs/nodejs-webapi-jwt-mysql.git nodejs-webapi-jwt-mariadb $ cd nodejs-webapi-jwt-mariadb clone 成功後，再來調整相依的套件。調整前先回復原專案所使用的套件\n$ yarn install yarn install v1.22.19 info No lockfile found. [1/4] Resolving packages... [2/4] Fetching packages... [3/4] Linking dependencies... [4/4] Building fresh packages... success Saved lockfile. Done in 4.92s. 在 “使用 Node.js + express + MySQL 建立一個後端服務 REST API” 這專案裡採用了 ORM 的套件來存取資料庫，使用 ORM 工具層的好處是它是一個抽象層，不直接使用 SQL 來，當後端資料庫轉換時，只要搭配不用的 Driver 便可完成，完全不須修改相關程式。\n移除 mysql driver 套件 $ yarn remove mysql2 yarn remove v1.22.19 [1/2] Removing module mysql2... [2/2] Regenerating lockfile and installing missing dependencies... success Uninstalled packages. Done in 0.49s. 安裝 mariadb driver 套件 $ yarn add mariadb arn add v1.22.19 [1/4] Resolving packages... [2/4] Fetching packages... [3/4] Linking dependencies... [4/4] Building fresh packages... success Saved lockfile. success Saved 7 new dependencies. info Direct dependencies └─ mariadb@3.0.0 info All dependencies ├─ @alloc/quick-lru@5.2.0 ├─ @types/geojson@7946.0.8 ├─ @types/node@17.0.45 ├─ denque@2.0.1 ├─ mariadb@3.0.0 ├─ please-upgrade-node@3.2.0 └─ semver-compare@1.0.0 Done in 2.45s. 修改完成後的 package.json 預設的內容\n{ \"name\": \"nodejs-webapi-jwt-mariadb\", \"version\": \"1.0.0\", \"description\": \"Node.js + express + JWT + MariaDB\", \"main\": \"server.js\", \"scripts\": { \"start\": \"nodemon server.js\" }, \"keywords\": [ \"node.js\", \"express\", \"jwt\", \"mysql\" ], \"author\": \"calvin\", \"license\": \"ISC\", \"dependencies\": { \"cors\": \"^2.8.5\", \"crypto-js\": \"^4.1.1\", \"dotenv\": \"^16.0.1\", \"express\": \"^4.18.1\", \"jsonwebtoken\": \"^8.5.1\", \"mariadb\": \"^3.0.0\", \"sequelize\": \"^6.21.2\" }, \"devDependencies\": { \"nodemon\": \"^2.0.18\" } } 修改程式 調整資料庫連結資料 修改 app/config/db.config.js\nmodule.exports = { HOST: \"localhost\", USER: \"root\", PASSWORD: \"mariadb@12345\", DB: \"testdb\", dialect: \"mariadb\", pool: { max: 5, min: 0, acquire: 3000, idle: 10000 } } 調整 Server.js 將原本被註解掉的 “資料庫初始化程式碼”打開，以便初次執行前程式可以自動建立相關資料表(Tables)\nconst express = require(\"express\"); const dotenv = require(\"dotenv\"); const cors = require(\"cors\"); dotenv.config(); const app = express(); const corsOptions = { origin: \"http://localhost:4200\" }; app.use(cors(corsOptions)); // const { Sequelize } = require('sequelize'); // const sequelize = new Sequelize('testdb', 'root', 'mysql@12345', { // host: 'localhost', // dialect: 'mysql' // }); // try { // sequelize.authenticate(); // console.log('Connection has been established successfully.'); // } catch (error) { // console.error('Unable to connect to the database:', error); // } // app.get(\"/api/test\", (req, res) = { // console.log(\"test is successful\"); // res.send(\"test is successful\"); // }); const db = require(\"./app/models\"); const Role = db.role; db.sequelize.sync({ force: true }).then(() = { console.log('Drop and Resync Database with { force: true }'); initial(); }).catch((err) = { console.log(err); }); app.use(express.json()); const userRoute = require(\"./app/routes/user.routes\"); app.use(\"/api/users\", userRoute); const todoRoute = require(\"./app/routes/todo.routes\"); app.use(\"/api/todos\", todoRoute); const authRoute = require(\"./app/routes/auth.routes\"); app.use(\"/api/auth\", authRoute); const PORT = process.env.PORT || 5000; app.listen(PORT, () = { console.log(`Backend server is running on port ${PORT}`); }); // 為 roles table 新增二筆初始資料 function initial() { Role.create({ id: 1, name: \"user\" }); Role.create({ id: 2, name: \"admin\" }); } 開始執行程式 安裝 MariaDB 資料庫 程式執行前要備妥 MariaDB 資料庫，為方便起見，採用 docker 方式來執行 MariaDB 資料管理系統，詳細內容可參考 使用 Docker 執行 Mariadb  這篇筆紀。\n執行程式 MariaDB Docker 啟動成功後就可以開始執行程式\n$ npm start 使用 DBeaver 查看資料庫 使用 DBeaver 連結到 MariaDB 後，發現透過程式已成功的産生相關的 Tables (資料表)。\n使用 Postman 操作 Web API 註冊一個使用者帳號\n使用註冊成功的帳號登入系統，登入成功後會回傳一個 Token\n帶入 token 就可成功的新增一個 todo\n結語 至此你可看到只須少許的程式調整就已完成抽換後端資料庫的動作。在程式中所採用 ORM 套件是 Sequelize，它只要搭配不同的 dirver 便可支援 Postgres、MySQL、MariaDb、SQLite、MS SQL Server 等不同的關連式資料庫管理系統。（Sequelize 詳細資訊請參考　Sequelize Getting Started  ）\n","wordCount":"677","inLanguage":"en","datePublished":"2022-07-08T00:00:00Z","dateModified":"2022-07-08T00:00:00Z","author":{"@type":"Person","name":"Theme PaperMod"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://calvinegs.github.io/posts/nodejs-restapi-mariadb/"},"publisher":{"@type":"Organization","name":"永誌不忘 • 筆記簿","logo":{"@type":"ImageObject","url":"https://calvinegs.github.io/img/favicon.png"}}}</script>
+</head>
+<body id=top>
+<script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
+<header class=header>
+<nav class=nav>
+<div class=logo>
+<a href=https://calvinegs.github.io/ accesskey=h title="永誌不忘 • 筆記簿 (Alt + H)">永誌不忘 • 筆記簿</a>
+<span class=logo-switches>
+<button id=theme-toggle accesskey=t title="(Alt + T)"><svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+</button>
+</span>
+</div>
+<ul id=menu>
+<li>
+<a href=https://calvinegs.github.io/posts/ title=Posts>
+<span>Posts</span>
+</a>
+</li>
+<li>
+<a href=https://calvinegs.github.io/archives/ title=Archive>
+<span>Archive</span>
+</a>
+</li>
+<li>
+<a href=https://calvinegs.github.io/categories/ title=Categories>
+<span>Categories</span>
+</a>
+</li>
+<li>
+<a href=https://calvinegs.github.io/tags/ title=Tags>
+<span>Tags</span>
+</a>
+</li>
+<li>
+<a href=https://calvinegs.github.io/search/ title="Search (Alt + /)" accesskey=/>
+<span>Search</span>
+</a>
+</li>
+</ul>
+</nav>
+</header>
+<main class=main>
+<article class=post-single>
+<header class=post-header>
+<div class=breadcrumbs><a href=https://calvinegs.github.io/>Home</a>&nbsp;»&nbsp;<a href=https://calvinegs.github.io/posts/>Posts</a></div>
+<h1 class=post-title>
+使用 Node.js + express + MariaDB 建立一個後端服務 REST API
+</h1>
+<div class=post-description>
+Node.js + express 來建立 REST API 服務，同時為提高網路安全性採取了 JWT JSON Web Token）來實作使用者驗證機制。資料庫的部份是使用 MySQL，為方便起見，採用 Docker 來執行 MySQL。
+</div>
+<div class=post-meta><span title="2022-07-08 00:00:00 +0000 UTC">July 8, 2022</span>&nbsp;·&nbsp;4 min&nbsp;·&nbsp;Theme PaperMod&nbsp;|&nbsp;<a href=https://github.com/adityatelange/hugo-PaperMod/tree/exampleSite/content/posts/nodejs-restapi-mariadb.md rel="noopener noreferrer" target=_blank>Suggest Changes</a>
+</div>
+</header> <div class=toc>
+<details>
+<summary accesskey=c title="(Alt + C)">
+<span class=details>Table of Contents</span>
+</summary>
+<div class=inner><ul>
+<li>
+<a href=#%e5%b0%88%e6%a1%88%e5%ae%8c%e6%88%90%e5%be%8c%e7%9a%84%e6%aa%94%e6%a1%88%e7%b5%90%e6%a7%8b aria-label=專案完成後的檔案結構>專案完成後的檔案結構</a></li>
+<li>
+<a href=#%e5%b0%88%e6%a1%88%e5%ae%8c%e6%88%90%e5%be%8c%e6%89%80%e6%8f%90%e4%be%9b%e7%9a%84-api-%e7%ab%af%e9%bb%9e aria-label="專案完成後所提供的 API 端點">專案完成後所提供的 API 端點</a></li>
+<li>
+<a href=#%e8%a8%ad%e7%bd%ae%e5%b0%88%e6%a1%88%e7%92%b0%e5%a2%83 aria-label=設置專案環境>設置專案環境</a><ul>
+<li>
+<a href=#%e8%a4%87%e8%a3%bd%e5%8d%b3%e6%9c%89%e5%b0%88%e6%a1%88 aria-label=複製即有專案>複製即有專案</a></li>
+<li>
+<a href=#%e7%a7%bb%e9%99%a4-mysql-driver--%e5%a5%97%e4%bb%b6 aria-label="移除 mysql driver  套件">移除 mysql driver 套件</a></li>
+<li>
+<a href=#%e5%ae%89%e8%a3%9d-mariadb-driver-%e5%a5%97%e4%bb%b6 aria-label="安裝 mariadb driver 套件">安裝 mariadb driver 套件</a></li></ul>
+</li>
+<li>
+<a href=#%e4%bf%ae%e6%94%b9%e7%a8%8b%e5%bc%8f aria-label=修改程式>修改程式</a><ul>
+<li>
+<a href=#%e8%aa%bf%e6%95%b4%e8%b3%87%e6%96%99%e5%ba%ab%e9%80%a3%e7%b5%90%e8%b3%87%e6%96%99 aria-label=調整資料庫連結資料>調整資料庫連結資料</a></li>
+<li>
+<a href=#%e8%aa%bf%e6%95%b4-serverjs aria-label="調整 Server.js">調整 Server.js</a></li></ul>
+</li>
+<li>
+<a href=#%e9%96%8b%e5%a7%8b%e5%9f%b7%e8%a1%8c%e7%a8%8b%e5%bc%8f aria-label=開始執行程式>開始執行程式</a></li>
+<li>
+<a href=#%e5%ae%89%e8%a3%9d-mariadb-%e8%b3%87%e6%96%99%e5%ba%ab aria-label="安裝 MariaDB 資料庫">安裝 MariaDB 資料庫</a></li>
+<li>
+<a href=#%e5%9f%b7%e8%a1%8c%e7%a8%8b%e5%bc%8f aria-label=執行程式>執行程式</a><ul>
+<li>
+<a href=#%e4%bd%bf%e7%94%a8-dbeaver-%e6%9f%a5%e7%9c%8b%e8%b3%87%e6%96%99%e5%ba%ab aria-label="使用 DBeaver 查看資料庫">使用 DBeaver 查看資料庫</a></li>
+<li>
+<a href=#%e4%bd%bf%e7%94%a8-postman-%e6%93%8d%e4%bd%9c-web-api aria-label="使用 Postman 操作 Web API">使用 Postman 操作 Web API</a></li></ul>
+</li>
+<li>
+<a href=#%e7%b5%90%e8%aa%9e aria-label=結語>結語</a>
+</li>
+</ul>
+</div>
+</details>
+</div>
+<div class=post-content><p><em><a href=https://github.com/calvinegs/nodejs-webapi-jwt-mariadb.git>github Source code</a></em></p>
+<p>Technology:</p>
+<ul>
+<li>NodeJs 17.6.0</li>
+<li>Express 4.18.1</li>
+<li>cors 2.8.5</li>
+<li>crypto-js 4.1.1 # 加解密套件</li>
+<li>jsonwebtoken 8.5.1 # Json Web Token 的功能套件</li>
+<li>sequelize 6.20.2 # ORM 套件</li>
+<li>mysql2 2.3.3 # MySQL client for Node.js</li>
+<li>MariaDB 10.8.3 # 使用的資料庫</li>
+</ul>
+<h2 id=專案完成後的檔案結構>專案完成後的檔案結構<a hidden class=anchor aria-hidden=true href=#專案完成後的檔案結構>#</a></h2>
+<pre tabindex=0><code>./專案目錄
+├── app/
+│   ├── config/
+│   │   └── db.config.js
+│   ├── middleware/
+│   │   ├── auth.jwt.js
+│   │   ├── index.js
+│   │   └── verify.signup.js
+│   ├── models/
+│   │   ├── index.js
+│   │   ├── role.model.js
+│   │   ├── todo.model.js
+│   │   └── user.model.js
+│   ├── routes/
+│   │   ├── auth.routes.js
+│   │   ├── todo.routes.js
+│   │   └── user.routes.js
+│   └── services/
+│       ├── auth.service.js
+│       ├── todo.service.js
+│       └── user.service.js
+├── node_modules/
+├── .env
+├── .gitignore
+├── package.json
+├── README.md
+├── server.js
+└── yarn-lock
+</code></pre><h2 id=專案完成後所提供的-api-端點>專案完成後所提供的 API 端點<a hidden class=anchor aria-hidden=true href=#專案完成後所提供的-api-端點>#</a></h2>
+<table>
+<thead>
+<tr>
+<th>Methods</th>
+<th>Urls</th>
+<th>Actions</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>POST</td>
+<td>/api/auth/signup</td>
+<td>註冊新使用者帳號</td>
+</tr>
+<tr>
+<td>POST</td>
+<td>/api/auth/signin</td>
+<td>使用者帳號登入</td>
+</tr>
+<tr>
+<td>GET</td>
+<td>/api/todos</td>
+<td>get all Todos</td>
+</tr>
+<tr>
+<td>GET</td>
+<td>/api/todos/:id</td>
+<td>get Todo by id</td>
+</tr>
+<tr>
+<td>GET</td>
+<td>/api/todos/done</td>
+<td>find all done Todos</td>
+</tr>
+<tr>
+<td>GET</td>
+<td>/api/todos/title=[<code>keyword</code>]</td>
+<td>find all Todos whick title contains <code>keyword</code></td>
+</tr>
+<tr>
+<td>POST</td>
+<td>/api/todos</td>
+<td>add New Todo</td>
+</tr>
+<tr>
+<td>PUT</td>
+<td>/api/todos/:id</td>
+<td>update Todo by id</td>
+</tr>
+<tr>
+<td>DELETE</td>
+<td>/api/todos/:id</td>
+<td>remove Todo by id</td>
+</tr>
+<tr>
+<td>DELETE</td>
+<td>/api/todos</td>
+<td>remove all Todos</td>
+</tr>
+</tbody>
+</table>
+<h2 id=設置專案環境>設置專案環境<a hidden class=anchor aria-hidden=true href=#設置專案環境>#</a></h2>
+<p>這個專案不會從頭從無到有紀錄每一個建置的步驟，而是採取套用 <strong>&ldquo;使用 Node.js + express + MySQL 建立一個後端服務 REST API&rdquo;</strong> 這篇筆記內容來修改成為使用 Mariadb 資料庫而完成。</p>
+<h3 id=複製即有專案>複製即有專案<a hidden class=anchor aria-hidden=true href=#複製即有專案>#</a></h3>
+<p>首先 git clone 即有的 MySQL 專案</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$ git clone https://github.com/calvinegs/nodejs-webapi-jwt-mysql.git nodejs-webapi-jwt-mariadb
+
+$ cd nodejs-webapi-jwt-mariadb
+</code></pre></div><p>clone 成功後，再來調整相依的套件。調整前先回復原專案所使用的套件</p>
+<pre tabindex=0><code class=language-base data-lang=base>$ yarn install
+
+yarn install v1.22.19
+info No lockfile found.
+[1/4] Resolving packages...
+[2/4] Fetching packages...
+[3/4] Linking dependencies...
+[4/4] Building fresh packages...
+success Saved lockfile.
+Done in 4.92s.
+</code></pre><p>在 <strong>&ldquo;使用 Node.js + express + MySQL 建立一個後端服務 REST API&rdquo;</strong> 這專案裡採用了 ORM 的套件來存取資料庫，使用 ORM 工具層的好處是它是一個抽象層，不直接使用 SQL 來，當後端資料庫轉換時，只要搭配不用的 Driver 便可完成，完全不須修改相關程式。</p>
+<h3 id=移除-mysql-driver--套件>移除 mysql driver 套件<a hidden class=anchor aria-hidden=true href=#移除-mysql-driver--套件>#</a></h3>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$ yarn remove mysql2
+
+yarn remove v1.22.19
+<span style=color:#f92672>[</span>1/2<span style=color:#f92672>]</span> Removing module mysql2...
+<span style=color:#f92672>[</span>2/2<span style=color:#f92672>]</span> Regenerating lockfile and installing missing dependencies...
+success Uninstalled packages.
+Done in 0.49s.
+</code></pre></div><h3 id=安裝-mariadb-driver-套件>安裝 mariadb driver 套件<a hidden class=anchor aria-hidden=true href=#安裝-mariadb-driver-套件>#</a></h3>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$ yarn add mariadb
+
+arn add v1.22.19
+<span style=color:#f92672>[</span>1/4<span style=color:#f92672>]</span> Resolving packages...
+<span style=color:#f92672>[</span>2/4<span style=color:#f92672>]</span> Fetching packages...
+<span style=color:#f92672>[</span>3/4<span style=color:#f92672>]</span> Linking dependencies...
+<span style=color:#f92672>[</span>4/4<span style=color:#f92672>]</span> Building fresh packages...
+success Saved lockfile.
+success Saved <span style=color:#ae81ff>7</span> new dependencies.
+info Direct dependencies
+└─ mariadb@3.0.0
+info All dependencies
+├─ @alloc/quick-lru@5.2.0
+├─ @types/geojson@7946.0.8
+├─ @types/node@17.0.45
+├─ denque@2.0.1
+├─ mariadb@3.0.0
+├─ please-upgrade-node@3.2.0
+└─ semver-compare@1.0.0
+Done in 2.45s.
+</code></pre></div><p>修改完成後的 package.json 預設的內容</p>
+<pre tabindex=0><code class="language-json{linenos=table,hl_lines=[23]}" data-lang="json{linenos=table,hl_lines=[23]}">{
+  &quot;name&quot;: &quot;nodejs-webapi-jwt-mariadb&quot;,
+  &quot;version&quot;: &quot;1.0.0&quot;,
+  &quot;description&quot;: &quot;Node.js + express + JWT + MariaDB&quot;,
+  &quot;main&quot;: &quot;server.js&quot;,
+  &quot;scripts&quot;: {
+    &quot;start&quot;: &quot;nodemon server.js&quot;
+  },
+  &quot;keywords&quot;: [
+    &quot;node.js&quot;,
+    &quot;express&quot;,
+    &quot;jwt&quot;,
+    &quot;mysql&quot;
+  ],
+  &quot;author&quot;: &quot;calvin&quot;,
+  &quot;license&quot;: &quot;ISC&quot;,
+  &quot;dependencies&quot;: {
+    &quot;cors&quot;: &quot;^2.8.5&quot;,
+    &quot;crypto-js&quot;: &quot;^4.1.1&quot;,
+    &quot;dotenv&quot;: &quot;^16.0.1&quot;,
+    &quot;express&quot;: &quot;^4.18.1&quot;,
+    &quot;jsonwebtoken&quot;: &quot;^8.5.1&quot;,
+    &quot;mariadb&quot;: &quot;^3.0.0&quot;,
+    &quot;sequelize&quot;: &quot;^6.21.2&quot;
+  },
+  &quot;devDependencies&quot;: {
+    &quot;nodemon&quot;: &quot;^2.0.18&quot;
+  }
+}
+</code></pre><h2 id=修改程式>修改程式<a hidden class=anchor aria-hidden=true href=#修改程式>#</a></h2>
+<h3 id=調整資料庫連結資料>調整資料庫連結資料<a hidden class=anchor aria-hidden=true href=#調整資料庫連結資料>#</a></h3>
+<p>修改 app/config/db.config.js</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-js data-lang=js><span style=color:#a6e22e>module</span>.<span style=color:#a6e22e>exports</span> <span style=color:#f92672>=</span> {
+    <span style=color:#a6e22e>HOST</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;localhost&#34;</span>,
+    <span style=color:#a6e22e>USER</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;root&#34;</span>,
+    <span style=color:#a6e22e>PASSWORD</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;mariadb@12345&#34;</span>,
+    <span style=color:#a6e22e>DB</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;testdb&#34;</span>,
+    <span style=color:#a6e22e>dialect</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;mariadb&#34;</span>,
+    <span style=color:#a6e22e>pool</span><span style=color:#f92672>:</span> {
+        <span style=color:#a6e22e>max</span><span style=color:#f92672>:</span> <span style=color:#ae81ff>5</span>,
+        <span style=color:#a6e22e>min</span><span style=color:#f92672>:</span> <span style=color:#ae81ff>0</span>,
+        <span style=color:#a6e22e>acquire</span><span style=color:#f92672>:</span> <span style=color:#ae81ff>3000</span>,
+        <span style=color:#a6e22e>idle</span><span style=color:#f92672>:</span> <span style=color:#ae81ff>10000</span>
+    }
+}
+</code></pre></div><h3 id=調整-serverjs>調整 Server.js<a hidden class=anchor aria-hidden=true href=#調整-serverjs>#</a></h3>
+<p>將原本被註解掉的 “資料庫初始化程式碼”打開，以便初次執行前程式可以自動建立相關資料表(Tables)</p>
+<pre tabindex=0><code class="language-js{linenos=table,hl_lines=[28-35,54-64],linenostart=1}" data-lang="js{linenos=table,hl_lines=[28-35,54-64],linenostart=1}">const express = require(&quot;express&quot;);
+const dotenv = require(&quot;dotenv&quot;);
+const cors = require(&quot;cors&quot;);
+dotenv.config();
+const app = express();
+const corsOptions = {
+  origin: &quot;http://localhost:4200&quot;
+};
+app.use(cors(corsOptions));
+
+// const { Sequelize } = require('sequelize');
+// const sequelize = new Sequelize('testdb', 'root', 'mysql@12345', {
+//     host: 'localhost',
+//     dialect: 'mysql'
+// });
+// try {
+//   sequelize.authenticate();
+//   console.log('Connection has been established successfully.');
+// } catch (error) {
+//   console.error('Unable to connect to the database:', error);
+// }
+
+// app.get(&quot;/api/test&quot;, (req, res) =&gt; {
+// 	console.log(&quot;test is successful&quot;);
+//     res.send(&quot;test is successful&quot;);
+// });
+
+const db = require(&quot;./app/models&quot;);
+const Role = db.role;
+db.sequelize.sync({ force: true }).then(() =&gt; {
+  console.log('Drop and Resync Database with { force: true }');
+  initial();
+}).catch((err) =&gt; {
+  console.log(err);
+});
+
+app.use(express.json());
+
+const userRoute = require(&quot;./app/routes/user.routes&quot;);
+app.use(&quot;/api/users&quot;, userRoute);
+
+const todoRoute = require(&quot;./app/routes/todo.routes&quot;);
+app.use(&quot;/api/todos&quot;, todoRoute);
+
+const authRoute = require(&quot;./app/routes/auth.routes&quot;);
+app.use(&quot;/api/auth&quot;, authRoute);
+
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () =&gt; {
+  console.log(`Backend server is running on port ${PORT}`);
+});
+
+// 為 roles table 新增二筆初始資料
+function initial() {
+  Role.create({
+    id: 1,
+    name: &quot;user&quot;
+  });
+
+  Role.create({
+    id: 2,
+    name: &quot;admin&quot;
+  });
+}
+</code></pre><h2 id=開始執行程式>開始執行程式<a hidden class=anchor aria-hidden=true href=#開始執行程式>#</a></h2>
+<h2 id=安裝-mariadb-資料庫>安裝 MariaDB 資料庫<a hidden class=anchor aria-hidden=true href=#安裝-mariadb-資料庫>#</a></h2>
+<p>程式執行前要備妥 MariaDB 資料庫，為方便起見，採用 docker 方式來執行 MariaDB 資料管理系統，詳細內容可參考 <em><a href=https://calvinegs.github.io/posts/docker-mariadb/>使用 Docker 執行 Mariadb
+</a></em> 這篇筆紀。</p>
+<h2 id=執行程式>執行程式<a hidden class=anchor aria-hidden=true href=#執行程式>#</a></h2>
+<p>MariaDB Docker 啟動成功後就可以開始執行程式</p>
+<pre tabindex=0><code class=language-base data-lang=base>$ npm start
+</code></pre><h3 id=使用-dbeaver-查看資料庫>使用 DBeaver 查看資料庫<a hidden class=anchor aria-hidden=true href=#使用-dbeaver-查看資料庫>#</a></h3>
+<p>使用 DBeaver 連結到 MariaDB 後，發現透過程式已成功的産生相關的 Tables (資料表)。</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/177905596-ca82666b-00de-4095-a7c7-af034d36c93a.png alt=image>
+</p>
+<h3 id=使用-postman-操作-web-api>使用 Postman 操作 Web API<a hidden class=anchor aria-hidden=true href=#使用-postman-操作-web-api>#</a></h3>
+<p>註冊一個使用者帳號</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/177905988-31e2dc29-10f1-47ce-937f-7aa9890a66d3.png alt=image>
+</p>
+<p>使用註冊成功的帳號登入系統，登入成功後會回傳一個 Token</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/177906145-30a5692d-b653-4156-8a1b-bba1d285a9a3.png alt=image>
+</p>
+<p>帶入 token 就可成功的新增一個 todo</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/177906558-447596e3-75ee-4140-b057-7c7c81a4140a.png alt=image>
+</p>
+<h2 id=結語>結語<a hidden class=anchor aria-hidden=true href=#結語>#</a></h2>
+<p>至此你可看到只須少許的程式調整就已完成抽換後端資料庫的動作。在程式中所採用 ORM 套件是 Sequelize，它只要搭配不同的 dirver 便可支援 Postgres、MySQL、MariaDb、SQLite、MS SQL Server 等不同的關連式資料庫管理系統。（Sequelize 詳細資訊請參考　<em><a href=https://sequelize.org/docs/v6/getting-started/>Sequelize Getting Started
+</a></em> 　）</p>
+</div>
+<footer class=post-footer>
+<ul class=post-tags>
+<li><a href=https://calvinegs.github.io/tags/node.js/>Node.js</a></li>
+<li><a href=https://calvinegs.github.io/tags/express/>express</a></li>
+<li><a href=https://calvinegs.github.io/tags/mariadb/>mariadb</a></li>
+<li><a href=https://calvinegs.github.io/tags/jwt/>JWT</a></li>
+<li><a href=https://calvinegs.github.io/tags/webapi/>webapi</a></li>
+</ul>
+<nav class=paginav>
+<a class=next href=https://calvinegs.github.io/posts/docker-mariadb/>
+<span class=title>Next Page »</span>
+<br>
+<span>使用 Docker 執行 Mariadb</span>
+</a>
+</nav>
+<div class=share-buttons>
+<a target=_blank rel="noopener noreferrer" aria-label="share 使用 Node.js + express + MariaDB 建立一個後端服務 REST API on twitter" href="https://twitter.com/intent/tweet/?text=%e4%bd%bf%e7%94%a8%20Node.js%20%2b%20express%20%2b%20MariaDB%20%e5%bb%ba%e7%ab%8b%e4%b8%80%e5%80%8b%e5%be%8c%e7%ab%af%e6%9c%8d%e5%8b%99%20REST%20API&url=https%3a%2f%2fcalvinegs.github.io%2fposts%2fnodejs-restapi-mariadb%2f&hashtags=Node.js%2cexpress%2cmariadb%2cJWT%2cwebapi"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zM195.519 424.544c135.939.0 210.268-112.643 210.268-210.268.0-3.218.0-6.437-.153-9.502 14.406-10.421 26.973-23.448 36.935-38.314-13.18 5.824-27.433 9.809-42.452 11.648 15.326-9.196 26.973-23.602 32.49-40.92-14.252 8.429-30.038 14.56-46.896 17.931-13.487-14.406-32.644-23.295-53.946-23.295-40.767.0-73.87 33.104-73.87 73.87.0 5.824.613 11.494 1.992 16.858-61.456-3.065-115.862-32.49-152.337-77.241-6.284 10.881-9.962 23.601-9.962 37.088.0 25.594 13.027 48.276 32.95 61.456-12.107-.307-23.448-3.678-33.41-9.196v.92c0 35.862 25.441 65.594 59.311 72.49-6.13 1.686-12.72 2.606-19.464 2.606-4.751.0-9.348-.46-13.946-1.38 9.349 29.426 36.628 50.728 68.965 51.341-25.287 19.771-57.164 31.571-91.8 31.571-5.977.0-11.801-.306-17.625-1.073 32.337 21.15 71.264 33.41 112.95 33.41z"/></svg>
+</a>
+<a target=_blank rel="noopener noreferrer" aria-label="share 使用 Node.js + express + MariaDB 建立一個後端服務 REST API on linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2fcalvinegs.github.io%2fposts%2fnodejs-restapi-mariadb%2f&title=%e4%bd%bf%e7%94%a8%20Node.js%20%2b%20express%20%2b%20MariaDB%20%e5%bb%ba%e7%ab%8b%e4%b8%80%e5%80%8b%e5%be%8c%e7%ab%af%e6%9c%8d%e5%8b%99%20REST%20API&summary=%e4%bd%bf%e7%94%a8%20Node.js%20%2b%20express%20%2b%20MariaDB%20%e5%bb%ba%e7%ab%8b%e4%b8%80%e5%80%8b%e5%be%8c%e7%ab%af%e6%9c%8d%e5%8b%99%20REST%20API&source=https%3a%2f%2fcalvinegs.github.io%2fposts%2fnodejs-restapi-mariadb%2f"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zM160.461 423.278V197.561h-75.04v225.717h75.04zm270.539.0V293.839c0-69.333-37.018-101.586-86.381-101.586-39.804.0-57.634 21.891-67.617 37.266v-31.958h-75.021c.995 21.181.0 225.717.0 225.717h75.02V297.222c0-6.748.486-13.492 2.474-18.315 5.414-13.475 17.767-27.434 38.494-27.434 27.135.0 38.007 20.707 38.007 51.037v120.768H431zM123.448 88.722C97.774 88.722 81 105.601 81 127.724c0 21.658 16.264 39.002 41.455 39.002h.484c26.165.0 42.452-17.344 42.452-39.002-.485-22.092-16.241-38.954-41.943-39.002z"/></svg>
+</a>
+<a target=_blank rel="noopener noreferrer" aria-label="share 使用 Node.js + express + MariaDB 建立一個後端服務 REST API on reddit" href="https://reddit.com/submit?url=https%3a%2f%2fcalvinegs.github.io%2fposts%2fnodejs-restapi-mariadb%2f&title=%e4%bd%bf%e7%94%a8%20Node.js%20%2b%20express%20%2b%20MariaDB%20%e5%bb%ba%e7%ab%8b%e4%b8%80%e5%80%8b%e5%be%8c%e7%ab%af%e6%9c%8d%e5%8b%99%20REST%20API"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zM446 265.638c0-22.964-18.616-41.58-41.58-41.58-11.211.0-21.361 4.457-28.841 11.666-28.424-20.508-67.586-33.757-111.204-35.278l18.941-89.121 61.884 13.157c.756 15.734 13.642 28.29 29.56 28.29 16.407.0 29.706-13.299 29.706-29.701.0-16.403-13.299-29.702-29.706-29.702-11.666.0-21.657 6.792-26.515 16.578l-69.105-14.69c-1.922-.418-3.939-.042-5.585 1.036-1.658 1.073-2.811 2.761-3.224 4.686l-21.152 99.438c-44.258 1.228-84.046 14.494-112.837 35.232-7.468-7.164-17.589-11.591-28.757-11.591-22.965.0-41.585 18.616-41.585 41.58.0 16.896 10.095 31.41 24.568 37.918-.639 4.135-.99 8.328-.99 12.576.0 63.977 74.469 115.836 166.33 115.836s166.334-51.859 166.334-115.836c0-4.218-.347-8.387-.977-12.493 14.564-6.47 24.735-21.034 24.735-38.001zM326.526 373.831c-20.27 20.241-59.115 21.816-70.534 21.816-11.428.0-50.277-1.575-70.522-21.82-3.007-3.008-3.007-7.882.0-10.889 3.003-2.999 7.882-3.003 10.885.0 12.777 12.781 40.11 17.317 59.637 17.317 19.522.0 46.86-4.536 59.657-17.321 3.016-2.999 7.886-2.995 10.885.008 3.008 3.011 3.003 7.882-.008 10.889zm-5.23-48.781c-16.373.0-29.701-13.324-29.701-29.698.0-16.381 13.328-29.714 29.701-29.714 16.378.0 29.706 13.333 29.706 29.714.0 16.374-13.328 29.698-29.706 29.698zM160.91 295.348c0-16.381 13.328-29.71 29.714-29.71 16.369.0 29.689 13.329 29.689 29.71.0 16.373-13.32 29.693-29.689 29.693-16.386.0-29.714-13.32-29.714-29.693z"/></svg>
+</a>
+<a target=_blank rel="noopener noreferrer" aria-label="share 使用 Node.js + express + MariaDB 建立一個後端服務 REST API on facebook" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fcalvinegs.github.io%2fposts%2fnodejs-restapi-mariadb%2f"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H342.978V319.085h66.6l12.672-82.621h-79.272v-53.617c0-22.603 11.073-44.636 46.58-44.636H425.6v-70.34s-32.71-5.582-63.982-5.582c-65.288.0-107.96 39.569-107.96 111.204v62.971h-72.573v82.621h72.573V512h-191.104c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892z"/></svg>
+</a>
+<a target=_blank rel="noopener noreferrer" aria-label="share 使用 Node.js + express + MariaDB 建立一個後端服務 REST API on whatsapp" href="https://api.whatsapp.com/send?text=%e4%bd%bf%e7%94%a8%20Node.js%20%2b%20express%20%2b%20MariaDB%20%e5%bb%ba%e7%ab%8b%e4%b8%80%e5%80%8b%e5%be%8c%e7%ab%af%e6%9c%8d%e5%8b%99%20REST%20API%20-%20https%3a%2f%2fcalvinegs.github.io%2fposts%2fnodejs-restapi-mariadb%2f"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zm-58.673 127.703c-33.842-33.881-78.847-52.548-126.798-52.568-98.799.0-179.21 80.405-179.249 179.234-.013 31.593 8.241 62.428 23.927 89.612l-25.429 92.884 95.021-24.925c26.181 14.28 55.659 21.807 85.658 21.816h.074c98.789.0 179.206-80.413 179.247-179.243.018-47.895-18.61-92.93-52.451-126.81zM263.976 403.485h-.06c-26.734-.01-52.954-7.193-75.828-20.767l-5.441-3.229-56.386 14.792 15.05-54.977-3.542-5.637c-14.913-23.72-22.791-51.136-22.779-79.287.033-82.142 66.867-148.971 149.046-148.971 39.793.014 77.199 15.531 105.329 43.692 28.128 28.16 43.609 65.592 43.594 105.4-.034 82.149-66.866 148.983-148.983 148.984zm81.721-111.581c-4.479-2.242-26.499-13.075-30.604-14.571-4.105-1.495-7.091-2.241-10.077 2.241-2.986 4.483-11.569 14.572-14.182 17.562-2.612 2.988-5.225 3.364-9.703 1.12-4.479-2.241-18.91-6.97-36.017-22.23C231.8 264.15 222.81 249.484 220.198 245s-.279-6.908 1.963-9.14c2.016-2.007 4.48-5.232 6.719-7.847 2.24-2.615 2.986-4.484 4.479-7.472 1.493-2.99.747-5.604-.374-7.846-1.119-2.241-10.077-24.288-13.809-33.256-3.635-8.733-7.327-7.55-10.077-7.688-2.609-.13-5.598-.158-8.583-.158-2.986.0-7.839 1.121-11.944 5.604-4.105 4.484-15.675 15.32-15.675 37.364.0 22.046 16.048 43.342 18.287 46.332 2.24 2.99 31.582 48.227 76.511 67.627 10.685 4.615 19.028 7.371 25.533 9.434 10.728 3.41 20.492 2.929 28.209 1.775 8.605-1.285 26.499-10.833 30.231-21.295 3.732-10.464 3.732-19.431 2.612-21.298-1.119-1.869-4.105-2.99-8.583-5.232z"/></svg>
+</a>
+<a target=_blank rel="noopener noreferrer" aria-label="share 使用 Node.js + express + MariaDB 建立一個後端服務 REST API on telegram" href="https://telegram.me/share/url?text=%e4%bd%bf%e7%94%a8%20Node.js%20%2b%20express%20%2b%20MariaDB%20%e5%bb%ba%e7%ab%8b%e4%b8%80%e5%80%8b%e5%be%8c%e7%ab%af%e6%9c%8d%e5%8b%99%20REST%20API&url=https%3a%2f%2fcalvinegs.github.io%2fposts%2fnodejs-restapi-mariadb%2f"><svg viewBox="2 2 28 28"><path d="M26.49 29.86H5.5a3.37 3.37.0 01-2.47-1 3.35 3.35.0 01-1-2.47V5.48A3.36 3.36.0 013 3 3.37 3.37.0 015.5 2h21A3.38 3.38.0 0129 3a3.36 3.36.0 011 2.46V26.37a3.35 3.35.0 01-1 2.47 3.38 3.38.0 01-2.51 1.02zm-5.38-6.71a.79.79.0 00.85-.66L24.73 9.24a.55.55.0 00-.18-.46.62.62.0 00-.41-.17q-.08.0-16.53 6.11a.59.59.0 00-.41.59.57.57.0 00.43.52l4 1.24 1.61 4.83a.62.62.0 00.63.43.56.56.0 00.4-.17L16.54 20l4.09 3A.9.9.0 0021.11 23.15zM13.8 20.71l-1.21-4q8.72-5.55 8.78-5.55c.15.0.23.0.23.16a.18.18.0 010 .06s-2.51 2.3-7.52 6.8z"/></svg>
+</a>
+</div>
+</footer>
+<div>
+<div id=disqus_thread></div>
+<script type=text/javascript>(function(){var a,b;if(window.location.hostname=="localhost")return;a=document.createElement('script'),a.type='text/javascript',a.async=!0,b='calvinegs-github-io',a.src='//'+b+'.disqus.com/embed.js',(document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild(a)})()</script>
+<noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript>
+<a href=https://disqus.com/ class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a>
+</div>
+</article>
+</main>
+<footer class=footer>
+<span>&copy; 2022 <a href=https://calvinegs.github.io/>永誌不忘 • 筆記簿</a></span>
+<span>
+Powered by
+<a href=https://gohugo.io/ rel="noopener noreferrer" target=_blank>Hugo</a> &
+        <a href=https://git.io/hugopapermod rel=noopener target=_blank>PaperMod</a>
+</span>
+</footer>
+<a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentcolor"><path d="M12 6H0l6-6z"/></svg>
+</a>
+<script>let menu=document.getElementById('menu');menu&&(menu.scrollLeft=localStorage.getItem("menu-scroll-position"),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}),document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener("click",function(b){b.preventDefault();var a=this.getAttribute("href").substr(1);window.matchMedia('(prefers-reduced-motion: reduce)').matches?document.querySelector(`[id='${decodeURIComponent(a)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(a)}']`).scrollIntoView({behavior:"smooth"}),a==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${a}`)})})</script>
+<script>var mybutton=document.getElementById("top-link");window.onscroll=function(){document.body.scrollTop>800||document.documentElement.scrollTop>800?(mybutton.style.visibility="visible",mybutton.style.opacity="1"):(mybutton.style.visibility="hidden",mybutton.style.opacity="0")}</script>
+<script>document.getElementById("theme-toggle").addEventListener("click",()=>{document.body.className.includes("dark")?(document.body.classList.remove('dark'),localStorage.setItem("pref-theme",'light')):(document.body.classList.add('dark'),localStorage.setItem("pref-theme",'dark'))})</script>
+<script>document.querySelectorAll('pre > code').forEach(b=>{const c=b.parentNode.parentNode,a=document.createElement('button');a.classList.add('copy-code'),a.innerText='copy';function d(){a.innerText='copied!',setTimeout(()=>{a.innerText='copy'},2e3)}a.addEventListener('click',e=>{if('clipboard'in navigator){navigator.clipboard.writeText(b.textContent),d();return}const a=document.createRange();a.selectNodeContents(b);const c=window.getSelection();c.removeAllRanges(),c.addRange(a);try{document.execCommand('copy'),d()}catch(a){}c.removeRange(a)}),c.classList.contains("highlight")?c.appendChild(a):c.parentNode.firstChild==c||(b.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName=="TABLE"?b.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(a):b.parentNode.appendChild(a))})</script>
+</body>
+</html>

@@ -10,7 +10,16 @@
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 04 Jul 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://calvinegs.github.io/tags/node.js/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 08 Jul 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://calvinegs.github.io/tags/node.js/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>使用 Node.js &#43; express &#43; MariaDB 建立一個後端服務 REST API</title>
+      <link>https://calvinegs.github.io/posts/nodejs-restapi-mariadb/</link>
+      <pubDate>Fri, 08 Jul 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://calvinegs.github.io/posts/nodejs-restapi-mariadb/</guid>
+      <description>Node.js &#43; express 來建立 REST API 服務，同時為提高網路安全性採取了 JWT JSON Web Token）來實作使用者驗證機制。資料庫的部份是使用 MySQL，為方便起見，採用 Docker 來執行 MySQL。</description>
+    </item>
+    
     <item>
       <title>使用 Node.js &#43; express &#43; MySQL 建立一個後端服務 REST API</title>
       <link>https://calvinegs.github.io/posts/nodejs-restapi-mysql/</link>
