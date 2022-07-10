@@ -27,6 +27,7 @@ mcr.microsoft.com/mssql/server     2019-latest     f554c0722914   4 weeks ago   
 ```base
 $ docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=Sql@1234" \
    -p 1433:1433 --name sql1 -h sql1 \
+   -v sqlvolume:/var/opt/mssql \ # 將資料映射到 local 的 volume 上
    -d mcr.microsoft.com/mssql/server:2019-latest
    
 $ docker ps
@@ -41,6 +42,52 @@ CONTAINER ID   IMAGE                                        COMMAND             
 $ docker exec -it sql1 /opt/mssql-tools/bin/sqlcmd \
    -S localhost -U SA -P "Sql@1234" \
    -Q 'ALTER LOGIN SA WITH PASSWORD="Sql@12345"'
+```
+
+## 查看 Volume
+```base
+$ docker volume ls
+local sqlvolume
+
+$ docker volume inspect sqlvolume
+[
+    {
+        "CreatedAt": "2022-07-09T12:53:39+08:00",
+        "Driver": "local",
+        "Labels": null,
+        "Mountpoint": "/var/lib/docker/volumes/sqlvolume/_data",
+        "Name": "sqlvolume",
+        "Options": null,
+        "Scope": "local"
+    }
+]
+
+$ sudo ls -al /var/lib/docker/volumes/sqlvolume/_data/data
+總用量 146956
+drwxr-xr-x 2 10001 root     4096  七   9 13:08 .
+drwxrwx--- 6 root  root     4096  七   9 12:53 ..
+-rw-r----- 1 10001 root      256  七   9 12:53 Entropy.bin
+-rw-r----- 1 10001 root  4653056  七  10 12:25 master.mdf
+-rw-r----- 1 10001 root  2097152  七  10 12:25 mastlog.ldf
+-rw-r----- 1 10001 root  8388608  七  10 12:25 modellog.ldf
+-rw-r----- 1 10001 root  8388608  七  10 12:25 model.mdf
+-rw-r----- 1 10001 root 14090240  七  10 12:21 model_msdbdata.mdf
+-rw-r----- 1 10001 root   524288  七  10 12:21 model_msdblog.ldf
+-rw-r----- 1 10001 root   524288  七  10 12:21 model_replicatedmaster.ldf
+-rw-r----- 1 10001 root  4653056  七  10 12:21 model_replicatedmaster.mdf
+-rw-r----- 1 10001 root 14090240  七  10 12:25 msdbdata.mdf
+-rw-r----- 1 10001 root   786432  七  10 12:25 msdblog.ldf
+-rw-r----- 1 10001 root  8388608  七  10 12:21 tempdb2.ndf
+-rw-r----- 1 10001 root  8388608  七  10 12:21 tempdb3.ndf
+-rw-r----- 1 10001 root  8388608  七  10 12:21 tempdb4.ndf
+-rw-r----- 1 10001 root  8388608  七  10 12:21 tempdb5.ndf
+-rw-r----- 1 10001 root  8388608  七  10 12:21 tempdb6.ndf
+-rw-r----- 1 10001 root  8388608  七  10 12:21 tempdb7.ndf
+-rw-r----- 1 10001 root  8388608  七  10 12:21 tempdb8.ndf
+-rw-r----- 1 10001 root  8388608  七  10 12:21 tempdb.mdf
+-rw-r----- 1 10001 root  8388608  七  10 12:25 templog.ldf
+-rw-r----- 1 10001 root  8388608  七  10 12:25 TestDB_log.ldf
+-rw-r----- 1 10001 root  8388608  七  10 12:25 TestDB.mdf
 ```
 
 ## 連接上 Docker 中的 SQL Server
