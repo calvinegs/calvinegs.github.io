@@ -32,7 +32,7 @@
 <meta name=twitter:title content="Run SQL Server container images with Docker">
 <meta name=twitter:description content="在開發的環境中我們常會需要搭配資料庫，而常見的資料庫管理系統種類、版本繁多，如果搭直接安裝在 local 端作業系統中，可能會造成開發環境混亂，其中採 Docker 方式來安裝測試用資料庫的方式是一個不錯的解決方案">
 <script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Posts","item":"https://calvinegs.github.io/posts/"},{"@type":"ListItem","position":2,"name":"Run SQL Server container images with Docker","item":"https://calvinegs.github.io/posts/sqlserver2019-docker/"}]}</script>
-<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"Run SQL Server container images with Docker","name":"Run SQL Server container images with Docker","description":"在開發的環境中我們常會需要搭配資料庫，而常見的資料庫管理系統種類、版本繁多，如果搭直接安裝在 local 端作業系統中，可能會造成開發環境混亂，其中採 Docker 方式來安裝測試用資料庫的方式是一個不錯的解決方案","keywords":["docker","SQL Server","Ubuntu"],"articleBody":"如何在 Ubuntu 中使用 Docker 啟動 MS SQL Server 2019  參考資料：　https://docs.microsoft.com/en-us/sql/linux/quickstart-install-connect-docker?view=sql-server-ver15\u0026pivots=cs1-bash\n 首先當然在你的作業系統中必須先安裝好 Docker 下載　SQL Server Image file $ sudo docker pull mcr.microsoft.com/mssql/server:2019-latest $ docker images REPOSITORY TAG IMAGE ID CREATED SIZE mcr.microsoft.com/mssql/server 2019-latest f554c0722914 4 weeks ago 1.64GB 使用 Docker 把 SQL Server image file 啟動 $ docker run -e \"ACCEPT_EULA=Y\" -e \"SA_PASSWORD=Sql@1234\" \\ -p 1433:1433 --name sql1 -h sql1 \\ -d mcr.microsoft.com/mssql/server:2019-latest $ docker ps CONTAINER ID IMAGE COMMAND CREATED STATUS PORTS NAMES 36c9fe84ea3e mcr.microsoft.com/mssql/server:2019-latest \"/opt/mssql/bin/perm…\" 42 hours ago Up 40 minutes 0.0.0.0:1433-1433/tcp, :::1433-1433/tcp sql1 修改 SA Password $ docker exec -it sql1 /opt/mssql-tools/bin/sqlcmd \\  -S localhost -U SA -P \"Sql@1234\" \\  -Q 'ALTER LOGIN SA WITH PASSWORD=\"Sql@12345\"' 連接上 Docker 中的 SQL Server $ docker exec -it sql1 \"bash\" 執行 SQL Commander 工具來操作 SQL Server mssql@sql1:/$ /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P \"Sql@12345\" 查看 SQL Server 版本 1 select @@version 2 go Microsoft SQL Server 2019 (RTM-CU16) (KB5011644) - 15.0.4223.1 (X64) Apr 11 2022 16:24:07 Copyright (C) 2019 Microsoft Corporation Developer Edition (64-bit) on Linux (Ubuntu 20.04.4 LTS)  (1 rows affected) 建立 TestDB 資料庫 1 CREATE DATABASE TestDB 2 Select name from sys.databases 3 go 在 TestDB 資料庫中建立 Inventory 資料表 並 寫入資料 1 USE TestDB 2 CREATE TABLE Inventory (id INT, name NVARCHAR(50), quantity INT) 3 INSERT INTO Inventory VALUES (1, 'banana', 150); INSERT INTO Inventory VALUES (2, 'orange', 154); 4 go 查詢 Inventory 資料表 1 SELECT * FROM Inventory WHERE quantity  152; 2 go 離開 SQL Commder 工具 1 quit 離開 Docker 環境 mssql@sql1:/$ exit 安裝 dbeaver-ce  有了資料後，通常你會需要一個管理工具來連結上該資料庫來做一些日常的資料管理。由於工作關係，會常使用到各式資料庫，若你的管理工具只適用某類資料，那勢必要安裝好幾個工具了。在此建議可使用 bdeaver-cd (https://dbeaver.io/download/)\n $ wget https://dbeaver.io/files/dbeaver-ce_latest_amd64.deb $ sudo dpkg -i dbeaver-ce_latest_amd64.deb  安裝完成後啟動它，進行連結資料庫設定   連結 SQL Server 資料庫   管理資料庫 - 查詢資料表資料、結構、修改資料表資料、結構…  ","wordCount":"271","inLanguage":"en","datePublished":"2022-05-19T00:00:00Z","dateModified":"2022-05-19T00:00:00Z","author":{"@type":"Person","name":"Theme PaperMod"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://calvinegs.github.io/posts/sqlserver2019-docker/"},"publisher":{"@type":"Organization","name":"永誌不忘 • 筆記簿","logo":{"@type":"ImageObject","url":"https://calvinegs.github.io/img/favicon.png"}}}</script>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"Run SQL Server container images with Docker","name":"Run SQL Server container images with Docker","description":"在開發的環境中我們常會需要搭配資料庫，而常見的資料庫管理系統種類、版本繁多，如果搭直接安裝在 local 端作業系統中，可能會造成開發環境混亂，其中採 Docker 方式來安裝測試用資料庫的方式是一個不錯的解決方案","keywords":["docker","SQL Server","Ubuntu"],"articleBody":"如何在 Ubuntu 中使用 Docker 啟動 MS SQL Server 2019  參考資料：　https://docs.microsoft.com/en-us/sql/linux/quickstart-install-connect-docker?view=sql-server-ver15\u0026pivots=cs1-bash\n 首先當然在你的作業系統中必須先安裝好 Docker 下載　SQL Server Image file $ sudo docker pull mcr.microsoft.com/mssql/server:2019-latest $ docker images REPOSITORY TAG IMAGE ID CREATED SIZE mcr.microsoft.com/mssql/server 2019-latest f554c0722914 4 weeks ago 1.64GB 使用 Docker 把 SQL Server image file 啟動 $ docker run -e \"ACCEPT_EULA=Y\" -e \"SA_PASSWORD=Sql@1234\" \\ -p 1433:1433 --name sql1 -h sql1 \\ -v sqlvolume:/var/opt/mssql \\ # 將資料映射到 local 的 volume 上 -d mcr.microsoft.com/mssql/server:2019-latest $ docker ps CONTAINER ID IMAGE COMMAND CREATED STATUS PORTS NAMES 36c9fe84ea3e mcr.microsoft.com/mssql/server:2019-latest \"/opt/mssql/bin/perm…\" 42 hours ago Up 40 minutes 0.0.0.0:1433-1433/tcp, :::1433-1433/tcp sql1 修改 SA Password $ docker exec -it sql1 /opt/mssql-tools/bin/sqlcmd \\  -S localhost -U SA -P \"Sql@1234\" \\  -Q 'ALTER LOGIN SA WITH PASSWORD=\"Sql@12345\"' 查看 Volume $ docker volume ls local sqlvolume $ docker volume inspect sqlvolume [ { \"CreatedAt\": \"2022-07-09T12:53:39+08:00\", \"Driver\": \"local\", \"Labels\": null, \"Mountpoint\": \"/var/lib/docker/volumes/sqlvolume/_data\", \"Name\": \"sqlvolume\", \"Options\": null, \"Scope\": \"local\" } ] $ sudo ls -al /var/lib/docker/volumes/sqlvolume/_data/data 總用量 146956 drwxr-xr-x 2 10001 root 4096 七 9 13:08 . drwxrwx--- 6 root root 4096 七 9 12:53 .. -rw-r----- 1 10001 root 256 七 9 12:53 Entropy.bin -rw-r----- 1 10001 root 4653056 七 10 12:25 master.mdf -rw-r----- 1 10001 root 2097152 七 10 12:25 mastlog.ldf -rw-r----- 1 10001 root 8388608 七 10 12:25 modellog.ldf -rw-r----- 1 10001 root 8388608 七 10 12:25 model.mdf -rw-r----- 1 10001 root 14090240 七 10 12:21 model_msdbdata.mdf -rw-r----- 1 10001 root 524288 七 10 12:21 model_msdblog.ldf -rw-r----- 1 10001 root 524288 七 10 12:21 model_replicatedmaster.ldf -rw-r----- 1 10001 root 4653056 七 10 12:21 model_replicatedmaster.mdf -rw-r----- 1 10001 root 14090240 七 10 12:25 msdbdata.mdf -rw-r----- 1 10001 root 786432 七 10 12:25 msdblog.ldf -rw-r----- 1 10001 root 8388608 七 10 12:21 tempdb2.ndf -rw-r----- 1 10001 root 8388608 七 10 12:21 tempdb3.ndf -rw-r----- 1 10001 root 8388608 七 10 12:21 tempdb4.ndf -rw-r----- 1 10001 root 8388608 七 10 12:21 tempdb5.ndf -rw-r----- 1 10001 root 8388608 七 10 12:21 tempdb6.ndf -rw-r----- 1 10001 root 8388608 七 10 12:21 tempdb7.ndf -rw-r----- 1 10001 root 8388608 七 10 12:21 tempdb8.ndf -rw-r----- 1 10001 root 8388608 七 10 12:21 tempdb.mdf -rw-r----- 1 10001 root 8388608 七 10 12:25 templog.ldf -rw-r----- 1 10001 root 8388608 七 10 12:25 TestDB_log.ldf -rw-r----- 1 10001 root 8388608 七 10 12:25 TestDB.mdf 連接上 Docker 中的 SQL Server $ docker exec -it sql1 \"bash\" 執行 SQL Commander 工具來操作 SQL Server mssql@sql1:/$ /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P \"Sql@12345\" 查看 SQL Server 版本 1 select @@version 2 go Microsoft SQL Server 2019 (RTM-CU16) (KB5011644) - 15.0.4223.1 (X64) Apr 11 2022 16:24:07 Copyright (C) 2019 Microsoft Corporation Developer Edition (64-bit) on Linux (Ubuntu 20.04.4 LTS)  (1 rows affected) 建立 TestDB 資料庫 1 CREATE DATABASE TestDB 2 Select name from sys.databases 3 go 在 TestDB 資料庫中建立 Inventory 資料表 並 寫入資料 1 USE TestDB 2 CREATE TABLE Inventory (id INT, name NVARCHAR(50), quantity INT) 3 INSERT INTO Inventory VALUES (1, 'banana', 150); INSERT INTO Inventory VALUES (2, 'orange', 154); 4 go 查詢 Inventory 資料表 1 SELECT * FROM Inventory WHERE quantity  152; 2 go 離開 SQL Commder 工具 1 quit 離開 Docker 環境 mssql@sql1:/$ exit 安裝 dbeaver-ce  有了資料後，通常你會需要一個管理工具來連結上該資料庫來做一些日常的資料管理。由於工作關係，會常使用到各式資料庫，若你的管理工具只適用某類資料，那勢必要安裝好幾個工具了。在此建議可使用 bdeaver-cd (https://dbeaver.io/download/)\n $ wget https://dbeaver.io/files/dbeaver-ce_latest_amd64.deb $ sudo dpkg -i dbeaver-ce_latest_amd64.deb  安裝完成後啟動它，進行連結資料庫設定   連結 SQL Server 資料庫   管理資料庫 - 查詢資料表資料、結構、修改資料表資料、結構…  ","wordCount":"534","inLanguage":"en","datePublished":"2022-05-19T00:00:00Z","dateModified":"2022-05-19T00:00:00Z","author":{"@type":"Person","name":"Theme PaperMod"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://calvinegs.github.io/posts/sqlserver2019-docker/"},"publisher":{"@type":"Organization","name":"永誌不忘 • 筆記簿","logo":{"@type":"ImageObject","url":"https://calvinegs.github.io/img/favicon.png"}}}</script>
 </head>
 <body id=top>
 <script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
@@ -84,7 +84,7 @@ Run SQL Server container images with Docker
 <div class=post-description>
 在開發的環境中我們常會需要搭配資料庫，而常見的資料庫管理系統種類、版本繁多，如果搭直接安裝在 local 端作業系統中，可能會造成開發環境混亂，其中採 Docker 方式來安裝測試用資料庫的方式是一個不錯的解決方案
 </div>
-<div class=post-meta><span title="2022-05-19 00:00:00 +0000 UTC">May 19, 2022</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;Theme PaperMod&nbsp;|&nbsp;<a href=https://github.com/adityatelange/hugo-PaperMod/tree/exampleSite/content/posts/sqlserver2019-docker.md rel="noopener noreferrer" target=_blank>Suggest Changes</a>
+<div class=post-meta><span title="2022-05-19 00:00:00 +0000 UTC">May 19, 2022</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;Theme PaperMod&nbsp;|&nbsp;<a href=https://github.com/adityatelange/hugo-PaperMod/tree/exampleSite/content/posts/sqlserver2019-docker.md rel="noopener noreferrer" target=_blank>Suggest Changes</a>
 </div>
 </header> <div class=toc>
 <details>
@@ -102,6 +102,8 @@ Run SQL Server container images with Docker
 <a href=#%e4%bd%bf%e7%94%a8-docker-%e6%8a%8a-sql-server-image-file-%e5%95%9f%e5%8b%95 aria-label="使用 Docker 把 SQL Server image file 啟動">使用 Docker 把 SQL Server image file 啟動</a></li>
 <li>
 <a href=#%e4%bf%ae%e6%94%b9-sa-password aria-label="修改 SA Password">修改 SA Password</a></li>
+<li>
+<a href=#%e6%9f%a5%e7%9c%8b-volume aria-label="查看 Volume">查看 Volume</a></li>
 <li>
 <a href=#%e9%80%a3%e6%8e%a5%e4%b8%8a-docker-%e4%b8%ad%e7%9a%84-sql-server aria-label="連接上 Docker 中的 SQL Server">連接上 Docker 中的 SQL Server</a></li>
 <li>
@@ -141,6 +143,7 @@ mcr.microsoft.com/mssql/server     2019-latest     f554c0722914   <span style=co
 </code></pre></div><h2 id=使用-docker-把-sql-server-image-file-啟動>使用 Docker 把 SQL Server image file 啟動<a hidden class=anchor aria-hidden=true href=#使用-docker-把-sql-server-image-file-啟動>#</a></h2>
 <pre tabindex=0><code class=language-base data-lang=base>$ docker run -e &quot;ACCEPT_EULA=Y&quot; -e &quot;SA_PASSWORD=Sql@1234&quot; \
    -p 1433:1433 --name sql1 -h sql1 \
+   -v sqlvolume:/var/opt/mssql \ # 將資料映射到 local 的 volume 上
    -d mcr.microsoft.com/mssql/server:2019-latest
    
 $ docker ps
@@ -151,7 +154,50 @@ CONTAINER ID   IMAGE                                        COMMAND             
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$ docker exec -it sql1 /opt/mssql-tools/bin/sqlcmd <span style=color:#ae81ff>\
 </span><span style=color:#ae81ff></span>   -S localhost -U SA -P <span style=color:#e6db74>&#34;Sql@1234&#34;</span> <span style=color:#ae81ff>\
 </span><span style=color:#ae81ff></span>   -Q <span style=color:#e6db74>&#39;ALTER LOGIN SA WITH PASSWORD=&#34;Sql@12345&#34;&#39;</span>
-</code></pre></div><h2 id=連接上-docker-中的-sql-server>連接上 Docker 中的 SQL Server<a hidden class=anchor aria-hidden=true href=#連接上-docker-中的-sql-server>#</a></h2>
+</code></pre></div><h2 id=查看-volume>查看 Volume<a hidden class=anchor aria-hidden=true href=#查看-volume>#</a></h2>
+<pre tabindex=0><code class=language-base data-lang=base>$ docker volume ls
+local sqlvolume
+
+$ docker volume inspect sqlvolume
+[
+    {
+        &quot;CreatedAt&quot;: &quot;2022-07-09T12:53:39+08:00&quot;,
+        &quot;Driver&quot;: &quot;local&quot;,
+        &quot;Labels&quot;: null,
+        &quot;Mountpoint&quot;: &quot;/var/lib/docker/volumes/sqlvolume/_data&quot;,
+        &quot;Name&quot;: &quot;sqlvolume&quot;,
+        &quot;Options&quot;: null,
+        &quot;Scope&quot;: &quot;local&quot;
+    }
+]
+
+$ sudo ls -al /var/lib/docker/volumes/sqlvolume/_data/data
+總用量 146956
+drwxr-xr-x 2 10001 root     4096  七   9 13:08 .
+drwxrwx--- 6 root  root     4096  七   9 12:53 ..
+-rw-r----- 1 10001 root      256  七   9 12:53 Entropy.bin
+-rw-r----- 1 10001 root  4653056  七  10 12:25 master.mdf
+-rw-r----- 1 10001 root  2097152  七  10 12:25 mastlog.ldf
+-rw-r----- 1 10001 root  8388608  七  10 12:25 modellog.ldf
+-rw-r----- 1 10001 root  8388608  七  10 12:25 model.mdf
+-rw-r----- 1 10001 root 14090240  七  10 12:21 model_msdbdata.mdf
+-rw-r----- 1 10001 root   524288  七  10 12:21 model_msdblog.ldf
+-rw-r----- 1 10001 root   524288  七  10 12:21 model_replicatedmaster.ldf
+-rw-r----- 1 10001 root  4653056  七  10 12:21 model_replicatedmaster.mdf
+-rw-r----- 1 10001 root 14090240  七  10 12:25 msdbdata.mdf
+-rw-r----- 1 10001 root   786432  七  10 12:25 msdblog.ldf
+-rw-r----- 1 10001 root  8388608  七  10 12:21 tempdb2.ndf
+-rw-r----- 1 10001 root  8388608  七  10 12:21 tempdb3.ndf
+-rw-r----- 1 10001 root  8388608  七  10 12:21 tempdb4.ndf
+-rw-r----- 1 10001 root  8388608  七  10 12:21 tempdb5.ndf
+-rw-r----- 1 10001 root  8388608  七  10 12:21 tempdb6.ndf
+-rw-r----- 1 10001 root  8388608  七  10 12:21 tempdb7.ndf
+-rw-r----- 1 10001 root  8388608  七  10 12:21 tempdb8.ndf
+-rw-r----- 1 10001 root  8388608  七  10 12:21 tempdb.mdf
+-rw-r----- 1 10001 root  8388608  七  10 12:25 templog.ldf
+-rw-r----- 1 10001 root  8388608  七  10 12:25 TestDB_log.ldf
+-rw-r----- 1 10001 root  8388608  七  10 12:25 TestDB.mdf
+</code></pre><h2 id=連接上-docker-中的-sql-server>連接上 Docker 中的 SQL Server<a hidden class=anchor aria-hidden=true href=#連接上-docker-中的-sql-server>#</a></h2>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$ docker exec -it sql1 <span style=color:#e6db74>&#34;bash&#34;</span>
 </code></pre></div><h2 id=執行-sql-commander-工具來操作-sql-server>執行 SQL Commander 工具來操作 SQL Server<a hidden class=anchor aria-hidden=true href=#執行-sql-commander-工具來操作-sql-server>#</a></h2>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>mssql@sql1:/$ /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P <span style=color:#e6db74>&#34;Sql@12345&#34;</span>
