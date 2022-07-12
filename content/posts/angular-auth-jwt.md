@@ -292,7 +292,7 @@ import { AppSettings } from '../helpers/appSettings';
 
 const API_URL = AppSettings.API_URL + 'auth/';
 
-@Injectable(
+@Injectable({
   providedIn: 'root'
 })
 export class AuthService {
@@ -400,6 +400,7 @@ export class UserService {
 HTTP Interceptor 可以讓我們很容易的在每一個 request Header 中加入我們登入成功後由 API 回傳回來的｀合法Token`。在這個程式中唯一要注意的是，不應更改原始的 request，而是應該透過 clone 功能來産生一個新的 request 再將 token 寫入這個新 request 的 Header。
 
 ```ts
+// ./app/shared/interceptor/auth.interceptor.ts
 import { Injectable } from '@angular/core';
 import {
   HttpRequest,
@@ -441,7 +442,7 @@ export const authInterceptorProviders = [{
 上述完成的 Interceptor 要記得`注入`到 app module providers 設定中（第14、32行）。
 同時，在前述的 services 中我們使用到了 HttpClient，所以也必須匯入 HttpClient Module（第3、30行）。
 
-```ts{linenos=table,hl_lines=[3,14,30,32]}
+```ts {linenos=table,hl_lines=[3,14,30,32]}
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
@@ -471,7 +472,6 @@ import { authInterceptorProviders } from './shared/interceptor/auth.interceptor'
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule,
     HttpClientModule
   ],
   providers: [authInterceptorProviders],
@@ -622,7 +622,11 @@ export class RegisterComponent implements OnInit {
   }
 }
 ```
+
+在 Register Component 中我們使用了一個 Custom Validator，它用來比對二次輸入的密碼是否一致，程式碼如下：
+
 ```ts
+註冊元件的程式碼
 // validation.ts
 import { AbstractControl, ValidatorFn } from "@angular/forms";
 
@@ -644,104 +648,110 @@ export default class Validation {
     }
 }
 ```
+註冊元件的 HTML
 ```html
 <!-- register.component.html -->
 <div class="container-fluid register-form">
-    <form needs-validation [formGroup]="form" (ngSubmit)="onSubmit()">
-      <div class="note">  
-        <h1> 使用者資料註冊 </h1>  
-      </div>  
-      
-      <div class="mb-4">
-        <label for="username" class="form-label">Username</label>
-        <input type="text" autofocus formControlName="username" id="username" class="form-control"
-        [ngClass]="{ 'is-invalid': submitted && f['username'].errors,
-                     'is-valid': submitted && !f['username'].errors }" 
-        />
-        <div *ngIf="submitted && f['username'].errors" class="invalid-feedback">
-          <div *ngIf="f['username'].errors['required']">Username 為必填</div>
-          <div *ngIf="f['username'].errors['minlength']">
-            Username 必須至少為六個字元
-          </div>
-          <div *ngIf="f['username'].errors['maxlength']">
-            Username 必須至多為二十個字元
-          </div>
-        </div>
-        <div class="valid-feedback">
-          填寫正確
-        </div>
-      </div>
-  
-      <div class="mb-4">
-        <label for="email" class="form-label">Email</label>
-        <input type="text" formControlName="email" id="email" class="form-control"
-        [ngClass]="{ 'is-invalid': submitted && f['email'].errors,
-                     'is-valid': submitted && !f['email'].errors }"
-        />
-        <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
-          <div *ngIf="f['email'].errors['required']">Email 為必填</div>
-          <div *ngIf="f['email'].errors['email']">Email 格式不符</div>
-        </div>
-        <div class="valid-feedback">
-          填寫正確
-        </div>
-      </div>
-  
-      <div class="mb-4">
-        <label for="password" class="form-label">Password</label>
-        <input type="password" formControlName="password" id="password" class="form-control"
-        [ngClass]="{ 'is-invalid': submitted && f['password'].errors,
-                     'is-valid': submitted && !f['password'].errors }" 
-        />
-        <div *ngIf="submitted && f['password'].errors" class="invalid-feedback">
-          <div *ngIf="f['password'].errors['required']">Password 為必填</div>
-          <div *ngIf="f['password'].errors['minlength']">
-            Password 必須至少為六個字元
-          </div>
-          <div *ngIf="f['password'].errors['maxlength']">
-            Password 必須至多為四十個字元
-          </div>
-        </div>
-        <div class="valid-feedback">
-          填寫正確
-        </div>
-      </div>
-  
-      <div class="mb-4">
-        <label for="confirmPassword" class="form-label">Confirm Password</label>
-        <input type="password" formControlName="confirmPassword" id="confirmPassword" class="form-control"
-        [ngClass]="{ 'is-invalid': submitted && f['confirmPassword'].errors,
-                     'is-valid': submitted && !f['confirmPassword'].errors }" 
-        />
-        <div *ngIf="submitted && f['confirmPassword'].errors" class="invalid-feedback">
-          <div *ngIf="f['confirmPassword'].errors['required']">Confirm Password 為必填</div>
-          <div *ngIf="f['confirmPassword'].errors['matching']">
-            Confirm Password 不符
-          </div>
-        </div>
-        <div class="valid-feedback">
-          填寫正確
-        </div>
-      </div>
-  
-      <div class="mb-4">
-        <button type="submit" class="btn btn-primary">送出</button>
-        <button type="button" (click)="onReset()"
-        class="btn btn-warning float-end">
-          重置
-        </button>
-      </div>
-      <div class="alert alert-warning" *ngIf="isSignUpFailed">
-        Signup failed!<br />{{ errorMessage }}
+  <form needs-validation [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="note">
+      <h1> 使用者資料註冊 </h1>
     </div>
-    </form>
-  </div>
+
+    <div class="mb-4">
+      <label for="username" class="form-label">Username</label>
+      <input type="text" autofocus formControlName="username" id="username" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['username'].errors,
+                     'is-valid': submitted && !f['username'].errors }" />
+      <div *ngIf="submitted && f['username'].errors" class="invalid-feedback">
+        <div *ngIf="f['username'].errors['required']">Username 為必填</div>
+        <div *ngIf="f['username'].errors['minlength']">
+          Username 必須至少為六個字元
+        </div>
+        <div *ngIf="f['username'].errors['maxlength']">
+          Username 必須至多為二十個字元
+        </div>
+      </div>
+      <div class="valid-feedback">
+        填寫正確
+      </div>
+    </div>
+
+    <div class="mb-4">
+      <label for="email" class="form-label">Email</label>
+      <input type="text" formControlName="email" id="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['email'].errors,
+                     'is-valid': submitted && !f['email'].errors }" />
+      <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
+        <div *ngIf="f['email'].errors['required']">Email 為必填</div>
+        <div *ngIf="f['email'].errors['email']">Email 格式不符</div>
+      </div>
+      <div class="valid-feedback">
+        填寫正確
+      </div>
+    </div>
+
+    <div class="mb-4">
+      <label for="password" class="form-label">Password</label>
+      <input type="password" formControlName="password" id="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['password'].errors,
+                     'is-valid': submitted && !f['password'].errors }" />
+      <div *ngIf="submitted && f['password'].errors" class="invalid-feedback">
+        <div *ngIf="f['password'].errors['required']">Password 為必填</div>
+        <div *ngIf="f['password'].errors['minlength']">
+          Password 必須至少為六個字元
+        </div>
+        <div *ngIf="f['password'].errors['maxlength']">
+          Password 必須至多為四十個字元
+        </div>
+      </div>
+      <div class="valid-feedback">
+        填寫正確
+      </div>
+    </div>
+
+    <div class="mb-4">
+      <label for="confirmPassword" class="form-label">Confirm Password</label>
+      <input type="password" formControlName="confirmPassword" id="confirmPassword" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['confirmPassword'].errors,
+                     'is-valid': submitted && !f['confirmPassword'].errors }" />
+      <div *ngIf="submitted && f['confirmPassword'].errors" class="invalid-feedback">
+        <div *ngIf="f['confirmPassword'].errors['required']">Confirm Password 為必填</div>
+        <div *ngIf="f['confirmPassword'].errors['matching']">
+          Confirm Password 不符
+        </div>
+      </div>
+      <div class="valid-feedback">
+        填寫正確
+      </div>
+    </div>
+
+    <div class="mb-4">
+      <button type="submit" class="btn btn-primary">送出</button>
+      <button type="button" (click)="onReset()" class="btn btn-warning float-end">
+        重置
+      </button>
+    </div>
+    <div class="alert alert-warning" *ngIf="isSignUpFailed">
+      註冊失敗!<br />{{ errorMessage }}
+    </div>
+    <div class="alert alert-success" *ngIf="isSuccessful">
+      註冊成功！
+    </div>
+  </form>
+</div>
+```
+
+註冊元件的 CSS
+```css
+/* register.component.scss */
+.register-form {
+    max-width: 350px;
+    margin: auto;
+  }
 ```
 
 ![image](https://user-images.githubusercontent.com/21993717/173984484-7ff4cf0d-4716-461f-a378-b45332e05812.png)
 
 
 ### 新增 Login Component
+
+登入元件的程式碼
 ```ts
 // login.component.ts
 import { Component, OnInit } from '@angular/core';
@@ -822,6 +832,7 @@ export class LoginComponent implements OnInit {
 }
 ```
 
+登入元件的 HTML
 ```html
 <!-- login.component.html -->
 <div class="container-fluid register-form">
@@ -877,10 +888,21 @@ export class LoginComponent implements OnInit {
   </div>
 ```
 
+登入元件的 CSS
+```css
+/* login.component.scss */
+.login-form {
+    max-width: 350px;
+    margin: auto;
+  }
+```
+
 ![image](https://user-images.githubusercontent.com/21993717/173984628-624f11cd-78a9-4008-88cb-4705e2af52e1.png)
 
 
 ### 新增 Profile Component
+
+個人檔案的程式碼
 
 ```ts
 // profile.component.ts
@@ -903,6 +925,7 @@ export class ProfileComponent implements OnInit {
 }
 ```
 
+個人檔案的 HTML
 ```html
 <!-- profile.component.html -->
 <div class="container" *ngIf="currentUser; else loggedOut">
@@ -963,6 +986,9 @@ export class HomeComponent implements OnInit {
 ```
 ```html
 <!-- home.component.heml -->
+<!-- board-user.component.heml -->
+<!-- board-moderator.component.heml -->
+<!-- board-admin.component.heml -->
 <div class="container">
   <header class="jumbotron">
     <p>{{ content }}</p>
@@ -1054,9 +1080,9 @@ export class BoardAdminComponent implements OnInit {
 ```
 
 ## 路由設置
-透過路由的設置，程式才會知道當使用者在瀏覧器特定的 URI 時，程式應該去執那支相對應的程式。
+透過路由的設置，程式才會知道當使用者在瀏覧器特定的 URI 時，程式應該去執那支相對應的程式。路由模組檔案（app-routin.module.ts）內容如下：
 
-```ts{linenos=table,hl_lines=[11-23]}
+```ts {linenos=table,hl_lines=[11-23]}
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { BoardAdminComponent } from './pages/board-admin/board-admin.component';
@@ -1087,6 +1113,7 @@ export class AppRoutingModule { }
 
 ## App Module 的設置
 ```ts
+// app.module.ts
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms'
@@ -1127,6 +1154,8 @@ export class AppModule { }
 ```
 
 ## App Component 修改
+
+App 元件的程式碼
 ```ts
 // app.component.ts
 import { Component } from '@angular/core';
@@ -1166,6 +1195,8 @@ export class AppComponent {
   }
 }
 ```
+
+App 元件的 HTML
 ```html
 <!-- app.component.html -->
 <div id="app">
@@ -1283,8 +1314,8 @@ export class AuthGuard implements CanActivate {
 }
 ```
 
-app-routing.module.ts 中的路由設定，將 AuthGurad 加入到要
-```ts
+app-routing.module.ts 中的路由設定，將 AuthGurad 加入到要保護的 路由設定　中。
+```ts {linenos=table,hl_lines=[11,19-21]}
 // app-routing.module.ts
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';

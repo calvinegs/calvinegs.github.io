@@ -12,6 +12,50 @@ categories: ["webapi"]
 
 若你還沒有安裝 PostgresSQL 可以參考這筆記先將資料庫管理系統備妥 *[使用 Docker 執行 PostgresSQL 與 pgAdmin](https://calvinegs.github.io/posts/docker-postgres-pgadmin/)*
 
+## 專案完成後的檔案結構
+
+```
+./專案目錄
+├── .config/
+│   └── dotnet-tools.json
+├── .vscode/
+│   ├── launch.js
+│   └── tasks.json
+├── Controller/
+│   ├── AuthenticateController.cs
+│   ├── TodoController.cs
+│   └── WeatherForecast.cs
+├── Data/
+│   └── ApiDbContext.cs
+├── Migrations/
+├── Models/
+│   ├── AuthenticateData.cs
+│   └── ItemData.cs
+├── obj/
+├── Models/
+│   └── launchSettings.json
+├── .gitignore
+├── appsettings.Development.json
+├── appsettings.json
+├── dotnet6-webapi-jwt.csproj
+├── global.json
+├── Program.cs
+├── README.md
+└── WeatherForecast.cs
+```
+
+## 專案完成後所提供的 API 端點
+
+|Methods|Urls|Actions|
+|-------|-----------------------------|-------------------------------------------------|
+|POST| /api/Authenticate/login|註冊新使用者帳號|
+|POST| /api/Authenticate/register|使用者帳號登入|
+|POST| /api/Authenticate/register-admin|管理者帳號登入|
+|GET| /api/Todos|get all Todos|
+|POST| /api/Todos|add New Todo|
+|GET| /api/Todos/:id|get Todo by id|
+|PUT| /api/todos/:id|update Todo by id|
+|DELETE| /api/todos/:id|remove Todo by id|
 
 ## git clone Example Code
 

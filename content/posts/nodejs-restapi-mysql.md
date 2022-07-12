@@ -803,6 +803,67 @@ module.exports = router;
 
 ## 完成 todo list 相關功能
 
+### 定義 todo 資料模型
+在 app/models/目錄中新增一支 todo.model.js 程式內容如下
+```js
+module.exports = (sequelize, Sequelize) => {
+    const Todo = sequelize.define("todo", {
+        title: {
+            type: Sequelize.STRING
+        },
+        description: {
+            type: Sequelize.STRING
+        },
+        status: {
+            type: Sequelize.BOOLEAN
+        }
+    });
+    return Todo;
+};
+```
+### 修改 app/models/index.js
+
+app/models/index.js 中加入 `db.todo = require("../models/todo.model")(sequelize, Sequelize);`
+
+```js{{linenos=table,hl_lines=[24]}
+const config = require("../config/db.config");
+const Sequelize = require("sequelize");
+const sequelize = new Sequelize(
+    config.DB,
+    config.USER,
+    config.PASSWORD,
+    {
+        host: config.HOST,
+        dialect: config.dialect,
+        operatorsAliases: 0,
+        pool: {
+            max: config.pool.max,
+            min: config.pool.min,
+            acquire: config.pool.acquire,
+            idle: config.pool.idle
+        }
+    }
+);
+const db = {};
+db.Sequelize = Sequelize;
+db.sequelize = sequelize;
+db.user = require("../models/user.model")(sequelize, Sequelize);
+db.role = require("../models/role.model")(sequelize, Sequelize);
+db.todo = require("../models/todo.model")(sequelize, Sequelize);
+db.role.belongsToMany(db.user, {
+    through: "user_roles",
+    foreignKey: "roleId",
+    otherKey: "userId"
+});
+db.user.belongsToMany(db.role, {
+    through: "user_roles",
+    foreignKey: "userId",
+    otherKey: "roleId"
+});
+db.ROLES = ["user", "admin"];
+module.exports = db;
+```
+
 ### 新增 todo.service.js
 將實際讀寫資料的動作寫在 service 中。
 ```js
