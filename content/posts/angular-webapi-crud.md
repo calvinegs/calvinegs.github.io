@@ -1,7 +1,7 @@
 ---
 title: "Angular 14 範例: 透過 Web API 完成 CRUD 的應用程式"
 date: 2022-07-11
-description: "在這個範例中可以看到使用 Angular Reactive Form 搭配 後端 Web API 來完成 Todo 的新增、修改、刪除、查詢功能
+description: "在這個範例中可以看到使用 Angular Reactive Form 搭配 後端 Web API 來完成 Todo 的新增、修改、刪除、查詢功能"
 tags: ["angular", "reactive form", "directive", "rxjs", "crud"]
 categories: ["angular"]
 ---
