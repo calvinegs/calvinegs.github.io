@@ -77,6 +77,21 @@
 </header>
 <article class=post-entry>
 <header class=entry-header>
+<h2>使用 nvs 來管理不同版本 Node.js 執行環境
+</h2>
+</header>
+<section class=entry-content>
+<p>Angular 的版本更新迭代的相當快 (所有的前端開於工具都有相同的情形)，安裝及使用 Angular Cli 時必須在有 Node.js 的環境下才能進行。
+當你在同一台電腦中使用不同版本的 Angular 時就容易在安裝相關套件時遇到警語，原因常是因為 Angular 與 Node.js 版本搭配的關係。
+至於為何有同時使用不同版本的 Angular 呢? 除了開發的專案沒有全部都一起升級至統一版本(這是一件複雜的事)的因素外，個人最常遇到的狀況是: 當在網上(github)找到很棒的 Demo / Sample 程式，在 git clone 回電腦後發現它的版本是舊版本 Angular 所撰寫，使用 npm install 安裝相關套件時，出現警告訊息，甚至無法安裝成功。
+為了要管理同一台電腦中存在著有不同版 Node.js，讓你很容易在各版本中自由的進行切換 (甚至在進入不同目錄時自動切換對應的 Node.js 版本)，你需要 Node.js 版本管理工具，如: NVM 或 NVS，在這個筆記中要記錄的是 NVS。
+安裝 nvs F:\> choco list nvs #先查看是否已安裝了 nvs F:\> choco install nvs #安裝 nvs F:\> nvs --version #查看是否安裝成功，並顯示 nvs 版本 註：安裝完成後若遇到在 cmd 中可正常執行，但在Windows PowerShell 無法使用時，可使用‘系統管理員’身份開啟 Posershell，並執行 PS>Set-ExecutionPolicy RemoteSigned 應可解決這個問題。...</p>
+</section>
+<footer class=entry-footer><span title="2021-12-12 00:00:00 +0000 UTC">December 12, 2021</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;Theme PaperMod</footer>
+<a class=entry-link aria-label="post link to 使用 nvs 來管理不同版本 Node.js 執行環境" href=https://calvinegs.github.io/posts/nvs-using/></a>
+</article>
+<article class=post-entry>
+<header class=entry-header>
 <h2>Angular cli 與 Node.js 版本對照
 </h2>
 </header>
@@ -142,25 +157,10 @@ name: github pages on: push: branches: - main # Set a branch to deploy pull_requ
 <footer class=entry-footer><span title="2021-12-01 17:17:02 +0800 +0800">December 1, 2021</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;Theme PaperMod</footer>
 <a class=entry-link aria-label="post link to 在 Github Pages 部署 Hugo 靜態網站" href=https://calvinegs.github.io/posts/deployhugo-githubpages/></a>
 </article>
-<article class=post-entry>
-<header class=entry-header>
-<h2>在 Windows 10 使用 Hugo
-</h2>
-</header>
-<section class=entry-content>
-<p>Hugo 是一個静態網站生成器，搭配 git 很適合來建立個人部落格。在一系列的筆記中將介紹如何安裝/使用相關工具與技術，目的是搭建一個完全免費的個人部落格。
-使用的相關工具/技術:
-Hugo git vs code gist github page Markdown Chocolatey Chocolatey 是一個 Windows 上的套件管理工具，它結合了 Nuget 基礎服務與 powershell 指令，提供快速安裝應用程式與工具的服務，將安裝軟體的內容封裝到一個安裝包中，在 Chocolatey 中只需要一條簡單的指令就能完成搜尋、安裝、更新、解安裝等操作。
-在 Windows 10 上安裝 Chocolatey 以‘系統管理員’身份開啟 ‘Windows PowerShell’,　執行以下指令來進行 Chocolatey 安裝
-PS C:\>Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1')) 移除 Chocolatey 刪除 C:\ProgramData\chocolatey 目錄及移除環境變數即可，搜尋 “編輯系統環境變數” \ “進階” \ “環境變數”
-安裝 hugo Step 1: 在 Windows 10 上使用 choco 安裝 hugo C:\> choco install hugo -confirm C:\> choco install hugo-extended - config C:\> hugo version Step 2: Create a New Site (建立部落格網站) C:\> hugo new site quickstart C:\> hugo new site quickstart -f yml # 若要使用 config....</p>
-</section>
-<footer class=entry-footer><span title="2021-11-27 11:51:00 +0800 +0800">November 27, 2021</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;Theme PaperMod</footer>
-<a class=entry-link aria-label="post link to 在 Windows 10 使用 Hugo" href=https://calvinegs.github.io/posts/installhugo-windows/></a>
-</article>
 <footer class=page-footer>
 <nav class=pagination>
 <a class=prev href=https://calvinegs.github.io/posts/page/5/>« Prev Page</a>
+<a class=next href=https://calvinegs.github.io/posts/page/7/>Next Page »</a>
 </nav>
 </footer>
 </main>

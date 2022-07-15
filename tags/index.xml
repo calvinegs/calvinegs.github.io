@@ -10,7 +10,52 @@
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 08 Jul 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://calvinegs.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 11 Jul 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://calvinegs.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>angular</title>
+      <link>https://calvinegs.github.io/tags/angular/</link>
+      <pubDate>Mon, 11 Jul 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://calvinegs.github.io/tags/angular/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>crud</title>
+      <link>https://calvinegs.github.io/tags/crud/</link>
+      <pubDate>Mon, 11 Jul 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://calvinegs.github.io/tags/crud/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>directive</title>
+      <link>https://calvinegs.github.io/tags/directive/</link>
+      <pubDate>Mon, 11 Jul 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://calvinegs.github.io/tags/directive/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>reactive form</title>
+      <link>https://calvinegs.github.io/tags/reactive-form/</link>
+      <pubDate>Mon, 11 Jul 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://calvinegs.github.io/tags/reactive-form/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>rxjs</title>
+      <link>https://calvinegs.github.io/tags/rxjs/</link>
+      <pubDate>Mon, 11 Jul 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://calvinegs.github.io/tags/rxjs/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>express</title>
       <link>https://calvinegs.github.io/tags/express/</link>
@@ -93,15 +138,6 @@
     </item>
     
     <item>
-      <title>angular</title>
-      <link>https://calvinegs.github.io/tags/angular/</link>
-      <pubDate>Wed, 15 Jun 2022 00:00:00 +0000</pubDate>
-      
-      <guid>https://calvinegs.github.io/tags/angular/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>bootstrap</title>
       <link>https://calvinegs.github.io/tags/bootstrap/</link>
       <pubDate>Wed, 15 Jun 2022 00:00:00 +0000</pubDate>
@@ -116,15 +152,6 @@
       <pubDate>Wed, 15 Jun 2022 00:00:00 +0000</pubDate>
       
       <guid>https://calvinegs.github.io/tags/custome-validator/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>reactive form</title>
-      <link>https://calvinegs.github.io/tags/reactive-form/</link>
-      <pubDate>Wed, 15 Jun 2022 00:00:00 +0000</pubDate>
-      
-      <guid>https://calvinegs.github.io/tags/reactive-form/</guid>
       <description></description>
     </item>
     

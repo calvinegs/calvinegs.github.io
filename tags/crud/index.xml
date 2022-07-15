@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>crud on 永誌不忘 • 筆記簿</title>
+    <link>https://calvinegs.github.io/tags/crud/</link>
+    <description>Recent content in crud on 永誌不忘 • 筆記簿</description>
+    <image>
+      <url>https://calvinegs.github.io/papermod-cover.png</url>
+      <link>https://calvinegs.github.io/papermod-cover.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 11 Jul 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://calvinegs.github.io/tags/crud/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Angular 14 範例: 透過 Web API 完成 CRUD 的應用程式</title>
+      <link>https://calvinegs.github.io/posts/angular-webapi-crud/</link>
+      <pubDate>Mon, 11 Jul 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://calvinegs.github.io/posts/angular-webapi-crud/</guid>
+      <description>在這個範例中可以看到使用 Angular Reactive Form 搭配 後端 Web API 來完成 Todo 的新增、修改、刪除、查詢功能</description>
+    </item>
+    
+  </channel>
+</rss>
