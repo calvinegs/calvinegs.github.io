@@ -10,13 +10,40 @@
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 11 Jul 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://calvinegs.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 20 Jul 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://calvinegs.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>angular</title>
       <link>https://calvinegs.github.io/tags/angular/</link>
-      <pubDate>Mon, 11 Jul 2022 00:00:00 +0000</pubDate>
+      <pubDate>Wed, 20 Jul 2022 00:00:00 +0000</pubDate>
       
       <guid>https://calvinegs.github.io/tags/angular/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>bootstrap</title>
+      <link>https://calvinegs.github.io/tags/bootstrap/</link>
+      <pubDate>Wed, 20 Jul 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://calvinegs.github.io/tags/bootstrap/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>browser page title</title>
+      <link>https://calvinegs.github.io/tags/browser-page-title/</link>
+      <pubDate>Wed, 20 Jul 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://calvinegs.github.io/tags/browser-page-title/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>title strategy</title>
+      <link>https://calvinegs.github.io/tags/title-strategy/</link>
+      <pubDate>Wed, 20 Jul 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://calvinegs.github.io/tags/title-strategy/</guid>
       <description></description>
     </item>
     
@@ -134,15 +161,6 @@
       <pubDate>Mon, 04 Jul 2022 00:00:00 +0000</pubDate>
       
       <guid>https://calvinegs.github.io/tags/mysql/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>bootstrap</title>
-      <link>https://calvinegs.github.io/tags/bootstrap/</link>
-      <pubDate>Wed, 15 Jun 2022 00:00:00 +0000</pubDate>
-      
-      <guid>https://calvinegs.github.io/tags/bootstrap/</guid>
       <description></description>
     </item>
     

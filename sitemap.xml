@@ -3,15 +3,36 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://calvinegs.github.io/tags/angular/</loc>
-    <lastmod>2022-07-11T00:00:00+00:00</lastmod>
+    <lastmod>2022-07-20T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://calvinegs.github.io/categories/angular/</loc>
-    <lastmod>2022-07-11T00:00:00+00:00</lastmod>
+    <lastmod>2022-07-20T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://calvinegs.github.io/posts/angular-webapi-crud/</loc>
-    <lastmod>2022-07-11T00:00:00+00:00</lastmod>
+    <loc>https://calvinegs.github.io/tags/bootstrap/</loc>
+    <lastmod>2022-07-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://calvinegs.github.io/tags/browser-page-title/</loc>
+    <lastmod>2022-07-20T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://calvinegs.github.io/categories/</loc>
+    <lastmod>2022-07-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://calvinegs.github.io/posts/</loc>
+    <lastmod>2022-07-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://calvinegs.github.io/tags/</loc>
+    <lastmod>2022-07-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://calvinegs.github.io/tags/title-strategy/</loc>
+    <lastmod>2022-07-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://calvinegs.github.io/posts/angular-titlestrategy/</loc>
+    <lastmod>2022-07-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://calvinegs.github.io/</loc>
+    <lastmod>2022-07-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://calvinegs.github.io/posts/angular-webapi-crud/</loc>
     <lastmod>2022-07-11T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://calvinegs.github.io/tags/crud/</loc>
@@ -20,19 +41,10 @@
     <loc>https://calvinegs.github.io/tags/directive/</loc>
     <lastmod>2022-07-11T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://calvinegs.github.io/posts/</loc>
-    <lastmod>2022-07-11T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://calvinegs.github.io/tags/reactive-form/</loc>
     <lastmod>2022-07-11T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://calvinegs.github.io/tags/rxjs/</loc>
-    <lastmod>2022-07-11T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://calvinegs.github.io/tags/</loc>
-    <lastmod>2022-07-11T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://calvinegs.github.io/</loc>
     <lastmod>2022-07-11T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://calvinegs.github.io/tags/express/</loc>
@@ -79,9 +91,6 @@
   </url><url>
     <loc>https://calvinegs.github.io/posts/docker-mysql/</loc>
     <lastmod>2022-06-17T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://calvinegs.github.io/tags/bootstrap/</loc>
-    <lastmod>2022-06-15T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://calvinegs.github.io/tags/custome-validator/</loc>
     <lastmod>2022-06-15T00:00:00+00:00</lastmod>
