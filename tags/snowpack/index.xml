@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>Sowpack on 永誌不忘 • 筆記簿</title>
-    <link>https://calvinegs.github.io/tags/sowpack/</link>
-    <description>Recent content in Sowpack on 永誌不忘 • 筆記簿</description>
+    <title>Snowpack on 永誌不忘 • 筆記簿</title>
+    <link>https://calvinegs.github.io/tags/snowpack/</link>
+    <description>Recent content in Snowpack on 永誌不忘 • 筆記簿</description>
     <image>
       <url>https://calvinegs.github.io/papermod-cover.png</url>
       <link>https://calvinegs.github.io/papermod-cover.png</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 01 May 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://calvinegs.github.io/tags/sowpack/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 01 May 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://calvinegs.github.io/tags/snowpack/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>使用 Snowpack &#43; Typescript 來建置一個 Web App</title>
       <link>https://calvinegs.github.io/posts/snowpack-typescript/</link>

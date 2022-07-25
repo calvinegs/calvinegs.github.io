@@ -4,7 +4,7 @@
 <meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no">
 <meta name=robots content="index, follow">
 <title>使用 Snowpack + Typescript 來建置一個 Web App | 永誌不忘 • 筆記簿</title>
-<meta name=keywords content="Sowpack,Typescript,Web App">
+<meta name=keywords content="Snowpack,Typescript,Web App">
 <meta name=description content="前端技術（架構）的蓬勃發展，使得建構（打包）工具（Bundler）也隨之推陳出新。之前寫過使用 parcel.js 搭配 Typescript 來開發前端應用程式的筆記。今天要來試試更新的打包工具 Snowpack，">
 <meta name=author content="Theme PaperMod">
 <link rel=canonical href=https://calvinegs.github.io/posts/snowpack-typescript/>
@@ -32,7 +32,7 @@
 <meta name=twitter:title content="使用 Snowpack + Typescript 來建置一個 Web App">
 <meta name=twitter:description content="前端技術（架構）的蓬勃發展，使得建構（打包）工具（Bundler）也隨之推陳出新。之前寫過使用 parcel.js 搭配 Typescript 來開發前端應用程式的筆記。今天要來試試更新的打包工具 Snowpack，">
 <script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Posts","item":"https://calvinegs.github.io/posts/"},{"@type":"ListItem","position":2,"name":"使用 Snowpack + Typescript 來建置一個 Web App","item":"https://calvinegs.github.io/posts/snowpack-typescript/"}]}</script>
-<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"使用 Snowpack + Typescript 來建置一個 Web App","name":"使用 Snowpack \u002b Typescript 來建置一個 Web App","description":"前端技術（架構）的蓬勃發展，使得建構（打包）工具（Bundler）也隨之推陳出新。之前寫過使用 parcel.js 搭配 Typescript 來開發前端應用程式的筆記。今天要來試試更新的打包工具 Snowpack，","keywords":["Sowpack","Typescript","Web App"],"articleBody":"Snowpack 號稱是更快速的前端建構工具，在開發 Web 應用程式的工作流程中，它可以替代更重、更複雜的打包工具，如 webpack 或 Parcel。\n在此不會討論 Snowpack 的設計細節，只紀錄如可快速的使用 Snowpack 來建置一個由 Typescript 支援網頁程式。由撰寫 Typescript 的過程中了解到強型別（及與搭配 vscode 編輯器）所帶來的好處。\n使用 create-snowpack-app 建立專案 bash``` $ mkdir doto-list \u0026\u0026 cd todo-list $ $ npx create-snowpack-app . –template @snowpack/app-template-blank-typescript –force $ npm install $ code .\n 産生的程式結構如下： ![程式結構](https://user-images.githubusercontent.com/21993717/166859633-95c09b00-2d36-4912-9d5a-91c5ff33ad32.png)  package.json ```json {hl_lines=[3,17,18]} { \"scripts\": { \"start\": \"snowpack dev\", \"build\": \"snowpack build\", \"test\": \"echo \\\"This template does not include a test runner by default.\\\" \u0026\u0026 exit 1\", \"format\": \"prettier --write \\\"src/**/*.{ts,js}\\\"\", \"lint\": \"prettier --check \\\"src/**/*.{ts,js}\\\"\" }, \"dependencies\": { \"canvas-confetti\": \"^1.2.0\" }, \"devDependencies\": { \"@snowpack/plugin-typescript\": \"^1.2.1\", \"@types/canvas-confetti\": \"^1.0.0\", \"@types/snowpack-env\": \"^2.3.3\", \"prettier\": \"^2.2.1\", \"snowpack\": \"^3.3.7\", \"typescript\": \"^4.2.4\" } }  $ npm start  開始建置 Todo List 網頁 調整 index.html  首先將 public/index.html 內容修改如下：\n  html lang=\"en\" head meta charset=\"utf-8\" / link rel=\"icon\" href=\"/favicon.ico\" / meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" / meta name=\"description\" content=\"Web site created using create-snowpack-app\" / script type=\"module\" src=\"/dist/index.js\"script titleSnowpack Apptitle style #list { list-style: none; padding: 0; } style head body ul id=\"list\"ul form action=\"\" id=\"new-task-form\" input type=\"text\" name=\"\" id=\"new-task-title\" button type=\"submit\"Addbutton form body html 安裝額外的 module $ npm install uuid $ npm install types@uuid --save-dev # uuid moduel 不是 Typescript 所撰寫，要將 uuid 使用在 Typescript 中必須搭配額外的宣告檔，透過這個宣告檔，我們就能享受強型別的好處 { \"dependencies\": { \"canvas-confetti\": \"^1.2.0\", \"uuid\": \"^8.3.2\"  }, \"devDependencies\": { \"@snowpack/plugin-typescript\": \"^1.2.1\", \"@types/canvas-confetti\": \"^1.0.0\", \"@types/snowpack-env\": \"^2.3.3\", \"@types/uuid\": \"^8.3.4\",  \"prettier\": \"^2.2.1\", \"snowpack\": \"^3.3.7\", \"typescript\": \"^4.2.4\" } } 使用 uuid  修改 src/index.ts 內容\n import {v4 as uuidV4 } from 'uuid'; console.log(uuidV4());  存檔後由瀏覽器 Console 視窗中可以看到由 uuid module 提供的功能所産生的 ID： ｀637fd7c4-1bc3-444a-9335-4b355617edbd｀\n import {v4 as uuidV4 } from 'uuid'; //console.log(uuidV4());  const list = document.querySelector('#list'); 開始撰寫程式 import {v4 as uuidV4 } from 'uuid'; // console.log(uuidV4());  const list = document.querySelectorHTMLUListElement('#list'); const form = document.getElementById('new-task-form') as HTMLFormElement | null; const input = document.querySelectorHTMLInputElement('#new-task-title');  將滑鼠移至 list 變數，可以發現目前 list 的型別是 “Element 或 null”。\n  透過 index.html 我們可以知道 #list 其實是 ul list，在透過 TypeScript 來撰寫程式時我們可以多利用它的型別檢核，來更方便、更正確的使用程式中的變數。\n import {v4 as uuidV4 } from 'uuid'; //console.log(uuidV4());  const list = document.querySelectorHTMLUListElement('#list');  透過上述程式，使用 泛型 指定querySelector 回傳的是｀HTMLUListElement｀，再將滑鼠移至 list 變數，可以發現目前 list 的型別已經變成是 “HTMLUListElement 或 null”。這樣的好處是在接下去的程式中可以更精準的使用 list 這個物件。當使用了不是 HTMLUlistElement的屬性時，編輯器就會給你警告，讓程式錯誤在編輯時期就能即時發現。這就是 Typescript 強型別的好處。\n  將 index.ts 程式修改如下：\n import {v4 as uuidV4 } from 'uuid'; // console.log(uuidV4());  const list = document.querySelectorHTMLUListElement('#list'); const form = document.getElementById('new-task-form') as HTMLFormElement | null; const input = document.querySelectorHTMLInputElement('#new-task-title');  要注意的是 document.getElementById 的語法必不支援泛型，必須改成強制轉型的方式來限制回傳的型別\n  繼續完成 index.ts 程式，當你輸入form.addEventListener 按下 tab 時，VSCode 編輯器會自動將你輸入的程式改成 form?.addEventListener。原因是編輯器知道 form 變數的型別是 HTMLFormElement | null 而自動幫你調整合適的語法。 一樣的道理，在你輸入 input.value 後編輯器也會幫忙調成 input?.value。\n import {v4 as uuidV4 } from 'uuid'; // console.log(uuidV4());  const list = document.querySelectorHTMLUListElement('#list'); const form = document.getElementById('new-task-form') as HTMLFormElement | null; const input = document.querySelectorHTMLInputElement('#new-task-title'); form?.addEventListener(\"submit\", e = { e.preventDefault(); if (input?.value == \"\" || input?.value == null) return; input.value })  在上圖程式第 11 行，可發現此時的 input 變數的型別是 HTMLInputElement | null，但在本行程式後，由於已排除 null 的可能性，所在在程式第 13 行的 input 變數的型別已成為 HTMLInputElement(如下圖)\n  繼續完成當按下 “Sumit” 按鈕時要將新的 Task 加入到 Doto list 清單中\n import {v4 as uuidV4 } from 'uuid'; // console.log(uuidV4());  const list = document.querySelectorHTMLUListElement('#list'); const form = document.getElementById('new-task-form') as HTMLFormElement | null; const input = document.querySelectorHTMLInputElement('#new-task-title'); form?.addEventListener(\"submit\", e = { e.preventDefault(); if (input?.value == \"\" || input?.value == null) return; // 取得一個新的 Task  const newTask = { id: uuidV4(), title: input.value, completed: false, createdAt: new Date() }; // 透過 addListItem 這個 Function 來新增一個 Todo List  addListItem(newTask); }) function addListItem(task) { }  完成上述程式後，發現在 VSCode 編輯器中給了一個警告，告訴我們參數的型別不符，在 function 宣告中應該為參數設定適當的型別\n  透過編輯器我們可以 newTask 的型別\n  將 function 中參數型別設定成如下圖，編輯器不再有警告訊息\n function addListItem(task : { id: string, title: string, completed: boolean, createdAt: Date }) { }  但這樣的寫法顯然的不是好方式，改寫成如下，將 Task 的型別定義成一個叫 Task custom type，並將這個新的型別分別套用在 NewTask 宣告的地方以及 addListItem function 宣告的地方\n import {v4 as uuidV4 } from 'uuid'; // console.log(uuidV4());  type Task = { id: string; title: string; completed: boolean; createdAt: Date; }  const list = document.querySelectorHTMLUListElement('#list'); const form = document.getElementById('new-task-form') as HTMLFormElement | null; const input = document.querySelectorHTMLInputElement('#new-task-title'); form?.addEventListener(\"submit\", e = { e.preventDefault(); if (input?.value == \"\" || input?.value == null) return; // 取得一個新的 Task  const newTask: Task = {  id: uuidV4(), title: input.value, completed: false, createdAt: new Date() }; // 透過 addListItem 這個 Function 來新增一個 Todo List  addListItem(newTask); }) function addListItem(task : Task) { }  經過強型別的設計可以很方便的在程式撰寫時就找出可能有問題的程式碼，如下圖：當傳給 addListItem 的參數型別不正確時，編輯器立即會顯示警告訊息。\n  繼續完成 addListItem function 的處理邏輯：\n function addListItem(task : Task) { const item = document.createElement(\"li\"); const lable = document.createElement(\"label\"); const checkbox = document.createElement(\"input\"); checkbox.type=\"checkbox\"; checkbox.checked = task.completed; lable.append(checkbox, task.title); item.append(lable); list?.append(item); }  執行結果\n  程式至此已經可以加入新 Task 也可以設定（勾選）是否已完成，但當按下 瀏覧器的 ｀重新載入此頁｀ 功能時會發現所有新增的 Tasks 都會不見，接下來我們將加 Local Storeage 的功能將新增的 Tasks 不僅顯示在畫面上也會寫入到 Local Storeage 中，在重新載入時會將紀錄在 Local Storeage 的 Tasks 再重新顯示在畫面中。\n 完成後程式 import {v4 as uuidV4 } from 'uuid'; type Task = { id: string; title: string; completed: boolean; createdAt: Date; } const list = document.querySelectorHTMLUListElement('#list'); const form = document.getElementById('new-task-form') as HTMLFormElement | null; const input = document.querySelectorHTMLInputElement('#new-task-title'); const tasks: Task[] = LoadTasks(); // TasK[] 預設由 Local Storeage 中載入所有已新增的 Task tasks.forEach(addListItem); //將 Task[] 中的 Task 顯示到畫面上  form?.addEventListener(\"submit\", e = { e.preventDefault(); if (input?.value == \"\" || input?.value == null) return; // 取得一個新的 Task  const newTask: Task = { id: uuidV4(), title: input.value, completed: false, createdAt: new Date() }; tasks.push(newTask); // 透過 addListItem 這個 Function 來新增一個 Todo List  addListItem(newTask); input.value = \"\"; // 將 input 清空  input.focus(); // 將焦點重新定位在 input element 上  }) function addListItem(task : Task) { const item = document.createElement(\"li\"); const lable = document.createElement(\"label\"); const checkbox = document.createElement(\"input\"); checkbox.addEventListener(\"change\", () = { task.completed = checkbox.checked; saveTasks(); // checkbox 有變化時，將 Tasks 寫入 Local Storeage  }) checkbox.type=\"checkbox\"; checkbox.checked = task.completed; saveTasks(); // 新增 Task 時，將 Tasks 寫入 Local Storeage  lable.append(checkbox, task.title); item.append(lable); list?.append(item); } function saveTasks() { localStorage.setItem(\"TASKS\", JSON.stringify(tasks)); }  function LoadTasks(): Task[] { const taskJSON = localStorage.getItem(\"TASKS\"); if (taskJSON == null) return []; return JSON.parse(taskJSON); }  在瀏覧器的 “開發人員工具” 的 “Application\" 功能中透過 Clear All 可將 Local Storage 資料清除。清除後再按下 “重新載入這個網頁” 畫面會回到初始狀態。\n  新增 Task、改變 Task 完成否，再 “重新載入這個網頁”，畫面如我們希望的保留了我們已新增/修改的狀態。\n ","wordCount":"885","inLanguage":"en","datePublished":"2022-05-01T00:00:00Z","dateModified":"2022-05-01T00:00:00Z","author":{"@type":"Person","name":"Theme PaperMod"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://calvinegs.github.io/posts/snowpack-typescript/"},"publisher":{"@type":"Organization","name":"永誌不忘 • 筆記簿","logo":{"@type":"ImageObject","url":"https://calvinegs.github.io/img/favicon.png"}}}</script>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"使用 Snowpack + Typescript 來建置一個 Web App","name":"使用 Snowpack \u002b Typescript 來建置一個 Web App","description":"前端技術（架構）的蓬勃發展，使得建構（打包）工具（Bundler）也隨之推陳出新。之前寫過使用 parcel.js 搭配 Typescript 來開發前端應用程式的筆記。今天要來試試更新的打包工具 Snowpack，","keywords":["Snowpack","Typescript","Web App"],"articleBody":"Snowpack 號稱是更快速的前端建構工具，在開發 Web 應用程式的工作流程中，它可以替代更重、更複雜的打包工具，如 webpack 或 Parcel。\n在此不會討論 Snowpack 的設計細節，只紀錄如可快速的使用 Snowpack 來建置一個由 Typescript 支援網頁程式。由撰寫 Typescript 的過程中了解到強型別（及與搭配 vscode 編輯器）所帶來的好處。\n使用 create-snowpack-app 建立專案 $ mkdir doto-list \u0026\u0026 cd todo-list $ $ npx create-snowpack-app . --template @snowpack/app-template-blank-typescript --force $ npm install $ code . 産生的程式結構如下：\npackage.json 的內容：\n{ \"scripts\": { \"start\": \"snowpack dev\",  \"build\": \"snowpack build\", \"test\": \"echo \\\"This template does not include a test runner by default.\\\" \u0026\u0026 exit 1\", \"format\": \"prettier --write \\\"src/**/*.{ts,js}\\\"\", \"lint\": \"prettier --check \\\"src/**/*.{ts,js}\\\"\" }, \"dependencies\": { \"canvas-confetti\": \"^1.2.0\" }, \"devDependencies\": { \"@snowpack/plugin-typescript\": \"^1.2.1\", \"@types/canvas-confetti\": \"^1.0.0\", \"@types/snowpack-env\": \"^2.3.3\", \"prettier\": \"^2.2.1\", \"snowpack\": \"^3.3.7\", \"typescript\": \"^4.2.4\"  } } 執行程式 $ npm start\n開始建置 Todo List 網頁 調整 index.html 首先將 public/index.html 內容修改如下：\n html lang=\"en\" head meta charset=\"utf-8\" / link rel=\"icon\" href=\"/favicon.ico\" / meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" / meta name=\"description\" content=\"Web site created using create-snowpack-app\" / script type=\"module\" src=\"/dist/index.js\"script titleSnowpack Apptitle style #list { list-style: none; padding: 0; } style head body ul id=\"list\"ul form action=\"\" id=\"new-task-form\" input type=\"text\" name=\"\" id=\"new-task-title\" button type=\"submit\"Addbutton form body html 安裝額外的 module $ npm install uuid $ npm install types@uuid --save-dev # uuid moduel 不是 Typescript 所撰寫，要將 uuid 使用在 Typescript 中必須搭配額外的宣告檔，透過這個宣告檔，我們就能享受強型別的好處 { \"dependencies\": { \"canvas-confetti\": \"^1.2.0\", \"uuid\": \"^8.3.2\"  }, \"devDependencies\": { \"@snowpack/plugin-typescript\": \"^1.2.1\", \"@types/canvas-confetti\": \"^1.0.0\", \"@types/snowpack-env\": \"^2.3.3\", \"@types/uuid\": \"^8.3.4\",  \"prettier\": \"^2.2.1\", \"snowpack\": \"^3.3.7\", \"typescript\": \"^4.2.4\" } } 使用 uuid 修改 src/index.ts 內容\nimport {v4 as uuidV4 } from 'uuid'; console.log(uuidV4());  存檔後由瀏覽器 Console 視窗中可以看到由 uuid module 提供的功能所産生的 ID： ｀637fd7c4-1bc3-444a-9335-4b355617edbd｀\n import {v4 as uuidV4 } from 'uuid'; //console.log(uuidV4());  const list = document.querySelector('#list'); 開始撰寫程式 import {v4 as uuidV4 } from 'uuid'; // console.log(uuidV4());  const list = document.querySelectorHTMLUListElement('#list'); const form = document.getElementById('new-task-form') as HTMLFormElement | null; const input = document.querySelectorHTMLInputElement('#new-task-title'); 將滑鼠移至 list 變數，可以發現目前 list 的型別是 “Element 或 null”。\n透過 index.html 我們可以知道 #list 其實是 ul list，在透過 TypeScript 來撰寫程式時我們可以多利用它的型別檢核，來更方便、更正確的使用程式中的變數。\nimport {v4 as uuidV4 } from 'uuid'; //console.log(uuidV4());  const list = document.querySelectorHTMLUListElement('#list'); 透過上述程式，使用 泛型 指定querySelector 回傳的是｀HTMLUListElement｀，再將滑鼠移至 list 變數，可以發現目前 list 的型別已經變成是 “HTMLUListElement 或 null”。這樣的好處是在接下去的程式中可以更精準的使用 list 這個物件。當使用了不是 HTMLUlistElement的屬性時，編輯器就會給你警告，讓程式錯誤在編輯時期就能即時發現。這就是 Typescript 強型別的好處。\n將 index.ts 程式修改如下：\nimport {v4 as uuidV4 } from 'uuid'; // console.log(uuidV4());  const list = document.querySelectorHTMLUListElement('#list'); const form = document.getElementById('new-task-form') as HTMLFormElement | null; const input = document.querySelectorHTMLInputElement('#new-task-title'); 要注意的是 document.getElementById 的語法必不支援泛型，必須改成強制轉型的方式來限制回傳的型別\n繼續完成 index.ts 程式，當你輸入form.addEventListener 按下 tab 時，VSCode 編輯器會自動將你輸入的程式改成 form?.addEventListener。原因是編輯器知道 form 變數的型別是 HTMLFormElement | null 而自動幫你調整合適的語法。 一樣的道理，在你輸入 input.value 後編輯器也會幫忙調成 input?.value。\nimport {v4 as uuidV4 } from 'uuid'; // console.log(uuidV4());  const list = document.querySelectorHTMLUListElement('#list'); const form = document.getElementById('new-task-form') as HTMLFormElement | null; const input = document.querySelectorHTMLInputElement('#new-task-title'); form?.addEventListener(\"submit\", e = { e.preventDefault(); if (input?.value == \"\" || input?.value == null) return; input.value }) 在上圖程式第 11 行，可發現此時的 input 變數的型別是 HTMLInputElement | null，但在本行程式後，由於已排除 null 的可能性，所在在程式第 13 行的 input 變數的型別已成為 HTMLInputElement(如下圖)\n繼續完成當按下 “Sumit” 按鈕時要將新的 Task 加入到 Doto list 清單中\nimport {v4 as uuidV4 } from 'uuid'; // console.log(uuidV4());  const list = document.querySelectorHTMLUListElement('#list'); const form = document.getElementById('new-task-form') as HTMLFormElement | null; const input = document.querySelectorHTMLInputElement('#new-task-title'); form?.addEventListener(\"submit\", e = { e.preventDefault(); if (input?.value == \"\" || input?.value == null) return; // 取得一個新的 Task  const newTask = { id: uuidV4(), title: input.value, completed: false, createdAt: new Date() }; // 透過 addListItem 這個 Function 來新增一個 Todo List  addListItem(newTask); }) function addListItem(task) { } 完成上述程式後，發現在 VSCode 編輯器中給了一個警告，告訴我們參數的型別不符，在 function 宣告中應該為參數設定適當的型別\n透過編輯器我們可以知道 newTask 的型別\n將 function 中參數型別設定成如下圖，編輯器不再有警告訊息\nfunction addListItem(task : { id: string, title: string, completed: boolean, createdAt: Date }) { } 但這樣的寫法顯然的不是好方式，改寫成如下，將 Task 的型別定義成一個叫 Task custom type，並將這個新的型別分別套用在 NewTask 宣告的地方以及 addListItem function 宣告的地方\nimport {v4 as uuidV4 } from 'uuid'; // console.log(uuidV4());  type Task = { id: string; title: string; completed: boolean; createdAt: Date; }  const list = document.querySelectorHTMLUListElement('#list'); const form = document.getElementById('new-task-form') as HTMLFormElement | null; const input = document.querySelectorHTMLInputElement('#new-task-title'); form?.addEventListener(\"submit\", e = { e.preventDefault(); if (input?.value == \"\" || input?.value == null) return; // 取得一個新的 Task  const newTask: Task = {  id: uuidV4(), title: input.value, completed: false, createdAt: new Date() }; // 透過 addListItem 這個 Function 來新增一個 Todo List  addListItem(newTask); }) function addListItem(task : Task) { } 經過強型別的設計可以很方便的在程式撰寫時就找出可能有問題的程式碼，如下圖：當傳給 addListItem 的參數型別不正確時，編輯器立即會顯示警告訊息。\n繼續完成 addListItem function 的處理邏輯：\nfunction addListItem(task : Task) { const item = document.createElement(\"li\"); const lable = document.createElement(\"label\"); const checkbox = document.createElement(\"input\"); checkbox.type=\"checkbox\"; checkbox.checked = task.completed; lable.append(checkbox, task.title); item.append(lable); list?.append(item); } 執行結果\n程式至此已經可以加入新 Task 也可以設定（勾選）是否已完成，但當按下 瀏覧器的 ｀重新載入此頁｀ 功能時會發現所有新增的 Tasks 都會不見，接下來我們將加 Local Storeage 的功能將新增的 Tasks 不僅顯示在畫面上也會寫入到 Local Storeage 中，在重新載入時會將紀錄在 Local Storeage 的 Tasks 再重新顯示在畫面中。\n完成後程式 import {v4 as uuidV4 } from 'uuid'; type Task = { id: string; title: string; completed: boolean; createdAt: Date; } const list = document.querySelectorHTMLUListElement('#list'); const form = document.getElementById('new-task-form') as HTMLFormElement | null; const input = document.querySelectorHTMLInputElement('#new-task-title'); const tasks: Task[] = LoadTasks(); // TasK[] 預設由 Local Storeage 中載入所有已新增的 Task tasks.forEach(addListItem); //將 Task[] 中的 Task 顯示到畫面上  form?.addEventListener(\"submit\", e = { e.preventDefault(); if (input?.value == \"\" || input?.value == null) return; // 取得一個新的 Task  const newTask: Task = { id: uuidV4(), title: input.value, completed: false, createdAt: new Date() }; tasks.push(newTask); // 透過 addListItem 這個 Function 來新增一個 Todo List  addListItem(newTask); input.value = \"\"; // 將 input 清空  input.focus(); // 將焦點重新定位在 input element 上  }) function addListItem(task : Task) { const item = document.createElement(\"li\"); const lable = document.createElement(\"label\"); const checkbox = document.createElement(\"input\"); checkbox.addEventListener(\"change\", () = { task.completed = checkbox.checked; saveTasks(); // checkbox 有變化時，將 Tasks 寫入 Local Storeage  }) checkbox.type=\"checkbox\"; checkbox.checked = task.completed; saveTasks(); // 新增 Task 時，將 Tasks 寫入 Local Storeage  lable.append(checkbox, task.title); item.append(lable); list?.append(item); } function saveTasks() { localStorage.setItem(\"TASKS\", JSON.stringify(tasks)); }  function LoadTasks(): Task[] { const taskJSON = localStorage.getItem(\"TASKS\"); if (taskJSON == null) return []; return JSON.parse(taskJSON); } 在瀏覧器的 “開發人員工具” 的 “Application\" 功能中透過 Clear All 可將 Local Storage 資料清除。清除後再按下 “重新載入這個網頁” 畫面會回到初始狀態。\n新增 Task、改變 Task 完成否，再 “重新載入這個網頁”，畫面如我們希望的保留了我們已新增/修改的狀態。\n","wordCount":"881","inLanguage":"en","datePublished":"2022-05-01T00:00:00Z","dateModified":"2022-05-01T00:00:00Z","author":{"@type":"Person","name":"Theme PaperMod"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://calvinegs.github.io/posts/snowpack-typescript/"},"publisher":{"@type":"Organization","name":"永誌不忘 • 筆記簿","logo":{"@type":"ImageObject","url":"https://calvinegs.github.io/img/favicon.png"}}}</script>
 </head>
 <body id=top>
 <script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
@@ -115,47 +115,41 @@
 <div class=post-content><p>Snowpack 號稱是更快速的前端建構工具，在開發 Web 應用程式的工作流程中，它可以替代更重、更複雜的打包工具，如 webpack 或 Parcel。</p>
 <p>在此不會討論 Snowpack 的設計細節，只紀錄如可快速的使用 Snowpack 來建置一個由 Typescript 支援網頁程式。由撰寫 Typescript 的過程中了解到強型別（及與搭配 vscode 編輯器）所帶來的好處。</p>
 <h2 id=使用-create-snowpack-app-建立專案>使用 create-snowpack-app 建立專案<a hidden class=anchor aria-hidden=true href=#使用-create-snowpack-app-建立專案>#</a></h2>
-<p>bash```
-$ mkdir doto-list && cd todo-list
-$
-$ npx create-snowpack-app . &ndash;template @snowpack/app-template-blank-typescript &ndash;force
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$ mkdir doto-list <span style=color:#f92672>&amp;&amp;</span> cd todo-list
+$ 
+$ npx create-snowpack-app . --template @snowpack/app-template-blank-typescript --force
 $ npm install
-$ code .</p>
-<pre tabindex=0><code>&gt; 産生的程式結構如下：
-![程式結構](https://user-images.githubusercontent.com/21993717/166859633-95c09b00-2d36-4912-9d5a-91c5ff33ad32.png)
-
-&gt; package.json
-```json {hl_lines=[3,17,18]}
-{
-  &quot;scripts&quot;: {
-    &quot;start&quot;: &quot;snowpack dev&quot;,
-    &quot;build&quot;: &quot;snowpack build&quot;,
-    &quot;test&quot;: &quot;echo \&quot;This template does not include a test runner by default.\&quot; &amp;&amp; exit 1&quot;,
-    &quot;format&quot;: &quot;prettier --write \&quot;src/**/*.{ts,js}\&quot;&quot;,
-    &quot;lint&quot;: &quot;prettier --check \&quot;src/**/*.{ts,js}\&quot;&quot;
-  },
-  &quot;dependencies&quot;: {
-    &quot;canvas-confetti&quot;: &quot;^1.2.0&quot;
-  },
-  &quot;devDependencies&quot;: {
-    &quot;@snowpack/plugin-typescript&quot;: &quot;^1.2.1&quot;,
-    &quot;@types/canvas-confetti&quot;: &quot;^1.0.0&quot;,
-    &quot;@types/snowpack-env&quot;: &quot;^2.3.3&quot;,
-    &quot;prettier&quot;: &quot;^2.2.1&quot;,
-    &quot;snowpack&quot;: &quot;^3.3.7&quot;,
-    &quot;typescript&quot;: &quot;^4.2.4&quot;
-  }
-}
-</code></pre><blockquote>
-<p><code>$ npm start</code>
-<img loading=lazy src=https://user-images.githubusercontent.com/21993717/166859960-a835a6e4-e2dd-4f9a-a455-4075206513b1.png alt="npm start">
+$ code .
+</code></pre></div><p>産生的程式結構如下：</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/166859633-95c09b00-2d36-4912-9d5a-91c5ff33ad32.png alt=程式結構>
 </p>
-</blockquote>
+<p>package.json 的內容：</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json>{
+  <span style=color:#f92672>&#34;scripts&#34;</span>: {
+<span style=display:block;width:100%;background-color:#3c3d38>    <span style=color:#f92672>&#34;start&#34;</span>: <span style=color:#e6db74>&#34;snowpack dev&#34;</span>,
+</span>    <span style=color:#f92672>&#34;build&#34;</span>: <span style=color:#e6db74>&#34;snowpack build&#34;</span>,
+    <span style=color:#f92672>&#34;test&#34;</span>: <span style=color:#e6db74>&#34;echo \&#34;This template does not include a test runner by default.\&#34; &amp;&amp; exit 1&#34;</span>,
+    <span style=color:#f92672>&#34;format&#34;</span>: <span style=color:#e6db74>&#34;prettier --write \&#34;src/**/*.{ts,js}\&#34;&#34;</span>,
+    <span style=color:#f92672>&#34;lint&#34;</span>: <span style=color:#e6db74>&#34;prettier --check \&#34;src/**/*.{ts,js}\&#34;&#34;</span>
+  },
+  <span style=color:#f92672>&#34;dependencies&#34;</span>: {
+    <span style=color:#f92672>&#34;canvas-confetti&#34;</span>: <span style=color:#e6db74>&#34;^1.2.0&#34;</span>
+  },
+  <span style=color:#f92672>&#34;devDependencies&#34;</span>: {
+    <span style=color:#f92672>&#34;@snowpack/plugin-typescript&#34;</span>: <span style=color:#e6db74>&#34;^1.2.1&#34;</span>,
+    <span style=color:#f92672>&#34;@types/canvas-confetti&#34;</span>: <span style=color:#e6db74>&#34;^1.0.0&#34;</span>,
+    <span style=color:#f92672>&#34;@types/snowpack-env&#34;</span>: <span style=color:#e6db74>&#34;^2.3.3&#34;</span>,
+    <span style=color:#f92672>&#34;prettier&#34;</span>: <span style=color:#e6db74>&#34;^2.2.1&#34;</span>,
+<span style=display:block;width:100%;background-color:#3c3d38>    <span style=color:#f92672>&#34;snowpack&#34;</span>: <span style=color:#e6db74>&#34;^3.3.7&#34;</span>,
+</span><span style=display:block;width:100%;background-color:#3c3d38>    <span style=color:#f92672>&#34;typescript&#34;</span>: <span style=color:#e6db74>&#34;^4.2.4&#34;</span>
+</span>  }
+}
+</code></pre></div><p>執行程式 <code>$ npm start</code></p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/166859960-a835a6e4-e2dd-4f9a-a455-4075206513b1.png alt="npm start">
+</p>
 <h2 id=開始建置-todo-list-網頁>開始建置 Todo List 網頁<a hidden class=anchor aria-hidden=true href=#開始建置-todo-list-網頁>#</a></h2>
 <h3 id=調整-indexhtml>調整 index.html<a hidden class=anchor aria-hidden=true href=#調整-indexhtml>#</a></h3>
-<blockquote>
 <p>首先將 public/index.html 內容修改如下：</p>
-</blockquote>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html><span style=color:#75715e>&lt;!DOCTYPE html&gt;</span>
 &lt;<span style=color:#f92672>html</span> <span style=color:#a6e22e>lang</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;en&#34;</span>&gt;
   &lt;<span style=color:#f92672>head</span>&gt;
@@ -200,9 +194,7 @@ $ npm install types@uuid --save-dev <span style=color:#75715e># uuid moduel 不�
   }
 }
 </code></pre></div><h3 id=使用-uuid>使用 uuid<a hidden class=anchor aria-hidden=true href=#使用-uuid>#</a></h3>
-<blockquote>
 <p>修改 src/index.ts 內容</p>
-</blockquote>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-js data-lang=js><span style=color:#66d9ef>import</span> {<span style=color:#a6e22e>v4</span> <span style=color:#a6e22e>as</span> <span style=color:#a6e22e>uuidV4</span> } <span style=color:#a6e22e>from</span> <span style=color:#e6db74>&#39;uuid&#39;</span>;
 
 <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>uuidV4</span>());
@@ -222,39 +214,27 @@ $ npm install types@uuid --save-dev <span style=color:#75715e># uuid moduel 不�
 <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>list</span> <span style=color:#f92672>=</span> document.<span style=color:#a6e22e>querySelector</span><span style=color:#f92672>&lt;</span><span style=color:#a6e22e>HTMLUListElement</span><span style=color:#f92672>&gt;</span>(<span style=color:#e6db74>&#39;#list&#39;</span>);
 <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>form</span> <span style=color:#f92672>=</span> document.<span style=color:#a6e22e>getElementById</span>(<span style=color:#e6db74>&#39;new-task-form&#39;</span>) <span style=color:#a6e22e>as</span> <span style=color:#a6e22e>HTMLFormElement</span> <span style=color:#f92672>|</span> <span style=color:#66d9ef>null</span>;
 <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>input</span> <span style=color:#f92672>=</span> document.<span style=color:#a6e22e>querySelector</span><span style=color:#f92672>&lt;</span><span style=color:#a6e22e>HTMLInputElement</span><span style=color:#f92672>&gt;</span>(<span style=color:#e6db74>&#39;#new-task-title&#39;</span>);
-</code></pre></div><blockquote>
-<p>將滑鼠移至 list 變數，可以發現目前 list 的型別是 &ldquo;Element 或 null&rdquo;。</p>
-</blockquote>
+</code></pre></div><p>將滑鼠移至 list 變數，可以發現目前 list 的型別是 &ldquo;Element 或 null&rdquo;。</p>
 <p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/166862306-965a5898-5fd7-415a-afcd-b1d8d1fe2cee.png alt=image>
 </p>
-<blockquote>
 <p>透過 index.html 我們可以知道 #list 其實是 ul list，在透過 TypeScript 來撰寫程式時我們可以多利用它的型別檢核，來更方便、更正確的使用程式中的變數。</p>
-</blockquote>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-js data-lang=js><span style=color:#66d9ef>import</span> {<span style=color:#a6e22e>v4</span> <span style=color:#a6e22e>as</span> <span style=color:#a6e22e>uuidV4</span> } <span style=color:#a6e22e>from</span> <span style=color:#e6db74>&#39;uuid&#39;</span>;
 
 <span style=color:#75715e>//console.log(uuidV4());
 </span><span style=color:#75715e></span>
 <span style=display:block;width:100%;background-color:#3c3d38><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>list</span> <span style=color:#f92672>=</span> document.<span style=color:#a6e22e>querySelector</span><span style=color:#f92672>&lt;</span><span style=color:#a6e22e>HTMLUListElement</span><span style=color:#f92672>&gt;</span>(<span style=color:#e6db74>&#39;#list&#39;</span>);
-</span></code></pre></div><blockquote>
-<p>透過上述程式，使用 泛型 指定querySelector 回傳的是｀HTMLUListElement｀，再將滑鼠移至 list 變數，可以發現目前 list 的型別已經變成是 &ldquo;HTMLUListElement 或 null&rdquo;。這樣的好處是在接下去的程式中可以更精準的使用 list 這個物件。當使用了不是 HTMLUlistElement的屬性時，編輯器就會給你警告，讓程式錯誤在編輯時期就能即時發現。這就是 Typescript 強型別的好處。</p>
-</blockquote>
+</span></code></pre></div><p>透過上述程式，使用 泛型 指定querySelector 回傳的是｀HTMLUListElement｀，再將滑鼠移至 list 變數，可以發現目前 list 的型別已經變成是 &ldquo;HTMLUListElement 或 null&rdquo;。這樣的好處是在接下去的程式中可以更精準的使用 list 這個物件。當使用了不是 HTMLUlistElement的屬性時，編輯器就會給你警告，讓程式錯誤在編輯時期就能即時發現。這就是 Typescript 強型別的好處。</p>
 <p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/166863064-558d3baf-2413-4316-9541-d97924d24d65.png alt=image>
 </p>
-<blockquote>
 <p>將 index.ts 程式修改如下：</p>
-</blockquote>
 <div class=highlight hl_line><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-js data-lang=js><span style=color:#66d9ef>import</span> {<span style=color:#a6e22e>v4</span> <span style=color:#a6e22e>as</span> <span style=color:#a6e22e>uuidV4</span> } <span style=color:#a6e22e>from</span> <span style=color:#e6db74>&#39;uuid&#39;</span>;
 <span style=color:#75715e>// console.log(uuidV4());
 </span><span style=color:#75715e></span>
 <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>list</span> <span style=color:#f92672>=</span> document.<span style=color:#a6e22e>querySelector</span><span style=color:#f92672>&lt;</span><span style=color:#a6e22e>HTMLUListElement</span><span style=color:#f92672>&gt;</span>(<span style=color:#e6db74>&#39;#list&#39;</span>);
 <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>form</span> <span style=color:#f92672>=</span> document.<span style=color:#a6e22e>getElementById</span>(<span style=color:#e6db74>&#39;new-task-form&#39;</span>) <span style=color:#a6e22e>as</span> <span style=color:#a6e22e>HTMLFormElement</span> <span style=color:#f92672>|</span> <span style=color:#66d9ef>null</span>;
 <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>input</span> <span style=color:#f92672>=</span> document.<span style=color:#a6e22e>querySelector</span><span style=color:#f92672>&lt;</span><span style=color:#a6e22e>HTMLInputElement</span><span style=color:#f92672>&gt;</span>(<span style=color:#e6db74>&#39;#new-task-title&#39;</span>);
-</code></pre></div><blockquote>
-<p>要注意的是 document.getElementById 的語法必不支援泛型，必須改成強制轉型的方式來限制回傳的型別</p>
-</blockquote>
-<blockquote>
+</code></pre></div><p>要注意的是 document.getElementById 的語法必不支援泛型，必須改成強制轉型的方式來限制回傳的型別</p>
 <p>繼續完成 index.ts 程式，當你輸入<code>form.addEventListener</code> 按下 tab 時，VSCode 編輯器會自動將你輸入的程式改成 <code>form?.addEventListener</code>。原因是編輯器知道 <code>form</code> 變數的型別是 <code>HTMLFormElement | null</code> 而自動幫你調整合適的語法。 一樣的道理，在你輸入 <code>input.value</code> 後編輯器也會幫忙調成 <code>input?.value</code>。</p>
-</blockquote>
 <div class=highlight hl_line><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-js data-lang=js><span style=color:#66d9ef>import</span> {<span style=color:#a6e22e>v4</span> <span style=color:#a6e22e>as</span> <span style=color:#a6e22e>uuidV4</span> } <span style=color:#a6e22e>from</span> <span style=color:#e6db74>&#39;uuid&#39;</span>;
 <span style=color:#75715e>// console.log(uuidV4());
 </span><span style=color:#75715e></span>
@@ -271,14 +251,10 @@ $ npm install types@uuid --save-dev <span style=color:#75715e># uuid moduel 不�
 })
 </code></pre></div><p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/166892639-842153ae-448b-433f-b76c-37736d703d39.png alt=image>
 </p>
-<blockquote>
 <p>在上圖程式第 11 行，可發現此時的 <code>input</code> 變數的型別是 <code>HTMLInputElement | null</code>，但在本行程式後，由於已排除 null 的可能性，所在在程式第 13 行的 <code>input</code> 變數的型別已成為 <code>HTMLInputElement</code>(如下圖)</p>
-</blockquote>
 <p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/166892102-36c54c57-d410-48ee-93fc-9549ef08f2ba.png alt=image>
 </p>
-<blockquote>
 <p>繼續完成當按下 &ldquo;Sumit&rdquo; 按鈕時要將新的 Task 加入到 Doto list 清單中</p>
-</blockquote>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-js data-lang=js><span style=color:#66d9ef>import</span> {<span style=color:#a6e22e>v4</span> <span style=color:#a6e22e>as</span> <span style=color:#a6e22e>uuidV4</span> } <span style=color:#a6e22e>from</span> <span style=color:#e6db74>&#39;uuid&#39;</span>;
 <span style=color:#75715e>// console.log(uuidV4());
 </span><span style=color:#75715e></span>
@@ -306,19 +282,13 @@ $ npm install types@uuid --save-dev <span style=color:#75715e># uuid moduel 不�
 <span style=color:#66d9ef>function</span> <span style=color:#a6e22e>addListItem</span>(<span style=color:#a6e22e>task</span>) {
 
 }
-</code></pre></div><blockquote>
-<p>完成上述程式後，發現在 VSCode 編輯器中給了一個警告，告訴我們參數的型別不符，在 function 宣告中應該為參數設定適當的型別</p>
-</blockquote>
+</code></pre></div><p>完成上述程式後，發現在 VSCode 編輯器中給了一個警告，告訴我們參數的型別不符，在 function 宣告中應該為參數設定適當的型別</p>
 <p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/166893783-4be0d9f5-fa3b-444d-b407-cc72ac51c91c.png alt=image>
 </p>
-<blockquote>
-<p>透過編輯器我們可以 <code>newTask</code> 的型別</p>
-</blockquote>
+<p>透過編輯器我們可以知道 <code>newTask</code> 的型別</p>
 <p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/166894433-85e47323-3d24-4bb4-a922-e815a6f77adf.png alt=image>
 </p>
-<blockquote>
 <p>將 function 中參數型別設定成如下圖，編輯器不再有警告訊息</p>
-</blockquote>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-js data-lang=js><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>addListItem</span>(<span style=color:#a6e22e>task</span> <span style=color:#f92672>:</span> { 
   <span style=color:#a6e22e>id</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>string</span>, 
   <span style=color:#a6e22e>title</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>string</span>, 
@@ -327,9 +297,7 @@ $ npm install types@uuid --save-dev <span style=color:#75715e># uuid moduel 不�
 }) {
 
 }
-</code></pre></div><blockquote>
-<p>但這樣的寫法顯然的不是好方式，改寫成如下，將 Task 的型別定義成一個叫 <code>Task</code> custom type，並將這個新的型別分別套用在 <code>NewTask</code> 宣告的地方以及 <code>addListItem</code> function 宣告的地方</p>
-</blockquote>
+</code></pre></div><p>但這樣的寫法顯然的不是好方式，改寫成如下，將 Task 的型別定義成一個叫 <code>Task</code> custom type，並將這個新的型別分別套用在 <code>NewTask</code> 宣告的地方以及 <code>addListItem</code> function 宣告的地方</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-js data-lang=js><span style=color:#66d9ef>import</span> {<span style=color:#a6e22e>v4</span> <span style=color:#a6e22e>as</span> <span style=color:#a6e22e>uuidV4</span> } <span style=color:#a6e22e>from</span> <span style=color:#e6db74>&#39;uuid&#39;</span>;
 <span style=color:#75715e>// console.log(uuidV4());
 </span><span style=color:#75715e></span>
@@ -362,14 +330,10 @@ $ npm install types@uuid --save-dev <span style=color:#75715e># uuid moduel 不�
 })
 
 <span style=display:block;width:100%;background-color:#3c3d38><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>addListItem</span>(<span style=color:#a6e22e>task</span> <span style=color:#f92672>:</span> <span style=color:#a6e22e>Task</span>) { }
-</span></code></pre></div><blockquote>
-<p>經過強型別的設計可以很方便的在程式撰寫時就找出可能有問題的程式碼，如下圖：當傳給 addListItem 的參數型別不正確時，編輯器立即會顯示警告訊息。</p>
-</blockquote>
+</span></code></pre></div><p>經過強型別的設計可以很方便的在程式撰寫時就找出可能有問題的程式碼，如下圖：當傳給 addListItem 的參數型別不正確時，編輯器立即會顯示警告訊息。</p>
 <p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/166896731-d652d9b8-1984-44d7-b005-0856a17a0874.png alt=image>
 </p>
-<blockquote>
 <p>繼續完成 <code>addListItem</code> function 的處理邏輯：</p>
-</blockquote>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-js data-lang=js><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>addListItem</span>(<span style=color:#a6e22e>task</span> <span style=color:#f92672>:</span> <span style=color:#a6e22e>Task</span>) { 
   <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>item</span> <span style=color:#f92672>=</span> document.<span style=color:#a6e22e>createElement</span>(<span style=color:#e6db74>&#34;li&#34;</span>);
   <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>lable</span> <span style=color:#f92672>=</span> document.<span style=color:#a6e22e>createElement</span>(<span style=color:#e6db74>&#34;label&#34;</span>);
@@ -380,14 +344,10 @@ $ npm install types@uuid --save-dev <span style=color:#75715e># uuid moduel 不�
   <span style=color:#a6e22e>item</span>.<span style=color:#a6e22e>append</span>(<span style=color:#a6e22e>lable</span>);
   <span style=color:#a6e22e>list</span><span style=color:#f92672>?</span>.<span style=color:#a6e22e>append</span>(<span style=color:#a6e22e>item</span>);
 }
-</code></pre></div><blockquote>
-<p>執行結果</p>
-</blockquote>
+</code></pre></div><p>執行結果</p>
 <p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/166901827-95fdf26f-2d90-4692-855d-2bafd0bd7a40.png alt=image>
 </p>
-<blockquote>
 <p>程式至此已經可以加入新 Task 也可以設定（勾選）是否已完成，但當按下 瀏覧器的 ｀重新載入此頁｀ 功能時會發現所有新增的 Tasks 都會不見，接下來我們將加 Local Storeage 的功能將新增的 Tasks 不僅顯示在畫面上也會寫入到 Local Storeage 中，在重新載入時會將紀錄在 Local Storeage 的 Tasks 再重新顯示在畫面中。</p>
-</blockquote>
 <h2 id=完成後程式>完成後程式<a hidden class=anchor aria-hidden=true href=#完成後程式>#</a></h2>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-js data-lang=js><span style=color:#66d9ef>import</span> {<span style=color:#a6e22e>v4</span> <span style=color:#a6e22e>as</span> <span style=color:#a6e22e>uuidV4</span> } <span style=color:#a6e22e>from</span> <span style=color:#e6db74>&#39;uuid&#39;</span>;
 
@@ -450,22 +410,18 @@ $ npm install types@uuid --save-dev <span style=color:#75715e># uuid moduel 不�
 </span><span style=display:block;width:100%;background-color:#3c3d38>  <span style=color:#66d9ef>if</span> (<span style=color:#a6e22e>taskJSON</span> <span style=color:#f92672>==</span> <span style=color:#66d9ef>null</span>) <span style=color:#66d9ef>return</span> [];
 </span><span style=display:block;width:100%;background-color:#3c3d38>  <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>JSON</span>.<span style=color:#a6e22e>parse</span>(<span style=color:#a6e22e>taskJSON</span>);
 </span><span style=display:block;width:100%;background-color:#3c3d38>}
-</span></code></pre></div><blockquote>
-<p>在瀏覧器的 “開發人員工具” 的 “Application" 功能中透過 Clear All 可將 Local Storage 資料清除。清除後再按下 “重新載入這個網頁” 畫面會回到初始狀態。</p>
-</blockquote>
+</span></code></pre></div><p>在瀏覧器的 “開發人員工具” 的 “Application" 功能中透過 Clear All 可將 Local Storage 資料清除。清除後再按下 “重新載入這個網頁” 畫面會回到初始狀態。</p>
 <p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/166930062-45d6f41f-eb9e-443c-967c-c8c9696d27c0.png alt=image>
 </p>
 <p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/166931162-c71b124c-4d18-482c-b8e2-26f18fd51d54.png alt=螢幕擷圖>
 </p>
-<blockquote>
 <p>新增 Task、改變 Task 完成否，再 “重新載入這個網頁”，畫面如我們希望的保留了我們已新增/修改的狀態。</p>
-</blockquote>
 <p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/166931328-ff6ce2e6-72df-4a21-8f9b-0d9427bbf51a.png alt=螢幕擷圖>
 </p>
 </div>
 <footer class=post-footer>
 <ul class=post-tags>
-<li><a href=https://calvinegs.github.io/tags/sowpack/>Sowpack</a></li>
+<li><a href=https://calvinegs.github.io/tags/snowpack/>Snowpack</a></li>
 <li><a href=https://calvinegs.github.io/tags/typescript/>Typescript</a></li>
 <li><a href=https://calvinegs.github.io/tags/web-app/>Web App</a></li>
 </ul>
@@ -482,7 +438,7 @@ $ npm install types@uuid --save-dev <span style=color:#75715e># uuid moduel 不�
 </a>
 </nav>
 <div class=share-buttons>
-<a target=_blank rel="noopener noreferrer" aria-label="share 使用 Snowpack + Typescript 來建置一個 Web App on twitter" href="https://twitter.com/intent/tweet/?text=%e4%bd%bf%e7%94%a8%20Snowpack%20%2b%20Typescript%20%e4%be%86%e5%bb%ba%e7%bd%ae%e4%b8%80%e5%80%8b%20Web%20App&url=https%3a%2f%2fcalvinegs.github.io%2fposts%2fsnowpack-typescript%2f&hashtags=Sowpack%2cTypescript%2cWebApp"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zM195.519 424.544c135.939.0 210.268-112.643 210.268-210.268.0-3.218.0-6.437-.153-9.502 14.406-10.421 26.973-23.448 36.935-38.314-13.18 5.824-27.433 9.809-42.452 11.648 15.326-9.196 26.973-23.602 32.49-40.92-14.252 8.429-30.038 14.56-46.896 17.931-13.487-14.406-32.644-23.295-53.946-23.295-40.767.0-73.87 33.104-73.87 73.87.0 5.824.613 11.494 1.992 16.858-61.456-3.065-115.862-32.49-152.337-77.241-6.284 10.881-9.962 23.601-9.962 37.088.0 25.594 13.027 48.276 32.95 61.456-12.107-.307-23.448-3.678-33.41-9.196v.92c0 35.862 25.441 65.594 59.311 72.49-6.13 1.686-12.72 2.606-19.464 2.606-4.751.0-9.348-.46-13.946-1.38 9.349 29.426 36.628 50.728 68.965 51.341-25.287 19.771-57.164 31.571-91.8 31.571-5.977.0-11.801-.306-17.625-1.073 32.337 21.15 71.264 33.41 112.95 33.41z"/></svg>
+<a target=_blank rel="noopener noreferrer" aria-label="share 使用 Snowpack + Typescript 來建置一個 Web App on twitter" href="https://twitter.com/intent/tweet/?text=%e4%bd%bf%e7%94%a8%20Snowpack%20%2b%20Typescript%20%e4%be%86%e5%bb%ba%e7%bd%ae%e4%b8%80%e5%80%8b%20Web%20App&url=https%3a%2f%2fcalvinegs.github.io%2fposts%2fsnowpack-typescript%2f&hashtags=Snowpack%2cTypescript%2cWebApp"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zM195.519 424.544c135.939.0 210.268-112.643 210.268-210.268.0-3.218.0-6.437-.153-9.502 14.406-10.421 26.973-23.448 36.935-38.314-13.18 5.824-27.433 9.809-42.452 11.648 15.326-9.196 26.973-23.602 32.49-40.92-14.252 8.429-30.038 14.56-46.896 17.931-13.487-14.406-32.644-23.295-53.946-23.295-40.767.0-73.87 33.104-73.87 73.87.0 5.824.613 11.494 1.992 16.858-61.456-3.065-115.862-32.49-152.337-77.241-6.284 10.881-9.962 23.601-9.962 37.088.0 25.594 13.027 48.276 32.95 61.456-12.107-.307-23.448-3.678-33.41-9.196v.92c0 35.862 25.441 65.594 59.311 72.49-6.13 1.686-12.72 2.606-19.464 2.606-4.751.0-9.348-.46-13.946-1.38 9.349 29.426 36.628 50.728 68.965 51.341-25.287 19.771-57.164 31.571-91.8 31.571-5.977.0-11.801-.306-17.625-1.073 32.337 21.15 71.264 33.41 112.95 33.41z"/></svg>
 </a>
 <a target=_blank rel="noopener noreferrer" aria-label="share 使用 Snowpack + Typescript 來建置一個 Web App on linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2fcalvinegs.github.io%2fposts%2fsnowpack-typescript%2f&title=%e4%bd%bf%e7%94%a8%20Snowpack%20%2b%20Typescript%20%e4%be%86%e5%bb%ba%e7%bd%ae%e4%b8%80%e5%80%8b%20Web%20App&summary=%e4%bd%bf%e7%94%a8%20Snowpack%20%2b%20Typescript%20%e4%be%86%e5%bb%ba%e7%bd%ae%e4%b8%80%e5%80%8b%20Web%20App&source=https%3a%2f%2fcalvinegs.github.io%2fposts%2fsnowpack-typescript%2f"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zM160.461 423.278V197.561h-75.04v225.717h75.04zm270.539.0V293.839c0-69.333-37.018-101.586-86.381-101.586-39.804.0-57.634 21.891-67.617 37.266v-31.958h-75.021c.995 21.181.0 225.717.0 225.717h75.02V297.222c0-6.748.486-13.492 2.474-18.315 5.414-13.475 17.767-27.434 38.494-27.434 27.135.0 38.007 20.707 38.007 51.037v120.768H431zM123.448 88.722C97.774 88.722 81 105.601 81 127.724c0 21.658 16.264 39.002 41.455 39.002h.484c26.165.0 42.452-17.344 42.452-39.002-.485-22.092-16.241-38.954-41.943-39.002z"/></svg>
 </a>

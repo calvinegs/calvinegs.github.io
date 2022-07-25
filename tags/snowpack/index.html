@@ -3,11 +3,11 @@
 <meta http-equiv=x-ua-compatible content="IE=edge">
 <meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no">
 <meta name=robots content="index, follow">
-<title>Sowpack | 永誌不忘 • 筆記簿</title>
+<title>Snowpack | 永誌不忘 • 筆記簿</title>
 <meta name=keywords content>
 <meta name=description content="Theme PaperMod - https://github.com/adityatelange/hugo-PaperMod">
 <meta name=author content="Theme PaperMod">
-<link rel=canonical href=https://calvinegs.github.io/tags/sowpack/>
+<link rel=canonical href=https://calvinegs.github.io/tags/snowpack/>
 <link crossorigin=anonymous href=/assets/css/stylesheet.min.c88963fe2d79462000fd0fb1b3737783c32855d340583e4523343f8735c787f0.css integrity="sha256-yIlj/i15RiAA/Q+xs3N3g8MoVdNAWD5FIzQ/hzXHh/A=" rel="preload stylesheet" as=style>
 <link rel=icon href=https://calvinegs.github.io/img/favicon.png>
 <link rel=icon type=image/png sizes=16x16 href=https://calvinegs.github.io/favicon-16x16.png>
@@ -17,17 +17,17 @@
 <meta name=theme-color content="#2e2e33">
 <meta name=msapplication-TileColor content="#2e2e33">
 <meta name=generator content="Hugo 0.89.3">
-<link rel=alternate type=application/rss+xml href=https://calvinegs.github.io/tags/sowpack/index.xml>
+<link rel=alternate type=application/rss+xml href=https://calvinegs.github.io/tags/snowpack/index.xml>
 <noscript>
 <style>#theme-toggle,.top-link{display:none}</style>
 <style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--hljs-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style>
-</noscript><meta property="og:title" content="Sowpack">
+</noscript><meta property="og:title" content="Snowpack">
 <meta property="og:description" content="Theme PaperMod - https://github.com/adityatelange/hugo-PaperMod">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://calvinegs.github.io/tags/sowpack/"><meta property="og:image" content="https://calvinegs.github.io/papermod-cover.png">
+<meta property="og:url" content="https://calvinegs.github.io/tags/snowpack/"><meta property="og:image" content="https://calvinegs.github.io/papermod-cover.png">
 <meta name=twitter:card content="summary_large_image">
 <meta name=twitter:image content="https://calvinegs.github.io/papermod-cover.png">
-<meta name=twitter:title content="Sowpack">
+<meta name=twitter:title content="Snowpack">
 <meta name=twitter:description content="Theme PaperMod - https://github.com/adityatelange/hugo-PaperMod">
 </head>
 <body class=list id=top>
@@ -72,7 +72,7 @@
 </header>
 <main class=main>
 <header class=page-header><div class=breadcrumbs><a href=https://calvinegs.github.io/>Home</a>&nbsp;»&nbsp;<a href=https://calvinegs.github.io/tags/>Tags</a></div>
-<h1>Sowpack</h1>
+<h1>Snowpack</h1>
 </header>
 <article class="post-entry tag-entry">
 <header class=entry-header>
@@ -82,8 +82,9 @@
 <section class=entry-content>
 <p>Snowpack 號稱是更快速的前端建構工具，在開發 Web 應用程式的工作流程中，它可以替代更重、更複雜的打包工具，如 webpack 或 Parcel。
 在此不會討論 Snowpack 的設計細節，只紀錄如可快速的使用 Snowpack 來建置一個由 Typescript 支援網頁程式。由撰寫 Typescript 的過程中了解到強型別（及與搭配 vscode 編輯器）所帶來的好處。
-使用 create-snowpack-app 建立專案 bash``` $ mkdir doto-list && cd todo-list $ $ npx create-snowpack-app . –template @snowpack/app-template-blank-typescript –force $ npm install $ code .
-> 産生的程式結構如下： ![程式結構](https://user-images.githubusercontent.com/21993717/166859633-95c09b00-2d36-4912-9d5a-91c5ff33ad32.png) > package.json ```json {hl_lines=[3,17,18]} { "scripts": { "start": "snowpack dev", "build": "snowpack build", "test": "echo \"This template does not include a test runner by default.\" && exit 1", "format": "prettier --write \"src/**/*....</p>
+使用 create-snowpack-app 建立專案 $ mkdir doto-list && cd todo-list $ $ npx create-snowpack-app . --template @snowpack/app-template-blank-typescript --force $ npm install $ code . 産生的程式結構如下：
+package.json 的內容：
+{ "scripts": { "start": "snowpack dev", "build": "snowpack build", "test": "echo \"This template does not include a test runner by default.\" && exit 1", "format": "prettier --write \"src/**/*....</p>
 </section>
 <footer class=entry-footer><span title="2022-05-01 00:00:00 +0000 UTC">May 1, 2022</span>&nbsp;·&nbsp;5 min&nbsp;·&nbsp;Theme PaperMod</footer>
 <a class=entry-link aria-label="post link to 使用 Snowpack + Typescript 來建置一個 Web App" href=https://calvinegs.github.io/posts/snowpack-typescript/></a>
