@@ -118,7 +118,7 @@ import {v4 as uuidV4 } from 'uuid';
 console.log(uuidV4());
 ```
 
-> 存檔後由瀏覽器 Console 視窗中可以看到由 uuid module 提供的功能所産生的 ID： ｀637fd7c4-1bc3-444a-9335-4b355617edbd｀
+存檔後由瀏覽器 Console 視窗中可以看到由 uuid module 提供的功能所産生的 ID： ｀637fd7c4-1bc3-444a-9335-4b355617edbd｀
 
 ```js
 import {v4 as uuidV4 } from 'uuid';
@@ -134,7 +134,7 @@ import {v4 as uuidV4 } from 'uuid';
 
 // console.log(uuidV4());
 
-const list = document.querySelector<HTMLUListElement>('#list');
+const list = document.querySelector('#list');
 const form = document.getElementById('new-task-form') as HTMLFormElement | null;
 const input = document.querySelector<HTMLInputElement>('#new-task-title');
 ```
