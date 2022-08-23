@@ -1,0 +1,1298 @@
+<!doctype html><html lang=en dir=auto>
+<head><meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no">
+<meta name=robots content="index, follow">
+<title>使用 React 來建立網路應用程式 | 永誌不忘 • 筆記簿</title>
+<meta name=keywords content="react,bootstrap,redux,react-redux,react router,npm-run-all,Node.js,express,Json Server">
+<meta name=description content="這是三篇紀錄使用不同的三個 framework(Angular、React、Vue)來建立功能一模一樣的網路應用程式的筆記中的第二篇， 本篇中是使用 React 來建立 Web APP">
+<meta name=author content="Theme PaperMod">
+<link rel=canonical href=https://calvinegs.github.io/posts/webapp-react/>
+<link crossorigin=anonymous href=/assets/css/stylesheet.min.c88963fe2d79462000fd0fb1b3737783c32855d340583e4523343f8735c787f0.css integrity="sha256-yIlj/i15RiAA/Q+xs3N3g8MoVdNAWD5FIzQ/hzXHh/A=" rel="preload stylesheet" as=style>
+<script defer crossorigin=anonymous src=/assets/js/highlight.min.7680afc38aa6b15ddf158a4f3780b7b1f7dde7e91d26f073e6229bb7a0793c92.js integrity="sha256-doCvw4qmsV3fFYpPN4C3sffd5+kdJvBz5iKbt6B5PJI=" onload=hljs.initHighlightingOnLoad()></script>
+<link rel=icon href=https://calvinegs.github.io/img/favicon.png>
+<link rel=icon type=image/png sizes=16x16 href=https://calvinegs.github.io/favicon-16x16.png>
+<link rel=icon type=image/png sizes=32x32 href=https://calvinegs.github.io/favicon-32x32.png>
+<link rel=apple-touch-icon href=https://calvinegs.github.io/apple-touch-icon.png>
+<link rel=mask-icon href=https://calvinegs.github.io/safari-pinned-tab.svg>
+<meta name=theme-color content="#2e2e33">
+<meta name=msapplication-TileColor content="#2e2e33">
+<meta name=generator content="Hugo 0.89.3">
+<noscript>
+<style>#theme-toggle,.top-link{display:none}</style>
+<style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--hljs-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style>
+</noscript><meta property="og:title" content="使用 React 來建立網路應用程式">
+<meta property="og:description" content="這是三篇紀錄使用不同的三個 framework(Angular、React、Vue)來建立功能一模一樣的網路應用程式的筆記中的第二篇， 本篇中是使用 React 來建立 Web APP">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://calvinegs.github.io/posts/webapp-react/"><meta property="og:image" content="https://calvinegs.github.io/papermod-cover.png"><meta property="article:section" content="posts">
+<meta property="article:published_time" content="2022-08-23T00:00:00+00:00">
+<meta property="article:modified_time" content="2022-08-23T00:00:00+00:00">
+<meta name=twitter:card content="summary_large_image">
+<meta name=twitter:image content="https://calvinegs.github.io/papermod-cover.png">
+<meta name=twitter:title content="使用 React 來建立網路應用程式">
+<meta name=twitter:description content="這是三篇紀錄使用不同的三個 framework(Angular、React、Vue)來建立功能一模一樣的網路應用程式的筆記中的第二篇， 本篇中是使用 React 來建立 Web APP">
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Posts","item":"https://calvinegs.github.io/posts/"},{"@type":"ListItem","position":2,"name":"使用 React 來建立網路應用程式","item":"https://calvinegs.github.io/posts/webapp-react/"}]}</script>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"使用 React 來建立網路應用程式","name":"使用 React 來建立網路應用程式","description":"這是三篇紀錄使用不同的三個 framework(Angular、React、Vue)來建立功能一模一樣的網路應用程式的筆記中的第二篇， 本篇中是使用 React 來建立 Web APP","keywords":["react","bootstrap","redux","react-redux","react router","npm-run-all","Node.js","express","Json Server"],"articleBody":"github Source code\nAngular、React、Vue 是三個最受歡迎的前端框架，這是三篇筆記分別使用這三個不同的框架來建立功能一模一樣的網路應用程式中的第二篇。\n這個網路應用程式的需求\n 産品訂購功能  表頭：訂購商品總數、總額及送出訂單功能 商品過濾功能：依産品類別來顯示商品 商品清單：顯示商品明細、商品售價、訂購數量下拉選單及加入購物車等功能   訂單確認功能：顯示訂購商品明細及總金額 訂購成功功能：顯示訂購完成資訊  使用技術:\n React 18 Bootstrap 5 (UI Framework) React Router 6 React Redux 8 NodeJS \u0026 Express json-server npm-run-all (npm 套件)  建立新專案 使用下列的 npm init 語法即可建立最新版 Angular 預設的應用程式結構\n$ npx create-react-app reactapp --template typescript Creating a new React app in /home/egs/cal-data/tech-test/typescript/book/reactapp. Installing packages. This might take a couple of minutes. Installing react, react-dom, and react-scripts with cra-template-typescript... added 1393 packages in 45s 207 packages are looking for funding run `npm fund` for details Initialized a git repository. Installing template dependencies using npm... added 35 packages, and changed 1 package in 5s 207 packages are looking for funding run `npm fund` for details We detected TypeScript in your project (src/App.test.tsx) and created a tsconfig.json file for you. Your tsconfig.json has been populated with default values. Removing template package using npm... removed 1 package, and audited 1428 packages in 2s 207 packages are looking for funding run `npm fund` for details 6 high severity vulnerabilities To address all issues (including breaking changes), run: npm audit fix --force Run `npm audit` for details. Created git commit. Success! Created reactapp at /home/egs/cal-data/tech-test/typescript/book/reactapp Inside that directory, you can run several commands: npm start Starts the development server. npm run build Bundles the app into static files for production. npm test Starts the test runner. npm run eject Removes this tool and copies build dependencies, configuration files and scripts into the app directory. If you do this, you can’t go back! We suggest that you begin by typing: cd reactapp npm start Happy hacking! 查看 package.json 中相依套件及版本 $ cd reactapp $ cat package.json { \"name\": \"reactapp\", \"version\": \"0.1.0\", \"private\": true, \"dependencies\": { \"@testing-library/jest-dom\": \"^5.16.5\", \"@testing-library/react\": \"^13.3.0\", \"@testing-library/user-event\": \"^13.5.0\", \"@types/jest\": \"^27.5.2\", \"@types/node\": \"^16.11.54\", \"@types/react\": \"^18.0.17\", \"@types/react-dom\": \"^18.0.6\", \"react\": \"^18.2.0\", \"react-dom\": \"^18.2.0\", \"react-scripts\": \"5.0.1\", \"typescript\": \"^4.7.4\", \"web-vitals\": \"^2.1.4\" }, \"scripts\": { \"start\": \"react-scripts start\", \"build\": \"react-scripts build\", \"test\": \"react-scripts test\", \"eject\": \"react-scripts eject\" }, \"eslintConfig\": { \"extends\": [ \"react-app\", \"react-app/jest\" ] }, \"browserslist\": { \"production\": [ \"0.2%\", \"not dead\", \"not op_mini all\" ], \"development\": [ \"last 1 chrome version\", \"last 1 firefox version\", \"last 1 safari version\" ] } } 産生的預設程式結構 執行由 CLI 産生的預設程式架構 $ npm i $ npm start Compiled successfully! You can now view reactapp in the browser. Local: http://localhost:3000 On Your Network: http://192.168.0.125:3000 Note that the development build is not optimized. To create a production build, use npm run build. webpack compiled successfully No issues found. 開啟瀏覽器，輸入 http://localhost:3000/ $ git add . \u0026\u0026 git commit -m \"Initial Commit\" # 加入 git 新版本 $ code . # 打開 vscode 使用 json-server 當作後端 Web Api 在我們的前端應用程式中會使用到後端伺服器的資料，方便起見直接使用 json-server　來當作後端 Web Api\n安裝 json-server $ npm install --save-dev json-server@0.17.0 npm-run-all@4.1.5\n建立給 json-server 使用的資料 $ touch data.json # data.json 內容如下 { \"products\": [ { \"id\": 1, \"name\": \"kayak\", \"category\": \"Watersports\", \"description\": \"A boat form on person\", \"price\": 275 }, { \"id\": 2, \"name\": \"Lifejacket\", \"category\": \"Watersports\", \"description\": \"Protective and fashionable boat form on person\", \"price\": 48.95 }, { \"id\": 3, \"name\": \"Soccer Ball\", \"category\": \"Soccer\", \"description\": \"FIFA-approved size and weight\", \"price\": 19.5 }, { \"id\": 4, \"name\": \"Corner Flags\", \"category\": \"Soccer\", \"description\": \"Give your playing field a professional touch\", \"price\": 34.95 }, { \"id\": 5, \"name\": \"Stadium\", \"category\": \"Soccer\", \"description\": \"Flat-packed 35,000-seat stadium\", \"price\": 79500 }, { \"id\": 6, \"name\": \"Thinking Cap\", \"category\": \"Chess\", \"description\": \"Imporove brain efficiency by 75%\", \"price\": 16 }, { \"id\": 7, \"name\": \"Unsteady Chair\", \"category\": \"Chess\", \"description\": \"Secretly give your opponent a disadvantage\", \"price\": 29.95 }, { \"id\": 8, \"name\": \"Human Chess Board\", \"category\": \"Chess\", \"description\": \"A fun game for the family\", \"price\": 75 }, { \"id\": 9, \"name\": \"Bling Bling King\", \"category\": \"Chess\", \"description\": \"Gold-plated, diamond-studded King\", \"price\": 1200 } ], \"orders\": [ ] } 測試 json-server $ npx json-server data.json -p 4600 # 使用 4600 port \\{^_^}/ hi! Loading data.json Done Resources http://localhost:4600/products http://localhost:4600/orders Home http://localhost:4600 Type s + enter at any time to create a snapshot of the database GET /db 304 1.630 ms - - GET /__rules 404 4.536 ms - 2 設定 npm script in package.sjon // ... \t\"scripts\": { \"serve\": \"react-scripts start\", \"build\": \"react-scripts build\", \"test\": \"react-scripts test\", \"eject\": \"react-scripts eject\", \"json\": \"json-server data.json -p 4600\", \"start\": \"npm-run-all -p serve json\" }, // ... 在專案中使用 Bootstrap CSS 套件 安裝 bootstrap 5 $ npm install bootstrap@5.2.0\n引入 bootstrap in index.tsx // ./src/index.tsx import React from 'react'; import ReactDOM from 'react-dom/client'; import './index.css'; import App from './App'; import 'bootstrap/dist/css/bootstrap.css'; const root = ReactDOM.createRoot( document.getElementById('root') as HTMLElement ); root.render( React.StrictMode App / React.StrictMode ); 修改 tsconfig.json 將 “target” 改成 “es2015”\n1 2 3 4 5 6 7 8 9 10 11 12  { \"compilerOptions\": { \"target\": \"es2015\",  \"lib\": [ \"dom\", \"dom.iterable\", \"esnext\" ], \"allowJs\": true, // ...  } }   為網站加入資料 建立資料模型 $ mkdir ./src/data \u0026\u0026 touch ./src/data/entities.ts\nentities.ts 檔案內容如下：\n// ./src/data/entities.ts export type Product = { id: number, name: string, description: string, category: string, price: number }; export class OrderLine { constructor(public product: Product, public quantity: number) { } get total(): number { return this.product.price * this.quantity; } } export class Order { private lines = new Mapnumber, OrderLine(); constructor(initialLines?: OrderLine[]) { if (initialLines) { initialLines.forEach(ol = this.lines.set(ol.product.id, ol)); } } public addProduct(prod: Product, quantity: number) { if (this.lines.has(prod.id)) { if (quantity === 0) { this.removeProduct(prod.id); } else { this.lines.get(prod.id)!.quantity += quantity; } } else { this.lines.set(prod.id, new OrderLine(prod, quantity)); } } public removeProduct(id: number) { this.lines.delete(id); } get orderLines(): OrderLine[] { return [...this.lines.values()]; } get productCount(): number { return [...this.lines.values()] .reduce((total, ol) = total += ol.quantity, 0); } get total(): number { return [...this.lines.values()].reduce((total, ol) = total += ol.total, 0); } } 建立商品訂購相關元件 $ mkdir ./src/pages $ touch ./src/pages/productItem.tsx $ touch ./src/pages/categoryList.tsx $ touch ./src/pages/header.tsx $ touch ./src/pages/productList.tsx 商品明細元件 (productItem) // productItem.tsx import { ChangeEvent, FunctionComponent, useState } from \"react\"; import { Product } from \"../data/entities\"; interface Props { product: Product, callback: (product: Product, quantity: number) = void } export const ProductItem: FunctionComponentProps = (props) = { const [quantity, setQuantity] = useStatenumber(1); return div className=\"card m-1 p-1 bg-light\" h4 {props.product.name} span className=\"badge rounded-pill bg-primary float-end\" ${props.product.price.toFixed(2)} span h4 div className=\"card-text bg-white p-1\" {props.product.description} button className=\"btn btn-success btn-sm float-end\" onClick={() = props.callback(props.product, quantity)}  Add To Cart button select className=\"form-control-inline float-end m-1\" onChange={(ev: ChangeEventHTMLSelectElement) = setQuantity(Number(ev.target.value))} option1option option2option option3option select div div } 商品分類按鈕元件 (categoryList.tsx) // categoryList.tsx import React, { ChangeEvent, FunctionComponent, useState } from 'react' interface Props { selected: string, categories: string[], selectCategory: (category: string) = void } // export default function productItem() { export const CategoryList: FunctionComponentProps = (props) = { return ( div className='d-grid gap-2' {[\"All\", ...props.categories].map(c = { let btnClass = props.selected === c ? \"btn-primary\" : \"btn-secondary\"; return button key={c} className={`btn ${btnClass}`} onClick={() = props.selectCategory(c)} {c} button })} div ) } 表頭元件 (header) // header.tsx import { FunctionComponent } from 'react' import { Order } from '../data/entities' interface Props { order: Order } // export default function productItem() { export const Header: FunctionComponentProps = (props) = { const count = props.order.productCount; return ( div className='p-1 bg-secondary text-white text-end' {count === 0 ? \"(No Selection)\" : `${count}product(s), $${props.order.total.toFixed(2)}`} button className='btn btn-sm btn-primary m-1' Submit Order button div ) } 商品清單元件 (productList) // productList.tsx import { ChangeEvent, FunctionComponent, useState } from 'react' import { Order, Product } from '../data/entities'; import { CategoryList } from './categoryList'; import { Header } from './header'; import { ProductItem } from './productItem'; interface Props { products: Product[], categories: string[], order: Order, addToOrder: (product: Product, quantity: number) = void } export const ProductList: FunctionComponentProps = (props) = { const [selectedCategory, setSelectedCategory] = useStatestring(\"All\"); let products : Product[] = props.products.filter( p = selectedCategory === \"All\" || p.category === selectedCategory); return ( div Header order={props.order} / {/* */} div className='container-fluid' div className='row' div className='col-3 p-2' CategoryList categories={props.categories} selected={selectedCategory} selectCategory={(cat: string) = { setSelectedCategory(cat); }} / div div className='col-9 p-2' { products.map(p = ProductItem key={p.id} product={p} callback={props.addToOrder} /) } div div div div ) } 檔案結構 ##　執行程式\n$ npm start 使用 Data Store 來管理 React 應用程式的資料 在大多數的 React 專案中，應用程式的資料是交由 “data store” 資料倉儲來管理，由最多人使用的管理資料套件就是 Redux。\n安裝 Redux $ npm install redux@4.2.0 react-redux@8.0.2 $ npm install --save-dev @types/react-redux@7.1.24 建立 Redux 的 action 類別 $ touch ./src/data/types.ts // ./src/data/types.ts import { Action } from \"redux\"; import { Order, Product } from \"./entities\"; export interface StoreData { products: Product[], order: Order } export enum ACTIONS { ADD_PRODUCTS, MODIFY_ORDER, RESET_ORDER } export interface AddProductsAction extends ActionACTIONS.ADD_PRODUCTS { payload: Product[] } export interface ModifyOrderAction extends ActionACTIONS.MODIFY_ORDER { payload: { product: Product, quantity: number } } export interface ResetOrderAction extends ActionACTIONS.RESET_ORDER {} export type StoreAction = AddProductsAction | ModifyOrderAction | ResetOrderAction; 建立 action creator $ touch ./src/data/actionCreators.ts // ./src/data/actionCreators.ts import { Product } from \"./entities\"; import { ACTIONS, AddProductsAction, ModifyOrderAction, ResetOrderAction } from \"./types\"; export const addProduct = (...products: Product[]): AddProductsAction = ({ type: ACTIONS.ADD_PRODUCTS, payload: products }); export const modifyOrder = (product: Product, quantity: number): ModifyOrderAction = ({ type: ACTIONS.MODIFY_ORDER, payload: { product, quantity} }); export const resetOrder = (product: Product, quantity: number): ResetOrderAction = ({ type: ACTIONS.RESET_ORDER }); 建立 Redux reducer 來處理 action $ touch ./src/data/reducer.ts import { Reducer } from \"redux\"; import { Order } from \"./entities\"; import { ACTIONS, StoreAction, StoreData } from \"./types\"; export const StoreReducer: ReducerStoreData, StoreAction = (data: StoreData | undefined , action) = { data = data || { products: [], order: new Order()} switch (action.type) { case ACTIONS.ADD_PRODUCTS: return { ...data, products: [...data.products, ...action.payload] }; case ACTIONS.MODIFY_ORDER: data.order.addProduct( action.payload.product, action.payload.quantity ) return {...data}; case ACTIONS.RESET_ORDER: return { ...data, order:new Order() }; default: return data; } } 建立 Data store $ touch ./src/data/dataStore.ts import { createStore, Store } from \"redux\"; import { StoreReducer } from \"./reducer\"; import { StoreAction, StoreData } from \"./types\"; export const dataStore: StoreStoreData, StoreAction = createStore(StoreReducer); 新增 HTTP 請求類別 安裝 axios $ npm install axios@0.27.2 建立 httpHandler.ts $ touch ./src/data/httpHandler.ts import Axios from \"axios\"; import { Order, Product } from \"./entities\"; const protocol = \"http\"; const hostname = \"localhost\"; const port = 4600; const urls = { products: `${protocol}://${hostname}:${port}/products`, orders: `${protocol}://${hostname}:${port}/orders`, }; export class HttpHandler { loadProducts(callback: (producs: Product[]) = void): void { Axios.get(urls.products).then(response = callback(response.data)) } storeOrder(order: Order, callback: (id: number) = void): void { let orderData = { lines: [...order.orderLines.values()].map(ol = ({ productId: ol.product.id, productName: ol.product.name, quantity: ol.quantity })) } Axios.post(urls.orders, orderData).then(response = callback(response.data.id)); } } 連結 Data Store 與各個元件 使用 React-Redux 套件來將應用程式元件連接到 Redux data store。\n$ touch .src/data/productLitConnector.ts import { connect } from \"react-redux\"; import { ProductList } from \"../pages/productList\"; import { modifyOrder } from \"./actionCreators\"; import { StoreData } from \"./types\"; const mapStateToProps = (data: StoreData) = ({ products: data.products, categories: [...new Set(data.products.map(p = p.category))], order: data.order }) const mapDispatchToProps = { addToOrder: modifyOrder } const connectFunction = connect(mapStateToProps, mapDispatchToProps); export const ConnectedProductList = connectFunction(ProductList); 修改 App.tsx import React, { FunctionComponent, useState } from 'react'; import { Provider } from 'react-redux'; import { addProduct } from './data/actionCreators'; import { dataStore } from './data/dataStore'; import { HttpHandler } from './data/httpHandler'; import { ConnectedProductList } from './data/productLitConnector'; interface Props { } let httpHandler = new HttpHandler(); httpHandler.loadProducts(data = dataStore.dispatch(addProduct(...data))); export const App: FunctionComponentProps = (props) = { let submitCallback = () = { console.log(\"Submit order\"); }; return div className='App' Provider store={dataStore} ConnectedProductList / Provider div } export default App; 執行測試 程式至此已將資料連結由 local 改到 Json-Server，並將取得的資料放入 Redux data store 中了。\n$ npm start 完成其他功能 接下來我們要完成其餘的二個功能：訂單確認功能及訂購成功功能，在我們已完成的商品訂購元件與前述二個元件中做切換時，會需要使用到URL路由功能，在 React 核心中並未內建路由功能，所以我們必須安裝額外的套件 – React Router 套件。\n安裝 React Router 套件 $ npm install react-router-dom@6.3.0 $ npm install --save-dev @types/react-router-dom5.3.3 URL 路由設定 修改 App.tsx\nimport { FunctionComponent } from 'react'; import { Route, Routes, useNavigate } from 'react-router-dom'; import { addProduct } from './data/actionCreators'; import { dataStore } from './data/dataStore'; import { Order } from './data/entities'; import { HttpHandler } from './data/httpHandler'; import { ConnectedProductList } from './data/productLitConnector'; interface Props { } let httpHandler = new HttpHandler(); httpHandler.loadProducts(data = dataStore.dispatch(addProduct(...data))); export const App: FunctionComponentProps = (props) = { const navigate = useNavigate(); let submitCallback = () = { httpHandler.storeOrder(dataStore.getState().order, id = navigate(`/summary/${id}`, { replace: true})); dataStore.getState().order = new Order(); }; return div className='App' Routes Route index element={ConnectedProductList/}/ Route path=\"/products\" element={ConnectedProductList/}/ {/* submitCallback={() = submitCallback()}/} / } / */} Routes div } export default App; 修改 index.tsx\nimport React from 'react'; import ReactDOM from 'react-dom/client'; import './index.css'; import App from './App'; import 'bootstrap/dist/css/bootstrap.css'; import { BrowserRouter } from 'react-router-dom'; import { Provider } from 'react-redux'; import { dataStore } from './data/dataStore'; const root = ReactDOM.createRoot( document.getElementById('root') as HTMLElement ); root.render( React.StrictMode Provider store={dataStore} BrowserRouter App / BrowserRouter Provider React.StrictMode ); 加入訂單確認元件 $ touch ./src/pages/orderDetails.tsx\nimport { connect } from \"react-redux\" import { FunctionComponent } from \"react\" import { NavLink } from \"react-router-dom\" import { Order } from \"../data/entities\" import { StoreData } from \"../data/types\" const mapStateToProps = (data: StoreData) = ({ order: data.order }) interface Props { order: Order, submitCallback: () = void } const OrderDetailComponent: FunctionComponentProps = (props) = { return div h3 className=\"text-center bg-primary text-white p-2\" Order Summary h3 div className=\"p-3\" table className=\"table table-sm table-striped\" thead tr thQuantityth thProductth th className=\"text-end\"Priceth th className=\"text-end\"Subtotalth tr thead tbody {props.order.orderLines.map(line = tr key={line.product.id} td{line.quantity}td td{line.product.name}td td className=\"text-end\"{line.product.price.toFixed(2)}td td className=\"text-end\"{line.total.toFixed(2)}td tr )} tbody tfoot tr th className=\"text-end\" colSpan={3}Total:th th className=\"text-end\" colSpan={3}${props.order.total.toFixed(2)}th tr tfoot table div div className=\"text-center\" NavLink to=\"/products\" className=\"btn btn-secondary m-1\" Back NavLink button className=\"btn btn-primary m-1\" onClick={props.submitCallback} Submit Order button {/* Submit Order  */} div div } const connectFunction = connect(mapStateToProps); export const OrderDetails = connectFunction(OrderDetailComponent); 加入訂購成功元件 $ touch ./src/pages/summary.tsx\nimport { FunctionComponent } from \"react\" import { NavLink } from \"react-router-dom\" import { useParams } from \"react-router-dom\" interface Params { id: string } export const Summary: FunctionComponent = () = { let params = useParams(); const id = params.id; return div className=\"m-2 text-center\" h2Thanks!h2 pThanks for placing your order.p pYour order is #{id}p pWe'll ship your goods as soon as possible.p NavLink to=\"/products\" className=\"btn btn-primary\"OKNavLink div } 修改 Header.tsx URL 轉址功能 // header.tsx  完成路由設定 // App.tsx import { FunctionComponent } from 'react'; import { Route, Routes, useNavigate } from 'react-router-dom'; import { addProduct } from './data/actionCreators'; import { dataStore } from './data/dataStore'; import { Order } from './data/entities'; import { HttpHandler } from './data/httpHandler'; import { ConnectedProductList } from './data/productLitConnector'; import { OrderDetails } from './pages/orderDetails'; import { Summary } from './pages/summary'; interface Props { } let httpHandler = new HttpHandler(); httpHandler.loadProducts(data = dataStore.dispatch(addProduct(...data))); export const App: FunctionComponentProps = (props) = { const navigate = useNavigate(); let submitCallback = () = { httpHandler.storeOrder(dataStore.getState().order, id = navigate(`/summary/${id}`, { replace: true})); dataStore.getState().order = new Order(); }; return div className='App' Routes Route index element={ConnectedProductList/}/ Route path=\"/products\" element={ConnectedProductList/}/ Route path=\"/order\" element={OrderDetails submitCallback={() = submitCallback()}/} / Route path=\"/summary/:id\" element={Summary /} / Routes div } export default App; 執行測試 佈署應用程式 使用 NodeJS \u0026 Express 來當作 Http Server \u0026 Web Api Server\n安裝 express 套件 \u0026 -connect-history-api-fallback 套件 $ npm install --save-dev express@4.18.1 connect-history-api-fallback@2.0.0\n建立 node 伺服器 $ touch server.js\nconst express = require(\"express\"); const jsonServer = require(\"json-server\"); const history = require(\"connect-history-api-fallback\"); const app = express(); app.use(history()); app.use(\"/\", express.static(\"build\")); const router = jsonServer.router(\"data.json\"); app.use(jsonServer.bodyParser); app.use(\"/api\", (req, res, next) = router(req, res, next)); const port = process.argv[3] || 4002; app.listen(port, ()= console.log(`Running on port ${port}`)); 修改 url 路徑 修改 httpHandler.ts\nimport Axios from \"axios\"; import { Order, Product } from \"./entities\"; // const protocol = \"http\"; // const hostname = \"localhost\"; // const port = 4600; // const urls = { // products: `${protocol}://${hostname}:${port}/products`, // orders: `${protocol}://${hostname}:${port}/orders`, // }; const urls = { products: \"/api/products\", orders: \"/api/orders\" } export class HttpHandler { loadProducts(callback: (producs: Product[]) = void): void { Axios.get(urls.products).then(response = callback(response.data)) } storeOrder(order: Order, callback: (id: number) = void): void { let orderData = { lines: [...order.orderLines.values()].map(ol = ({ productId: ol.product.id, productName: ol.product.name, quantity: ol.quantity })) } Axios.post(urls.orders, orderData).then(response = callback(response.data.id)); } } 建置 React App $ npm run build  reactapp@0.1.0 build  react-scripts build Creating an optimized production build... Compiled with warnings. [eslint] src/pages/categoryList.tsx Line 1:17: 'ChangeEvent' is defined but never used @typescript-eslint/no-unused-vars Line 1:49: 'useState' is defined but never used @typescript-eslint/no-unused-vars src/pages/productList.tsx Line 1:10: 'ChangeEvent' is defined but never used @typescript-eslint/no-unused-vars src/pages/summary.tsx Line 5:11: 'Params' is defined but never used @typescript-eslint/no-unused-vars Search for the keywords to learn more about each warning. To ignore, add // eslint-disable-next-line to the line before. File sizes after gzip: 63.26 kB (-45 B) build/static/js/main.2ece24f2.js 27.93 kB build/static/css/main.24b68c36.css The project was built assuming it is hosted at /. You can control this with the homepage field in your package.json. The build folder is ready to be deployed. You may serve it with a static server: npm install -g serve serve -s build Find out more about deployment here: https://cra.link/deployment $ ls -al build 總用量 52 drwxrwxr-x 3 egs egs 4096 八 23 18:50 . drwxrwxr-x 7 egs egs 4096 八 23 18:46 .. -rw-rw-r-- 1 egs egs 369 八 23 18:50 asset-manifest.json -rw-rw-r-- 1 egs egs 3870 八 23 18:50 favicon.ico -rw-rw-r-- 1 egs egs 644 八 23 18:50 index.html -rw-rw-r-- 1 egs egs 5347 八 23 18:50 logo192.png -rw-rw-r-- 1 egs egs 9664 八 23 18:50 logo512.png -rw-rw-r-- 1 egs egs 492 八 23 18:50 manifest.json -rw-rw-r-- 1 egs egs 67 八 23 18:50 robots.txt drwxrwxr-x 4 egs egs 4096 八 23 18:50 static 執行 $ node server.js Running on port 4002 功能完成後的程式檔案結構：\n","wordCount":"2831","inLanguage":"en","datePublished":"2022-08-23T00:00:00Z","dateModified":"2022-08-23T00:00:00Z","author":{"@type":"Person","name":"Theme PaperMod"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://calvinegs.github.io/posts/webapp-react/"},"publisher":{"@type":"Organization","name":"永誌不忘 • 筆記簿","logo":{"@type":"ImageObject","url":"https://calvinegs.github.io/img/favicon.png"}}}</script>
+</head>
+<body id=top>
+<script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
+<header class=header>
+<nav class=nav>
+<div class=logo>
+<a href=https://calvinegs.github.io/ accesskey=h title="永誌不忘 • 筆記簿 (Alt + H)">永誌不忘 • 筆記簿</a>
+<span class=logo-switches>
+<button id=theme-toggle accesskey=t title="(Alt + T)"><svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+</button>
+</span>
+</div>
+<ul id=menu>
+<li>
+<a href=https://calvinegs.github.io/posts/ title=Posts>
+<span>Posts</span>
+</a>
+</li>
+<li>
+<a href=https://calvinegs.github.io/archives/ title=Archive>
+<span>Archive</span>
+</a>
+</li>
+<li>
+<a href=https://calvinegs.github.io/categories/ title=Categories>
+<span>Categories</span>
+</a>
+</li>
+<li>
+<a href=https://calvinegs.github.io/tags/ title=Tags>
+<span>Tags</span>
+</a>
+</li>
+<li>
+<a href=https://calvinegs.github.io/search/ title="Search (Alt + /)" accesskey=/>
+<span>Search</span>
+</a>
+</li>
+</ul>
+</nav>
+</header>
+<main class=main>
+<article class=post-single>
+<header class=post-header>
+<div class=breadcrumbs><a href=https://calvinegs.github.io/>Home</a>&nbsp;»&nbsp;<a href=https://calvinegs.github.io/posts/>Posts</a></div>
+<h1 class=post-title>
+使用 React 來建立網路應用程式
+</h1>
+<div class=post-description>
+這是三篇紀錄使用不同的三個 framework(Angular、React、Vue)來建立功能一模一樣的網路應用程式的筆記中的第二篇， 本篇中是使用 React 來建立 Web APP
+</div>
+<div class=post-meta><span title="2022-08-23 00:00:00 +0000 UTC">August 23, 2022</span>&nbsp;·&nbsp;14 min&nbsp;·&nbsp;Theme PaperMod&nbsp;|&nbsp;<a href=https://github.com/adityatelange/hugo-PaperMod/tree/exampleSite/content/posts/webapp-react.md rel="noopener noreferrer" target=_blank>Suggest Changes</a>
+</div>
+</header> <div class=toc>
+<details>
+<summary accesskey=c title="(Alt + C)">
+<span class=details>Table of Contents</span>
+</summary>
+<div class=inner><ul>
+<li>
+<a href=#%e5%bb%ba%e7%ab%8b%e6%96%b0%e5%b0%88%e6%a1%88 aria-label=建立新專案>建立新專案</a><ul>
+<li>
+<a href=#%e6%9f%a5%e7%9c%8b-packagejson-%e4%b8%ad%e7%9b%b8%e4%be%9d%e5%a5%97%e4%bb%b6%e5%8f%8a%e7%89%88%e6%9c%ac aria-label="查看 package.json 中相依套件及版本">查看 package.json 中相依套件及版本</a></li>
+<li>
+<a href=#%e7%94%a3%e7%94%9f%e7%9a%84%e9%a0%90%e8%a8%ad%e7%a8%8b%e5%bc%8f%e7%b5%90%e6%a7%8b aria-label=産生的預設程式結構>産生的預設程式結構</a></li>
+<li>
+<a href=#%e5%9f%b7%e8%a1%8c%e7%94%b1-cli-%e7%94%a3%e7%94%9f%e7%9a%84%e9%a0%90%e8%a8%ad%e7%a8%8b%e5%bc%8f%e6%9e%b6%e6%a7%8b aria-label="執行由 CLI 産生的預設程式架構">執行由 CLI 産生的預設程式架構</a></li></ul>
+</li>
+<li>
+<a href=#%e4%bd%bf%e7%94%a8-json-server-%e7%95%b6%e4%bd%9c%e5%be%8c%e7%ab%af-web-api aria-label="使用 json-server 當作後端 Web Api">使用 json-server 當作後端 Web Api</a><ul>
+<li>
+<a href=#%e5%ae%89%e8%a3%9d-json-server aria-label="安裝 json-server">安裝 json-server</a></li>
+<li>
+<a href=#%e5%bb%ba%e7%ab%8b%e7%b5%a6-json-server-%e4%bd%bf%e7%94%a8%e7%9a%84%e8%b3%87%e6%96%99 aria-label="建立給 json-server 使用的資料">建立給 json-server 使用的資料</a></li>
+<li>
+<a href=#%e6%b8%ac%e8%a9%a6-json-server aria-label="測試 json-server">測試 json-server</a></li>
+<li>
+<a href=#%e8%a8%ad%e5%ae%9a-npm-script-in-packagesjon aria-label="設定 npm script in package.sjon">設定 npm script in package.sjon</a></li></ul>
+</li>
+<li>
+<a href=#%e5%9c%a8%e5%b0%88%e6%a1%88%e4%b8%ad%e4%bd%bf%e7%94%a8-bootstrap-css-%e5%a5%97%e4%bb%b6 aria-label="在專案中使用 Bootstrap CSS 套件">在專案中使用 Bootstrap CSS 套件</a><ul>
+<li>
+<a href=#%e5%ae%89%e8%a3%9d-bootstrap-5 aria-label="安裝 bootstrap 5">安裝 bootstrap 5</a></li>
+<li>
+<a href=#%e5%bc%95%e5%85%a5-bootstrap-in-indextsx aria-label="引入 bootstrap in index.tsx">引入 bootstrap in index.tsx</a></li></ul>
+</li>
+<li>
+<a href=#%e4%bf%ae%e6%94%b9-tsconfigjson aria-label="修改 tsconfig.json">修改 tsconfig.json</a></li>
+<li>
+<a href=#%e7%82%ba%e7%b6%b2%e7%ab%99%e5%8a%a0%e5%85%a5%e8%b3%87%e6%96%99 aria-label=為網站加入資料>為網站加入資料</a><ul>
+<li>
+<a href=#%e5%bb%ba%e7%ab%8b%e8%b3%87%e6%96%99%e6%a8%a1%e5%9e%8b aria-label=建立資料模型>建立資料模型</a></li></ul>
+</li>
+<li>
+<a href=#%e5%bb%ba%e7%ab%8b%e5%95%86%e5%93%81%e8%a8%82%e8%b3%bc%e7%9b%b8%e9%97%9c%e5%85%83%e4%bb%b6 aria-label=建立商品訂購相關元件>建立商品訂購相關元件</a><ul>
+<li>
+<a href=#%e5%95%86%e5%93%81%e6%98%8e%e7%b4%b0%e5%85%83%e4%bb%b6-productitem aria-label="商品明細元件 (productItem)">商品明細元件 (productItem)</a></li>
+<li>
+<a href=#%e5%95%86%e5%93%81%e5%88%86%e9%a1%9e%e6%8c%89%e9%88%95%e5%85%83%e4%bb%b6-categorylisttsx aria-label="商品分類按鈕元件 (categoryList.tsx)">商品分類按鈕元件 (categoryList.tsx)</a></li>
+<li>
+<a href=#%e8%a1%a8%e9%a0%ad%e5%85%83%e4%bb%b6-header aria-label="表頭元件 (header)">表頭元件 (header)</a></li>
+<li>
+<a href=#%e5%95%86%e5%93%81%e6%b8%85%e5%96%ae%e5%85%83%e4%bb%b6-productlist aria-label="商品清單元件 (productList)">商品清單元件 (productList)</a></li>
+<li>
+<a href=#%e6%aa%94%e6%a1%88%e7%b5%90%e6%a7%8b aria-label=檔案結構>檔案結構</a></li></ul>
+</li>
+<li>
+<a href=#%e4%bd%bf%e7%94%a8-data-store-%e4%be%86%e7%ae%a1%e7%90%86-react-%e6%87%89%e7%94%a8%e7%a8%8b%e5%bc%8f%e7%9a%84%e8%b3%87%e6%96%99 aria-label="使用 Data Store 來管理 React 應用程式的資料">使用 Data Store 來管理 React 應用程式的資料</a><ul>
+<li>
+<a href=#%e5%ae%89%e8%a3%9d-redux aria-label="安裝 Redux">安裝 Redux</a></li>
+<li>
+<a href=#%e5%bb%ba%e7%ab%8b-redux-%e7%9a%84-action-%e9%a1%9e%e5%88%a5 aria-label="建立 Redux 的 action 類別">建立 Redux 的 action 類別</a></li>
+<li>
+<a href=#%e5%bb%ba%e7%ab%8b-action-creator aria-label="建立 action creator">建立 action creator</a></li>
+<li>
+<a href=#%e5%bb%ba%e7%ab%8b-redux-reducer-%e4%be%86%e8%99%95%e7%90%86-action aria-label="建立 Redux reducer 來處理 action">建立 Redux reducer 來處理 action</a></li>
+<li>
+<a href=#%e5%bb%ba%e7%ab%8b-data-store aria-label="建立 Data store">建立 Data store</a></li></ul>
+</li>
+<li>
+<a href=#%e6%96%b0%e5%a2%9e-http-%e8%ab%8b%e6%b1%82%e9%a1%9e%e5%88%a5 aria-label="新增 HTTP 請求類別">新增 HTTP 請求類別</a><ul>
+<li>
+<a href=#%e5%ae%89%e8%a3%9d-axios aria-label="安裝 axios">安裝 axios</a></li>
+<li>
+<a href=#%e5%bb%ba%e7%ab%8b-httphandlerts aria-label="建立 httpHandler.ts">建立 httpHandler.ts</a></li></ul>
+</li>
+<li>
+<a href=#%e9%80%a3%e7%b5%90-data-store-%e8%88%87%e5%90%84%e5%80%8b%e5%85%83%e4%bb%b6 aria-label="連結 Data Store 與各個元件">連結 Data Store 與各個元件</a></li>
+<li>
+<a href=#%e4%bf%ae%e6%94%b9-apptsx aria-label="修改 App.tsx">修改 App.tsx</a></li>
+<li>
+<a href=#%e5%9f%b7%e8%a1%8c%e6%b8%ac%e8%a9%a6 aria-label=執行測試>執行測試</a></li>
+<li>
+<a href=#%e5%ae%8c%e6%88%90%e5%85%b6%e4%bb%96%e5%8a%9f%e8%83%bd aria-label=完成其他功能>完成其他功能</a><ul>
+<li>
+<a href=#%e5%ae%89%e8%a3%9d-react-router-%e5%a5%97%e4%bb%b6 aria-label="安裝 React Router 套件">安裝 React Router 套件</a></li>
+<li>
+<a href=#url-%e8%b7%af%e7%94%b1%e8%a8%ad%e5%ae%9a aria-label="URL 路由設定">URL 路由設定</a></li>
+<li>
+<a href=#%e5%8a%a0%e5%85%a5%e8%a8%82%e5%96%ae%e7%a2%ba%e8%aa%8d%e5%85%83%e4%bb%b6 aria-label=加入訂單確認元件>加入訂單確認元件</a></li>
+<li>
+<a href=#%e5%8a%a0%e5%85%a5%e8%a8%82%e8%b3%bc%e6%88%90%e5%8a%9f%e5%85%83%e4%bb%b6 aria-label=加入訂購成功元件>加入訂購成功元件</a></li>
+<li>
+<a href=#%e4%bf%ae%e6%94%b9-headertsx-url-%e8%bd%89%e5%9d%80%e5%8a%9f%e8%83%bd aria-label="修改 Header.tsx URL 轉址功能">修改 Header.tsx URL 轉址功能</a></li>
+<li>
+<a href=#%e5%ae%8c%e6%88%90%e8%b7%af%e7%94%b1%e8%a8%ad%e5%ae%9a aria-label=完成路由設定>完成路由設定</a></li>
+<li>
+<a href=#%e5%9f%b7%e8%a1%8c%e6%b8%ac%e8%a9%a6-1 aria-label=執行測試>執行測試</a></li></ul>
+</li>
+<li>
+<a href=#%e4%bd%88%e7%bd%b2%e6%87%89%e7%94%a8%e7%a8%8b%e5%bc%8f aria-label=佈署應用程式>佈署應用程式</a><ul>
+<li>
+<a href=#%e5%ae%89%e8%a3%9d-express-%e5%a5%97%e4%bb%b6---connect-history-api-fallback-%e5%a5%97%e4%bb%b6 aria-label="安裝 express 套件 &amp;amp; -connect-history-api-fallback 套件">安裝 express 套件 & -connect-history-api-fallback 套件</a></li>
+<li>
+<a href=#%e5%bb%ba%e7%ab%8b-node-%e4%bc%ba%e6%9c%8d%e5%99%a8 aria-label="建立 node 伺服器">建立 node 伺服器</a></li>
+<li>
+<a href=#%e4%bf%ae%e6%94%b9-url-%e8%b7%af%e5%be%91 aria-label="修改 url 路徑">修改 url 路徑</a></li>
+<li>
+<a href=#%e5%bb%ba%e7%bd%ae-react-app aria-label="建置 React App">建置 React App</a></li>
+<li>
+<a href=#%e5%9f%b7%e8%a1%8c aria-label=執行>執行</a>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</details>
+</div>
+<div class=post-content><p><em><a href=https://github.com/calvinegs/reactApp.git>github Source code</a></em></p>
+<p>Angular、React、Vue 是三個最受歡迎的前端框架，這是三篇筆記分別使用這三個不同的框架來建立功能一模一樣的網路應用程式中的第二篇。</p>
+<p>這個網路應用程式的需求</p>
+<ul>
+<li>産品訂購功能
+<ul>
+<li>表頭：訂購商品總數、總額及送出訂單功能</li>
+<li>商品過濾功能：依産品類別來顯示商品</li>
+<li>商品清單：顯示商品明細、商品售價、訂購數量下拉選單及加入購物車等功能</li>
+</ul>
+</li>
+<li>訂單確認功能：顯示訂購商品明細及總金額</li>
+<li>訂購成功功能：顯示訂購完成資訊</li>
+</ul>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/185827887-9df81f19-49fa-4948-adc3-1851acf9dc5a.png alt=image>
+</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/185831273-8dd2f971-ea12-4151-aed7-294303430af9.png alt=image>
+</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/185831337-ca82deea-dacf-4c88-b3f3-83110f30cb12.png alt="2022-08-22 11-12-24 的螢幕擷圖">
+</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/185831442-f3cfe442-673f-4be6-b3e1-a5e71c45533b.png alt="2022-08-22 11-13-51 的螢幕擷圖">
+</p>
+<p>使用技術:</p>
+<ul>
+<li>React 18</li>
+<li>Bootstrap 5 (UI Framework)</li>
+<li>React Router 6</li>
+<li>React Redux 8</li>
+<li>NodeJS & Express</li>
+<li>json-server</li>
+<li>npm-run-all (npm 套件)</li>
+</ul>
+<h2 id=建立新專案>建立新專案<a hidden class=anchor aria-hidden=true href=#建立新專案>#</a></h2>
+<p>使用下列的 npm init 語法即可建立最新版 Angular 預設的應用程式結構</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$ npx create-react-app reactapp --template typescript
+
+Creating a new React app in /home/egs/cal-data/tech-test/typescript/book/reactapp.
+
+Installing packages. This might take a couple of minutes.
+Installing react, react-dom, and react-scripts with cra-template-typescript...
+
+
+added <span style=color:#ae81ff>1393</span> packages in 45s
+
+<span style=color:#ae81ff>207</span> packages are looking <span style=color:#66d9ef>for</span> funding
+  run <span style=color:#e6db74>`</span>npm fund<span style=color:#e6db74>`</span> <span style=color:#66d9ef>for</span> details
+
+Initialized a git repository.
+
+Installing template dependencies using npm...
+
+added <span style=color:#ae81ff>35</span> packages, and changed <span style=color:#ae81ff>1</span> package in 5s
+
+<span style=color:#ae81ff>207</span> packages are looking <span style=color:#66d9ef>for</span> funding
+  run <span style=color:#e6db74>`</span>npm fund<span style=color:#e6db74>`</span> <span style=color:#66d9ef>for</span> details
+
+We detected TypeScript in your project <span style=color:#f92672>(</span>src/App.test.tsx<span style=color:#f92672>)</span> and created a tsconfig.json file <span style=color:#66d9ef>for</span> you.
+
+Your tsconfig.json has been populated with default values.
+
+Removing template package using npm...
+
+
+removed <span style=color:#ae81ff>1</span> package, and audited <span style=color:#ae81ff>1428</span> packages in 2s
+
+<span style=color:#ae81ff>207</span> packages are looking <span style=color:#66d9ef>for</span> funding
+  run <span style=color:#e6db74>`</span>npm fund<span style=color:#e6db74>`</span> <span style=color:#66d9ef>for</span> details
+
+<span style=color:#ae81ff>6</span> high severity vulnerabilities
+
+To address all issues <span style=color:#f92672>(</span>including breaking changes<span style=color:#f92672>)</span>, run:
+  npm audit fix --force
+
+Run <span style=color:#e6db74>`</span>npm audit<span style=color:#e6db74>`</span> <span style=color:#66d9ef>for</span> details.
+
+Created git commit.
+
+Success! Created reactapp at /home/egs/cal-data/tech-test/typescript/book/reactapp
+Inside that directory, you can run several commands:
+
+  npm start
+    Starts the development server.
+
+  npm run build
+    Bundles the app into static files <span style=color:#66d9ef>for</span> production.
+
+  npm test
+    Starts the test runner.
+
+  npm run eject
+    Removes this tool and copies build dependencies, configuration files
+    and scripts into the app directory. If you <span style=color:#66d9ef>do</span> this, you can’t go back!
+
+We suggest that you begin by typing:
+
+  cd reactapp
+  npm start
+
+Happy hacking!
+</code></pre></div><h3 id=查看-packagejson-中相依套件及版本>查看 package.json 中相依套件及版本<a hidden class=anchor aria-hidden=true href=#查看-packagejson-中相依套件及版本>#</a></h3>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$ cd reactapp
+
+$ cat package.json 
+<span style=color:#f92672>{</span>
+  <span style=color:#e6db74>&#34;name&#34;</span>: <span style=color:#e6db74>&#34;reactapp&#34;</span>,
+  <span style=color:#e6db74>&#34;version&#34;</span>: <span style=color:#e6db74>&#34;0.1.0&#34;</span>,
+  <span style=color:#e6db74>&#34;private&#34;</span>: true,
+  <span style=color:#e6db74>&#34;dependencies&#34;</span>: <span style=color:#f92672>{</span>
+    <span style=color:#e6db74>&#34;@testing-library/jest-dom&#34;</span>: <span style=color:#e6db74>&#34;^5.16.5&#34;</span>,
+    <span style=color:#e6db74>&#34;@testing-library/react&#34;</span>: <span style=color:#e6db74>&#34;^13.3.0&#34;</span>,
+    <span style=color:#e6db74>&#34;@testing-library/user-event&#34;</span>: <span style=color:#e6db74>&#34;^13.5.0&#34;</span>,
+    <span style=color:#e6db74>&#34;@types/jest&#34;</span>: <span style=color:#e6db74>&#34;^27.5.2&#34;</span>,
+    <span style=color:#e6db74>&#34;@types/node&#34;</span>: <span style=color:#e6db74>&#34;^16.11.54&#34;</span>,
+    <span style=color:#e6db74>&#34;@types/react&#34;</span>: <span style=color:#e6db74>&#34;^18.0.17&#34;</span>,
+    <span style=color:#e6db74>&#34;@types/react-dom&#34;</span>: <span style=color:#e6db74>&#34;^18.0.6&#34;</span>,
+    <span style=color:#e6db74>&#34;react&#34;</span>: <span style=color:#e6db74>&#34;^18.2.0&#34;</span>,
+    <span style=color:#e6db74>&#34;react-dom&#34;</span>: <span style=color:#e6db74>&#34;^18.2.0&#34;</span>,
+    <span style=color:#e6db74>&#34;react-scripts&#34;</span>: <span style=color:#e6db74>&#34;5.0.1&#34;</span>,
+    <span style=color:#e6db74>&#34;typescript&#34;</span>: <span style=color:#e6db74>&#34;^4.7.4&#34;</span>,
+    <span style=color:#e6db74>&#34;web-vitals&#34;</span>: <span style=color:#e6db74>&#34;^2.1.4&#34;</span>
+  <span style=color:#f92672>}</span>,
+  <span style=color:#e6db74>&#34;scripts&#34;</span>: <span style=color:#f92672>{</span>
+    <span style=color:#e6db74>&#34;start&#34;</span>: <span style=color:#e6db74>&#34;react-scripts start&#34;</span>,
+    <span style=color:#e6db74>&#34;build&#34;</span>: <span style=color:#e6db74>&#34;react-scripts build&#34;</span>,
+    <span style=color:#e6db74>&#34;test&#34;</span>: <span style=color:#e6db74>&#34;react-scripts test&#34;</span>,
+    <span style=color:#e6db74>&#34;eject&#34;</span>: <span style=color:#e6db74>&#34;react-scripts eject&#34;</span>
+  <span style=color:#f92672>}</span>,
+  <span style=color:#e6db74>&#34;eslintConfig&#34;</span>: <span style=color:#f92672>{</span>
+    <span style=color:#e6db74>&#34;extends&#34;</span>: <span style=color:#f92672>[</span>
+      <span style=color:#e6db74>&#34;react-app&#34;</span>,
+      <span style=color:#e6db74>&#34;react-app/jest&#34;</span>
+    <span style=color:#f92672>]</span>
+  <span style=color:#f92672>}</span>,
+  <span style=color:#e6db74>&#34;browserslist&#34;</span>: <span style=color:#f92672>{</span>
+    <span style=color:#e6db74>&#34;production&#34;</span>: <span style=color:#f92672>[</span>
+      <span style=color:#e6db74>&#34;&gt;0.2%&#34;</span>,
+      <span style=color:#e6db74>&#34;not dead&#34;</span>,
+      <span style=color:#e6db74>&#34;not op_mini all&#34;</span>
+    <span style=color:#f92672>]</span>,
+    <span style=color:#e6db74>&#34;development&#34;</span>: <span style=color:#f92672>[</span>
+      <span style=color:#e6db74>&#34;last 1 chrome version&#34;</span>,
+      <span style=color:#e6db74>&#34;last 1 firefox version&#34;</span>,
+      <span style=color:#e6db74>&#34;last 1 safari version&#34;</span>
+    <span style=color:#f92672>]</span>
+  <span style=color:#f92672>}</span>
+<span style=color:#f92672>}</span>
+</code></pre></div><h3 id=産生的預設程式結構>産生的預設程式結構<a hidden class=anchor aria-hidden=true href=#産生的預設程式結構>#</a></h3>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/185837091-3fac5ad7-b418-406e-98d2-f790958f6c2f.png alt=image>
+</p>
+<h3 id=執行由-cli-産生的預設程式架構>執行由 CLI 産生的預設程式架構<a hidden class=anchor aria-hidden=true href=#執行由-cli-産生的預設程式架構>#</a></h3>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$ npm i
+$ npm start
+
+
+Compiled successfully!
+
+You can now view reactapp in the browser.
+
+  Local:            http://localhost:3000
+  On Your Network:  http://192.168.0.125:3000
+
+Note that the development build is not optimized.
+To create a production build, use npm run build.
+
+webpack compiled successfully
+No issues found.
+
+</code></pre></div><p>開啟瀏覽器，輸入 http://localhost:3000/
+<img loading=lazy src=https://user-images.githubusercontent.com/21993717/186106838-96a4551d-77c6-4edb-befc-ef0567c8597c.png alt=image>
+</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$ git add . <span style=color:#f92672>&amp;&amp;</span> git commit -m <span style=color:#e6db74>&#34;Initial Commit&#34;</span> <span style=color:#75715e># 加入 git 新版本</span>
+$ code .    <span style=color:#75715e># 打開 vscode</span>
+</code></pre></div><h2 id=使用-json-server-當作後端-web-api>使用 json-server 當作後端 Web Api<a hidden class=anchor aria-hidden=true href=#使用-json-server-當作後端-web-api>#</a></h2>
+<p>在我們的前端應用程式中會使用到後端伺服器的資料，方便起見直接使用 json-server　來當作後端 Web Api</p>
+<h3 id=安裝-json-server>安裝 json-server<a hidden class=anchor aria-hidden=true href=#安裝-json-server>#</a></h3>
+<p><code>$ npm install --save-dev json-server@0.17.0 npm-run-all@4.1.5</code></p>
+<h3 id=建立給-json-server-使用的資料>建立給 json-server 使用的資料<a hidden class=anchor aria-hidden=true href=#建立給-json-server-使用的資料>#</a></h3>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$ touch data.json
+<span style=color:#75715e># data.json 內容如下</span>
+<span style=color:#f92672>{</span>
+  <span style=color:#e6db74>&#34;products&#34;</span>: <span style=color:#f92672>[</span>
+    <span style=color:#f92672>{</span>
+      <span style=color:#e6db74>&#34;id&#34;</span>: 1,
+      <span style=color:#e6db74>&#34;name&#34;</span>: <span style=color:#e6db74>&#34;kayak&#34;</span>,
+      <span style=color:#e6db74>&#34;category&#34;</span>: <span style=color:#e6db74>&#34;Watersports&#34;</span>,
+      <span style=color:#e6db74>&#34;description&#34;</span>: <span style=color:#e6db74>&#34;A boat form on person&#34;</span>,
+      <span style=color:#e6db74>&#34;price&#34;</span>: <span style=color:#ae81ff>275</span>
+    <span style=color:#f92672>}</span>,
+    <span style=color:#f92672>{</span>
+      <span style=color:#e6db74>&#34;id&#34;</span>: 2,
+      <span style=color:#e6db74>&#34;name&#34;</span>: <span style=color:#e6db74>&#34;Lifejacket&#34;</span>,
+      <span style=color:#e6db74>&#34;category&#34;</span>: <span style=color:#e6db74>&#34;Watersports&#34;</span>,
+      <span style=color:#e6db74>&#34;description&#34;</span>: <span style=color:#e6db74>&#34;Protective and fashionable boat form on person&#34;</span>,
+      <span style=color:#e6db74>&#34;price&#34;</span>: 48.95
+    <span style=color:#f92672>}</span>,
+    <span style=color:#f92672>{</span>
+      <span style=color:#e6db74>&#34;id&#34;</span>: 3,
+      <span style=color:#e6db74>&#34;name&#34;</span>: <span style=color:#e6db74>&#34;Soccer Ball&#34;</span>,
+      <span style=color:#e6db74>&#34;category&#34;</span>: <span style=color:#e6db74>&#34;Soccer&#34;</span>,
+      <span style=color:#e6db74>&#34;description&#34;</span>: <span style=color:#e6db74>&#34;FIFA-approved size and weight&#34;</span>,
+      <span style=color:#e6db74>&#34;price&#34;</span>: 19.5
+    <span style=color:#f92672>}</span>,
+    <span style=color:#f92672>{</span>
+      <span style=color:#e6db74>&#34;id&#34;</span>: 4,
+      <span style=color:#e6db74>&#34;name&#34;</span>: <span style=color:#e6db74>&#34;Corner Flags&#34;</span>,
+      <span style=color:#e6db74>&#34;category&#34;</span>: <span style=color:#e6db74>&#34;Soccer&#34;</span>,
+      <span style=color:#e6db74>&#34;description&#34;</span>: <span style=color:#e6db74>&#34;Give your playing field a professional touch&#34;</span>,
+      <span style=color:#e6db74>&#34;price&#34;</span>: 34.95
+    <span style=color:#f92672>}</span>,
+    <span style=color:#f92672>{</span>
+      <span style=color:#e6db74>&#34;id&#34;</span>: 5,
+      <span style=color:#e6db74>&#34;name&#34;</span>: <span style=color:#e6db74>&#34;Stadium&#34;</span>,
+      <span style=color:#e6db74>&#34;category&#34;</span>: <span style=color:#e6db74>&#34;Soccer&#34;</span>,
+      <span style=color:#e6db74>&#34;description&#34;</span>: <span style=color:#e6db74>&#34;Flat-packed 35,000-seat stadium&#34;</span>,
+      <span style=color:#e6db74>&#34;price&#34;</span>: <span style=color:#ae81ff>79500</span>
+    <span style=color:#f92672>}</span>,
+    <span style=color:#f92672>{</span>
+      <span style=color:#e6db74>&#34;id&#34;</span>: 6,
+      <span style=color:#e6db74>&#34;name&#34;</span>: <span style=color:#e6db74>&#34;Thinking Cap&#34;</span>,
+      <span style=color:#e6db74>&#34;category&#34;</span>: <span style=color:#e6db74>&#34;Chess&#34;</span>,
+      <span style=color:#e6db74>&#34;description&#34;</span>: <span style=color:#e6db74>&#34;Imporove brain efficiency by 75%&#34;</span>,
+      <span style=color:#e6db74>&#34;price&#34;</span>: <span style=color:#ae81ff>16</span>
+    <span style=color:#f92672>}</span>,
+    <span style=color:#f92672>{</span>
+      <span style=color:#e6db74>&#34;id&#34;</span>: 7,
+      <span style=color:#e6db74>&#34;name&#34;</span>: <span style=color:#e6db74>&#34;Unsteady Chair&#34;</span>,
+      <span style=color:#e6db74>&#34;category&#34;</span>: <span style=color:#e6db74>&#34;Chess&#34;</span>,
+      <span style=color:#e6db74>&#34;description&#34;</span>: <span style=color:#e6db74>&#34;Secretly give your opponent a disadvantage&#34;</span>,
+      <span style=color:#e6db74>&#34;price&#34;</span>: 29.95
+    <span style=color:#f92672>}</span>,
+    <span style=color:#f92672>{</span>
+      <span style=color:#e6db74>&#34;id&#34;</span>: 8,
+      <span style=color:#e6db74>&#34;name&#34;</span>: <span style=color:#e6db74>&#34;Human Chess Board&#34;</span>,
+      <span style=color:#e6db74>&#34;category&#34;</span>: <span style=color:#e6db74>&#34;Chess&#34;</span>,
+      <span style=color:#e6db74>&#34;description&#34;</span>: <span style=color:#e6db74>&#34;A fun game for the family&#34;</span>,
+      <span style=color:#e6db74>&#34;price&#34;</span>: <span style=color:#ae81ff>75</span>
+    <span style=color:#f92672>}</span>,
+    <span style=color:#f92672>{</span>
+      <span style=color:#e6db74>&#34;id&#34;</span>: 9,
+      <span style=color:#e6db74>&#34;name&#34;</span>: <span style=color:#e6db74>&#34;Bling Bling King&#34;</span>,
+      <span style=color:#e6db74>&#34;category&#34;</span>: <span style=color:#e6db74>&#34;Chess&#34;</span>,
+      <span style=color:#e6db74>&#34;description&#34;</span>: <span style=color:#e6db74>&#34;Gold-plated, diamond-studded King&#34;</span>,
+      <span style=color:#e6db74>&#34;price&#34;</span>: <span style=color:#ae81ff>1200</span>
+    <span style=color:#f92672>}</span>
+  <span style=color:#f92672>]</span>,
+  <span style=color:#e6db74>&#34;orders&#34;</span>: <span style=color:#f92672>[</span>
+  <span style=color:#f92672>]</span>
+<span style=color:#f92672>}</span>
+</code></pre></div><h3 id=測試-json-server>測試 json-server<a hidden class=anchor aria-hidden=true href=#測試-json-server>#</a></h3>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$ npx json-server data.json -p <span style=color:#ae81ff>4600</span> <span style=color:#75715e># 使用 4600 port</span>
+
+
+  <span style=color:#ae81ff>\{</span>^_^<span style=color:#f92672>}</span>/ hi!
+
+  Loading data.json
+  Done
+
+  Resources
+  http://localhost:4600/products
+  http://localhost:4600/orders
+
+  Home
+  http://localhost:4600
+
+  Type s + enter at any time to create a snapshot of the database
+GET /db <span style=color:#ae81ff>304</span> 1.630 ms - -
+GET /__rules <span style=color:#ae81ff>404</span> 4.536 ms - <span style=color:#ae81ff>2</span>
+</code></pre></div><p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/185843921-21bd33f3-7721-4b48-83f2-fc9d88757925.png alt=image>
+</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/185844008-f153311c-1571-423f-91a2-17d9e5c54853.png alt="2022-08-22 13-12-47 的螢幕擷圖">
+</p>
+<h3 id=設定-npm-script-in-packagesjon>設定 npm script in package.sjon<a hidden class=anchor aria-hidden=true href=#設定-npm-script-in-packagesjon>#</a></h3>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json><span style=color:#75715e>// ...
+</span><span style=color:#75715e></span>	<span style=color:#e6db74>&#34;scripts&#34;</span><span style=color:#960050;background-color:#1e0010>:</span> {
+    <span style=color:#f92672>&#34;serve&#34;</span>: <span style=color:#e6db74>&#34;react-scripts start&#34;</span>,
+    <span style=color:#f92672>&#34;build&#34;</span>: <span style=color:#e6db74>&#34;react-scripts build&#34;</span>,
+    <span style=color:#f92672>&#34;test&#34;</span>: <span style=color:#e6db74>&#34;react-scripts test&#34;</span>,
+    <span style=color:#f92672>&#34;eject&#34;</span>: <span style=color:#e6db74>&#34;react-scripts eject&#34;</span>,
+    <span style=color:#f92672>&#34;json&#34;</span>: <span style=color:#e6db74>&#34;json-server data.json -p 4600&#34;</span>,
+    <span style=color:#f92672>&#34;start&#34;</span>: <span style=color:#e6db74>&#34;npm-run-all -p serve json&#34;</span>
+  }<span style=color:#960050;background-color:#1e0010>,</span>
+<span style=color:#75715e>// ...
+</span></code></pre></div><h2 id=在專案中使用-bootstrap-css-套件>在專案中使用 Bootstrap CSS 套件<a hidden class=anchor aria-hidden=true href=#在專案中使用-bootstrap-css-套件>#</a></h2>
+<h3 id=安裝-bootstrap-5>安裝 bootstrap 5<a hidden class=anchor aria-hidden=true href=#安裝-bootstrap-5>#</a></h3>
+<p><code>$ npm install bootstrap@5.2.0</code></p>
+<h3 id=引入-bootstrap-in-indextsx>引入 bootstrap in index.tsx<a hidden class=anchor aria-hidden=true href=#引入-bootstrap-in-indextsx>#</a></h3>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-tsx data-lang=tsx><span style=color:#75715e>// ./src/index.tsx
+</span><span style=color:#75715e></span><span style=color:#66d9ef>import</span> <span style=color:#a6e22e>React</span> <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;react&#39;</span>;
+<span style=color:#66d9ef>import</span> <span style=color:#a6e22e>ReactDOM</span> <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;react-dom/client&#39;</span>;
+<span style=color:#66d9ef>import</span> <span style=color:#e6db74>&#39;./index.css&#39;</span>;
+<span style=color:#66d9ef>import</span> <span style=color:#a6e22e>App</span> <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;./App&#39;</span>;
+<span style=color:#66d9ef>import</span> <span style=color:#e6db74>&#39;bootstrap/dist/css/bootstrap.css&#39;</span>;
+
+<span style=color:#66d9ef>const</span> <span style=color:#a6e22e>root</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>ReactDOM</span>.<span style=color:#a6e22e>createRoot</span>(
+  document.<span style=color:#a6e22e>getElementById</span>(<span style=color:#e6db74>&#39;root&#39;</span>) <span style=color:#66d9ef>as</span> <span style=color:#a6e22e>HTMLElement</span>
+);
+<span style=color:#a6e22e>root</span>.<span style=color:#a6e22e>render</span>(
+  &lt;<span style=color:#f92672>React.StrictMode</span>&gt;
+    &lt;<span style=color:#f92672>App</span> /&gt;
+  &lt;/<span style=color:#f92672>React.StrictMode</span>&gt;
+);
+</code></pre></div><h2 id=修改-tsconfigjson>修改 tsconfig.json<a hidden class=anchor aria-hidden=true href=#修改-tsconfigjson>#</a></h2>
+<p>將 &ldquo;target&rdquo; 改成 &ldquo;es2015&rdquo;</p>
+<div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4>
+<table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0>
+<pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style=display:block;width:100%;background-color:#3c3d38><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span></span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span></code></pre></td>
+<td style=vertical-align:top;padding:0;margin:0;border:0;width:100%>
+<pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json>{
+  <span style=color:#f92672>&#34;compilerOptions&#34;</span>: {
+<span style=display:block;width:100%;background-color:#3c3d38>    <span style=color:#f92672>&#34;target&#34;</span>: <span style=color:#e6db74>&#34;es2015&#34;</span>,
+</span>    <span style=color:#f92672>&#34;lib&#34;</span>: [
+      <span style=color:#e6db74>&#34;dom&#34;</span>,
+      <span style=color:#e6db74>&#34;dom.iterable&#34;</span>,
+      <span style=color:#e6db74>&#34;esnext&#34;</span>
+    ],
+    <span style=color:#f92672>&#34;allowJs&#34;</span>: <span style=color:#66d9ef>true</span>,
+    <span style=color:#75715e>// ...
+</span><span style=color:#75715e></span>  }
+}  
+</code></pre></td></tr></table>
+</div>
+</div><h2 id=為網站加入資料>為網站加入資料<a hidden class=anchor aria-hidden=true href=#為網站加入資料>#</a></h2>
+<h3 id=建立資料模型>建立資料模型<a hidden class=anchor aria-hidden=true href=#建立資料模型>#</a></h3>
+<p><code>$ mkdir ./src/data && touch ./src/data/entities.ts</code></p>
+<p>entities.ts 檔案內容如下：</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-ts data-lang=ts><span style=color:#75715e>// ./src/data/entities.ts
+</span><span style=color:#75715e></span><span style=color:#66d9ef>export</span> <span style=color:#66d9ef>type</span> <span style=color:#a6e22e>Product</span> <span style=color:#f92672>=</span> {
+    <span style=color:#a6e22e>id</span>: <span style=color:#66d9ef>number</span>,
+    <span style=color:#a6e22e>name</span>: <span style=color:#66d9ef>string</span>,
+    <span style=color:#a6e22e>description</span>: <span style=color:#66d9ef>string</span>,
+    <span style=color:#a6e22e>category</span>: <span style=color:#66d9ef>string</span>,
+    <span style=color:#a6e22e>price</span>: <span style=color:#66d9ef>number</span>
+};
+
+<span style=color:#66d9ef>export</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>OrderLine</span> {
+    <span style=color:#66d9ef>constructor</span>(<span style=color:#66d9ef>public</span> <span style=color:#a6e22e>product</span>: <span style=color:#66d9ef>Product</span>, <span style=color:#66d9ef>public</span> <span style=color:#a6e22e>quantity</span>: <span style=color:#66d9ef>number</span>) { }
+
+    <span style=color:#66d9ef>get</span> <span style=color:#a6e22e>total</span>()<span style=color:#f92672>:</span> <span style=color:#66d9ef>number</span> {
+        <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>this</span>.<span style=color:#a6e22e>product</span>.<span style=color:#a6e22e>price</span> <span style=color:#f92672>*</span> <span style=color:#66d9ef>this</span>.<span style=color:#a6e22e>quantity</span>;
+    }
+}
+
+<span style=color:#66d9ef>export</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>Order</span> {
+    <span style=color:#66d9ef>private</span> <span style=color:#a6e22e>lines</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> <span style=color:#a6e22e>Map</span>&lt;<span style=color:#f92672>number</span><span style=color:#960050;background-color:#1e0010>,</span> <span style=color:#a6e22e>OrderLine</span>&gt;();
+
+    <span style=color:#66d9ef>constructor</span>(<span style=color:#a6e22e>initialLines?</span>: <span style=color:#66d9ef>OrderLine</span>[]) {
+        <span style=color:#66d9ef>if</span> (<span style=color:#a6e22e>initialLines</span>) {
+            <span style=color:#a6e22e>initialLines</span>.<span style=color:#a6e22e>forEach</span>(<span style=color:#a6e22e>ol</span> <span style=color:#f92672>=&gt;</span> <span style=color:#66d9ef>this</span>.<span style=color:#a6e22e>lines</span>.<span style=color:#66d9ef>set</span>(<span style=color:#a6e22e>ol</span>.<span style=color:#a6e22e>product</span>.<span style=color:#a6e22e>id</span>, <span style=color:#a6e22e>ol</span>));
+        }
+    }
+
+    <span style=color:#66d9ef>public</span> <span style=color:#a6e22e>addProduct</span>(<span style=color:#a6e22e>prod</span>: <span style=color:#66d9ef>Product</span>, <span style=color:#a6e22e>quantity</span>: <span style=color:#66d9ef>number</span>) {
+        <span style=color:#66d9ef>if</span> (<span style=color:#66d9ef>this</span>.<span style=color:#a6e22e>lines</span>.<span style=color:#a6e22e>has</span>(<span style=color:#a6e22e>prod</span>.<span style=color:#a6e22e>id</span>)) {
+            <span style=color:#66d9ef>if</span> (<span style=color:#a6e22e>quantity</span> <span style=color:#f92672>===</span> <span style=color:#ae81ff>0</span>) {
+                <span style=color:#66d9ef>this</span>.<span style=color:#a6e22e>removeProduct</span>(<span style=color:#a6e22e>prod</span>.<span style=color:#a6e22e>id</span>);
+            } <span style=color:#66d9ef>else</span> {
+                <span style=color:#66d9ef>this</span>.<span style=color:#a6e22e>lines</span>.<span style=color:#66d9ef>get</span>(<span style=color:#a6e22e>prod</span>.<span style=color:#a6e22e>id</span>)<span style=color:#f92672>!</span>.<span style=color:#a6e22e>quantity</span> <span style=color:#f92672>+=</span> <span style=color:#a6e22e>quantity</span>;
+            }
+        } <span style=color:#66d9ef>else</span> {
+            <span style=color:#66d9ef>this</span>.<span style=color:#a6e22e>lines</span>.<span style=color:#66d9ef>set</span>(<span style=color:#a6e22e>prod</span>.<span style=color:#a6e22e>id</span>, <span style=color:#66d9ef>new</span> <span style=color:#a6e22e>OrderLine</span>(<span style=color:#a6e22e>prod</span>, <span style=color:#a6e22e>quantity</span>));
+        }
+    }
+
+    <span style=color:#66d9ef>public</span> <span style=color:#a6e22e>removeProduct</span>(<span style=color:#a6e22e>id</span>: <span style=color:#66d9ef>number</span>) {
+        <span style=color:#66d9ef>this</span>.<span style=color:#a6e22e>lines</span>.<span style=color:#66d9ef>delete</span>(<span style=color:#a6e22e>id</span>);
+    }
+    
+    <span style=color:#66d9ef>get</span> <span style=color:#a6e22e>orderLines</span>()<span style=color:#f92672>:</span> <span style=color:#a6e22e>OrderLine</span>[] {
+        <span style=color:#66d9ef>return</span> [...<span style=color:#66d9ef>this</span>.<span style=color:#a6e22e>lines</span>.<span style=color:#a6e22e>values</span>()];
+    }
+
+    <span style=color:#66d9ef>get</span> <span style=color:#a6e22e>productCount</span>()<span style=color:#f92672>:</span> <span style=color:#66d9ef>number</span> {
+        <span style=color:#66d9ef>return</span> [...<span style=color:#66d9ef>this</span>.<span style=color:#a6e22e>lines</span>.<span style=color:#a6e22e>values</span>()]
+            .<span style=color:#a6e22e>reduce</span>((<span style=color:#a6e22e>total</span>, <span style=color:#a6e22e>ol</span>) <span style=color:#f92672>=&gt;</span> <span style=color:#a6e22e>total</span> <span style=color:#f92672>+=</span> <span style=color:#a6e22e>ol</span>.<span style=color:#a6e22e>quantity</span>, <span style=color:#ae81ff>0</span>);
+    }
+    
+    <span style=color:#66d9ef>get</span> <span style=color:#a6e22e>total</span>()<span style=color:#f92672>:</span> <span style=color:#66d9ef>number</span> {
+        <span style=color:#66d9ef>return</span> [...<span style=color:#66d9ef>this</span>.<span style=color:#a6e22e>lines</span>.<span style=color:#a6e22e>values</span>()].<span style=color:#a6e22e>reduce</span>((<span style=color:#a6e22e>total</span>, <span style=color:#a6e22e>ol</span>) <span style=color:#f92672>=&gt;</span> <span style=color:#a6e22e>total</span> <span style=color:#f92672>+=</span> <span style=color:#a6e22e>ol</span>.<span style=color:#a6e22e>total</span>, <span style=color:#ae81ff>0</span>);
+    }
+}
+</code></pre></div><h2 id=建立商品訂購相關元件>建立商品訂購相關元件<a hidden class=anchor aria-hidden=true href=#建立商品訂購相關元件>#</a></h2>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$ mkdir ./src/pages
+$ touch ./src/pages/productItem.tsx
+$ touch ./src/pages/categoryList.tsx
+$ touch ./src/pages/header.tsx
+$ touch ./src/pages/productList.tsx
+</code></pre></div><h3 id=商品明細元件-productitem>商品明細元件 (productItem)<a hidden class=anchor aria-hidden=true href=#商品明細元件-productitem>#</a></h3>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-tsx data-lang=tsx><span style=color:#75715e>// productItem.tsx
+</span><span style=color:#75715e></span><span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>ChangeEvent</span>, <span style=color:#a6e22e>FunctionComponent</span>, <span style=color:#a6e22e>useState</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#34;react&#34;</span>;
+<span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>Product</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#34;../data/entities&#34;</span>;
+
+<span style=color:#66d9ef>interface</span> <span style=color:#a6e22e>Props</span> {
+    <span style=color:#a6e22e>product</span>: <span style=color:#66d9ef>Product</span>,
+    <span style=color:#a6e22e>callback</span><span style=color:#f92672>:</span> (<span style=color:#a6e22e>product</span>: <span style=color:#66d9ef>Product</span>, <span style=color:#a6e22e>quantity</span>: <span style=color:#66d9ef>number</span>) <span style=color:#f92672>=&gt;</span> <span style=color:#66d9ef>void</span>
+}
+
+<span style=color:#66d9ef>export</span> <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>ProductItem</span>: <span style=color:#66d9ef>FunctionComponent</span>&lt;<span style=color:#f92672>Props</span>&gt; <span style=color:#f92672>=</span> (<span style=color:#a6e22e>props</span>) <span style=color:#f92672>=&gt;</span> {
+    <span style=color:#66d9ef>const</span> [<span style=color:#a6e22e>quantity</span>, <span style=color:#a6e22e>setQuantity</span>] <span style=color:#f92672>=</span> <span style=color:#a6e22e>useState</span>&lt;<span style=color:#f92672>number</span>&gt;(<span style=color:#ae81ff>1</span>);
+
+    <span style=color:#66d9ef>return</span> &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>className</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;card m-1 p-1 bg-light&#34;</span>&gt;
+        &lt;<span style=color:#f92672>h4</span>&gt;
+            {<span style=color:#a6e22e>props</span>.<span style=color:#a6e22e>product</span>.<span style=color:#a6e22e>name</span>}
+            &lt;<span style=color:#f92672>span</span> <span style=color:#a6e22e>className</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;badge rounded-pill bg-primary float-end&#34;</span>&gt;
+                <span style=color:#a6e22e>$</span>{<span style=color:#a6e22e>props</span>.<span style=color:#a6e22e>product</span>.<span style=color:#a6e22e>price</span>.<span style=color:#a6e22e>toFixed</span>(<span style=color:#ae81ff>2</span>)}
+            &lt;/<span style=color:#f92672>span</span>&gt;
+        &lt;/<span style=color:#f92672>h4</span>&gt;
+        &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>className</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;card-text bg-white p-1&#34;</span>&gt;
+            {<span style=color:#a6e22e>props</span>.<span style=color:#a6e22e>product</span>.<span style=color:#a6e22e>description</span>}
+            &lt;<span style=color:#f92672>button</span> <span style=color:#a6e22e>className</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;btn btn-success btn-sm float-end&#34;</span> 
+                <span style=color:#a6e22e>onClick</span><span style=color:#f92672>=</span>{() <span style=color:#f92672>=&gt;</span> <span style=color:#a6e22e>props</span>.<span style=color:#a6e22e>callback</span>(<span style=color:#a6e22e>props</span>.<span style=color:#a6e22e>product</span>, <span style=color:#a6e22e>quantity</span>)} &gt;
+                <span style=color:#a6e22e>Add</span> <span style=color:#a6e22e>To</span> <span style=color:#a6e22e>Cart</span>
+            &lt;/<span style=color:#f92672>button</span>&gt;
+            &lt;<span style=color:#f92672>select</span> <span style=color:#a6e22e>className</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;form-control-inline float-end m-1&#34;</span> 
+                <span style=color:#a6e22e>onChange</span><span style=color:#f92672>=</span>{(<span style=color:#a6e22e>ev</span>: <span style=color:#66d9ef>ChangeEvent</span>&lt;<span style=color:#f92672>HTMLSelectElement</span>&gt;) <span style=color:#f92672>=&gt;</span>
+                <span style=color:#a6e22e>setQuantity</span>(Number(<span style=color:#a6e22e>ev</span>.<span style=color:#a6e22e>target</span>.<span style=color:#a6e22e>value</span>))}&gt;
+                &lt;<span style=color:#f92672>option</span>&gt;<span style=color:#ae81ff>1</span>&lt;/<span style=color:#f92672>option</span>&gt;
+                &lt;<span style=color:#f92672>option</span>&gt;<span style=color:#ae81ff>2</span>&lt;/<span style=color:#f92672>option</span>&gt;
+                &lt;<span style=color:#f92672>option</span>&gt;<span style=color:#ae81ff>3</span>&lt;/<span style=color:#f92672>option</span>&gt;
+            &lt;/<span style=color:#f92672>select</span>&gt;
+        &lt;/<span style=color:#f92672>div</span>&gt;
+    &lt;/<span style=color:#f92672>div</span>&gt;
+}
+</code></pre></div><h3 id=商品分類按鈕元件-categorylisttsx>商品分類按鈕元件 (categoryList.tsx)<a hidden class=anchor aria-hidden=true href=#商品分類按鈕元件-categorylisttsx>#</a></h3>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-tsx data-lang=tsx><span style=color:#75715e>// categoryList.tsx
+</span><span style=color:#75715e></span><span style=color:#66d9ef>import</span> <span style=color:#a6e22e>React</span>, { <span style=color:#a6e22e>ChangeEvent</span>, <span style=color:#a6e22e>FunctionComponent</span>, <span style=color:#a6e22e>useState</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;react&#39;</span>
+
+<span style=color:#66d9ef>interface</span> <span style=color:#a6e22e>Props</span> {
+    <span style=color:#a6e22e>selected</span>: <span style=color:#66d9ef>string</span>,
+    <span style=color:#a6e22e>categories</span>: <span style=color:#66d9ef>string</span>[],
+    <span style=color:#a6e22e>selectCategory</span><span style=color:#f92672>:</span> (<span style=color:#a6e22e>category</span>: <span style=color:#66d9ef>string</span>) <span style=color:#f92672>=&gt;</span> <span style=color:#66d9ef>void</span>
+}
+
+<span style=color:#75715e>// export default function productItem() {
+</span><span style=color:#75715e></span><span style=color:#66d9ef>export</span> <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>CategoryList</span>: <span style=color:#66d9ef>FunctionComponent</span>&lt;<span style=color:#f92672>Props</span>&gt; <span style=color:#f92672>=</span> (<span style=color:#a6e22e>props</span>) <span style=color:#f92672>=&gt;</span> {
+    <span style=color:#66d9ef>return</span> (
+        &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>className</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#39;d-grid gap-2&#39;</span>&gt;
+            {[<span style=color:#e6db74>&#34;All&#34;</span>, ...<span style=color:#a6e22e>props</span>.<span style=color:#a6e22e>categories</span>].<span style=color:#a6e22e>map</span>(<span style=color:#a6e22e>c</span> <span style=color:#f92672>=&gt;</span> {
+                <span style=color:#66d9ef>let</span> <span style=color:#a6e22e>btnClass</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>props</span>.<span style=color:#a6e22e>selected</span> <span style=color:#f92672>===</span> <span style=color:#a6e22e>c</span> <span style=color:#f92672>?</span> <span style=color:#e6db74>&#34;btn-primary&#34;</span> <span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;btn-secondary&#34;</span>;
+
+                <span style=color:#66d9ef>return</span> &lt;<span style=color:#f92672>button</span> <span style=color:#a6e22e>key</span><span style=color:#f92672>=</span>{<span style=color:#a6e22e>c</span>}
+                    <span style=color:#a6e22e>className</span><span style=color:#f92672>=</span>{<span style=color:#e6db74>`btn </span><span style=color:#e6db74>${</span><span style=color:#a6e22e>btnClass</span><span style=color:#e6db74>}</span><span style=color:#e6db74>`</span>}
+                    <span style=color:#a6e22e>onClick</span><span style=color:#f92672>=</span>{() <span style=color:#f92672>=&gt;</span> <span style=color:#a6e22e>props</span>.<span style=color:#a6e22e>selectCategory</span>(<span style=color:#a6e22e>c</span>)}&gt;
+                    {<span style=color:#a6e22e>c</span>}
+                &lt;/<span style=color:#f92672>button</span>&gt;
+            })}
+
+        &lt;/<span style=color:#f92672>div</span>&gt;
+    )
+}
+</code></pre></div><h3 id=表頭元件-header>表頭元件 (header)<a hidden class=anchor aria-hidden=true href=#表頭元件-header>#</a></h3>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-tsx data-lang=tsx><span style=color:#75715e>// header.tsx
+</span><span style=color:#75715e></span><span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>FunctionComponent</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;react&#39;</span>
+<span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>Order</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;../data/entities&#39;</span>
+
+<span style=color:#66d9ef>interface</span> <span style=color:#a6e22e>Props</span> {
+    <span style=color:#a6e22e>order</span>: <span style=color:#66d9ef>Order</span>
+}
+
+<span style=color:#75715e>// export default function productItem() {
+</span><span style=color:#75715e></span><span style=color:#66d9ef>export</span> <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>Header</span>: <span style=color:#66d9ef>FunctionComponent</span>&lt;<span style=color:#f92672>Props</span>&gt; <span style=color:#f92672>=</span> (<span style=color:#a6e22e>props</span>) <span style=color:#f92672>=&gt;</span> {
+    <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>count</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>props</span>.<span style=color:#a6e22e>order</span>.<span style=color:#a6e22e>productCount</span>;
+    <span style=color:#66d9ef>return</span> (
+        &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>className</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#39;p-1 bg-secondary text-white text-end&#39;</span>&gt;
+            {<span style=color:#a6e22e>count</span> <span style=color:#f92672>===</span> <span style=color:#ae81ff>0</span> <span style=color:#f92672>?</span> <span style=color:#e6db74>&#34;(No Selection)&#34;</span> <span style=color:#f92672>:</span> <span style=color:#e6db74>`</span><span style=color:#e6db74>${</span><span style=color:#a6e22e>count</span><span style=color:#e6db74>}</span><span style=color:#e6db74> product(s), $</span><span style=color:#e6db74>${</span><span style=color:#a6e22e>props</span>.<span style=color:#a6e22e>order</span>.<span style=color:#a6e22e>total</span>.<span style=color:#a6e22e>toFixed</span>(<span style=color:#ae81ff>2</span>)<span style=color:#e6db74>}</span><span style=color:#e6db74>`</span>}
+            &lt;<span style=color:#f92672>button</span> <span style=color:#a6e22e>className</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#39;btn btn-sm btn-primary m-1&#39;</span>&gt;
+                <span style=color:#a6e22e>Submit</span> <span style=color:#a6e22e>Order</span>
+            &lt;/<span style=color:#f92672>button</span>&gt;
+            
+        &lt;/<span style=color:#f92672>div</span>&gt;
+    )
+}
+</code></pre></div><h3 id=商品清單元件-productlist>商品清單元件 (productList)<a hidden class=anchor aria-hidden=true href=#商品清單元件-productlist>#</a></h3>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-tsx data-lang=tsx><span style=color:#75715e>// productList.tsx
+</span><span style=color:#75715e></span><span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>ChangeEvent</span>, <span style=color:#a6e22e>FunctionComponent</span>, <span style=color:#a6e22e>useState</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;react&#39;</span>
+<span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>Order</span>, <span style=color:#a6e22e>Product</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;../data/entities&#39;</span>;
+<span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>CategoryList</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;./categoryList&#39;</span>;
+<span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>Header</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;./header&#39;</span>;
+<span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>ProductItem</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;./productItem&#39;</span>;
+
+<span style=color:#66d9ef>interface</span> <span style=color:#a6e22e>Props</span> {
+    <span style=color:#a6e22e>products</span>: <span style=color:#66d9ef>Product</span>[],
+    <span style=color:#a6e22e>categories</span>: <span style=color:#66d9ef>string</span>[],
+    <span style=color:#a6e22e>order</span>: <span style=color:#66d9ef>Order</span>,
+    <span style=color:#a6e22e>addToOrder</span><span style=color:#f92672>:</span> (<span style=color:#a6e22e>product</span>: <span style=color:#66d9ef>Product</span>, <span style=color:#a6e22e>quantity</span>: <span style=color:#66d9ef>number</span>) <span style=color:#f92672>=&gt;</span> <span style=color:#66d9ef>void</span>
+}
+
+<span style=color:#66d9ef>export</span> <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>ProductList</span>: <span style=color:#66d9ef>FunctionComponent</span>&lt;<span style=color:#f92672>Props</span>&gt; <span style=color:#f92672>=</span> (<span style=color:#a6e22e>props</span>) <span style=color:#f92672>=&gt;</span> {
+    <span style=color:#66d9ef>const</span> [<span style=color:#a6e22e>selectedCategory</span>, <span style=color:#a6e22e>setSelectedCategory</span>] <span style=color:#f92672>=</span> <span style=color:#a6e22e>useState</span>&lt;<span style=color:#f92672>string</span>&gt;(<span style=color:#e6db74>&#34;All&#34;</span>);
+    
+    <span style=color:#66d9ef>let</span> <span style=color:#a6e22e>products</span> : <span style=color:#66d9ef>Product</span>[] <span style=color:#f92672>=</span> <span style=color:#a6e22e>props</span>.<span style=color:#a6e22e>products</span>.<span style=color:#a6e22e>filter</span>(
+        <span style=color:#a6e22e>p</span> <span style=color:#f92672>=&gt;</span> <span style=color:#a6e22e>selectedCategory</span> <span style=color:#f92672>===</span> <span style=color:#e6db74>&#34;All&#34;</span> <span style=color:#f92672>||</span> <span style=color:#a6e22e>p</span>.<span style=color:#a6e22e>category</span> <span style=color:#f92672>===</span> <span style=color:#a6e22e>selectedCategory</span>);
+    
+    <span style=color:#66d9ef>return</span> (
+        &lt;<span style=color:#f92672>div</span>&gt;
+            &lt;<span style=color:#f92672>Header</span> <span style=color:#a6e22e>order</span><span style=color:#f92672>=</span>{<span style=color:#a6e22e>props</span>.<span style=color:#a6e22e>order</span>} /&gt;
+            {<span style=color:#75715e>/* &lt;Header order={Orders} /&gt; */</span>}
+            &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>className</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#39;container-fluid&#39;</span>&gt;
+                &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>className</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#39;row&#39;</span>&gt;
+                    &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>className</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#39;col-3 p-2&#39;</span>&gt;
+                        &lt;<span style=color:#f92672>CategoryList</span> <span style=color:#a6e22e>categories</span><span style=color:#f92672>=</span>{<span style=color:#a6e22e>props</span>.<span style=color:#a6e22e>categories</span>}
+                            <span style=color:#a6e22e>selected</span><span style=color:#f92672>=</span>{<span style=color:#a6e22e>selectedCategory</span>}
+                            <span style=color:#a6e22e>selectCategory</span><span style=color:#f92672>=</span>{(<span style=color:#a6e22e>cat</span>: <span style=color:#66d9ef>string</span>) <span style=color:#f92672>=&gt;</span> {
+                                <span style=color:#a6e22e>setSelectedCategory</span>(<span style=color:#a6e22e>cat</span>);
+                            }} /&gt;
+                    &lt;/<span style=color:#f92672>div</span>&gt;
+                    &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>className</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#39;col-9 p-2&#39;</span>&gt;
+                        {
+                            <span style=color:#a6e22e>products</span>.<span style=color:#a6e22e>map</span>(<span style=color:#a6e22e>p</span> <span style=color:#f92672>=&gt;</span>
+                                &lt;<span style=color:#f92672>ProductItem</span> <span style=color:#a6e22e>key</span><span style=color:#f92672>=</span>{<span style=color:#a6e22e>p</span>.<span style=color:#a6e22e>id</span>} <span style=color:#a6e22e>product</span><span style=color:#f92672>=</span>{<span style=color:#a6e22e>p</span>}
+                                    <span style=color:#a6e22e>callback</span><span style=color:#f92672>=</span>{<span style=color:#a6e22e>props</span>.<span style=color:#a6e22e>addToOrder</span>} /&gt;)
+                        }
+                    &lt;/<span style=color:#f92672>div</span>&gt;
+                &lt;/<span style=color:#f92672>div</span>&gt;
+            &lt;/<span style=color:#f92672>div</span>&gt;
+        &lt;/<span style=color:#f92672>div</span>&gt;
+    )
+}
+</code></pre></div><h3 id=檔案結構>檔案結構<a hidden class=anchor aria-hidden=true href=#檔案結構>#</a></h3>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/186121822-fc1371a9-5207-4bd0-b731-d66fb51fefaa.png alt="2022-08-23 17-19-48 的螢幕擷圖">
+</p>
+<p>##　執行程式</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$ npm start
+</code></pre></div><p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/186121980-e8bcc53c-d74e-4b91-b200-56ac297d7e4f.png alt=image>
+</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/186122218-b271c697-41b1-4800-8547-72a2596652f7.png alt=image>
+</p>
+<h2 id=使用-data-store-來管理-react-應用程式的資料>使用 Data Store 來管理 React 應用程式的資料<a hidden class=anchor aria-hidden=true href=#使用-data-store-來管理-react-應用程式的資料>#</a></h2>
+<p>在大多數的 React 專案中，應用程式的資料是交由 &ldquo;data store&rdquo; 資料倉儲來管理，由最多人使用的管理資料套件就是 Redux。</p>
+<h3 id=安裝-redux>安裝 Redux<a hidden class=anchor aria-hidden=true href=#安裝-redux>#</a></h3>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$ npm install redux@4.2.0 react-redux@8.0.2
+$ npm install --save-dev @types/react-redux@7.1.24
+</code></pre></div><h3 id=建立-redux-的-action-類別>建立 Redux 的 action 類別<a hidden class=anchor aria-hidden=true href=#建立-redux-的-action-類別>#</a></h3>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$ touch ./src/data/types.ts
+</code></pre></div><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-typescript data-lang=typescript><span style=color:#75715e>// ./src/data/types.ts
+</span><span style=color:#75715e></span><span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>Action</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#34;redux&#34;</span>;
+<span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>Order</span>, <span style=color:#a6e22e>Product</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#34;./entities&#34;</span>;
+
+<span style=color:#66d9ef>export</span> <span style=color:#66d9ef>interface</span> <span style=color:#a6e22e>StoreData</span> {
+    <span style=color:#a6e22e>products</span>: <span style=color:#66d9ef>Product</span>[],
+    <span style=color:#a6e22e>order</span>: <span style=color:#66d9ef>Order</span>
+}
+
+<span style=color:#66d9ef>export</span> <span style=color:#66d9ef>enum</span> <span style=color:#a6e22e>ACTIONS</span> {
+    <span style=color:#a6e22e>ADD_PRODUCTS</span>,
+    <span style=color:#a6e22e>MODIFY_ORDER</span>,
+    <span style=color:#a6e22e>RESET_ORDER</span>
+}
+
+<span style=color:#66d9ef>export</span> <span style=color:#66d9ef>interface</span> <span style=color:#a6e22e>AddProductsAction</span> <span style=color:#66d9ef>extends</span> <span style=color:#a6e22e>Action</span>&lt;<span style=color:#f92672>ACTIONS.ADD_PRODUCTS</span>&gt; {
+    <span style=color:#a6e22e>payload</span>: <span style=color:#66d9ef>Product</span>[]
+}
+
+<span style=color:#66d9ef>export</span> <span style=color:#66d9ef>interface</span> <span style=color:#a6e22e>ModifyOrderAction</span> <span style=color:#66d9ef>extends</span> <span style=color:#a6e22e>Action</span>&lt;<span style=color:#f92672>ACTIONS.MODIFY_ORDER</span>&gt; {
+    <span style=color:#a6e22e>payload</span><span style=color:#f92672>:</span> {
+        <span style=color:#a6e22e>product</span>: <span style=color:#66d9ef>Product</span>,
+        <span style=color:#a6e22e>quantity</span>: <span style=color:#66d9ef>number</span>
+    }
+}
+
+<span style=color:#66d9ef>export</span> <span style=color:#66d9ef>interface</span> <span style=color:#a6e22e>ResetOrderAction</span> <span style=color:#66d9ef>extends</span> <span style=color:#a6e22e>Action</span>&lt;<span style=color:#f92672>ACTIONS.RESET_ORDER</span>&gt; {}
+
+<span style=color:#66d9ef>export</span> <span style=color:#66d9ef>type</span> <span style=color:#a6e22e>StoreAction</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>AddProductsAction</span> <span style=color:#f92672>|</span> <span style=color:#a6e22e>ModifyOrderAction</span> <span style=color:#f92672>|</span> <span style=color:#a6e22e>ResetOrderAction</span>;
+</code></pre></div><h3 id=建立-action-creator>建立 action creator<a hidden class=anchor aria-hidden=true href=#建立-action-creator>#</a></h3>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$ touch ./src/data/actionCreators.ts
+</code></pre></div><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-typescript data-lang=typescript><span style=color:#75715e>// ./src/data/actionCreators.ts
+</span><span style=color:#75715e></span><span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>Product</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#34;./entities&#34;</span>;
+<span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>ACTIONS</span>, <span style=color:#a6e22e>AddProductsAction</span>, <span style=color:#a6e22e>ModifyOrderAction</span>, <span style=color:#a6e22e>ResetOrderAction</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#34;./types&#34;</span>;
+
+<span style=color:#66d9ef>export</span> <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>addProduct</span> <span style=color:#f92672>=</span>
+    (...<span style=color:#a6e22e>products</span>: <span style=color:#66d9ef>Product</span>[])<span style=color:#f92672>:</span> <span style=color:#a6e22e>AddProductsAction</span> <span style=color:#f92672>=&gt;</span> ({
+        <span style=color:#66d9ef>type</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>ACTIONS</span>.<span style=color:#a6e22e>ADD_PRODUCTS</span>,
+        <span style=color:#a6e22e>payload</span>: <span style=color:#66d9ef>products</span>
+    });
+
+<span style=color:#66d9ef>export</span> <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>modifyOrder</span> <span style=color:#f92672>=</span>
+    (<span style=color:#a6e22e>product</span>: <span style=color:#66d9ef>Product</span>, <span style=color:#a6e22e>quantity</span>: <span style=color:#66d9ef>number</span>)<span style=color:#f92672>:</span> <span style=color:#a6e22e>ModifyOrderAction</span> <span style=color:#f92672>=&gt;</span> ({
+        <span style=color:#66d9ef>type</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>ACTIONS</span>.<span style=color:#a6e22e>MODIFY_ORDER</span>,
+        <span style=color:#a6e22e>payload</span><span style=color:#f92672>:</span> { <span style=color:#a6e22e>product</span>, <span style=color:#a6e22e>quantity</span>}
+    });
+
+<span style=color:#66d9ef>export</span> <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>resetOrder</span> <span style=color:#f92672>=</span>
+    (<span style=color:#a6e22e>product</span>: <span style=color:#66d9ef>Product</span>, <span style=color:#a6e22e>quantity</span>: <span style=color:#66d9ef>number</span>)<span style=color:#f92672>:</span> <span style=color:#a6e22e>ResetOrderAction</span> <span style=color:#f92672>=&gt;</span> ({ <span style=color:#66d9ef>type</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>ACTIONS</span>.<span style=color:#a6e22e>RESET_ORDER</span> });
+</code></pre></div><h3 id=建立-redux-reducer-來處理-action>建立 Redux reducer 來處理 action<a hidden class=anchor aria-hidden=true href=#建立-redux-reducer-來處理-action>#</a></h3>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$ touch ./src/data/reducer.ts
+</code></pre></div><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-typescript data-lang=typescript><span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>Reducer</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#34;redux&#34;</span>;
+<span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>Order</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#34;./entities&#34;</span>;
+<span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>ACTIONS</span>, <span style=color:#a6e22e>StoreAction</span>, <span style=color:#a6e22e>StoreData</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#34;./types&#34;</span>;
+
+<span style=color:#66d9ef>export</span> <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>StoreReducer</span>: <span style=color:#66d9ef>Reducer</span>&lt;<span style=color:#f92672>StoreData</span><span style=color:#960050;background-color:#1e0010>,</span> <span style=color:#a6e22e>StoreAction</span>&gt;
+    <span style=color:#f92672>=</span> (<span style=color:#a6e22e>data</span>: <span style=color:#66d9ef>StoreData</span> <span style=color:#f92672>|</span> <span style=color:#66d9ef>undefined</span> , <span style=color:#a6e22e>action</span>) <span style=color:#f92672>=&gt;</span> {
+
+        <span style=color:#a6e22e>data</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>data</span> <span style=color:#f92672>||</span> { <span style=color:#a6e22e>products</span><span style=color:#f92672>:</span> [], <span style=color:#a6e22e>order</span>: <span style=color:#66d9ef>new</span> <span style=color:#a6e22e>Order</span>()}
+
+        <span style=color:#66d9ef>switch</span> (<span style=color:#a6e22e>action</span>.<span style=color:#66d9ef>type</span>) {
+            <span style=color:#66d9ef>case</span> <span style=color:#a6e22e>ACTIONS.ADD_PRODUCTS</span>:
+                <span style=color:#66d9ef>return</span> {
+                    ...<span style=color:#a6e22e>data</span>,
+                    <span style=color:#a6e22e>products</span><span style=color:#f92672>:</span> [...<span style=color:#a6e22e>data</span>.<span style=color:#a6e22e>products</span>, ...<span style=color:#a6e22e>action</span>.<span style=color:#a6e22e>payload</span>]
+                };
+            <span style=color:#66d9ef>case</span> <span style=color:#a6e22e>ACTIONS.MODIFY_ORDER</span>:
+                <span style=color:#66d9ef>data.order.addProduct</span>(
+                    <span style=color:#a6e22e>action</span>.<span style=color:#a6e22e>payload</span>.<span style=color:#a6e22e>product</span>, <span style=color:#a6e22e>action</span>.<span style=color:#a6e22e>payload</span>.<span style=color:#a6e22e>quantity</span>
+                )
+                <span style=color:#66d9ef>return</span> {...<span style=color:#a6e22e>data</span>};
+            <span style=color:#66d9ef>case</span> <span style=color:#a6e22e>ACTIONS.RESET_ORDER</span>:
+                <span style=color:#66d9ef>return</span> {
+                    ...<span style=color:#a6e22e>data</span>,
+                    <span style=color:#a6e22e>order</span>:<span style=color:#66d9ef>new</span> <span style=color:#a6e22e>Order</span>()
+                };
+            <span style=color:#66d9ef>default</span><span style=color:#f92672>:</span>
+                <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>data</span>;
+        }
+    }
+</code></pre></div><h3 id=建立-data-store>建立 Data store<a hidden class=anchor aria-hidden=true href=#建立-data-store>#</a></h3>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$ touch ./src/data/dataStore.ts
+</code></pre></div><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-typescript data-lang=typescript><span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>createStore</span>, <span style=color:#a6e22e>Store</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#34;redux&#34;</span>;
+<span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>StoreReducer</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#34;./reducer&#34;</span>;
+<span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>StoreAction</span>, <span style=color:#a6e22e>StoreData</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#34;./types&#34;</span>;
+
+<span style=color:#66d9ef>export</span> <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>dataStore</span>: <span style=color:#66d9ef>Store</span>&lt;<span style=color:#f92672>StoreData</span><span style=color:#960050;background-color:#1e0010>,</span> <span style=color:#a6e22e>StoreAction</span>&gt;
+    <span style=color:#f92672>=</span> <span style=color:#a6e22e>createStore</span>(<span style=color:#a6e22e>StoreReducer</span>);
+</code></pre></div><h2 id=新增-http-請求類別>新增 HTTP 請求類別<a hidden class=anchor aria-hidden=true href=#新增-http-請求類別>#</a></h2>
+<h3 id=安裝-axios>安裝 axios<a hidden class=anchor aria-hidden=true href=#安裝-axios>#</a></h3>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$ npm install axios@0.27.2
+</code></pre></div><h3 id=建立-httphandlerts>建立 httpHandler.ts<a hidden class=anchor aria-hidden=true href=#建立-httphandlerts>#</a></h3>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$ touch ./src/data/httpHandler.ts
+</code></pre></div><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-typescript data-lang=typescript><span style=color:#66d9ef>import</span> <span style=color:#a6e22e>Axios</span> <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#34;axios&#34;</span>;
+<span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>Order</span>, <span style=color:#a6e22e>Product</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#34;./entities&#34;</span>;
+
+<span style=color:#66d9ef>const</span> <span style=color:#a6e22e>protocol</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;http&#34;</span>;
+<span style=color:#66d9ef>const</span> <span style=color:#a6e22e>hostname</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;localhost&#34;</span>;
+<span style=color:#66d9ef>const</span> <span style=color:#a6e22e>port</span> <span style=color:#f92672>=</span> <span style=color:#ae81ff>4600</span>;
+<span style=color:#66d9ef>const</span> <span style=color:#a6e22e>urls</span> <span style=color:#f92672>=</span> {
+    <span style=color:#a6e22e>products</span><span style=color:#f92672>:</span> <span style=color:#e6db74>`</span><span style=color:#e6db74>${</span><span style=color:#a6e22e>protocol</span><span style=color:#e6db74>}</span><span style=color:#e6db74>://</span><span style=color:#e6db74>${</span><span style=color:#a6e22e>hostname</span><span style=color:#e6db74>}</span><span style=color:#e6db74>:</span><span style=color:#e6db74>${</span><span style=color:#a6e22e>port</span><span style=color:#e6db74>}</span><span style=color:#e6db74>/products`</span>,
+    <span style=color:#a6e22e>orders</span><span style=color:#f92672>:</span> <span style=color:#e6db74>`</span><span style=color:#e6db74>${</span><span style=color:#a6e22e>protocol</span><span style=color:#e6db74>}</span><span style=color:#e6db74>://</span><span style=color:#e6db74>${</span><span style=color:#a6e22e>hostname</span><span style=color:#e6db74>}</span><span style=color:#e6db74>:</span><span style=color:#e6db74>${</span><span style=color:#a6e22e>port</span><span style=color:#e6db74>}</span><span style=color:#e6db74>/orders`</span>,
+};
+
+<span style=color:#66d9ef>export</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>HttpHandler</span> {
+    <span style=color:#a6e22e>loadProducts</span>(<span style=color:#a6e22e>callback</span><span style=color:#f92672>:</span> (<span style=color:#a6e22e>producs</span>: <span style=color:#66d9ef>Product</span>[]) <span style=color:#f92672>=&gt;</span> <span style=color:#66d9ef>void</span>)<span style=color:#f92672>:</span> <span style=color:#66d9ef>void</span> {
+        <span style=color:#a6e22e>Axios</span>.<span style=color:#66d9ef>get</span>(<span style=color:#a6e22e>urls</span>.<span style=color:#a6e22e>products</span>).<span style=color:#a6e22e>then</span>(<span style=color:#a6e22e>response</span> <span style=color:#f92672>=&gt;</span> <span style=color:#a6e22e>callback</span>(<span style=color:#a6e22e>response</span>.<span style=color:#a6e22e>data</span>))        
+    }
+
+    <span style=color:#a6e22e>storeOrder</span>(<span style=color:#a6e22e>order</span>: <span style=color:#66d9ef>Order</span>, <span style=color:#a6e22e>callback</span><span style=color:#f92672>:</span> (<span style=color:#a6e22e>id</span>: <span style=color:#66d9ef>number</span>) <span style=color:#f92672>=&gt;</span> <span style=color:#66d9ef>void</span>)<span style=color:#f92672>:</span> <span style=color:#66d9ef>void</span> {
+        <span style=color:#66d9ef>let</span> <span style=color:#a6e22e>orderData</span> <span style=color:#f92672>=</span> {
+            <span style=color:#a6e22e>lines</span><span style=color:#f92672>:</span> [...<span style=color:#a6e22e>order</span>.<span style=color:#a6e22e>orderLines</span>.<span style=color:#a6e22e>values</span>()].<span style=color:#a6e22e>map</span>(<span style=color:#a6e22e>ol</span> <span style=color:#f92672>=&gt;</span> ({
+                <span style=color:#a6e22e>productId</span>: <span style=color:#66d9ef>ol.product.id</span>,
+                <span style=color:#a6e22e>productName</span>: <span style=color:#66d9ef>ol.product.name</span>,
+                <span style=color:#a6e22e>quantity</span>: <span style=color:#66d9ef>ol.quantity</span>
+            }))
+        }
+        <span style=color:#a6e22e>Axios</span>.<span style=color:#a6e22e>post</span>(<span style=color:#a6e22e>urls</span>.<span style=color:#a6e22e>orders</span>, <span style=color:#a6e22e>orderData</span>).<span style=color:#a6e22e>then</span>(<span style=color:#a6e22e>response</span> <span style=color:#f92672>=&gt;</span> <span style=color:#a6e22e>callback</span>(<span style=color:#a6e22e>response</span>.<span style=color:#a6e22e>data</span>.<span style=color:#a6e22e>id</span>));
+    }
+}
+</code></pre></div><h2 id=連結-data-store-與各個元件>連結 Data Store 與各個元件<a hidden class=anchor aria-hidden=true href=#連結-data-store-與各個元件>#</a></h2>
+<p>使用 React-Redux 套件來將應用程式元件連接到 Redux data store。</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$ touch .src/data/productLitConnector.ts
+</code></pre></div><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-typescript data-lang=typescript><span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>connect</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#34;react-redux&#34;</span>;
+<span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>ProductList</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#34;../pages/productList&#34;</span>;
+<span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>modifyOrder</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#34;./actionCreators&#34;</span>;
+<span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>StoreData</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#34;./types&#34;</span>;
+
+<span style=color:#66d9ef>const</span> <span style=color:#a6e22e>mapStateToProps</span> <span style=color:#f92672>=</span> (<span style=color:#a6e22e>data</span>: <span style=color:#66d9ef>StoreData</span>) <span style=color:#f92672>=&gt;</span> ({
+    <span style=color:#a6e22e>products</span>: <span style=color:#66d9ef>data.products</span>,
+    <span style=color:#a6e22e>categories</span><span style=color:#f92672>:</span> [...<span style=color:#66d9ef>new</span> <span style=color:#a6e22e>Set</span>(<span style=color:#a6e22e>data</span>.<span style=color:#a6e22e>products</span>.<span style=color:#a6e22e>map</span>(<span style=color:#a6e22e>p</span> <span style=color:#f92672>=&gt;</span> <span style=color:#a6e22e>p</span>.<span style=color:#a6e22e>category</span>))],
+    <span style=color:#a6e22e>order</span>: <span style=color:#66d9ef>data.order</span>
+})
+
+<span style=color:#66d9ef>const</span> <span style=color:#a6e22e>mapDispatchToProps</span> <span style=color:#f92672>=</span> {
+    <span style=color:#a6e22e>addToOrder</span>: <span style=color:#66d9ef>modifyOrder</span>
+}
+
+<span style=color:#66d9ef>const</span> <span style=color:#a6e22e>connectFunction</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>connect</span>(<span style=color:#a6e22e>mapStateToProps</span>, <span style=color:#a6e22e>mapDispatchToProps</span>);
+
+<span style=color:#66d9ef>export</span> <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>ConnectedProductList</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>connectFunction</span>(<span style=color:#a6e22e>ProductList</span>);
+</code></pre></div><h2 id=修改-apptsx>修改 App.tsx<a hidden class=anchor aria-hidden=true href=#修改-apptsx>#</a></h2>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-tsx data-lang=tsx><span style=color:#66d9ef>import</span> <span style=color:#a6e22e>React</span>, { <span style=color:#a6e22e>FunctionComponent</span>, <span style=color:#a6e22e>useState</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;react&#39;</span>;
+<span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>Provider</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;react-redux&#39;</span>;
+<span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>addProduct</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;./data/actionCreators&#39;</span>;
+<span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>dataStore</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;./data/dataStore&#39;</span>;
+<span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>HttpHandler</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;./data/httpHandler&#39;</span>;
+<span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>ConnectedProductList</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;./data/productLitConnector&#39;</span>;
+
+<span style=color:#66d9ef>interface</span> <span style=color:#a6e22e>Props</span> { }
+
+<span style=color:#66d9ef>let</span> <span style=color:#a6e22e>httpHandler</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> <span style=color:#a6e22e>HttpHandler</span>();
+<span style=color:#a6e22e>httpHandler</span>.<span style=color:#a6e22e>loadProducts</span>(<span style=color:#a6e22e>data</span> <span style=color:#f92672>=&gt;</span> <span style=color:#a6e22e>dataStore</span>.<span style=color:#a6e22e>dispatch</span>(<span style=color:#a6e22e>addProduct</span>(...<span style=color:#a6e22e>data</span>)));
+
+<span style=color:#66d9ef>export</span> <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>App</span>: <span style=color:#66d9ef>FunctionComponent</span>&lt;<span style=color:#f92672>Props</span>&gt; <span style=color:#f92672>=</span> (<span style=color:#a6e22e>props</span>) <span style=color:#f92672>=&gt;</span> {
+  <span style=color:#66d9ef>let</span> <span style=color:#a6e22e>submitCallback</span> <span style=color:#f92672>=</span> () <span style=color:#f92672>=&gt;</span> {
+    <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#e6db74>&#34;Submit order&#34;</span>);
+  };
+
+  <span style=color:#66d9ef>return</span> &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>className</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#39;App&#39;</span>&gt;
+    &lt;<span style=color:#f92672>Provider</span> <span style=color:#a6e22e>store</span><span style=color:#f92672>=</span>{<span style=color:#a6e22e>dataStore</span>}&gt;
+      &lt;<span style=color:#f92672>ConnectedProductList</span> /&gt;
+    &lt;/<span style=color:#f92672>Provider</span>&gt;
+  &lt;/<span style=color:#f92672>div</span>&gt;
+}
+
+<span style=color:#66d9ef>export</span> <span style=color:#66d9ef>default</span> <span style=color:#a6e22e>App</span>;
+</code></pre></div><h2 id=執行測試>執行測試<a hidden class=anchor aria-hidden=true href=#執行測試>#</a></h2>
+<p>程式至此已將資料連結由 local 改到 Json-Server，並將取得的資料放入 Redux data store 中了。</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$ npm start
+</code></pre></div><p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/186132903-1b1af1ec-fb05-4a43-8ea3-0e95dfb45951.png alt=image>
+</p>
+<h2 id=完成其他功能>完成其他功能<a hidden class=anchor aria-hidden=true href=#完成其他功能>#</a></h2>
+<p>接下來我們要完成其餘的二個功能：訂單確認功能及訂購成功功能，在我們已完成的商品訂購元件與前述二個元件中做切換時，會需要使用到URL路由功能，在 React 核心中並未內建路由功能，所以我們必須安裝額外的套件 &ndash; React Router 套件。</p>
+<h3 id=安裝-react-router-套件>安裝 React Router 套件<a hidden class=anchor aria-hidden=true href=#安裝-react-router-套件>#</a></h3>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$ npm install react-router-dom@6.3.0
+$ npm install --save-dev @types/react-router-dom5.3.3
+</code></pre></div><h3 id=url-路由設定>URL 路由設定<a hidden class=anchor aria-hidden=true href=#url-路由設定>#</a></h3>
+<p>修改 App.tsx</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-tsx data-lang=tsx><span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>FunctionComponent</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;react&#39;</span>;
+<span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>Route</span>, <span style=color:#a6e22e>Routes</span>, <span style=color:#a6e22e>useNavigate</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;react-router-dom&#39;</span>;
+<span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>addProduct</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;./data/actionCreators&#39;</span>;
+<span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>dataStore</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;./data/dataStore&#39;</span>;
+<span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>Order</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;./data/entities&#39;</span>;
+<span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>HttpHandler</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;./data/httpHandler&#39;</span>;
+<span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>ConnectedProductList</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;./data/productLitConnector&#39;</span>;
+
+<span style=color:#66d9ef>interface</span> <span style=color:#a6e22e>Props</span> { }
+
+<span style=color:#66d9ef>let</span> <span style=color:#a6e22e>httpHandler</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> <span style=color:#a6e22e>HttpHandler</span>();
+<span style=color:#a6e22e>httpHandler</span>.<span style=color:#a6e22e>loadProducts</span>(<span style=color:#a6e22e>data</span> <span style=color:#f92672>=&gt;</span> <span style=color:#a6e22e>dataStore</span>.<span style=color:#a6e22e>dispatch</span>(<span style=color:#a6e22e>addProduct</span>(...<span style=color:#a6e22e>data</span>)));
+
+<span style=color:#66d9ef>export</span> <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>App</span>: <span style=color:#66d9ef>FunctionComponent</span>&lt;<span style=color:#f92672>Props</span>&gt; <span style=color:#f92672>=</span> (<span style=color:#a6e22e>props</span>) <span style=color:#f92672>=&gt;</span> {
+  
+  <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>navigate</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>useNavigate</span>();
+  <span style=color:#66d9ef>let</span> <span style=color:#a6e22e>submitCallback</span> <span style=color:#f92672>=</span> () <span style=color:#f92672>=&gt;</span> {
+    <span style=color:#a6e22e>httpHandler</span>.<span style=color:#a6e22e>storeOrder</span>(<span style=color:#a6e22e>dataStore</span>.<span style=color:#a6e22e>getState</span>().<span style=color:#a6e22e>order</span>, 
+      <span style=color:#a6e22e>id</span> <span style=color:#f92672>=&gt;</span> <span style=color:#a6e22e>navigate</span>(<span style=color:#e6db74>`/summary/</span><span style=color:#e6db74>${</span><span style=color:#a6e22e>id</span><span style=color:#e6db74>}</span><span style=color:#e6db74>`</span>, { <span style=color:#a6e22e>replace</span>: <span style=color:#66d9ef>true</span>}));
+    <span style=color:#a6e22e>dataStore</span>.<span style=color:#a6e22e>getState</span>().<span style=color:#a6e22e>order</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> <span style=color:#a6e22e>Order</span>();
+  };
+
+  <span style=color:#66d9ef>return</span> &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>className</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#39;App&#39;</span>&gt;
+    &lt;<span style=color:#f92672>Routes</span>&gt;
+      &lt;<span style=color:#f92672>Route</span> <span style=color:#a6e22e>index</span> <span style=color:#a6e22e>element</span><span style=color:#f92672>=</span>{&lt;<span style=color:#f92672>ConnectedProductList</span>/&gt;}/&gt;
+      &lt;<span style=color:#f92672>Route</span> <span style=color:#a6e22e>path</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;/products&#34;</span> <span style=color:#a6e22e>element</span><span style=color:#f92672>=</span>{&lt;<span style=color:#f92672>ConnectedProductList</span>/&gt;}/&gt;
+      {<span style=color:#75715e>/* &lt;Route path=&#34;/order&#34; element={&lt;OrderDetails 
+</span><span style=color:#75715e>        submitCallback={() =&gt; 
+</span><span style=color:#75715e>          submitCallback()}/&gt;} /&gt;
+</span><span style=color:#75715e>      &lt;Route path=&#34;/summary/:id&#34; element={&lt;Summary /&gt;} /&gt; */</span>}
+    &lt;/<span style=color:#f92672>Routes</span>&gt;
+  &lt;/<span style=color:#f92672>div</span>&gt;
+}
+
+<span style=color:#66d9ef>export</span> <span style=color:#66d9ef>default</span> <span style=color:#a6e22e>App</span>;
+</code></pre></div><p>修改 index.tsx</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-tsx data-lang=tsx><span style=color:#66d9ef>import</span> <span style=color:#a6e22e>React</span> <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;react&#39;</span>;
+<span style=color:#66d9ef>import</span> <span style=color:#a6e22e>ReactDOM</span> <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;react-dom/client&#39;</span>;
+<span style=color:#66d9ef>import</span> <span style=color:#e6db74>&#39;./index.css&#39;</span>;
+<span style=color:#66d9ef>import</span> <span style=color:#a6e22e>App</span> <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;./App&#39;</span>;
+<span style=color:#66d9ef>import</span> <span style=color:#e6db74>&#39;bootstrap/dist/css/bootstrap.css&#39;</span>;
+<span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>BrowserRouter</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;react-router-dom&#39;</span>;
+<span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>Provider</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;react-redux&#39;</span>;
+<span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>dataStore</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;./data/dataStore&#39;</span>;
+
+<span style=color:#66d9ef>const</span> <span style=color:#a6e22e>root</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>ReactDOM</span>.<span style=color:#a6e22e>createRoot</span>(
+  document.<span style=color:#a6e22e>getElementById</span>(<span style=color:#e6db74>&#39;root&#39;</span>) <span style=color:#66d9ef>as</span> <span style=color:#a6e22e>HTMLElement</span>
+);
+<span style=color:#a6e22e>root</span>.<span style=color:#a6e22e>render</span>(
+  &lt;<span style=color:#f92672>React.StrictMode</span>&gt;
+    &lt;<span style=color:#f92672>Provider</span> <span style=color:#a6e22e>store</span><span style=color:#f92672>=</span>{<span style=color:#a6e22e>dataStore</span>}&gt;
+      &lt;<span style=color:#f92672>BrowserRouter</span>&gt;
+        &lt;<span style=color:#f92672>App</span> /&gt;
+      &lt;/<span style=color:#f92672>BrowserRouter</span>&gt;
+    &lt;/<span style=color:#f92672>Provider</span>&gt;
+  &lt;/<span style=color:#f92672>React.StrictMode</span>&gt;
+);
+</code></pre></div><h3 id=加入訂單確認元件>加入訂單確認元件<a hidden class=anchor aria-hidden=true href=#加入訂單確認元件>#</a></h3>
+<p><code>$ touch ./src/pages/orderDetails.tsx</code></p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-tsx data-lang=tsx><span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>connect</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#34;react-redux&#34;</span>
+<span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>FunctionComponent</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#34;react&#34;</span>
+<span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>NavLink</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#34;react-router-dom&#34;</span>
+<span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>Order</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#34;../data/entities&#34;</span>
+<span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>StoreData</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#34;../data/types&#34;</span>
+
+<span style=color:#66d9ef>const</span> <span style=color:#a6e22e>mapStateToProps</span> <span style=color:#f92672>=</span> (<span style=color:#a6e22e>data</span>: <span style=color:#66d9ef>StoreData</span>) <span style=color:#f92672>=&gt;</span> ({
+    <span style=color:#a6e22e>order</span>: <span style=color:#66d9ef>data.order</span>
+})
+
+<span style=color:#66d9ef>interface</span> <span style=color:#a6e22e>Props</span> {
+    <span style=color:#a6e22e>order</span>: <span style=color:#66d9ef>Order</span>,
+    <span style=color:#a6e22e>submitCallback</span><span style=color:#f92672>:</span> () <span style=color:#f92672>=&gt;</span> <span style=color:#66d9ef>void</span>
+}
+
+<span style=color:#66d9ef>const</span> <span style=color:#a6e22e>OrderDetailComponent</span>: <span style=color:#66d9ef>FunctionComponent</span>&lt;<span style=color:#f92672>Props</span>&gt; <span style=color:#f92672>=</span> (<span style=color:#a6e22e>props</span>) <span style=color:#f92672>=&gt;</span> {
+    <span style=color:#66d9ef>return</span> &lt;<span style=color:#f92672>div</span>&gt;
+        &lt;<span style=color:#f92672>h3</span> <span style=color:#a6e22e>className</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;text-center bg-primary text-white p-2&#34;</span>&gt;
+            <span style=color:#a6e22e>Order</span> <span style=color:#a6e22e>Summary</span>
+        &lt;/<span style=color:#f92672>h3</span>&gt;
+        &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>className</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;p-3&#34;</span>&gt;
+            &lt;<span style=color:#f92672>table</span> <span style=color:#a6e22e>className</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;table table-sm table-striped&#34;</span>&gt;
+                &lt;<span style=color:#f92672>thead</span>&gt;
+                    &lt;<span style=color:#f92672>tr</span>&gt;
+                        &lt;<span style=color:#f92672>th</span>&gt;<span style=color:#a6e22e>Quantity</span>&lt;/<span style=color:#f92672>th</span>&gt;
+                        &lt;<span style=color:#f92672>th</span>&gt;<span style=color:#a6e22e>Product</span>&lt;/<span style=color:#f92672>th</span>&gt;
+                        &lt;<span style=color:#f92672>th</span> <span style=color:#a6e22e>className</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;text-end&#34;</span>&gt;<span style=color:#a6e22e>Price</span>&lt;/<span style=color:#f92672>th</span>&gt;
+                        &lt;<span style=color:#f92672>th</span> <span style=color:#a6e22e>className</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;text-end&#34;</span>&gt;<span style=color:#a6e22e>Subtotal</span>&lt;/<span style=color:#f92672>th</span>&gt;
+                    &lt;/<span style=color:#f92672>tr</span>&gt;
+                &lt;/<span style=color:#f92672>thead</span>&gt;
+                &lt;<span style=color:#f92672>tbody</span>&gt;
+                    {<span style=color:#a6e22e>props</span>.<span style=color:#a6e22e>order</span>.<span style=color:#a6e22e>orderLines</span>.<span style=color:#a6e22e>map</span>(<span style=color:#a6e22e>line</span> <span style=color:#f92672>=&gt;</span>
+                        &lt;<span style=color:#f92672>tr</span> <span style=color:#a6e22e>key</span><span style=color:#f92672>=</span>{<span style=color:#a6e22e>line</span>.<span style=color:#a6e22e>product</span>.<span style=color:#a6e22e>id</span>}&gt;
+                            &lt;<span style=color:#f92672>td</span>&gt;{<span style=color:#a6e22e>line</span>.<span style=color:#a6e22e>quantity</span>}&lt;/<span style=color:#f92672>td</span>&gt;
+                            &lt;<span style=color:#f92672>td</span>&gt;{<span style=color:#a6e22e>line</span>.<span style=color:#a6e22e>product</span>.<span style=color:#a6e22e>name</span>}&lt;/<span style=color:#f92672>td</span>&gt;
+                            &lt;<span style=color:#f92672>td</span> <span style=color:#a6e22e>className</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;text-end&#34;</span>&gt;{<span style=color:#a6e22e>line</span>.<span style=color:#a6e22e>product</span>.<span style=color:#a6e22e>price</span>.<span style=color:#a6e22e>toFixed</span>(<span style=color:#ae81ff>2</span>)}&lt;/<span style=color:#f92672>td</span>&gt;
+                            &lt;<span style=color:#f92672>td</span> <span style=color:#a6e22e>className</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;text-end&#34;</span>&gt;{<span style=color:#a6e22e>line</span>.<span style=color:#a6e22e>total</span>.<span style=color:#a6e22e>toFixed</span>(<span style=color:#ae81ff>2</span>)}&lt;/<span style=color:#f92672>td</span>&gt;
+                        &lt;/<span style=color:#f92672>tr</span>&gt;
+                    )}
+                &lt;/<span style=color:#f92672>tbody</span>&gt;
+                &lt;<span style=color:#f92672>tfoot</span>&gt;
+                    &lt;<span style=color:#f92672>tr</span>&gt;
+                        &lt;<span style=color:#f92672>th</span> <span style=color:#a6e22e>className</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;text-end&#34;</span> <span style=color:#a6e22e>colSpan</span><span style=color:#f92672>=</span>{<span style=color:#ae81ff>3</span>}&gt;<span style=color:#a6e22e>Total</span><span style=color:#f92672>:</span>&lt;/<span style=color:#f92672>th</span>&gt;
+                        &lt;<span style=color:#f92672>th</span> <span style=color:#a6e22e>className</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;text-end&#34;</span> <span style=color:#a6e22e>colSpan</span><span style=color:#f92672>=</span>{<span style=color:#ae81ff>3</span>}&gt;<span style=color:#a6e22e>$</span>{<span style=color:#a6e22e>props</span>.<span style=color:#a6e22e>order</span>.<span style=color:#a6e22e>total</span>.<span style=color:#a6e22e>toFixed</span>(<span style=color:#ae81ff>2</span>)}&lt;/<span style=color:#f92672>th</span>&gt;
+                    &lt;/<span style=color:#f92672>tr</span>&gt;
+                &lt;/<span style=color:#f92672>tfoot</span>&gt;
+            &lt;/<span style=color:#f92672>table</span>&gt;
+        &lt;/<span style=color:#f92672>div</span>&gt;
+        &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>className</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;text-center&#34;</span>&gt;
+            &lt;<span style=color:#f92672>NavLink</span> <span style=color:#a6e22e>to</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;/products&#34;</span> <span style=color:#a6e22e>className</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;btn btn-secondary m-1&#34;</span>&gt;
+                <span style=color:#a6e22e>Back</span>
+            &lt;/<span style=color:#f92672>NavLink</span>&gt;
+            &lt;<span style=color:#f92672>button</span> <span style=color:#a6e22e>className</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;btn btn-primary m-1&#34;</span> <span style=color:#a6e22e>onClick</span><span style=color:#f92672>=</span>{<span style=color:#a6e22e>props</span>.<span style=color:#a6e22e>submitCallback</span>}&gt;
+                <span style=color:#a6e22e>Submit</span> <span style=color:#a6e22e>Order</span>
+            &lt;/<span style=color:#f92672>button</span>&gt;
+
+            {<span style=color:#75715e>/* &lt;NavLink to=&#34;/summary&#34; className=&#34;btn btn-primary m-1&#34;&gt;
+</span><span style=color:#75715e>                Submit Order
+</span><span style=color:#75715e>            &lt;/NavLink&gt; */</span>}
+        &lt;/<span style=color:#f92672>div</span>&gt;
+    &lt;/<span style=color:#f92672>div</span>&gt;
+}
+
+<span style=color:#66d9ef>const</span> <span style=color:#a6e22e>connectFunction</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>connect</span>(<span style=color:#a6e22e>mapStateToProps</span>);
+
+<span style=color:#66d9ef>export</span> <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>OrderDetails</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>connectFunction</span>(<span style=color:#a6e22e>OrderDetailComponent</span>);
+</code></pre></div><h3 id=加入訂購成功元件>加入訂購成功元件<a hidden class=anchor aria-hidden=true href=#加入訂購成功元件>#</a></h3>
+<p><code>$ touch ./src/pages/summary.tsx</code></p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-tsx data-lang=tsx><span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>FunctionComponent</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#34;react&#34;</span>
+<span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>NavLink</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#34;react-router-dom&#34;</span>
+<span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>useParams</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#34;react-router-dom&#34;</span>
+
+<span style=color:#66d9ef>interface</span> <span style=color:#a6e22e>Params</span> {
+    <span style=color:#a6e22e>id</span>: <span style=color:#66d9ef>string</span>
+}
+
+<span style=color:#66d9ef>export</span> <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>Summary</span>: <span style=color:#66d9ef>FunctionComponent</span> <span style=color:#f92672>=</span> () <span style=color:#f92672>=&gt;</span> {
+    <span style=color:#66d9ef>let</span> <span style=color:#a6e22e>params</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>useParams</span>();
+    <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>id</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>params</span>.<span style=color:#a6e22e>id</span>;
+
+    <span style=color:#66d9ef>return</span> &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>className</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;m-2 text-center&#34;</span>&gt;
+        &lt;<span style=color:#f92672>h2</span>&gt;<span style=color:#a6e22e>Thanks</span><span style=color:#f92672>!</span>&lt;/<span style=color:#f92672>h2</span>&gt;
+        &lt;<span style=color:#f92672>p</span>&gt;<span style=color:#a6e22e>Thanks</span> <span style=color:#66d9ef>for</span> <span style=color:#a6e22e>placing</span> <span style=color:#a6e22e>your</span> <span style=color:#a6e22e>order</span>.&lt;/<span style=color:#f92672>p</span>&gt;
+        &lt;<span style=color:#f92672>p</span>&gt;<span style=color:#a6e22e>Your</span> <span style=color:#a6e22e>order</span> <span style=color:#66d9ef>is</span> <span style=color:#960050;background-color:#1e0010>#</span>{<span style=color:#a6e22e>id</span>}&lt;/<span style=color:#f92672>p</span>&gt;
+        &lt;<span style=color:#f92672>p</span>&gt;<span style=color:#a6e22e>We</span><span style=color:#960050;background-color:#1e0010>&#39;</span><span style=color:#a6e22e>ll</span> <span style=color:#a6e22e>ship</span> <span style=color:#a6e22e>your</span> <span style=color:#a6e22e>goods</span> <span style=color:#66d9ef>as</span> <span style=color:#a6e22e>soon</span> <span style=color:#66d9ef>as</span> <span style=color:#a6e22e>possible</span>.&lt;/<span style=color:#f92672>p</span>&gt;
+        &lt;<span style=color:#f92672>NavLink</span> <span style=color:#a6e22e>to</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;/products&#34;</span> <span style=color:#a6e22e>className</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;btn btn-primary&#34;</span>&gt;<span style=color:#a6e22e>OK</span>&lt;/<span style=color:#f92672>NavLink</span>&gt;
+    &lt;/<span style=color:#f92672>div</span>&gt;
+}
+</code></pre></div><h3 id=修改-headertsx-url-轉址功能>修改 Header.tsx URL 轉址功能<a hidden class=anchor aria-hidden=true href=#修改-headertsx-url-轉址功能>#</a></h3>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-tsx data-lang=tsx><span style=color:#75715e>// header.tsx
+</span><span style=color:#75715e></span>
+</code></pre></div><h3 id=完成路由設定>完成路由設定<a hidden class=anchor aria-hidden=true href=#完成路由設定>#</a></h3>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-tsx data-lang=tsx><span style=color:#75715e>// App.tsx
+</span><span style=color:#75715e></span><span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>FunctionComponent</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;react&#39;</span>;
+<span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>Route</span>, <span style=color:#a6e22e>Routes</span>, <span style=color:#a6e22e>useNavigate</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;react-router-dom&#39;</span>;
+<span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>addProduct</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;./data/actionCreators&#39;</span>;
+<span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>dataStore</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;./data/dataStore&#39;</span>;
+<span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>Order</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;./data/entities&#39;</span>;
+<span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>HttpHandler</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;./data/httpHandler&#39;</span>;
+<span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>ConnectedProductList</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;./data/productLitConnector&#39;</span>;
+<span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>OrderDetails</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;./pages/orderDetails&#39;</span>;
+<span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>Summary</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;./pages/summary&#39;</span>;
+
+<span style=color:#66d9ef>interface</span> <span style=color:#a6e22e>Props</span> { }
+
+<span style=color:#66d9ef>let</span> <span style=color:#a6e22e>httpHandler</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> <span style=color:#a6e22e>HttpHandler</span>();
+<span style=color:#a6e22e>httpHandler</span>.<span style=color:#a6e22e>loadProducts</span>(<span style=color:#a6e22e>data</span> <span style=color:#f92672>=&gt;</span> <span style=color:#a6e22e>dataStore</span>.<span style=color:#a6e22e>dispatch</span>(<span style=color:#a6e22e>addProduct</span>(...<span style=color:#a6e22e>data</span>)));
+
+<span style=color:#66d9ef>export</span> <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>App</span>: <span style=color:#66d9ef>FunctionComponent</span>&lt;<span style=color:#f92672>Props</span>&gt; <span style=color:#f92672>=</span> (<span style=color:#a6e22e>props</span>) <span style=color:#f92672>=&gt;</span> {
+  <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>navigate</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>useNavigate</span>();
+  <span style=color:#66d9ef>let</span> <span style=color:#a6e22e>submitCallback</span> <span style=color:#f92672>=</span> () <span style=color:#f92672>=&gt;</span> {
+    <span style=color:#a6e22e>httpHandler</span>.<span style=color:#a6e22e>storeOrder</span>(<span style=color:#a6e22e>dataStore</span>.<span style=color:#a6e22e>getState</span>().<span style=color:#a6e22e>order</span>, 
+      <span style=color:#a6e22e>id</span> <span style=color:#f92672>=&gt;</span> <span style=color:#a6e22e>navigate</span>(<span style=color:#e6db74>`/summary/</span><span style=color:#e6db74>${</span><span style=color:#a6e22e>id</span><span style=color:#e6db74>}</span><span style=color:#e6db74>`</span>, { <span style=color:#a6e22e>replace</span>: <span style=color:#66d9ef>true</span>}));
+    <span style=color:#a6e22e>dataStore</span>.<span style=color:#a6e22e>getState</span>().<span style=color:#a6e22e>order</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> <span style=color:#a6e22e>Order</span>();
+  };
+
+  <span style=color:#66d9ef>return</span> &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>className</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#39;App&#39;</span>&gt;
+    &lt;<span style=color:#f92672>Routes</span>&gt;
+      &lt;<span style=color:#f92672>Route</span> <span style=color:#a6e22e>index</span> <span style=color:#a6e22e>element</span><span style=color:#f92672>=</span>{&lt;<span style=color:#f92672>ConnectedProductList</span>/&gt;}/&gt;
+      &lt;<span style=color:#f92672>Route</span> <span style=color:#a6e22e>path</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;/products&#34;</span> <span style=color:#a6e22e>element</span><span style=color:#f92672>=</span>{&lt;<span style=color:#f92672>ConnectedProductList</span>/&gt;}/&gt;
+      &lt;<span style=color:#f92672>Route</span> <span style=color:#a6e22e>path</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;/order&#34;</span> <span style=color:#a6e22e>element</span><span style=color:#f92672>=</span>{&lt;<span style=color:#f92672>OrderDetails</span> 
+        <span style=color:#a6e22e>submitCallback</span><span style=color:#f92672>=</span>{() <span style=color:#f92672>=&gt;</span> 
+          <span style=color:#a6e22e>submitCallback</span>()}/&gt;} /&gt;
+      &lt;<span style=color:#f92672>Route</span> <span style=color:#a6e22e>path</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;/summary/:id&#34;</span> <span style=color:#a6e22e>element</span><span style=color:#f92672>=</span>{&lt;<span style=color:#f92672>Summary</span> /&gt;} /&gt;
+    &lt;/<span style=color:#f92672>Routes</span>&gt;
+  &lt;/<span style=color:#f92672>div</span>&gt;
+}
+
+<span style=color:#66d9ef>export</span> <span style=color:#66d9ef>default</span> <span style=color:#a6e22e>App</span>;
+</code></pre></div><h3 id=執行測試-1>執行測試<a hidden class=anchor aria-hidden=true href=#執行測試-1>#</a></h3>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/186138695-887ae2e6-e0a1-4ea6-85fc-6f18d67bbebf.png alt=image>
+</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/186138853-f5df2d71-6ece-483e-b16e-fe38cc60ff47.png alt=image>
+</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/186138894-3224da0c-4531-4c51-9b5a-9c7fd26409d6.png alt=image>
+</p>
+<h2 id=佈署應用程式>佈署應用程式<a hidden class=anchor aria-hidden=true href=#佈署應用程式>#</a></h2>
+<p>使用 NodeJS & Express 來當作 Http Server & Web Api Server</p>
+<h3 id=安裝-express-套件---connect-history-api-fallback-套件>安裝 express 套件 & -connect-history-api-fallback 套件<a hidden class=anchor aria-hidden=true href=#安裝-express-套件---connect-history-api-fallback-套件>#</a></h3>
+<p><code>$ npm install --save-dev express@4.18.1 connect-history-api-fallback@2.0.0</code></p>
+<h3 id=建立-node-伺服器>建立 node 伺服器<a hidden class=anchor aria-hidden=true href=#建立-node-伺服器>#</a></h3>
+<p><code>$ touch server.js</code></p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-js data-lang=js><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>express</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>require</span>(<span style=color:#e6db74>&#34;express&#34;</span>);
+<span style=color:#66d9ef>const</span> <span style=color:#a6e22e>jsonServer</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>require</span>(<span style=color:#e6db74>&#34;json-server&#34;</span>);
+<span style=color:#66d9ef>const</span> <span style=color:#a6e22e>history</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>require</span>(<span style=color:#e6db74>&#34;connect-history-api-fallback&#34;</span>);
+<span style=color:#66d9ef>const</span> <span style=color:#a6e22e>app</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>express</span>();
+
+<span style=color:#a6e22e>app</span>.<span style=color:#a6e22e>use</span>(<span style=color:#a6e22e>history</span>());
+<span style=color:#a6e22e>app</span>.<span style=color:#a6e22e>use</span>(<span style=color:#e6db74>&#34;/&#34;</span>, <span style=color:#a6e22e>express</span>.<span style=color:#66d9ef>static</span>(<span style=color:#e6db74>&#34;build&#34;</span>));
+
+<span style=color:#66d9ef>const</span> <span style=color:#a6e22e>router</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>jsonServer</span>.<span style=color:#a6e22e>router</span>(<span style=color:#e6db74>&#34;data.json&#34;</span>);
+<span style=color:#a6e22e>app</span>.<span style=color:#a6e22e>use</span>(<span style=color:#a6e22e>jsonServer</span>.<span style=color:#a6e22e>bodyParser</span>);
+<span style=color:#a6e22e>app</span>.<span style=color:#a6e22e>use</span>(<span style=color:#e6db74>&#34;/api&#34;</span>, (<span style=color:#a6e22e>req</span>, <span style=color:#a6e22e>res</span>, <span style=color:#a6e22e>next</span>) =&gt; <span style=color:#a6e22e>router</span>(<span style=color:#a6e22e>req</span>, <span style=color:#a6e22e>res</span>, <span style=color:#a6e22e>next</span>));
+
+<span style=color:#66d9ef>const</span> <span style=color:#a6e22e>port</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>process</span>.<span style=color:#a6e22e>argv</span>[<span style=color:#ae81ff>3</span>] <span style=color:#f92672>||</span> <span style=color:#ae81ff>4002</span>;
+<span style=color:#a6e22e>app</span>.<span style=color:#a6e22e>listen</span>(<span style=color:#a6e22e>port</span>, ()=&gt; <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>(<span style=color:#e6db74>`Running on port </span><span style=color:#e6db74>${</span><span style=color:#a6e22e>port</span><span style=color:#e6db74>}</span><span style=color:#e6db74>`</span>));
+</code></pre></div><h3 id=修改-url-路徑>修改 url 路徑<a hidden class=anchor aria-hidden=true href=#修改-url-路徑>#</a></h3>
+<p>修改 httpHandler.ts</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-typescript data-lang=typescript><span style=color:#66d9ef>import</span> <span style=color:#a6e22e>Axios</span> <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#34;axios&#34;</span>;
+<span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>Order</span>, <span style=color:#a6e22e>Product</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#34;./entities&#34;</span>;
+
+<span style=color:#75715e>// const protocol = &#34;http&#34;;
+</span><span style=color:#75715e>// const hostname = &#34;localhost&#34;;
+</span><span style=color:#75715e>// const port = 4600;
+</span><span style=color:#75715e>// const urls = {
+</span><span style=color:#75715e>//     products: `${protocol}://${hostname}:${port}/products`,
+</span><span style=color:#75715e>//     orders: `${protocol}://${hostname}:${port}/orders`,
+</span><span style=color:#75715e>// };
+</span><span style=color:#75715e></span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>urls</span> <span style=color:#f92672>=</span> {
+    <span style=color:#a6e22e>products</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;/api/products&#34;</span>,
+    <span style=color:#a6e22e>orders</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;/api/orders&#34;</span>
+}
+
+<span style=color:#66d9ef>export</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>HttpHandler</span> {
+    <span style=color:#a6e22e>loadProducts</span>(<span style=color:#a6e22e>callback</span><span style=color:#f92672>:</span> (<span style=color:#a6e22e>producs</span>: <span style=color:#66d9ef>Product</span>[]) <span style=color:#f92672>=&gt;</span> <span style=color:#66d9ef>void</span>)<span style=color:#f92672>:</span> <span style=color:#66d9ef>void</span> {
+        <span style=color:#a6e22e>Axios</span>.<span style=color:#66d9ef>get</span>(<span style=color:#a6e22e>urls</span>.<span style=color:#a6e22e>products</span>).<span style=color:#a6e22e>then</span>(<span style=color:#a6e22e>response</span> <span style=color:#f92672>=&gt;</span> <span style=color:#a6e22e>callback</span>(<span style=color:#a6e22e>response</span>.<span style=color:#a6e22e>data</span>))        
+    }
+
+    <span style=color:#a6e22e>storeOrder</span>(<span style=color:#a6e22e>order</span>: <span style=color:#66d9ef>Order</span>, <span style=color:#a6e22e>callback</span><span style=color:#f92672>:</span> (<span style=color:#a6e22e>id</span>: <span style=color:#66d9ef>number</span>) <span style=color:#f92672>=&gt;</span> <span style=color:#66d9ef>void</span>)<span style=color:#f92672>:</span> <span style=color:#66d9ef>void</span> {
+        <span style=color:#66d9ef>let</span> <span style=color:#a6e22e>orderData</span> <span style=color:#f92672>=</span> {
+            <span style=color:#a6e22e>lines</span><span style=color:#f92672>:</span> [...<span style=color:#a6e22e>order</span>.<span style=color:#a6e22e>orderLines</span>.<span style=color:#a6e22e>values</span>()].<span style=color:#a6e22e>map</span>(<span style=color:#a6e22e>ol</span> <span style=color:#f92672>=&gt;</span> ({
+                <span style=color:#a6e22e>productId</span>: <span style=color:#66d9ef>ol.product.id</span>,
+                <span style=color:#a6e22e>productName</span>: <span style=color:#66d9ef>ol.product.name</span>,
+                <span style=color:#a6e22e>quantity</span>: <span style=color:#66d9ef>ol.quantity</span>
+            }))
+        }
+        <span style=color:#a6e22e>Axios</span>.<span style=color:#a6e22e>post</span>(<span style=color:#a6e22e>urls</span>.<span style=color:#a6e22e>orders</span>, <span style=color:#a6e22e>orderData</span>).<span style=color:#a6e22e>then</span>(<span style=color:#a6e22e>response</span> <span style=color:#f92672>=&gt;</span> <span style=color:#a6e22e>callback</span>(<span style=color:#a6e22e>response</span>.<span style=color:#a6e22e>data</span>.<span style=color:#a6e22e>id</span>));
+    }
+}
+</code></pre></div><h3 id=建置-react-app>建置 React App<a hidden class=anchor aria-hidden=true href=#建置-react-app>#</a></h3>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$ npm run build
+
+&gt; reactapp@0.1.0 build
+&gt; react-scripts build
+
+Creating an optimized production build...
+Compiled with warnings.
+
+<span style=color:#f92672>[</span>eslint<span style=color:#f92672>]</span> 
+src/pages/categoryList.tsx
+  Line 1:17:  <span style=color:#e6db74>&#39;ChangeEvent&#39;</span> is defined but never used  @typescript-eslint/no-unused-vars
+  Line 1:49:  <span style=color:#e6db74>&#39;useState&#39;</span> is defined but never used     @typescript-eslint/no-unused-vars
+
+src/pages/productList.tsx
+  Line 1:10:  <span style=color:#e6db74>&#39;ChangeEvent&#39;</span> is defined but never used  @typescript-eslint/no-unused-vars
+
+src/pages/summary.tsx
+  Line 5:11:  <span style=color:#e6db74>&#39;Params&#39;</span> is defined but never used  @typescript-eslint/no-unused-vars
+
+Search <span style=color:#66d9ef>for</span> the keywords to learn more about each warning.
+To ignore, add // eslint-disable-next-line to the line before.
+
+File sizes after gzip:
+
+  63.26 kB <span style=color:#f92672>(</span>-45 B<span style=color:#f92672>)</span>  build/static/js/main.2ece24f2.js
+  27.93 kB          build/static/css/main.24b68c36.css
+
+The project was built assuming it is hosted at /.
+You can control this with the homepage field in your package.json.
+
+The build folder is ready to be deployed.
+You may serve it with a static server:
+
+  npm install -g serve
+  serve -s build
+
+Find out more about deployment here:
+
+  https://cra.link/deployment
+
+
+$ ls -al build
+
+總用量 <span style=color:#ae81ff>52</span>
+drwxrwxr-x <span style=color:#ae81ff>3</span> egs egs <span style=color:#ae81ff>4096</span>  八  <span style=color:#ae81ff>23</span> 18:50 .
+drwxrwxr-x <span style=color:#ae81ff>7</span> egs egs <span style=color:#ae81ff>4096</span>  八  <span style=color:#ae81ff>23</span> 18:46 ..
+-rw-rw-r-- <span style=color:#ae81ff>1</span> egs egs  <span style=color:#ae81ff>369</span>  八  <span style=color:#ae81ff>23</span> 18:50 asset-manifest.json
+-rw-rw-r-- <span style=color:#ae81ff>1</span> egs egs <span style=color:#ae81ff>3870</span>  八  <span style=color:#ae81ff>23</span> 18:50 favicon.ico
+-rw-rw-r-- <span style=color:#ae81ff>1</span> egs egs  <span style=color:#ae81ff>644</span>  八  <span style=color:#ae81ff>23</span> 18:50 index.html
+-rw-rw-r-- <span style=color:#ae81ff>1</span> egs egs <span style=color:#ae81ff>5347</span>  八  <span style=color:#ae81ff>23</span> 18:50 logo192.png
+-rw-rw-r-- <span style=color:#ae81ff>1</span> egs egs <span style=color:#ae81ff>9664</span>  八  <span style=color:#ae81ff>23</span> 18:50 logo512.png
+-rw-rw-r-- <span style=color:#ae81ff>1</span> egs egs  <span style=color:#ae81ff>492</span>  八  <span style=color:#ae81ff>23</span> 18:50 manifest.json
+-rw-rw-r-- <span style=color:#ae81ff>1</span> egs egs   <span style=color:#ae81ff>67</span>  八  <span style=color:#ae81ff>23</span> 18:50 robots.txt
+drwxrwxr-x <span style=color:#ae81ff>4</span> egs egs <span style=color:#ae81ff>4096</span>  八  <span style=color:#ae81ff>23</span> 18:50 static
+</code></pre></div><h3 id=執行>執行<a hidden class=anchor aria-hidden=true href=#執行>#</a></h3>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$ node server.js
+
+Running on port <span style=color:#ae81ff>4002</span>
+</code></pre></div><p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/186140693-2c840a37-c955-47fb-86c2-1499ba0ac85b.png alt=image>
+</p>
+<p>功能完成後的程式檔案結構：</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/186141275-ff042832-f010-41ef-b9b6-b1390c33f292.png alt=image>
+</p>
+</div>
+<footer class=post-footer>
+<ul class=post-tags>
+<li><a href=https://calvinegs.github.io/tags/react/>react</a></li>
+<li><a href=https://calvinegs.github.io/tags/bootstrap/>bootstrap</a></li>
+<li><a href=https://calvinegs.github.io/tags/redux/>redux</a></li>
+<li><a href=https://calvinegs.github.io/tags/react-redux/>react-redux</a></li>
+<li><a href=https://calvinegs.github.io/tags/react-router/>react router</a></li>
+<li><a href=https://calvinegs.github.io/tags/npm-run-all/>npm-run-all</a></li>
+<li><a href=https://calvinegs.github.io/tags/node.js/>Node.js</a></li>
+<li><a href=https://calvinegs.github.io/tags/express/>express</a></li>
+<li><a href=https://calvinegs.github.io/tags/json-server/>Json Server</a></li>
+</ul>
+<nav class=paginav>
+<a class=next href=https://calvinegs.github.io/posts/webapp-angular/>
+<span class=title>Next Page »</span>
+<br>
+<span>使用 Angular 來建立網路應用程式</span>
+</a>
+</nav>
+<div class=share-buttons>
+<a target=_blank rel="noopener noreferrer" aria-label="share 使用 React 來建立網路應用程式 on twitter" href="https://twitter.com/intent/tweet/?text=%e4%bd%bf%e7%94%a8%20React%20%e4%be%86%e5%bb%ba%e7%ab%8b%e7%b6%b2%e8%b7%af%e6%87%89%e7%94%a8%e7%a8%8b%e5%bc%8f&url=https%3a%2f%2fcalvinegs.github.io%2fposts%2fwebapp-react%2f&hashtags=react%2cbootstrap%2credux%2creact-redux%2creactrouter%2cnpm-run-all%2cNode.js%2cexpress%2cJsonServer"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zM195.519 424.544c135.939.0 210.268-112.643 210.268-210.268.0-3.218.0-6.437-.153-9.502 14.406-10.421 26.973-23.448 36.935-38.314-13.18 5.824-27.433 9.809-42.452 11.648 15.326-9.196 26.973-23.602 32.49-40.92-14.252 8.429-30.038 14.56-46.896 17.931-13.487-14.406-32.644-23.295-53.946-23.295-40.767.0-73.87 33.104-73.87 73.87.0 5.824.613 11.494 1.992 16.858-61.456-3.065-115.862-32.49-152.337-77.241-6.284 10.881-9.962 23.601-9.962 37.088.0 25.594 13.027 48.276 32.95 61.456-12.107-.307-23.448-3.678-33.41-9.196v.92c0 35.862 25.441 65.594 59.311 72.49-6.13 1.686-12.72 2.606-19.464 2.606-4.751.0-9.348-.46-13.946-1.38 9.349 29.426 36.628 50.728 68.965 51.341-25.287 19.771-57.164 31.571-91.8 31.571-5.977.0-11.801-.306-17.625-1.073 32.337 21.15 71.264 33.41 112.95 33.41z"/></svg>
+</a>
+<a target=_blank rel="noopener noreferrer" aria-label="share 使用 React 來建立網路應用程式 on linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2fcalvinegs.github.io%2fposts%2fwebapp-react%2f&title=%e4%bd%bf%e7%94%a8%20React%20%e4%be%86%e5%bb%ba%e7%ab%8b%e7%b6%b2%e8%b7%af%e6%87%89%e7%94%a8%e7%a8%8b%e5%bc%8f&summary=%e4%bd%bf%e7%94%a8%20React%20%e4%be%86%e5%bb%ba%e7%ab%8b%e7%b6%b2%e8%b7%af%e6%87%89%e7%94%a8%e7%a8%8b%e5%bc%8f&source=https%3a%2f%2fcalvinegs.github.io%2fposts%2fwebapp-react%2f"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zM160.461 423.278V197.561h-75.04v225.717h75.04zm270.539.0V293.839c0-69.333-37.018-101.586-86.381-101.586-39.804.0-57.634 21.891-67.617 37.266v-31.958h-75.021c.995 21.181.0 225.717.0 225.717h75.02V297.222c0-6.748.486-13.492 2.474-18.315 5.414-13.475 17.767-27.434 38.494-27.434 27.135.0 38.007 20.707 38.007 51.037v120.768H431zM123.448 88.722C97.774 88.722 81 105.601 81 127.724c0 21.658 16.264 39.002 41.455 39.002h.484c26.165.0 42.452-17.344 42.452-39.002-.485-22.092-16.241-38.954-41.943-39.002z"/></svg>
+</a>
+<a target=_blank rel="noopener noreferrer" aria-label="share 使用 React 來建立網路應用程式 on reddit" href="https://reddit.com/submit?url=https%3a%2f%2fcalvinegs.github.io%2fposts%2fwebapp-react%2f&title=%e4%bd%bf%e7%94%a8%20React%20%e4%be%86%e5%bb%ba%e7%ab%8b%e7%b6%b2%e8%b7%af%e6%87%89%e7%94%a8%e7%a8%8b%e5%bc%8f"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zM446 265.638c0-22.964-18.616-41.58-41.58-41.58-11.211.0-21.361 4.457-28.841 11.666-28.424-20.508-67.586-33.757-111.204-35.278l18.941-89.121 61.884 13.157c.756 15.734 13.642 28.29 29.56 28.29 16.407.0 29.706-13.299 29.706-29.701.0-16.403-13.299-29.702-29.706-29.702-11.666.0-21.657 6.792-26.515 16.578l-69.105-14.69c-1.922-.418-3.939-.042-5.585 1.036-1.658 1.073-2.811 2.761-3.224 4.686l-21.152 99.438c-44.258 1.228-84.046 14.494-112.837 35.232-7.468-7.164-17.589-11.591-28.757-11.591-22.965.0-41.585 18.616-41.585 41.58.0 16.896 10.095 31.41 24.568 37.918-.639 4.135-.99 8.328-.99 12.576.0 63.977 74.469 115.836 166.33 115.836s166.334-51.859 166.334-115.836c0-4.218-.347-8.387-.977-12.493 14.564-6.47 24.735-21.034 24.735-38.001zM326.526 373.831c-20.27 20.241-59.115 21.816-70.534 21.816-11.428.0-50.277-1.575-70.522-21.82-3.007-3.008-3.007-7.882.0-10.889 3.003-2.999 7.882-3.003 10.885.0 12.777 12.781 40.11 17.317 59.637 17.317 19.522.0 46.86-4.536 59.657-17.321 3.016-2.999 7.886-2.995 10.885.008 3.008 3.011 3.003 7.882-.008 10.889zm-5.23-48.781c-16.373.0-29.701-13.324-29.701-29.698.0-16.381 13.328-29.714 29.701-29.714 16.378.0 29.706 13.333 29.706 29.714.0 16.374-13.328 29.698-29.706 29.698zM160.91 295.348c0-16.381 13.328-29.71 29.714-29.71 16.369.0 29.689 13.329 29.689 29.71.0 16.373-13.32 29.693-29.689 29.693-16.386.0-29.714-13.32-29.714-29.693z"/></svg>
+</a>
+<a target=_blank rel="noopener noreferrer" aria-label="share 使用 React 來建立網路應用程式 on facebook" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fcalvinegs.github.io%2fposts%2fwebapp-react%2f"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H342.978V319.085h66.6l12.672-82.621h-79.272v-53.617c0-22.603 11.073-44.636 46.58-44.636H425.6v-70.34s-32.71-5.582-63.982-5.582c-65.288.0-107.96 39.569-107.96 111.204v62.971h-72.573v82.621h72.573V512h-191.104c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892z"/></svg>
+</a>
+<a target=_blank rel="noopener noreferrer" aria-label="share 使用 React 來建立網路應用程式 on whatsapp" href="https://api.whatsapp.com/send?text=%e4%bd%bf%e7%94%a8%20React%20%e4%be%86%e5%bb%ba%e7%ab%8b%e7%b6%b2%e8%b7%af%e6%87%89%e7%94%a8%e7%a8%8b%e5%bc%8f%20-%20https%3a%2f%2fcalvinegs.github.io%2fposts%2fwebapp-react%2f"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zm-58.673 127.703c-33.842-33.881-78.847-52.548-126.798-52.568-98.799.0-179.21 80.405-179.249 179.234-.013 31.593 8.241 62.428 23.927 89.612l-25.429 92.884 95.021-24.925c26.181 14.28 55.659 21.807 85.658 21.816h.074c98.789.0 179.206-80.413 179.247-179.243.018-47.895-18.61-92.93-52.451-126.81zM263.976 403.485h-.06c-26.734-.01-52.954-7.193-75.828-20.767l-5.441-3.229-56.386 14.792 15.05-54.977-3.542-5.637c-14.913-23.72-22.791-51.136-22.779-79.287.033-82.142 66.867-148.971 149.046-148.971 39.793.014 77.199 15.531 105.329 43.692 28.128 28.16 43.609 65.592 43.594 105.4-.034 82.149-66.866 148.983-148.983 148.984zm81.721-111.581c-4.479-2.242-26.499-13.075-30.604-14.571-4.105-1.495-7.091-2.241-10.077 2.241-2.986 4.483-11.569 14.572-14.182 17.562-2.612 2.988-5.225 3.364-9.703 1.12-4.479-2.241-18.91-6.97-36.017-22.23C231.8 264.15 222.81 249.484 220.198 245s-.279-6.908 1.963-9.14c2.016-2.007 4.48-5.232 6.719-7.847 2.24-2.615 2.986-4.484 4.479-7.472 1.493-2.99.747-5.604-.374-7.846-1.119-2.241-10.077-24.288-13.809-33.256-3.635-8.733-7.327-7.55-10.077-7.688-2.609-.13-5.598-.158-8.583-.158-2.986.0-7.839 1.121-11.944 5.604-4.105 4.484-15.675 15.32-15.675 37.364.0 22.046 16.048 43.342 18.287 46.332 2.24 2.99 31.582 48.227 76.511 67.627 10.685 4.615 19.028 7.371 25.533 9.434 10.728 3.41 20.492 2.929 28.209 1.775 8.605-1.285 26.499-10.833 30.231-21.295 3.732-10.464 3.732-19.431 2.612-21.298-1.119-1.869-4.105-2.99-8.583-5.232z"/></svg>
+</a>
+<a target=_blank rel="noopener noreferrer" aria-label="share 使用 React 來建立網路應用程式 on telegram" href="https://telegram.me/share/url?text=%e4%bd%bf%e7%94%a8%20React%20%e4%be%86%e5%bb%ba%e7%ab%8b%e7%b6%b2%e8%b7%af%e6%87%89%e7%94%a8%e7%a8%8b%e5%bc%8f&url=https%3a%2f%2fcalvinegs.github.io%2fposts%2fwebapp-react%2f"><svg viewBox="2 2 28 28"><path d="M26.49 29.86H5.5a3.37 3.37.0 01-2.47-1 3.35 3.35.0 01-1-2.47V5.48A3.36 3.36.0 013 3 3.37 3.37.0 015.5 2h21A3.38 3.38.0 0129 3a3.36 3.36.0 011 2.46V26.37a3.35 3.35.0 01-1 2.47 3.38 3.38.0 01-2.51 1.02zm-5.38-6.71a.79.79.0 00.85-.66L24.73 9.24a.55.55.0 00-.18-.46.62.62.0 00-.41-.17q-.08.0-16.53 6.11a.59.59.0 00-.41.59.57.57.0 00.43.52l4 1.24 1.61 4.83a.62.62.0 00.63.43.56.56.0 00.4-.17L16.54 20l4.09 3A.9.9.0 0021.11 23.15zM13.8 20.71l-1.21-4q8.72-5.55 8.78-5.55c.15.0.23.0.23.16a.18.18.0 010 .06s-2.51 2.3-7.52 6.8z"/></svg>
+</a>
+</div>
+</footer>
+<div>
+<div id=disqus_thread></div>
+<script type=text/javascript>(function(){var a,b;if(window.location.hostname=="localhost")return;a=document.createElement('script'),a.type='text/javascript',a.async=!0,b='calvinegs-github-io',a.src='//'+b+'.disqus.com/embed.js',(document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild(a)})()</script>
+<noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript>
+<a href=https://disqus.com/ class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a>
+</div>
+</article>
+</main>
+<footer class=footer>
+<span>&copy; 2022 <a href=https://calvinegs.github.io/>永誌不忘 • 筆記簿</a></span>
+<span>
+Powered by
+<a href=https://gohugo.io/ rel="noopener noreferrer" target=_blank>Hugo</a> &
+        <a href=https://git.io/hugopapermod rel=noopener target=_blank>PaperMod</a>
+</span>
+</footer>
+<a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentcolor"><path d="M12 6H0l6-6z"/></svg>
+</a>
+<script>let menu=document.getElementById('menu');menu&&(menu.scrollLeft=localStorage.getItem("menu-scroll-position"),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}),document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener("click",function(b){b.preventDefault();var a=this.getAttribute("href").substr(1);window.matchMedia('(prefers-reduced-motion: reduce)').matches?document.querySelector(`[id='${decodeURIComponent(a)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(a)}']`).scrollIntoView({behavior:"smooth"}),a==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${a}`)})})</script>
+<script>var mybutton=document.getElementById("top-link");window.onscroll=function(){document.body.scrollTop>800||document.documentElement.scrollTop>800?(mybutton.style.visibility="visible",mybutton.style.opacity="1"):(mybutton.style.visibility="hidden",mybutton.style.opacity="0")}</script>
+<script>document.getElementById("theme-toggle").addEventListener("click",()=>{document.body.className.includes("dark")?(document.body.classList.remove('dark'),localStorage.setItem("pref-theme",'light')):(document.body.classList.add('dark'),localStorage.setItem("pref-theme",'dark'))})</script>
+<script>document.querySelectorAll('pre > code').forEach(b=>{const c=b.parentNode.parentNode,a=document.createElement('button');a.classList.add('copy-code'),a.innerText='copy';function d(){a.innerText='copied!',setTimeout(()=>{a.innerText='copy'},2e3)}a.addEventListener('click',e=>{if('clipboard'in navigator){navigator.clipboard.writeText(b.textContent),d();return}const a=document.createRange();a.selectNodeContents(b);const c=window.getSelection();c.removeAllRanges(),c.addRange(a);try{document.execCommand('copy'),d()}catch(a){}c.removeRange(a)}),c.classList.contains("highlight")?c.appendChild(a):c.parentNode.firstChild==c||(b.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName=="TABLE"?b.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(a):b.parentNode.appendChild(a))})</script>
+</body>
+</html>
