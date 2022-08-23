@@ -2,10 +2,11 @@
 title: "使用 Angular 來建立網路應用程式"
 date: 2022-08-21
 description: "接下來的三篇筆記分別要紀錄使用不同的三個 framework(Angular、React、Vue)來建立功能一模一樣的網路應用程式， 而在本篇筆記中是使用 Angular(14) 來建立 Web APP"
-tags: ["angular", "bootstrap","npm-run-all"，"Node.js", "express", "Json Server"]
+tags: ["angular", "bootstrap", "npm-run-all", "Node.js", "express", "Json Server"]
 categories: ["angular"]
 ---
 *[github Source code](https://github.com/calvinegs/angularApp.git)*
+
 
 Angular、React、Vue 是三個最受歡迎的前端框架，接下來的三篇筆記分別要紀錄使用這三個不同的框架來建立功能一模一樣的網路應用程式。
 
