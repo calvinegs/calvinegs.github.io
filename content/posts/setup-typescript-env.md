@@ -48,7 +48,7 @@ P.S. 由於 typescript 是安裝在 local，執行時要透過 npx 指令(由 np
 指定額外的參數
 
 ```shell
-$ npx tsc --init --init --rootDir src --outDir build --esModuleInterop --resolveJsonModule --lib es6 --module commonjs --allowJs true --noImplicitAny true
+$ npx tsc --init --rootDir src --outDir build --esModuleInterop --resolveJsonModule --lib es6 --module commonjs --allowJs true --noImplicitAny true
 ```
 
 - rootDir: tsc 轉碼器找尋程式的地方。
