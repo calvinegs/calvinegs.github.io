@@ -18,13 +18,13 @@ Angular、React、Vue 是三個最受歡迎的前端框架，這是三篇筆記�
 - 訂單確認功能：顯示訂購商品明細及總金額
 - 訂購成功功能：顯示訂購完成資訊
 
-![image](https://user-images.githubusercontent.com/21993717/185827887-9df81f19-49fa-4948-adc3-1851acf9dc5a.png)
+![image](https://user-images.githubusercontent.com/21993717/186822960-fea2e8e0-9e05-4a74-a18a-b80c0d7eba29.png)
 
-![image](https://user-images.githubusercontent.com/21993717/185831273-8dd2f971-ea12-4151-aed7-294303430af9.png)
+![image](https://user-images.githubusercontent.com/21993717/186823113-7b6152c3-7c17-4201-9ed7-71f3df1e6b7b.png)
 
-![2022-08-22 11-12-24 的螢幕擷圖](https://user-images.githubusercontent.com/21993717/185831337-ca82deea-dacf-4c88-b3f3-83110f30cb12.png)
+![2022-08-26 12-33-08 的螢幕擷圖](https://user-images.githubusercontent.com/21993717/186823159-814dc1d7-62fb-4fef-9b73-8dca369177b6.png)
 
-![2022-08-22 11-13-51 的螢幕擷圖](https://user-images.githubusercontent.com/21993717/185831442-f3cfe442-673f-4be6-b3e1-a5e71c45533b.png)
+![2022-08-26 12-33-11 的螢幕擷圖](https://user-images.githubusercontent.com/21993717/186823191-2cfbce9b-a815-412f-a53a-2481df694de1.png)
 
 
 使用技術:
@@ -39,7 +39,7 @@ Angular、React、Vue 是三個最受歡迎的前端框架，這是三篇筆記�
 
 ## 建立新專案
 
-使用下列的 npm init 語法即可建立最新版 Angular 預設的應用程式結構
+使用下列的 npm init 語法即可建立最新版 React 預設的應用程式結構
 
 ```bash
 $ npx create-react-app reactapp --template typescript
