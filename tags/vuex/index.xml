@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>react on 永誌不忘 • 筆記簿</title>
-    <link>https://calvinegs.github.io/tags/react/</link>
-    <description>Recent content in react on 永誌不忘 • 筆記簿</description>
+    <title>vuex on 永誌不忘 • 筆記簿</title>
+    <link>https://calvinegs.github.io/tags/vuex/</link>
+    <description>Recent content in vuex on 永誌不忘 • 筆記簿</description>
     <image>
       <url>https://calvinegs.github.io/papermod-cover.png</url>
       <link>https://calvinegs.github.io/papermod-cover.png</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 26 Aug 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://calvinegs.github.io/tags/react/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 26 Aug 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://calvinegs.github.io/tags/vuex/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>使用 Vue 來建立網路應用程式</title>
       <link>https://calvinegs.github.io/posts/webapp-vue/</link>
@@ -18,15 +18,6 @@
       
       <guid>https://calvinegs.github.io/posts/webapp-vue/</guid>
       <description>這是三篇紀錄使用不同的三個 framework(Angular、React、Vue)來建立功能一模一樣的網路應用程式的筆記中的第三篇， 本篇中是使用 Vue 來建立 Web APP</description>
-    </item>
-    
-    <item>
-      <title>使用 React 來建立網路應用程式</title>
-      <link>https://calvinegs.github.io/posts/webapp-react/</link>
-      <pubDate>Tue, 23 Aug 2022 00:00:00 +0000</pubDate>
-      
-      <guid>https://calvinegs.github.io/posts/webapp-react/</guid>
-      <description>這是三篇紀錄使用不同的三個 framework(Angular、React、Vue)來建立功能一模一樣的網路應用程式的筆記中的第二篇， 本篇中是使用 React 來建立 Web APP</description>
     </item>
     
   </channel>

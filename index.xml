@@ -10,7 +10,16 @@
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 23 Aug 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://calvinegs.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 26 Aug 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://calvinegs.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>使用 Vue 來建立網路應用程式</title>
+      <link>https://calvinegs.github.io/posts/webapp-vue/</link>
+      <pubDate>Fri, 26 Aug 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://calvinegs.github.io/posts/webapp-vue/</guid>
+      <description>這是三篇紀錄使用不同的三個 framework(Angular、React、Vue)來建立功能一模一樣的網路應用程式的筆記中的第三篇， 本篇中是使用 Vue 來建立 Web APP</description>
+    </item>
+    
     <item>
       <title>使用 React 來建立網路應用程式</title>
       <link>https://calvinegs.github.io/posts/webapp-react/</link>
