@@ -152,20 +152,23 @@ mssql@sql1:/$ exit
 ```
 
 ## 安裝 dbeaver-ce
-> 有了資料後，通常你會需要一個管理工具來連結上該資料庫來做一些日常的資料管理。由於工作關係，會常使用到各式資料庫，若你的管理工具只適用某類資料，那勢必要安裝好幾個工具了。在此建議可使用 bdeaver-cd (https://dbeaver.io/download/)
+有了資料後，通常你會需要一個管理工具來連結上該資料庫來做一些日常的資料管理。由於工作關係，會常使用到各式資料庫，若你的管理工具只適用某類資料，那勢必要安裝好幾個工具了。在此建議可使用 bdeaver-cd (https://dbeaver.io/download/)
 
 ```bash
 $ wget https://dbeaver.io/files/dbeaver-ce_latest_amd64.deb
 $ sudo dpkg -i dbeaver-ce_latest_amd64.deb
 ```
-> 安裝完成後啟動它，進行連結資料庫設定
+安裝完成後啟動它，進行連結資料庫設定
+
 ![image](https://user-images.githubusercontent.com/21993717/169449369-7c28062e-0f50-41af-8cf8-30e9596286f8.png)
 
 
-> 連結 SQL Server 資料庫
+連結 SQL Server 資料庫
+
 ![image](https://user-images.githubusercontent.com/21993717/169449181-897f8903-d703-40b6-a0a7-ab488b776fba.png)
 
 ![image](https://user-images.githubusercontent.com/21993717/169449716-1ccafd9c-3811-46d9-9659-31206c3a8e6c.png)
 
-> 管理資料庫 - 查詢資料表資料、結構、修改資料表資料、結構...
+管理資料庫 - 查詢資料表資料、結構、修改資料表資料、結構...
+
 ![image](https://user-images.githubusercontent.com/21993717/169450121-14ddd510-a71e-41dc-a8ed-4fa73e4dbb1c.png)
