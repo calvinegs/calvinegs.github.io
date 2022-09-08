@@ -5,7 +5,7 @@ description: "在 ASP.NET Core 提供 Minimal APIs 新框架前，你使用的�
 tags: ["dotnet 6", "webapi", "minimal api", "jwt"]
 categories: ["webapi"]
 ---
-*[github Source code #tag: minimal_webapi_jwt](https://github.com/calvinegs/Minimal-Webapi-Jwt)*
+*[github Source code](https://github.com/calvinegs/Minimal-Webapi-Jwt)*
 
 本篇筆記中將紀錄如何使用 ASP.NET Core 6 提供的 Minimal APIs 新框架建置一個使用 Token-base 身份驗證的 Web API 網站。
 

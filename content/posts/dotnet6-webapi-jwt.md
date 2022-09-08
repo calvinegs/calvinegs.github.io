@@ -5,7 +5,7 @@ description: "在前面的筆記中已紀錄了使用 ASP.NET Core 所提供的�
 tags: ["dotnet 6", "webapi", "jwt", "docker", "SQL Server", "openapi", "swagger"]
 categories: ["webapi"]
 ---
-*[github Source code #tag: dotnet6_webapi_jwt](https://github.com/calvinegs/dotnet6-webapi-jwt)*
+*[github Source code](https://github.com/calvinegs/dotnet6-webapi-jwt)*
 
 本文將記錄如何一步步從無到有使用 Dotnet Core 6.0 建立 ASP.NET Core Web API，其中將會使用到下列技術:
 
@@ -35,7 +35,7 @@ categories: ["webapi"]
 │   ├── AuthenticateData.cs
 │   └── ItemData.cs
 ├── obj/
-├── Models/
+├── Properties/
 │   └── launchSettings.json
 ├── .gitignore
 ├── appsettings.Development.json

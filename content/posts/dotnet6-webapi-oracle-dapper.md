@@ -15,15 +15,21 @@ categories: ["webapi"]
 $ dotnet new webapi -o OracleDapperRepository && cd OracleDapperRepository
 $ dotnet build
 $ dotnet run
-$ git init && git add . && git commit -m "Initial commit"
-
 $ dotnet new gitignore
+$ git init && git add . && git commit -m "Initial commit"
+```
+
+## 安裝相依套件
+```bash
 $ dotnet add package Dapper --2.0.123   # 加入 Dapper package
 $ dotnet add package Oracle.ManagedDataAccess.Core --3.21.50  # 加入 連結 Oracle package
 $ git add . && git commit -m "Add Dapper & Oracle Data Access NuGet packages"
-
-$ cat OracleDapperRepository.csproj
 ```
+
+查看 csproj 檔案中使用的相關套件
+
+`$ cat OracleDapperRepository.csproj'
+
 ```xml {linenos=table,hl_lines=[4,"10-12"],linenostart=1}
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
@@ -42,9 +48,9 @@ $ cat OracleDapperRepository.csproj
 </Project>
 ```
 
-## Open VS Code
+## 設定 Connection string
 
-在 appsettings.json 檔案中加入 Connection String 
+打開 VS Code，在 appsettings.json 檔案中加入 Connection String 
 
 ```json
 {
@@ -55,11 +61,50 @@ $ cat OracleDapperRepository.csproj
 }
 ```
 
-## 在專案目錄結構中建立新資料夾
-在專案目錄中新增 Models 和 Repositories 二個目錄，並在 Repositories 目錄下建立一個 Interfaces 子目錄
+## 專案完成後的檔案結構
 
-## 在 Models 資料夾中新增 Data Model 
-使用快捷鍵 Ctrl+N,C 來新增 Model class : Models\sysmstaf.cs
+```
+./專案目錄
+├── .config/
+│   └── dotnet-tools.json
+├── .vscode/
+│   ├── launch.js
+│   └── tasks.json
+├── Controller/
+│   ├── SysmstafController.cs
+│   └── WeatherForecast.cs
+├── Models/
+│   └── sysmstaf.cs
+├── obj/
+├── Properties/
+│   └── launchSettings.json
+├── Repositories/
+│   ├── Interfaces/
+│   │   └── ISysmstafRepository.cs
+│   └── SysmstafRepository.cs
+├── .gitignore
+├── appsettings.json
+├── OracleDapperRepository.csproj
+├── Program.cs
+├── README.md
+└── WeatherForecast.cs
+```
+
+## 專案完成後所提供的 API 端點
+
+|Methods|Urls|Actions|
+|-------|-----------------------------|-------------------------------------------------|
+|POST| /api/Sysmstaf/StaffId/:id|使用員工編號查詢員工資料|
+|POST| /api/Sysmstaf/LoginId/:id|使用登錄編號查詢員工資料|
+|POST| /api/Sysmstaf/GetDatas|取得所有員工資料|
+|GET| /api/Sysmstaf/GetAllData|取得所有員工資料|
+
+
+## 建置專案中目錄結構與程式
+在專案目錄中新增 Models/ 和 Repositories/ 二個目錄，並在 Repositories/ 目錄下建立一個 Interfaces/ 子目錄
+
+### 在 Models/ 資料夾中新增 Data Model 
+新增 Model class: Models\sysmstaf.cs
 
 ```cs
 namespace OracleDapperRepository.Models
@@ -74,7 +119,7 @@ namespace OracleDapperRepository.Models
     }
 }
 ```
-## 在 Interfaces 目錄下新增一個 ISysmstafRepository.cs Interface file
+### 在 Repositories/Interfaces/ 目錄下新增一個 ISysmstafRepository.cs Interface file
 
 ```cs
 using OracleDapperRepository.Models;
@@ -90,7 +135,7 @@ namespace OracleDapperRepository.Repositories.Interfaces
 }
 ```
 
-## 在 Repositories 目錄下新增 SysmstafRepository.cs
+### 在 Repositories/ 目錄下新增 SysmstafRepository.cs
 
 ```cs
 using System.Data;
@@ -149,7 +194,7 @@ namespace OracleDapperRepository.Repositories
 }
 ```
 
-## 在 Controllers 目錄下新增 SysmstafController.cs
+### 在 Controllers/ 目錄下新增 SysmstafController.cs
 
 ```cs
 using Microsoft.AspNetCore.Mvc;
@@ -193,7 +238,7 @@ namespace OracleDapperRepository.Controllers
 }
 ```
 
-## 在 Program.cs 中將 SysmstafRepository 注入 Container 中
+### 在 Program.cs 中將 SysmstafRepository 注入 Container 中
 
 ```cs {linenos=table,hl_lines=[9],linenostart=1}
 using OracleDapperRepository.Repositories;
@@ -216,6 +261,8 @@ var app = builder.Build();
 ```
 
 ## 透過 swagger (OpenAPI) 來看結果
+
+啟動程式來測試執行結果 `$ dotnet watch`
 
 ![image](https://user-images.githubusercontent.com/21993717/151686300-bd9952d1-49a8-4e5c-bf8a-c67c6eea8123.png)
 

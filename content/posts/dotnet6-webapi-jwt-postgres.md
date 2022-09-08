@@ -32,7 +32,7 @@ categories: ["webapi"]
 │   ├── AuthenticateData.cs
 │   └── ItemData.cs
 ├── obj/
-├── Models/
+├── Properties/
 │   └── launchSettings.json
 ├── .gitignore
 ├── appsettings.Development.json
