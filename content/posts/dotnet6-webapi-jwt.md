@@ -239,7 +239,7 @@ $ code .
 
 > 使用 dotnet ef 工具在專案目錄 ./Data 子目錄下新建立一個 ApiDbContext.cs 的 DB Context file
 
-註：在使用前先把 SQL Server 環境傋妥，安裝 SQL Server 可參考此篇筆紀　*[github Source code](https://calvinegs.github.io/posts/sqlserver2019-docker/)*
+註：在使用前先把 SQL Server 環境傋妥，安裝 SQL Server 可參考此篇筆紀　*[Run SQL Server container images with Docker](https://calvinegs.github.io/posts/sqlserver2019-docker/)*
 
 ```bash
 $ dotnet ef dbcontext scaffold "Data Source=localhost;Initial Catalog=TestDB;User ID=SA;Password=Sql@12345" Microsoft.EntityFrameworkCore.SqlServer -c ApiDbContext -o Data 
