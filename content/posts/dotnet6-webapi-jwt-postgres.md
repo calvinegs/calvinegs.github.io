@@ -76,7 +76,7 @@ $ dotnet restore
   已還原 /home/egs/cal-data/tech-test/webapi/test/dotnet6-webapi-postgress/dotnet6-webapi-jwt.csproj (1.12 sec 內)。
 ```
 
-## 除移、SQL Server 套件改使用 Postgres 相關套件
+## 安裝及使用 Postgres 相關套件
 
 ```bash
 $ dotnet remove package Microsoft.EntityFrameworkCore.SqlServer
@@ -145,7 +145,7 @@ builder.Services.AddDbContext<ApiDbContext>(
 );
 ```
 
-> 改成
+改成
 
 ```cs
 builder.Services.AddDbContext<ApiDbContext>(
@@ -164,7 +164,7 @@ builder.Services.AddDbContext<ApiDbContext>(
   },
 ```
 
-> 改成
+改成
 
 ```json
   "ConnectionStrings": {
@@ -210,7 +210,7 @@ $ dotnet ef database update
 ![2022-06-02 18-07-55](https://user-images.githubusercontent.com/21993717/171607590-cd6e06ad-7ae7-47d2-bfba-afe9aab0d11e.png)
 ```
 
-> 資料遷移成功後會在資料庫中自動産生 Identity Framework 所使用的資料表，而自定的 Model 也會一併産生新資料表
+資料遷移成功後會在資料庫中自動産生 Identity Framework 所使用的資料表，而自定的 Model 也會一併産生新資料表
 
 ![2022-06-02 18-07-55](https://user-images.githubusercontent.com/21993717/171634977-ae819471-bbdd-4385-be7c-c0a6b538304f.png)
 
