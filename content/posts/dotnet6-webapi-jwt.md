@@ -169,6 +169,7 @@ $ dotnet add package Microsoft.AspNetCore.Identity.EntityFrameworkCore #使用 I
 $ dotnet add package Microsoft.AspNetCore.Authentication.JwtBearer #
 
 $ dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design #搭配 dotnet-aspnet-codegenerator 使用
+$ dotnet add package System.Configuration.ConfigurationManager  #搭配 dotnet-aspnet-codegenerator 使用
 ```
 
 安裝的程式套件資訊紀錄在 "專案".csproj 檔案中
