@@ -271,7 +271,7 @@ $ dotnet add package Microsoft.IdentityModel.Tokens --version 6.11.1
 
 ## 產生合法有效的 JWT Token
 
-> 在前述的　Controller 程式(Controllers/AuthManagementControll.cs)中加入 GenerateJwtToken Function
+在前述的　Controller 程式(Controllers/AuthManagementControll.cs)中加入 GenerateJwtToken Function
 
 ```cs
 private string GenerateJwtToken(IdentityUser user)
@@ -301,7 +301,7 @@ private string GenerateJwtToken(IdentityUser user)
 }
 ```
 
-> 並在 Login & Register function 中去呼叫　GenerateJwtToken function，並回傳 Token ()
+並在 Login & Register function 中去呼叫　GenerateJwtToken function，並回傳 Token ()
 
 ```cs {linenos=table,hl_lines=[25,30,84,89],linenostart=1}
         [HttpPost]

@@ -7,6 +7,8 @@ tags: ["dotnet 6", "webapi", "dapper", "repository"]
 categories: ["webapi"]
 ---
 
+*[github Source code #tag: dapper_oracle](https://github.com/calvinegs/dotnet6-webapi-oracle-dapper.git)*
+
 當已有現存的資料庫(此以 Oracle 為例)並且存在有歷史資料，或與其他系統共用資料庫，在這前題下，通常無法隨意的去更改資料庫結構，這時若要採用 Entity Framework 架構就容易遇到資料庫結構正規化的問題。另一種情境是，舊系統使用了非常的SQL語法，要將這些邏輯"翻譯"成合理的 Entity Framework 架構有技術上或時間上的限制時，就會考慮使用 Dapper 這個輕量的 ORM 搭配上 SQL 語法。
 
 ## 使用 dotnet cli 建立專案
@@ -28,7 +30,7 @@ $ git add . && git commit -m "Add Dapper & Oracle Data Access NuGet packages"
 
 查看 csproj 檔案中使用的相關套件
 
-`$ cat OracleDapperRepository.csproj'
+`$ cat OracleDapperRepository.csproj`
 
 ```xml {linenos=table,hl_lines=[4,"10-12"],linenostart=1}
 <Project Sdk="Microsoft.NET.Sdk.Web">
@@ -270,5 +272,3 @@ var app = builder.Build();
 ![image](https://user-images.githubusercontent.com/21993717/151686344-f3328b67-0e83-4205-babe-f03fb5927dac.png)
 
 ![image](https://user-images.githubusercontent.com/21993717/151686366-88b823fd-826e-4a98-af9c-f95be24d3d19.png)
-
-*[github Source code #tag: dapper_oracle](https://github.com/calvinegs/dotnet6-webapi-oracle-dapper.git)*

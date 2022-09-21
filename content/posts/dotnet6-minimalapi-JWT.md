@@ -34,7 +34,7 @@ drwxrwxr-x 2 egs egs 4096  五  13 18:36 obj
 drwxrwxr-x 2 egs egs 4096  五  13 18:36 Properties
 ```
 
-> dotnet code 版本安裝與管理
+dotnet code 版本安裝與管理
 
 ```bash
 $ dotnet --list-sdks    # 顯示已安裝的 sdk 版本資訊
@@ -45,7 +45,7 @@ $ dotnet --version  # 顯示目前所使用的版本
 6.0.300 # 預設是最新的版本
 ```
 
-> 由於 dotnet 版本演化滿快的，所以會建議在專案目錄中要指定使用 SDK 的版本，以免當你又安裝了更新版本（如7.0）後程式執行出問題。
+由於 dotnet 版本演化滿快的，所以會建議在專案目錄中要指定使用 SDK 的版本，以免當你又安裝了更新版本（如7.0）後程式執行出問題。
 
 ```bash
 $ dotnet new globaljson --sdk-version 6.0.300
@@ -59,19 +59,19 @@ $ cat global.json
 }
 ```
 
-> 使用 dotnet cli 來產生預設的 git ignore 檔案
+使用 dotnet cli 來產生預設的 git ignore 檔案
 
 ```bash
 $ dotnet new gitignore
 ```
 
-> 建立 git 初始版本
+建立 git 初始版本
 
 ```bash
 $ git init && git add . && git commit -m "Initial commit"
 ```
 
-> 安裝 Microsoft.AspNetCore.Authentication.JwtBearer 套件
+安裝 Microsoft.AspNetCore.Authentication.JwtBearer 套件
 
 ```bash {linenos=table,hl_lines=[1,13]}
 $ dotnet add package Microsoft.AspNetCore.Authentication.JwtBearer
@@ -93,19 +93,19 @@ $ cat JwtAuthDemo.csproj
 </Project>
 ```
 
-> 加入 Git 新版本
+加入 Git 新版本
 
 ```bash
 $ git commit -m "Add new package Microsoft.AspNetCore.Authentication.JwtBearer" -a
 
 $ code .    # 打開 VS Code
 ```
-> 目前産生的程式架構
+目前産生的程式架構
 
 ![image](https://user-images.githubusercontent.com/21993717/168269485-478b1ace-676d-48e5-a96d-be69cfcbe5a3.png)
 
 
-> 執行程式
+執行程式
 
 ```bash
 $ dotnet watch
@@ -128,7 +128,7 @@ $ dotnet watch
 
 ## 産生合法的 Jason Web Token
 
-> 在 Program.cs 中新一個建立 Token 的 function
+在 Program.cs 中新一個建立 Token 的 function
 
 ```cs
 string CreateToken(LoginViewModel user)
@@ -159,7 +159,7 @@ string CreateToken(LoginViewModel user)
 }
 ```
 
-> 建立一個 登入 的 Endpoint
+建立一個 登入 的 Endpoint
 
 ```cs
 app.MapPost("/signin", (LoginViewModel login) =>
@@ -182,7 +182,7 @@ bool ValidateUser(LoginViewModel login)
 }
 ```
 
-> 建立一個 model 來接收 login 資料
+建立一個 model 來接收 login 資料
 
 ```cs
 record LoginViewModel(string Username, string Password);
@@ -193,7 +193,7 @@ record LoginViewModel(string Username, string Password);
 
 ## 驗證是否為合法有效的 JWT Token
 
-> 第一步，透過 DI 將 JWT 相關設定設置好
+第一步，透過 DI 將 JWT 相關設定設置好
 
 ```cs
 builder.Services
@@ -232,7 +232,7 @@ builder.Services
 builder.Services.AddAuthorization();
 ```
 
-> 第二步，要記得也要啟動 request pipeline 中的 Middleware (UseAuthentication & UseAuthorization 都需要)
+第二步，要記得也要啟動 request pipeline 中的 Middleware (UseAuthentication & UseAuthorization 都需要)
 
 ```cs
 app.UseAuthentication();
@@ -241,7 +241,7 @@ app.UseAuthorization();
 
 ## 在特定 API EndPoint 上驗證是否帶有合法有效的 JWT Token
 
-> 加入`.RequireAuthorization()` 即可
+加入`.RequireAuthorization()` 即可
 
 ```cs {linenos=table,hl_lines=[13]}
 app.MapGet("/weatherforecast", () =>
@@ -259,21 +259,21 @@ app.MapGet("/weatherforecast", () =>
 .WithName("GetWeatherForecast").RequireAuthorization();
 ```
 
-> 如上程式加入`.RequireAuthorization()`後，再重新瀏覽 weatherforecast endpoint，會回傳 Status: 401 Unauthorized 的錯誤訊息。
+如上程式加入`.RequireAuthorization()`後，再重新瀏覽 weatherforecast endpoint，會回傳 Status: 401 Unauthorized 的錯誤訊息。
 
 ![image](https://user-images.githubusercontent.com/21993717/168756602-7019db97-5f36-41bf-9e47-a6e14150ab36.png)
 
-> 使用 Postman，先加入 Authorization Header，並將登入成功後回傳的 Token 加到 Authorization Header 中。再次送出就可正常的取得所有天氣預測資料了。
+使用 Postman，先加入 Authorization Header，並將登入成功後回傳的 Token 加到 Authorization Header 中。再次送出就可正常的取得所有天氣預測資料了。
 
 ![image](https://user-images.githubusercontent.com/21993717/168757528-61bac493-c21d-468e-87f6-ffa1adad4f27.png)
 
-> 加入 git 版本控制
+加入 git 版本控制
 
 ```bash
 $ git commit -m "finished JWT function" -a
 ```
 
-> 完整程式如下(Program.cs)
+完整程式如下(Program.cs)
 
 ```cs {linenos=table}
 using System.IdentityModel.Tokens.Jwt;
@@ -446,7 +446,7 @@ record LoginViewModel(string Username, string Password);
 
 ### 使用 OpenApi Swagger 來測試 API
 
-> 將程式碼中的 `builder.Services.AddSwaggerGen();`改成以下內容
+將程式碼中的 `builder.Services.AddSwaggerGen();`改成以下內容
 
 ```cs
 builder.Services.AddSwaggerGen(c =>
@@ -471,10 +471,10 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 ```
-> 有了上述的程式設定，當再次 dotnet run 啟動程式後，瀏覽器呈現的 Swagger 畫面右上角會多出了｀Authorize｀ 的按鈕。按下按鈕就是讓你填入登入成功後回傳的 Token
+有了上述的程式設定，當再次 dotnet run 啟動程式後，瀏覽器呈現的 Swagger 畫面右上角會多出了｀Authorize｀ 的按鈕。按下按鈕就是讓你填入登入成功後回傳的 Token
 
 ![image](https://user-images.githubusercontent.com/21993717/168768593-f2dde2f9-d4b2-43dd-85f5-ef080ff8c13a.png)
 
-> 在 Value: 文字框內填入 "Bearer yJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTUxMiIsInR5cCI6IkpXVCJ9....."，再按下 Authorize 按鈕即表下在接下來的 Request 中都會自動帶入 Token 傳給 WebApi Server。 （請注意 Bearer後再先接著一個空白字元再加上 Token值）
+在 Value: 文字框內填入 "Bearer yJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTUxMiIsInR5cCI6IkpXVCJ9....."，再按下 Authorize 按鈕即表下在接下來的 Request 中都會自動帶入 Token 傳給 WebApi Server。 （請注意 Bearer後再先接著一個空白字元再加上 Token值）
 
 ![image](https://user-images.githubusercontent.com/21993717/168768975-0274c3cf-eba6-49bc-a696-36df5b2a97db.png)

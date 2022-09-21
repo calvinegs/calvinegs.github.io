@@ -88,7 +88,7 @@ drwxrwxr-x  2 egs egs 4096  五  20 09:38 Properties
 -rw-rw-r--  1 egs egs  267  五  20 09:38 WeatherForecast.cs
 ```
 
-> dotnet code 版本安裝與管理
+dotnet code 版本安裝與管理
 
 ```bash
 $ dotnet --list-sdks    # 顯示已安裝的 sdk 版本資訊
@@ -99,7 +99,7 @@ $ dotnet --version  # 顯示目前所使用的版本
 6.0.300 # 預設是最新的版本
 ```
 
-> 由於 dotnet 版本演化滿快的，所以會建議在專案目錄中要指定使用 SDK 的版本，以免當你又安裝了更新版本（如7.0）後程式執行出問題。
+由於 dotnet 版本演化滿快的，所以會建議在專案目錄中要指定使用 SDK 的版本，以免當你又安裝了更新版本（如7.0）後程式執行出問題。
 
 ```bash
 $ dotnet new globaljson --sdk-version 6.0.300
@@ -113,13 +113,13 @@ $ cat global.json
 }
 ```
 
-> 使用 dotnet cli 來產生預設的 git ignore 檔案
+使用 dotnet cli 來產生預設的 git ignore 檔案
 
 ```bash
 $ dotnet new gitignore
 ```
 
-> 建立 git 初始版本
+建立 git 初始版本
 
 ```bash
 $ git init && git add . && git commit -m "Initial commit"
@@ -223,13 +223,13 @@ $ dotnet watch
 ![image](https://user-images.githubusercontent.com/21993717/168411149-d9f9777d-a74a-4ef0-a1af-f42bff2a38f0.png)
 
 
-> 打開 VS Code
+打開 VS Code
 
 ```bash
 $ code .
 ```
 
-> 目前産生的程式架構
+目前産生的程式架構
 
 ![2022-05-20 10-14-27](https://user-images.githubusercontent.com/21993717/169435113-7c2de7af-6faf-49dd-a58e-2d1e7fdf971e.png)
 
@@ -238,7 +238,7 @@ $ code .
 
 ### 新增 database context (自動產生)
 
-> 使用 dotnet ef 工具在專案目錄 ./Data 子目錄下新建立一個 ApiDbContext.cs 的 DB Context file
+使用 dotnet ef 工具在專案目錄 ./Data 子目錄下新建立一個 ApiDbContext.cs 的 DB Context file
 
 註：在使用前先把 SQL Server 環境傋妥，安裝 SQL Server 可參考此篇筆紀　*[Run SQL Server container images with Docker](https://calvinegs.github.io/posts/sqlserver2019-docker/)*
 
@@ -306,7 +306,7 @@ namespace dotnet6_webapi_jwt.Data
 }
 ```
 
-> 在 appsettings.json 檔案中加入 Connection String
+在 appsettings.json 檔案中加入 Connection String
 ```bash {{linenos=table,hl_lines=[9,10]}}
 {
   "Logging": {
@@ -388,11 +388,11 @@ Done. To undo this action, use 'ef migrations remove'
   $ dotnet ef database update
 ```
 
-> 在　dotnet ef migrations add "Add Identity Framework" 指令完成後，可以在專案目錄下發生産生新的子目錄 Migrations，並有三個新檔案
+在　dotnet ef migrations add "Add Identity Framework" 指令完成後，可以在專案目錄下發生産生新的子目錄 Migrations，並有三個新檔案
 
 ![image](https://user-images.githubusercontent.com/21993717/169499823-eb5c166e-dd7a-47c0-b3c8-cff6d344e043.png)
 
-> 在 dotnet ef database update 指令完成後，SQL Server TestDB 資料庫中產生 Identity Framework 會使用到的資料表
+在 dotnet ef database update 指令完成後，SQL Server TestDB 資料庫中產生 Identity Framework 會使用到的資料表
 
 ![image](https://user-images.githubusercontent.com/21993717/169503362-b93426a4-117a-43ea-be0a-cff9a758c669.png)
 
@@ -616,14 +616,14 @@ public class AuthenticateController : ControllerBase
 
 ### 産生合法的 Jason Web Token
 
-> 在上述 AuthenticateController.cs 程式中，我們建立一個 CreateToken() 的 function，並在登入檢核成功時産生一個 token 回傳。
+在上述 AuthenticateController.cs 程式中，我們建立一個 CreateToken() 的 function，並在登入檢核成功時産生一個 token 回傳。
 
 ![image](https://user-images.githubusercontent.com/21993717/169645083-9cbe450b-e30e-490e-8b66-1c05ea0c9a31.png)
 
 
 ### 設置驗證是否為合法有效的 JWT Token
 
-> 第一步，透過 DI 將 JWT 相關設定設置好
+第一步，透過 DI 將 JWT 相關設定設置好
 
 ```cs
 builder.Services.AddAuthentication(options =>
@@ -665,7 +665,7 @@ builder.Services.AddAuthentication(options =>
     });
 ```
 
-> 第二步，要啟動 request pipeline 中的 Middleware (UseAuthentication & UseAuthorization 都需要)
+第二步，要啟動 request pipeline 中的 Middleware (UseAuthentication & UseAuthorization 都需要)
 
 ```cs
 app.UseAuthentication();
@@ -674,7 +674,7 @@ app.UseAuthorization();
 
 ### 在特定 API EndPoint 上驗證是否帶有合法有效的 JWT Token
 
-> 在 WeatherForecastController.cs Get() function 上加入`[Authorize]` 即可
+在 WeatherForecastController.cs Get() function 上加入`[Authorize]` 即可
 
 ```cs {linenos=table,hl_lines=[1]}
     [Authorize]
@@ -691,23 +691,23 @@ app.UseAuthorization();
     }
 ```
 
-> 如上程式加入`[Authorize]`後，再重新瀏覽 weatherforecast endpoint，會回傳 Status: 401 Unauthorized 的錯誤訊息。
+如上程式加入`[Authorize]`後，再重新瀏覽 weatherforecast endpoint，會回傳 Status: 401 Unauthorized 的錯誤訊息。
 
 ![image](https://user-images.githubusercontent.com/21993717/169671893-ee4be031-2fea-46bb-b419-c6938557a0f9.png)
 
-> 先登入取得 Token
+先登入取得 Token
 
 ![image](https://user-images.githubusercontent.com/21993717/169676210-0802d786-ebaa-4fe7-a166-35fd25073ce9.png)
 
 
-> 先加入 Authorization Header，並將登入成功後回傳的 Token 加到 Authorization Header 中。再次送出就可正常的取得所有天氣預測資料了。
+先加入 Authorization Header，並將登入成功後回傳的 Token 加到 Authorization Header 中。再次送出就可正常的取得所有天氣預測資料了。
 
 ![image](https://user-images.githubusercontent.com/21993717/169676250-eab03c8e-ce1e-4ef5-ac35-15026d058821.png)
 
 
 ### 使用 OpenApi Swagger 來測試 API
 
-> OpenApi Swagger 來測試 API時, 因為　Swagger 測試網頁預設是沒有設定 Token 的功能,必須將程式碼中的 `builder.Services.AddSwaggerGen();`改成以下內容
+OpenApi Swagger 來測試 API時, 因為　Swagger 測試網頁預設是沒有設定 Token 的功能,必須將程式碼中的 `builder.Services.AddSwaggerGen();`改成以下內容
 
 ```cs
 builder.Services.AddSwaggerGen(c =>
@@ -732,15 +732,15 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 ```
-> 有了上述的程式設定，當再次 dotnet run 啟動程式後，瀏覽器呈現的 Swagger 畫面右上角會多出了｀Authorize｀ 的按鈕。按下按鈕就是讓你填入登入成功後回傳的 Token
+有了上述的程式設定，當再次 dotnet run 啟動程式後，瀏覽器呈現的 Swagger 畫面右上角會多出了｀Authorize｀ 的按鈕。按下按鈕就是讓你填入登入成功後回傳的 Token
 
 ![image](https://user-images.githubusercontent.com/21993717/168768593-f2dde2f9-d4b2-43dd-85f5-ef080ff8c13a.png)
 
-> 在 Value: 文字框內填入 "Bearer yJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTUxMiIsInR5cCI6IkpXVCJ9....."，再按下 Authorize 按鈕即表下在接下來的 Request 中都會自動帶入 Token 傳給 WebApi Server。 （請注意 Bearer後再先接著一個空白字元再加上 Token值）
+在 Value: 文字框內填入 "Bearer yJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTUxMiIsInR5cCI6IkpXVCJ9....."，再按下 Authorize 按鈕即表下在接下來的 Request 中都會自動帶入 Token 傳給 WebApi Server。 （請注意 Bearer後再先接著一個空白字元再加上 Token值）
 
 ![image](https://user-images.githubusercontent.com/21993717/168768975-0274c3cf-eba6-49bc-a696-36df5b2a97db.png)
 
-> 再次執行　"WeatherForecast" 的測試(Execute)　就可正常的取得回傳值了
+再次執行　"WeatherForecast" 的測試(Execute)　就可正常的取得回傳值了
 
 ![image](https://user-images.githubusercontent.com/21993717/169676372-25c30496-45eb-409c-acdb-06771cd26c8b.png)
 
@@ -775,7 +775,7 @@ $ git commit -m "finished JWT function" -a
 
 ### 在 Models 目錄下新增一個 model(模型) class - ItemData
 
-> Models/ItemData.cs
+Models/ItemData.cs
 
 ```cs
 namespace dotnet6_webapi_jwt.Models;
@@ -821,7 +821,7 @@ Added Controller : '/Controllers/TodoController.cs'.
 RunTime 00:00:10.90
 ```
 
-> TodoController.cs
+TodoController.cs
 
 ```cs
 using System;
@@ -953,19 +953,19 @@ namespace dotnet6_webapi_jwt.Controllers
 
 ### 測試新功能
 
-> 在 open api - swagger 網頁上透過 POST 的 EndPoint 新增一筆 Toto list
+在 open api - swagger 網頁上透過 POST 的 EndPoint 新增一筆 Toto list
 
 ![image](https://user-images.githubusercontent.com/21993717/169677520-3cba411e-f4e1-421c-88a9-0db52a981b47.png)
 
-> 送出新增的資料，回覆新增成功
+送出新增的資料，回覆新增成功
 
 ![image](https://user-images.githubusercontent.com/21993717/169677538-55e9ca68-5bf1-49ce-9bd1-4fa6a0f1fe53.png)
 
-> 由資料庫中可以查詢到新建立的 record
+由資料庫中可以查詢到新建立的 record
 
 ![image](https://user-images.githubusercontent.com/21993717/169677555-cad25702-3769-4a54-a8b5-9dc996ba9dd6.png)
 
-> 透過 GET 的 EndPoint 也可以查詢到新增 Toto list
+透過 GET 的 EndPoint 也可以查詢到新增 Toto list
 
 ![image](https://user-images.githubusercontent.com/21993717/169677646-1d086a10-8230-46ae-97f3-2ce4b0d249ea.png)
 
