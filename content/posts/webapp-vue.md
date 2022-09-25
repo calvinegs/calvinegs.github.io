@@ -653,7 +653,7 @@ export default defineComponent({
 ![image](https://user-images.githubusercontent.com/21993717/186881951-87ad71bb-4741-41a1-bdc0-5ed1f2d4852c.png)
 
 
-##　執行程式
+## 執行程式
 ```bash
 $ npm start
 
@@ -683,7 +683,7 @@ webpack compiled with 1 error
 
 加入第十七行的設定
 
-```js　{linenos=table,hl_lines=17]}
+```js　{linenos=table,hl_lines=[17]}
 module.exports = {
   root: true,
   env: {
@@ -892,7 +892,7 @@ export default defineComponent({
 ![image](https://user-images.githubusercontent.com/21993717/187012958-bb263fa4-3ec2-489f-9933-f4483abea9fe.png)
 
 
-## 詃䇸式改由網路服務取得資料
+## 修改程式改由網路服務取得資料
 
 ### 修改 data store 程式內容
 ```typescript
