@@ -34,7 +34,7 @@ $ npm install typescript --save-dev #or -D
 為 Node.js 安裝類型檔
 
 ```shell
-$ npm install @types/node --save-dev
+$ npm install @types/node --save-dev # 在 node.js 中使用 typescript 時，此套件用來加載所有類型定義
 ```
 
 透過 tsc 建立 TypeScript 的設定檔 (tsconfig.json)
