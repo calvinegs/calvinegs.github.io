@@ -130,7 +130,7 @@ declare function add(a: any, b: any): any;
 |編譯設定選項|說明|
 |-----------------------------------|-----------------------------------------------------------------------------|
 |allowJs| 是否允許原始碼中包括 JavaScript 檔案 (.js) |
-|alwaysStrict| 在 JavaScript  啟用嚴格模式 |
+|alwaysStrict| 在 JavaScript 啟用嚴格模式，並在每個文件中加入‘use strict’ |
 |allowSyntheticDefaultImports| 模組沒有宣告預設匯出的功能，或遵循 commonJs 規範時，允許使用 import ... from ... 語法 (用來提高對舊版模組的相容性) |
 |baseUrl| 設定根目錄位置，以便用相對路徑尋找模組|
 |checkJs| 需搭配 allowJs 選項，在編譯 JavaScript 原始檔案時檢查其中的錯誤 |
@@ -141,7 +141,7 @@ declare function add(a: any, b: any): any;
 |experimentalDecorators| 允許使用函式裝飾器 (decorator) |
 |forceConsitentCasingInFileNames| 要求匯入的模組名稱必須和實際檔案名稱有一致的大小寫 |
 |importHelpers| 在針對舊版 JavaScript 編譯時，TypeScript 會插入輔助程式好模擬 ES2015 的功能。啟用此選項可減少輔助程式碼的重複量 |
-|isolatedModules| 將每個檔案視為模組，以利 Babel 工具一次編譯一個檔案時不會發生問題 |
+|isolatedModules| 將每個檔案視為單獨模組，以利 Babel 工具一次編譯一個檔案時不會發生問題 |
 |jsx| 決定 JSX/TSX 檔案中對 HTML 元素的轉譯方式|
 |jsxFactory| 指定工廠函式(factory function)，用它來轉譯 JSX/TSX 檔案中的 HTML 元素 |
 |lib| 指定編譯器要選使用的定義檔 |
@@ -150,9 +150,11 @@ declare function add(a: any, b: any): any;
 |noEmit| 要求編輯器不要輸出 JavaScript 程式碼，等同於只檢查程式碼正確與否 |
 |noImplicitany| 若資料沒有型別註記，禁止 TypeScript 隱性推論其型別為 any 型別 |
 |noImplicitReturns| 要求函式中的任何執行途徑都必須用 return 傳回結果 |
+|noImplicitThis| this 表逹式的值不能為 any 型態 |
 |noUnusedParameters| 要求函式中所有參數都必須有用到 |
 |outDir| 指定編譯生成的 JavaScript 檔案的輸出目錄 |
 |paths| 若模組位於 baseUrl 以外的位置，可用 path 定義其路徑 |
+|outFile| 將輸出文件合併成一個檔案　|
 |resolveJsonModule| 若專案會使用 JSON，則此設定值必須設定為 true |
 |rootDir| tsc 編譯器找尋程式的目錄。若要編譯 TypeScript 檔案位於多個目錄內，可用 rootDir 將它們組織成單一一個虛擬目錄|
 |skipLibCheck| 跳過宣告定義檔的檢查，以加快編譯速度 |
@@ -164,7 +166,7 @@ declare function add(a: any, b: any): any;
 |traceResolution| 印出編譯器解析模組的詳細過程 |
 |typeRoots| 限制編譯器尋找宣告檔案的位置 |
 |types| 指定編譯時要加入的宣告檔 |
-
+|removeComments| 編譯後刪除所有註解 |
 
 ## module 參數可指定的值
 
