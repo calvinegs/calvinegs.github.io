@@ -85,7 +85,7 @@
 $ mkdir tsc-options $ cd tsc-options 透過 npm 產生 package.json 檔案 $ npm init -y 在 Local 端安裝 TypeScript $ npm install --save-dev typescript@4.8.3 #or -D TypeScript 選項值設定 透過 tsc 建立 TypeScript 的設定檔 (tsconfig.json) $ npx tsc --init P.S. 由於 typescript 是安裝在 local，執行時要透過 npx 指令(由 npm 所提供)
 TypeScript 選項值影響 先在專案目錄下建立 src 子目錄，並在此目錄下撰寫程式
 $ mkdir src $ touch src/index.ts 程式如下:
-function add(a, b) { return a + b; } add(25, null); 上述的程式可否通過 tsc 型態檢核嗎？ 答案很難回答，因為取決於“選項”的設定。...</p>
+function add(a, b) { return a + b; } add(25, null); 上述的程式可否通過 tsc 型態檢核呢？ 答案很難回答，因為取決於“tsc 選項”的設定。...</p>
 </section>
 <footer class=entry-footer><span title="2022-09-24 00:00:00 +0000 UTC">September 24, 2022</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;Theme PaperMod</footer>
 <a class=entry-link aria-label="post link to TypeScript 編譯器的選項" href=https://calvinegs.github.io/posts/typescript-compiler-options/></a>
