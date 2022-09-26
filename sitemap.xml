@@ -2,13 +2,31 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://calvinegs.github.io/categories/</loc>
+    <lastmod>2022-09-24T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://calvinegs.github.io/posts/</loc>
+    <lastmod>2022-09-24T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://calvinegs.github.io/tags/</loc>
+    <lastmod>2022-09-24T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://calvinegs.github.io/tags/typescript/</loc>
+    <lastmod>2022-09-24T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://calvinegs.github.io/categories/typescript/</loc>
+    <lastmod>2022-09-24T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://calvinegs.github.io/posts/typescript-compiler-options/</loc>
+    <lastmod>2022-09-24T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://calvinegs.github.io/</loc>
+    <lastmod>2022-09-24T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://calvinegs.github.io/tags/axios/</loc>
     <lastmod>2022-08-26T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://calvinegs.github.io/tags/bootstrap/</loc>
-    <lastmod>2022-08-26T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://calvinegs.github.io/categories/</loc>
     <lastmod>2022-08-26T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://calvinegs.github.io/tags/express/</loc>
@@ -23,16 +41,10 @@
     <loc>https://calvinegs.github.io/tags/npm-run-all/</loc>
     <lastmod>2022-08-26T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://calvinegs.github.io/posts/</loc>
-    <lastmod>2022-08-26T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://calvinegs.github.io/tags/react/</loc>
     <lastmod>2022-08-26T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://calvinegs.github.io/categories/react/</loc>
-    <lastmod>2022-08-26T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://calvinegs.github.io/tags/</loc>
     <lastmod>2022-08-26T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://calvinegs.github.io/tags/vue-router/</loc>
@@ -42,9 +54,6 @@
     <lastmod>2022-08-26T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://calvinegs.github.io/posts/webapp-vue/</loc>
-    <lastmod>2022-08-26T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://calvinegs.github.io/</loc>
     <lastmod>2022-08-26T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://calvinegs.github.io/tags/react-router/</loc>
@@ -183,12 +192,6 @@
     <lastmod>2022-05-13T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://calvinegs.github.io/tags/snowpack/</loc>
-    <lastmod>2022-05-01T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://calvinegs.github.io/tags/typescript/</loc>
-    <lastmod>2022-05-01T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://calvinegs.github.io/categories/typescript/</loc>
     <lastmod>2022-05-01T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://calvinegs.github.io/tags/web-app/</loc>
