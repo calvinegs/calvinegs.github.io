@@ -6,6 +6,7 @@ description: "除了常用 npm 指令, 你一定要懂的好用指令"
 tags: ["npm"]
 categories: ["Node.js"]
 ---
+
 本篇筆記是除了以下常用的 npm 指令外，要介紹幾個好用的其他 npm 指令
 - npm --version (檢查在本端主機上安裝的 npm 版本)
 - npm init (在現行目錄中初始化專案)
