@@ -167,8 +167,6 @@ To address all issues, run:
 
 ```
 
-
-
 ## 自動修正相關相依套件的漏洞
 ```bash
 $ npm audit fix 
