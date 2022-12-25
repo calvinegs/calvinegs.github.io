@@ -2,15 +2,6 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://calvinegs.github.io/posts/</loc>
-    <lastmod>2022-12-25T09:51:14+08:00</lastmod>
-  </url><url>
-    <loc>https://calvinegs.github.io/posts/test/</loc>
-    <lastmod>2022-12-25T09:51:14+08:00</lastmod>
-  </url><url>
-    <loc>https://calvinegs.github.io/</loc>
-    <lastmod>2022-12-25T09:51:14+08:00</lastmod>
-  </url><url>
     <loc>https://calvinegs.github.io/categories/</loc>
     <lastmod>2022-12-11T00:00:00+00:00</lastmod>
   </url><url>
@@ -20,10 +11,16 @@
     <loc>https://calvinegs.github.io/tags/npm/</loc>
     <lastmod>2022-12-11T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>https://calvinegs.github.io/posts/</loc>
+    <lastmod>2022-12-11T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://calvinegs.github.io/tags/</loc>
     <lastmod>2022-12-11T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://calvinegs.github.io/posts/npm-commands/</loc>
+    <lastmod>2022-12-11T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://calvinegs.github.io/</loc>
     <lastmod>2022-12-11T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://calvinegs.github.io/tags/typescript/</loc>

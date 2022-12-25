@@ -77,20 +77,6 @@
 </header>
 <article class=post-entry>
 <header class=entry-header>
-<h2>型別推論(type inference) 與 型別註記(type annotation)
-</h2>
-</header>
-<section class=entry-content>
-<p>在此要討論的是有關 TypeScript 的 型別推論(type inference) 與 型別註記(type annotation)
-關於 Javascript 的型別 Javascript 是個動態型別的語言，也就是說擁有 ‘型別’ 的是 ‘值’ 而不是變數。
-let myVar; console.log(`${myVar}: ${typeof myVar}`); // undefined : undefined myVar = 20; console.log(`${myVar}: ${typeof myVar}`); // 20 : number myVar = "Hi"; console.log(`${myVar}: ${typeof myVar}`); // Hi : string myVar = true; console.log(`${myVar}: ${typeof myVar}`); // true : boolean Type Annotation (型別註記) TypeScript 提供靜型別功能，讓我們可以明確指定變數的型別。編譯器在轉譯過程即可偵測到使用不同型別時主動抛出錯誤訊息。下面的例子就是使用型別註記來定義靜態型別:
-function calculateTax(amount: number): number { return amount * 1.2; } console....</p>
-</section>
-<footer class=entry-footer><span title="2022-01-17 00:00:00 +0000 UTC">January 17, 2022</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;Theme PaperMod</footer>
-<a class=entry-link aria-label="post link to 型別推論(type inference) 與 型別註記(type annotation)" href=https://calvinegs.github.io/posts/ts-type-inferenc-annotation/></a>
-</article>
-<article class=post-entry>
-<header class=entry-header>
 <h2>ASP.NET Core 5 Web API - 從無到有
 </h2>
 </header>
@@ -144,6 +130,24 @@ $ npx tsc --init P.S. 由於 typescript 是安裝在 local，執行時要透過 
 </section>
 <footer class=entry-footer><span title="2021-12-07 00:00:00 +0000 UTC">December 7, 2021</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;Theme PaperMod</footer>
 <a class=entry-link aria-label="post link to 設置 TypeScript 開發環境 (Node.js)" href=https://calvinegs.github.io/posts/setup-typescript-env/></a>
+</article>
+<article class=post-entry>
+<header class=entry-header>
+<h2>Hugo 中使用的 Markdown 語法介紹
+</h2>
+</header>
+<section class=entry-content>
+<p>Hugo 內容文件中使用基本 Markdown 語法，還額外支援由 Hugo 所提供的加強語法(也支援基本 HTML 元素)。
+標題 (Headings) 要建立標題，請在文字前添加井字符號 #(請注意井字符號後要加入一個空格)。使用的井字符號的數量應與標題級別相對應。例如，要建立三級標題 (&lt;h3>)，請使用三個井字符號（例如，### My Header）。
+段落 (Paragraphs) 一個 Markdown 段落是由一個或多個連續的文字行組成，它的前後要有一個以上的空行。
+文字區塊引用 (Blockquotes) 在段落的第一行最前面加">"
+未註明出處的文字區塊引用 (Blockquote without attribution) Tiam, ad mint andaepu dandae nostion secatur sequo quae. Note that you can use Markdown syntax within a blockquote.
+註明出處的文字區塊引用 (Blockquote with attribution) Don’t communicate by sharing memory, share memory by communicating.
+— Rob Pike1
+斷行 (Line Breaks) 要建立換行符號 (&lt;br>)，請以兩個或多個空格結束一行，然後鍵入 return 鍵。...</p>
+</section>
+<footer class=entry-footer><span title="2021-12-06 00:00:00 +0000 UTC">December 6, 2021</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;Theme PaperMod</footer>
+<a class=entry-link aria-label="post link to Hugo 中使用的 Markdown 語法介紹" href=https://calvinegs.github.io/posts/markdown-syntax/></a>
 </article>
 <footer class=page-footer>
 <nav class=pagination>
