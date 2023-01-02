@@ -57,6 +57,15 @@
     </item>
     
     <item>
+      <title>關於 Angular中的 constructor 與 ngOnInit</title>
+      <link>https://calvinegs.github.io/posts/angular-ngoninit/</link>
+      <pubDate>Sun, 02 Jan 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://calvinegs.github.io/posts/angular-ngoninit/</guid>
+      <description>在本篇筆記中來紀錄一下 Angular中的 constructor 與 ngOnInit 有何不同的使用情境，另也探討 ngOnInit 與 ngOnChanges 有何不同</description>
+    </item>
+    
+    <item>
       <title>使用 nvs 來管理不同版本 Node.js 執行環境</title>
       <link>https://calvinegs.github.io/posts/nvs-using/</link>
       <pubDate>Sun, 12 Dec 2021 00:00:00 +0000</pubDate>
