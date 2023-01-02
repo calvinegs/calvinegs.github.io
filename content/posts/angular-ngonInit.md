@@ -1,6 +1,6 @@
 ---
 title: "關於 Angular中的 constructor 與 ngOnInit"
-date: 2022-01-02
+date: 2023-01-02
 description: "在本篇筆記中來紀錄一下 Angular中的 constructor 與 ngOnInit 有何不同的使用情境，另也探討 ngOnInit 與 ngOnChanges 有何不同"
 tags: ["angular", "rxjs", "life cycle"]
 categories: ["angular"]
