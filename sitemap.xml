@@ -2,8 +2,32 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://calvinegs.github.io/tags/angular/</loc>
+    <lastmod>2023-01-02T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://calvinegs.github.io/categories/angular/</loc>
+    <lastmod>2023-01-02T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://calvinegs.github.io/categories/</loc>
-    <lastmod>2022-12-11T00:00:00+00:00</lastmod>
+    <lastmod>2023-01-02T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://calvinegs.github.io/tags/life-cycle/</loc>
+    <lastmod>2023-01-02T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://calvinegs.github.io/posts/</loc>
+    <lastmod>2023-01-02T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://calvinegs.github.io/tags/rxjs/</loc>
+    <lastmod>2023-01-02T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://calvinegs.github.io/tags/</loc>
+    <lastmod>2023-01-02T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://calvinegs.github.io/</loc>
+    <lastmod>2023-01-02T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://calvinegs.github.io/posts/angular-ngoninit/</loc>
+    <lastmod>2023-01-02T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://calvinegs.github.io/categories/node.js/</loc>
     <lastmod>2022-12-11T00:00:00+00:00</lastmod>
@@ -11,16 +35,7 @@
     <loc>https://calvinegs.github.io/tags/npm/</loc>
     <lastmod>2022-12-11T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://calvinegs.github.io/posts/</loc>
-    <lastmod>2022-12-11T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://calvinegs.github.io/tags/</loc>
-    <lastmod>2022-12-11T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://calvinegs.github.io/posts/npm-commands/</loc>
-    <lastmod>2022-12-11T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://calvinegs.github.io/</loc>
     <lastmod>2022-12-11T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://calvinegs.github.io/tags/typescript/</loc>
@@ -77,12 +92,6 @@
     <loc>https://calvinegs.github.io/posts/webapp-react/</loc>
     <lastmod>2022-08-23T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://calvinegs.github.io/tags/angular/</loc>
-    <lastmod>2022-08-21T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://calvinegs.github.io/categories/angular/</loc>
-    <lastmod>2022-08-21T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://calvinegs.github.io/posts/webapp-angular/</loc>
     <lastmod>2022-08-21T00:00:00+00:00</lastmod>
   </url><url>
@@ -105,9 +114,6 @@
     <lastmod>2022-07-11T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://calvinegs.github.io/tags/reactive-form/</loc>
-    <lastmod>2022-07-11T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://calvinegs.github.io/tags/rxjs/</loc>
     <lastmod>2022-07-11T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://calvinegs.github.io/tags/jwt/</loc>
@@ -298,12 +304,6 @@
   </url><url>
     <loc>https://calvinegs.github.io/posts/dotnet5-webapi/</loc>
     <lastmod>2022-01-11T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://calvinegs.github.io/tags/life-cycle/</loc>
-    <lastmod>2022-01-02T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://calvinegs.github.io/posts/angular-ngoninit/</loc>
-    <lastmod>2022-01-02T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://calvinegs.github.io/tags/nvs/</loc>
     <lastmod>2021-12-12T00:00:00+00:00</lastmod>

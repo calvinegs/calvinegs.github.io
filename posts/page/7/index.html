@@ -77,6 +77,20 @@
 </header>
 <article class=post-entry>
 <header class=entry-header>
+<h2>型別推論(type inference) 與 型別註記(type annotation)
+</h2>
+</header>
+<section class=entry-content>
+<p>在此要討論的是有關 TypeScript 的 型別推論(type inference) 與 型別註記(type annotation)
+關於 Javascript 的型別 Javascript 是個動態型別的語言，也就是說擁有 ‘型別’ 的是 ‘值’ 而不是變數。
+let myVar; console.log(`${myVar}: ${typeof myVar}`); // undefined : undefined myVar = 20; console.log(`${myVar}: ${typeof myVar}`); // 20 : number myVar = "Hi"; console.log(`${myVar}: ${typeof myVar}`); // Hi : string myVar = true; console.log(`${myVar}: ${typeof myVar}`); // true : boolean Type Annotation (型別註記) TypeScript 提供靜型別功能，讓我們可以明確指定變數的型別。編譯器在轉譯過程即可偵測到使用不同型別時主動抛出錯誤訊息。下面的例子就是使用型別註記來定義靜態型別:
+function calculateTax(amount: number): number { return amount * 1.2; } console....</p>
+</section>
+<footer class=entry-footer><span title="2022-01-17 00:00:00 +0000 UTC">January 17, 2022</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;Theme PaperMod</footer>
+<a class=entry-link aria-label="post link to 型別推論(type inference) 與 型別註記(type annotation)" href=https://calvinegs.github.io/posts/ts-type-inferenc-annotation/></a>
+</article>
+<article class=post-entry>
+<header class=entry-header>
 <h2>ASP.NET Core 5 Web API - 從無到有
 </h2>
 </header>
@@ -87,24 +101,6 @@ Dotnet cli Entity Framework Sqlite ASP.NET Core Generator 使用 dotnet cli 建�
 </section>
 <footer class=entry-footer><span title="2022-01-11 00:00:00 +0000 UTC">January 11, 2022</span>&nbsp;·&nbsp;4 min&nbsp;·&nbsp;Theme PaperMod</footer>
 <a class=entry-link aria-label="post link to ASP.NET Core 5 Web API - 從無到有" href=https://calvinegs.github.io/posts/dotnet5-webapi/></a>
-</article>
-<article class=post-entry>
-<header class=entry-header>
-<h2>關於 Angular中的 constructor 與 ngOnInit
-</h2>
-</header>
-<section class=entry-content>
-<p>Angular中的 constructor 與 ngOnInit 在本篇筆記中來紀錄一下 Angular中的 constructor 與 ngOnInit 有何不同的使用情境，也探討一下 ngOnInit() 的非必要性。
-ngOnInit 與 constructor ngOnInit() 與 Class 中的其他 Method 無異，僅因為它剛好被命名為 ngOnInit，常會被與 constructor 搞混用途。其實它並非是必要的，完全取決於你。當 Angular 編譯器進行程式編譯時會將是否 Class 中有實現 ngOnInit() 的方法記錄在特定的 Flag 中，這個 Flag 會在 “變更檢測"時決定是不是要呼叫 ngOnInit() 這個方法。
-而 constructor 則完全是另外的一件事，不管你有沒有在類別中實現它，在建立類別實例時它都會被呼叫到。
-Angular啟動時的二個主要階段：
-建構元件樹(component tree) 執行變更檢測(change detection) constructor 是在第一個階段被呼叫的，這就是為什麼我們不能將任何依賴於 DOM、元素、輸入數據、綁定等的初始化邏輯放在constructor— 因為它們尚不可使用。 而 ngOnInit 則在第二階段，實際上所有的生命週期鉤子都是“變更檢測”階段的一部份。
-當 Angular 開始變更檢測時，組件樹已被構建，樹中所有組件的構造函數都被調用。它已經完成了組件 DOM 的創建，通過構造函數注入了所有必需的依賴項並處理了輸入綁定。每個組件的模板節點都被添加到 DOM 中。 也可以取得初始化組件可能需要的所有資料，如：DI Provider、DOM 和輸入綁定(input bindings)。
-在實際的使用案例上 constructor 最常被使用的是用來“注入依賴項目”(當然不僅限於此)
-ngOnInit 是否為必須 在之前使用 angular cli(如：14....</p>
-</section>
-<footer class=entry-footer><span title="2022-01-02 00:00:00 +0000 UTC">January 2, 2022</span>&nbsp;·&nbsp;4 min&nbsp;·&nbsp;Theme PaperMod</footer>
-<a class=entry-link aria-label="post link to 關於 Angular中的 constructor 與 ngOnInit" href=https://calvinegs.github.io/posts/angular-ngoninit/></a>
 </article>
 <article class=post-entry>
 <header class=entry-header>
