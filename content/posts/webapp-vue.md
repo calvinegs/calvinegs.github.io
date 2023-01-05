@@ -3,7 +3,7 @@ title: "使用 Vue 來建立網路應用程式"
 date: 2022-08-26
 description: "這是三篇紀錄使用不同的三個 framework(Angular、React、Vue)來建立功能一模一樣的網路應用程式的筆記中的第三篇， 本篇中是使用 Vue 來建立 Web APP"
 tags: ["react", "bootstrap", "vuex", "vue router", "npm-run-all", "axios", "Node.js", "express", "Json Server"]
-categories: ["react"]
+categories: ["vue"]
 ---
 *[github Source code](https://github.com/calvinegs/vueapp.git)*
 
