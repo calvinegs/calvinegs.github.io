@@ -10,7 +10,16 @@
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 02 Jan 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://calvinegs.github.io/tags/angular/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 05 Jan 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://calvinegs.github.io/tags/angular/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>在 ubuntu 22.04 中建立一支 Angular 15 Web App</title>
+      <link>https://calvinegs.github.io/posts/nvm-angular15/</link>
+      <pubDate>Thu, 05 Jan 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://calvinegs.github.io/posts/nvm-angular15/</guid>
+      <description>本篇筆記二個重點：一是在 ubuntu 22.04 中安裝及使用 nvm，二是如何使用最簡易的方法來産生一個 Angular 15 Web App 程式架構</description>
+    </item>
+    
     <item>
       <title>關於 Angular中的 constructor 與 ngOnInit</title>
       <link>https://calvinegs.github.io/posts/angular-ngoninit/</link>

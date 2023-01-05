@@ -1,0 +1,766 @@
+<!doctype html><html lang=en dir=auto>
+<head><meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no">
+<meta name=robots content="index, follow">
+<title>在 ubuntu 22.04 中建立一支 Angular 15 Web App | 永誌不忘 • 筆記簿</title>
+<meta name=keywords content="angular,node.js,nvm,ubuntu 22.04">
+<meta name=description content="本篇筆記二個重點：一是在 ubuntu 22.04 中安裝及使用 nvm，二是如何使用最簡易的方法來産生一個 Angular 15 Web App 程式架構">
+<meta name=author content="Theme PaperMod">
+<link rel=canonical href=https://calvinegs.github.io/posts/nvm-angular15/>
+<link crossorigin=anonymous href=/assets/css/stylesheet.min.c88963fe2d79462000fd0fb1b3737783c32855d340583e4523343f8735c787f0.css integrity="sha256-yIlj/i15RiAA/Q+xs3N3g8MoVdNAWD5FIzQ/hzXHh/A=" rel="preload stylesheet" as=style>
+<script defer crossorigin=anonymous src=/assets/js/highlight.min.7680afc38aa6b15ddf158a4f3780b7b1f7dde7e91d26f073e6229bb7a0793c92.js integrity="sha256-doCvw4qmsV3fFYpPN4C3sffd5+kdJvBz5iKbt6B5PJI=" onload=hljs.initHighlightingOnLoad()></script>
+<link rel=icon href=https://calvinegs.github.io/img/favicon.png>
+<link rel=icon type=image/png sizes=16x16 href=https://calvinegs.github.io/favicon-16x16.png>
+<link rel=icon type=image/png sizes=32x32 href=https://calvinegs.github.io/favicon-32x32.png>
+<link rel=apple-touch-icon href=https://calvinegs.github.io/apple-touch-icon.png>
+<link rel=mask-icon href=https://calvinegs.github.io/safari-pinned-tab.svg>
+<meta name=theme-color content="#2e2e33">
+<meta name=msapplication-TileColor content="#2e2e33">
+<meta name=generator content="Hugo 0.91.2">
+<noscript>
+<style>#theme-toggle,.top-link{display:none}</style>
+<style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--hljs-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style>
+</noscript><meta property="og:title" content="在 ubuntu 22.04 中建立一支 Angular 15 Web App">
+<meta property="og:description" content="本篇筆記二個重點：一是在 ubuntu 22.04 中安裝及使用 nvm，二是如何使用最簡易的方法來産生一個 Angular 15 Web App 程式架構">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://calvinegs.github.io/posts/nvm-angular15/"><meta property="og:image" content="https://calvinegs.github.io/papermod-cover.png"><meta property="article:section" content="posts">
+<meta property="article:published_time" content="2023-01-05T00:00:00+00:00">
+<meta property="article:modified_time" content="2023-01-05T00:00:00+00:00">
+<meta name=twitter:card content="summary_large_image">
+<meta name=twitter:image content="https://calvinegs.github.io/papermod-cover.png">
+<meta name=twitter:title content="在 ubuntu 22.04 中建立一支 Angular 15 Web App">
+<meta name=twitter:description content="本篇筆記二個重點：一是在 ubuntu 22.04 中安裝及使用 nvm，二是如何使用最簡易的方法來産生一個 Angular 15 Web App 程式架構">
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Posts","item":"https://calvinegs.github.io/posts/"},{"@type":"ListItem","position":2,"name":"在 ubuntu 22.04 中建立一支 Angular 15 Web App","item":"https://calvinegs.github.io/posts/nvm-angular15/"}]}</script>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"在 ubuntu 22.04 中建立一支 Angular 15 Web App","name":"在 ubuntu 22.04 中建立一支 Angular 15 Web App","description":"本篇筆記二個重點：一是在 ubuntu 22.04 中安裝及使用 nvm，二是如何使用最簡易的方法來産生一個 Angular 15 Web App 程式架構","keywords":["angular","node.js","nvm","ubuntu 22.04"],"articleBody":"以最簡潔的方式在 ubuntu 22.04 中建立一支 Angular 15 Web App 先講結論：使用 “npm init @angular \" 就可以在不先安裝 Angular Cli 的前題下，來建立一支 Web App 範本程式。\n一般要新增一支 Angular Web App 都會使用 Angular Cli，而使用 Angular Cli 必須搭配上 Node.js \u0026 npm\n一般的方式 在 ubuntu 22.04 上安裝 Node.js $ node -v # 先檢視是否有安裝 Node.js，若沒有則需安裝 $ $ sudo apt update $ sudo apt install nodejs $ $ node -v v12.22.9 在 ubuntu 22.04 上安裝 npm $ npm -v\t# 先檢視是否有安裝 npm，若沒有則需安裝 $ $ sudo apt update $ sudo apt install npm $ $ npm -v 8.5.1 安裝 Angular Cli $ mkdir ./test \u0026\u0026 cd ./test $ npm install @angular/cli # 在 local test 目錄下安裝最新版 Angular Cli npm WARN deprecated @npmcli/move-file@2.0.1: This functionality has been moved to @npmcli/fs npm WARN saveError ENOENT: no such file or directory, open '/home/egs/temp/v12/package.json' npm notice created a lockfile as package-lock.json. You should commit this file. npm WARN notsup Unsupported engine for @angular/cli@15.0.4: wanted: {\"node\":\"^14.20.0 || ^16.13.0 || =18.10.0\",\"npm\":\"^6.11.0 || ^7.5.6 || =8.0.0\",\"yarn\":\"= 1.13.0\"} (current: {\"node\":\"12.22.10\",\"npm\":\"6.14.16\"}) npm WARN notsup Not compatible with your version of node/npm: @angular/cli@15.0.4 npm WARN notsup Unsupported engine for npm-pick-manifest@8.0.1: wanted: {\"node\":\"^14.17.0 || ^16.13.0 || =18.0.0\"} (current: {\"node\":\"12.22.10\",\"npm\":\"6.14.16\"}) npm WARN notsup Not compatible with your version of node/npm: npm-pick-manifest@8.0.1 npm WARN notsup Unsupported engine for pacote@15.0.6: wanted: {\"node\":\"^14.17.0 || ^16.13.0 || =18.0.0\"} (current: {\"node\":\"12.22.10\",\"npm\":\"6.14.16\"}) npm WARN notsup Not compatible with your version of node/npm: pacote@15.0.6 npm WARN notsup Unsupported engine for @angular-devkit/architect@0.1500.4: wanted: {\"node\":\"^14.20.0 || ^16.13.0 || =18.10.0\",\"npm\":\"^6.11.0 || ^7.5.6 || =8.0.0\",\"yarn\":\"= 1.13.0\"} (current: {\"node\":\"12.22.10\",\"npm\":\"6.14.16\"}) npm WARN notsup Not compatible with your version of node/npm: @angular-devkit/architect@0.1500.4 npm WARN notsup Unsupported engine for @angular-devkit/schematics@15.0.4: wanted: {\"node\":\"^14.20.0 || ^16.13.0 || =18.10.0\",\"npm\":\"^6.11.0 || ^7.5.6 || =8.0.0\",\"yarn\":\"= 1.13.0\"} (current: {\"node\":\"12.22.10\",\"npm\":\"6.14.16\"}) npm WARN notsup Not compatible with your version of node/npm: @angular-devkit/schematics@15.0.4 npm WARN notsup Unsupported engine for @schematics/angular@15.0.4: wanted: {\"node\":\"^14.20.0 || ^16.13.0 || =18.10.0\",\"npm\":\"^6.11.0 || ^7.5.6 || =8.0.0\",\"yarn\":\"= 1.13.0\"} (current: {\"node\":\"12.22.10\",\"npm\":\"6.14.16\"}) npm WARN notsup Not compatible with your version of node/npm: @schematics/angular@15.0.4 npm WARN notsup Unsupported engine for @angular-devkit/core@15.0.4: wanted: {\"node\":\"^14.20.0 || ^16.13.0 || =18.10.0\",\"npm\":\"^6.11.0 || ^7.5.6 || =8.0.0\",\"yarn\":\"= 1.13.0\"} (current: {\"node\":\"12.22.10\",\"npm\":\"6.14.16\"}) npm WARN notsup Not compatible with your version of node/npm: @angular-devkit/core@15.0.4 npm WARN notsup Unsupported engine for npm-package-arg@10.1.0: wanted: {\"node\":\"^14.17.0 || ^16.13.0 || =18.0.0\"} (current: {\"node\":\"12.22.10\",\"npm\":\"6.14.16\"}) npm WARN notsup Not compatible with your version of node/npm: npm-package-arg@10.1.0 npm WARN notsup Unsupported engine for npm-install-checks@6.0.0: wanted: {\"node\":\"^14.17.0 || ^16.13.0 || =18.0.0\"} (current: {\"node\":\"12.22.10\",\"npm\":\"6.14.16\"}) npm WARN notsup Not compatible with your version of node/npm: npm-install-checks@6.0.0 npm WARN notsup Unsupported engine for npm-normalize-package-bin@3.0.0: wanted: {\"node\":\"^14.17.0 || ^16.13.0 || =18.0.0\"} (current: {\"node\":\"12.22.10\",\"npm\":\"6.14.16\"}) npm WARN notsup Not compatible with your version of node/npm: npm-normalize-package-bin@3.0.0 npm WARN notsup Unsupported engine for proc-log@3.0.0: wanted: {\"node\":\"^14.17.0 || ^16.13.0 || =18.0.0\"} (current: {\"node\":\"12.22.10\",\"npm\":\"6.14.16\"}) npm WARN notsup Not compatible with your version of node/npm: proc-log@3.0.0 npm WARN notsup Unsupported engine for hosted-git-info@6.1.1: wanted: {\"node\":\"^14.17.0 || ^16.13.0 || =18.0.0\"} (current: {\"node\":\"12.22.10\",\"npm\":\"6.14.16\"}) npm WARN notsup Not compatible with your version of node/npm: hosted-git-info@6.1.1 npm WARN notsup Unsupported engine for validate-npm-package-name@5.0.0: wanted: {\"node\":\"^14.17.0 || ^16.13.0 || =18.0.0\"} (current: {\"node\":\"12.22.10\",\"npm\":\"6.14.16\"}) npm WARN notsup Not compatible with your version of node/npm: validate-npm-package-name@5.0.0 npm WARN notsup Unsupported engine for npm-package-arg@10.1.0: wanted: {\"node\":\"^14.17.0 || ^16.13.0 || =18.0.0\"} (current: {\"node\":\"12.22.10\",\"npm\":\"6.14.16\"}) npm WARN notsup Not compatible with your version of node/npm: npm-package-arg@10.1.0 npm WARN notsup Unsupported engine for proc-log@3.0.0: wanted: {\"node\":\"^14.17.0 || ^16.13.0 || =18.0.0\"} (current: {\"node\":\"12.22.10\",\"npm\":\"6.14.16\"}) npm WARN notsup Not compatible with your version of node/npm: proc-log@3.0.0 npm WARN notsup Unsupported engine for npm-registry-fetch@14.0.3: wanted: {\"node\":\"^14.17.0 || ^16.13.0 || =18.0.0\"} (current: {\"node\":\"12.22.10\",\"npm\":\"6.14.16\"}) npm WARN notsup Not compatible with your version of node/npm: npm-registry-fetch@14.0.3 npm WARN notsup Unsupported engine for cacache@17.0.4: wanted: {\"node\":\"^14.17.0 || ^16.13.0 || =18.0.0\"} (current: {\"node\":\"12.22.10\",\"npm\":\"6.14.16\"}) npm WARN notsup Not compatible with your version of node/npm: cacache@17.0.4 npm WARN notsup Unsupported engine for npm-packlist@7.0.4: wanted: {\"node\":\"^14.17.0 || ^16.13.0 || =18.0.0\"} (current: {\"node\":\"12.22.10\",\"npm\":\"6.14.16\"}) npm WARN notsup Not compatible with your version of node/npm: npm-packlist@7.0.4 npm WARN notsup Unsupported engine for read-package-json-fast@3.0.2: wanted: {\"node\":\"^14.17.0 || ^16.13.0 || =18.0.0\"} (current: {\"node\":\"12.22.10\",\"npm\":\"6.14.16\"}) npm WARN notsup Not compatible with your version of node/npm: read-package-json-fast@3.0.2 npm WARN notsup Unsupported engine for ssri@10.0.1: wanted: {\"node\":\"^14.17.0 || ^16.13.0 || =18.0.0\"} (current: {\"node\":\"12.22.10\",\"npm\":\"6.14.16\"}) npm WARN notsup Not compatible with your version of node/npm: ssri@10.0.1 npm WARN notsup Unsupported engine for read-package-json@6.0.0: wanted: {\"node\":\"^14.17.0 || ^16.13.0 || =18.0.0\"} (current: {\"node\":\"12.22.10\",\"npm\":\"6.14.16\"}) npm WARN notsup Not compatible with your version of node/npm: read-package-json@6.0.0 npm WARN notsup Unsupported engine for @npmcli/installed-package-contents@2.0.1: wanted: {\"node\":\"^14.17.0 || ^16.13.0 || =18.0.0\"} (current: {\"node\":\"12.22.10\",\"npm\":\"6.14.16\"}) npm WARN notsup Not compatible with your version of node/npm: @npmcli/installed-package-contents@2.0.1 npm WARN notsup Unsupported engine for @npmcli/promise-spawn@6.0.2: wanted: {\"node\":\"^14.17.0 || ^16.13.0 || =18.0.0\"} (current: {\"node\":\"12.22.10\",\"npm\":\"6.14.16\"}) npm WARN notsup Not compatible with your version of node/npm: @npmcli/promise-spawn@6.0.2 npm WARN notsup Unsupported engine for @npmcli/git@4.0.3: wanted: {\"node\":\"^14.17.0 || ^16.13.0 || =18.0.0\"} (current: {\"node\":\"12.22.10\",\"npm\":\"6.14.16\"}) npm WARN notsup Not compatible with your version of node/npm: @npmcli/git@4.0.3 npm WARN notsup Unsupported engine for @npmcli/run-script@6.0.0: wanted: {\"node\":\"^14.17.0 || ^16.13.0 || =18.0.0\"} (current: {\"node\":\"12.22.10\",\"npm\":\"6.14.16\"}) npm WARN notsup Not compatible with your version of node/npm: @npmcli/run-script@6.0.0 npm WARN notsup Unsupported engine for proc-log@3.0.0: wanted: {\"node\":\"^14.17.0 || ^16.13.0 || =18.0.0\"} (current: {\"node\":\"12.22.10\",\"npm\":\"6.14.16\"}) npm WARN notsup Not compatible with your version of node/npm: proc-log@3.0.0 npm WARN notsup Unsupported engine for which@3.0.0: wanted: {\"node\":\"^14.17.0 || ^16.13.0 || =18.0.0\"} (current: {\"node\":\"12.22.10\",\"npm\":\"6.14.16\"}) npm WARN notsup Not compatible with your version of node/npm: which@3.0.0 npm WARN notsup Unsupported engine for npm-bundled@3.0.0: wanted: {\"node\":\"^14.17.0 || ^16.13.0 || =18.0.0\"} (current: {\"node\":\"12.22.10\",\"npm\":\"6.14.16\"}) npm WARN notsup Not compatible with your version of node/npm: npm-bundled@3.0.0 npm WARN notsup Unsupported engine for @npmcli/node-gyp@3.0.0: wanted: {\"node\":\"^14.17.0 || ^16.13.0 || =18.0.0\"} (current: {\"node\":\"12.22.10\",\"npm\":\"6.14.16\"}) npm WARN notsup Not compatible with your version of node/npm: @npmcli/node-gyp@3.0.0 npm WARN notsup Unsupported engine for json-parse-even-better-errors@3.0.0: wanted: {\"node\":\"^14.17.0 || ^16.13.0 || =18.0.0\"} (current: {\"node\":\"12.22.10\",\"npm\":\"6.14.16\"}) npm WARN notsup Not compatible with your version of node/npm: json-parse-even-better-errors@3.0.0 npm WARN notsup Unsupported engine for @npmcli/fs@3.1.0: wanted: {\"node\":\"^14.17.0 || ^16.13.0 || =18.0.0\"} (current: {\"node\":\"12.22.10\",\"npm\":\"6.14.16\"}) npm WARN notsup Not compatible with your version of node/npm: @npmcli/fs@3.1.0 npm WARN notsup Unsupported engine for fs-minipass@3.0.0: wanted: {\"node\":\"^14.17.0 || ^16.13.0 || =18.0.0\"} (current: {\"node\":\"12.22.10\",\"npm\":\"6.14.16\"}) npm WARN notsup Not compatible with your version of node/npm: fs-minipass@3.0.0 npm WARN notsup Unsupported engine for unique-filename@3.0.0: wanted: {\"node\":\"^14.17.0 || ^16.13.0 || =18.0.0\"} (current: {\"node\":\"12.22.10\",\"npm\":\"6.14.16\"}) npm WARN notsup Not compatible with your version of node/npm: unique-filename@3.0.0 npm WARN notsup Unsupported engine for unique-slug@4.0.0: wanted: {\"node\":\"^14.17.0 || ^16.13.0 || =18.0.0\"} (current: {\"node\":\"12.22.10\",\"npm\":\"6.14.16\"}) npm WARN notsup Not compatible with your version of node/npm: unique-slug@4.0.0 npm WARN notsup Unsupported engine for hosted-git-info@6.1.1: wanted: {\"node\":\"^14.17.0 || ^16.13.0 || =18.0.0\"} (current: {\"node\":\"12.22.10\",\"npm\":\"6.14.16\"}) npm WARN notsup Not compatible with your version of node/npm: hosted-git-info@6.1.1 npm WARN notsup Unsupported engine for validate-npm-package-name@5.0.0: wanted: {\"node\":\"^14.17.0 || ^16.13.0 || =18.0.0\"} (current: {\"node\":\"12.22.10\",\"npm\":\"6.14.16\"}) npm WARN notsup Not compatible with your version of node/npm: validate-npm-package-name@5.0.0 npm WARN notsup Unsupported engine for ignore-walk@6.0.0: wanted: {\"node\":\"^14.17.0 || ^16.13.0 || =18.0.0\"} (current: {\"node\":\"12.22.10\",\"npm\":\"6.14.16\"}) npm WARN notsup Not compatible with your version of node/npm: ignore-walk@6.0.0 npm WARN notsup Unsupported engine for npm-package-arg@10.1.0: wanted: {\"node\":\"^14.17.0 || ^16.13.0 || =18.0.0\"} (current: {\"node\":\"12.22.10\",\"npm\":\"6.14.16\"}) npm WARN notsup Not compatible with your version of node/npm: npm-package-arg@10.1.0 npm WARN notsup Unsupported engine for minipass-fetch@3.0.1: wanted: {\"node\":\"^14.17.0 || ^16.13.0 || =18.0.0\"} (current: {\"node\":\"12.22.10\",\"npm\":\"6.14.16\"}) npm WARN notsup Not compatible with your version of node/npm: minipass-fetch@3.0.1 npm WARN notsup Unsupported engine for proc-log@3.0.0: wanted: {\"node\":\"^14.17.0 || ^16.13.0 || =18.0.0\"} (current: {\"node\":\"12.22.10\",\"npm\":\"6.14.16\"}) npm WARN notsup Not compatible with your version of node/npm: proc-log@3.0.0 npm WARN notsup Unsupported engine for make-fetch-happen@11.0.2: wanted: {\"node\":\"^14.17.0 || ^16.13.0 || =18.0.0\"} (current: {\"node\":\"12.22.10\",\"npm\":\"6.14.16\"}) npm WARN notsup Not compatible with your version of node/npm: make-fetch-happen@11.0.2 npm WARN notsup Unsupported engine for hosted-git-info@6.1.1: wanted: {\"node\":\"^14.17.0 || ^16.13.0 || =18.0.0\"} (current: {\"node\":\"12.22.10\",\"npm\":\"6.14.16\"}) npm WARN notsup Not compatible with your version of node/npm: hosted-git-info@6.1.1 npm WARN notsup Unsupported engine for validate-npm-package-name@5.0.0: wanted: {\"node\":\"^14.17.0 || ^16.13.0 || =18.0.0\"} (current: {\"node\":\"12.22.10\",\"npm\":\"6.14.16\"}) npm WARN notsup Not compatible with your version of node/npm: validate-npm-package-name@5.0.0 npm WARN notsup Unsupported engine for normalize-package-data@5.0.0: wanted: {\"node\":\"^14.17.0 || ^16.13.0 || =18.0.0\"} (current: {\"node\":\"12.22.10\",\"npm\":\"6.14.16\"}) npm WARN notsup Not compatible with your version of node/npm: normalize-package-data@5.0.0 npm WARN notsup Unsupported engine for hosted-git-info@6.1.1: wanted: {\"node\":\"^14.17.0 || ^16.13.0 || =18.0.0\"} (current: {\"node\":\"12.22.10\",\"npm\":\"6.14.16\"}) npm WARN notsup Not compatible with your version of node/npm: hosted-git-info@6.1.1 npm WARN enoent ENOENT: no such file or directory, open '/home/egs/temp/v12/package.json' npm WARN v12 No description npm WARN v12 No repository field. npm WARN v12 No README data npm WARN v12 No license field. + @angular/cli@15.0.4 added 237 packages from 164 contributors and audited 237 packages in 9.17s 26 packages are looking for funding run `npm fund` for details found 0 vulnerabilities 安裝 angualr/cli 産生錯誤的原因是因為安裝指令中未指定版本時，預設是要安裝最新版（現在這個時候最新版是 v15）。 Angular Cli 的版本與 Node.js 的版本必須要搭配合宜，譬如說 Angular Cli v15 就必須搭配 Node.js v14.20.0以上或 v16.13.0以上或 v18.10.0。\n註：詳細的資料可參考 Angular 與 Node.js 對照表\n前述的問題，解決方法有二：\n 方法一：不要使用最新版本的 Angular Cli，而採用可以搭配 Node.js 12 版本的 Cli(也就是 Angular Cli v13) 方法二：更新 Node.js 的版本  安裝 Angular Cli v13 在 local 目錄中 $ npm install @angular/cli@13\t# 安裝 cli 時指定特定版本 $ $ npx ng version _ _ ____ _ ___ / \\  _ __ __ _ _ _| | __ _ _ __ / ___| | |_ _| / △ \\ | '_ \\ / _` | | | | |/ _` | '__| | | | | | | / ___ \\| | | | (_| | |_| | | (_| | | | |___| |___ | | /_/ \\_\\_| |_|\\__, |\\__,_|_|\\__,_|_| \\____|_____|___| |___/ Angular CLI: 13.3.10 Node: 12.22.12 Package Manager: npm 6.14.16 OS: linux x64 Angular: ... Package Version ------------------------------------------------------ @angular-devkit/architect 0.1303.10 @angular-devkit/core 13.3.10 @angular-devkit/schematics 13.3.10 @schematics/angular 13.3.10 使用 Angular Cli v13 建立 Angular App $ ng new testApp --routing --style=scss \u0026\u0026 cd testApp $ npm start 接下來要詳述方法二，也就是本篇筆記的重點。\n將 Node.js 安裝在 global 環境可能是一種最簡潔的方式，但對開發人員而言，卻可能不是最佳解。\n原因很簡單，因為開發人員可能要面對是不同專案、不同的開發工具、及各種不同版本環境…，將單一版本安裝在 global 中，衍生出來的版本切換問題可能造成更多不便。\n使用 nvm 來管理系統中的 Node.js \u0026 npm (在 windows 環境中可以使用 nvs，請參考這篇　https://calvinegs.github.io/categories/nvs/)\n在 ubuntu 中我們要用 wget 來進行 nvm 的安裝，所以首先先確認系統中已是否已安裝了 wget\n$ wget --version GNU Wget 1.21.2 built on linux-gnu. -cares +digest -gpgme +https +ipv6 +iri +large-file -metalink +nls +ntlm +opie +psl +ssl/openssl Wgetrc: /etc/wgetrc (system) Locale: /usr/share/locale Compile: gcc -DHAVE_CONFIG_H -DSYSTEM_WGETRC=\"/etc/wgetrc\" -DLOCALEDIR=\"/usr/share/locale\" -I. -I../../src -I../lib -I../../lib -Wdate-time -D_FORTIFY_SOURCE=2 -DHAVE_LIBSSL -DNDEBUG -g -O2 -ffile-prefix-map=/build/wget-8g5eYO/wget-1.21.2=. -flto=auto -ffat-lto-objects -flto=auto -ffat-lto-objects -fstack-protector-strong -Wformat -Werror=format-security -DNO_SSLv2 -D_FILE_OFFSET_BITS=64 -g -Wall Link: gcc -DHAVE_LIBSSL -DNDEBUG -g -O2 -ffile-prefix-map=/build/wget-8g5eYO/wget-1.21.2=. -flto=auto -ffat-lto-objects -flto=auto -ffat-lto-objects -fstack-protector-strong -Wformat -Werror=format-security -DNO_SSLv2 -D_FILE_OFFSET_BITS=64 -g -Wall -Wl,-Bsymbolic-functions -flto=auto -ffat-lto-objects -flto=auto -Wl,-z,relro -Wl,-z,now -lpcre2-8 -luuid -lidn2 -lssl -lcrypto -lz -lpsl ftp-opie.o openssl.o http-ntlm.o ../lib/libgnu.a Copyright (C) 2015 Free Software Foundation, Inc. License GPLv3+: GNU GPL version 3 or later . This is free software: you are free to change and redistribute it. There is NO WARRANTY, to the extent permitted by law. Originally written by Hrvoje Niksic . Please send bug reports and questions to . 在 ubuntu 22.04 上安裝 nvm 使用 wget 下載最新稳定版本 nvm\n$ wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash 上述指令將 nvm repository 下載至 ~/.nvm 目錄中\n$ srouce ~/.bashrc\t# 在當前環境中執行 .bashrc script $ command -v nvm\t# 確認已安裝好 NVM $ nvm -v\t# 顯示目前安裝的 nvm 版本 0.39.1 使用 nvm 查詢 local 端 Node.js 目前安裝的情況 $ nvm ls system iojs - N/A (default) node - stable (- N/A) (default) unstable - N/A (default) 使用 nvm 查詢 Node.js 目前所有版本清單 $ nvm ls-remote ... v17.6.0 v17.7.0 v17.7.1 v17.7.2 v17.8.0 v17.9.0 v17.9.1 v18.0.0 v18.1.0 v18.2.0 v18.3.0 v18.4.0 v18.5.0 v18.6.0 v18.7.0 v18.8.0 v18.9.0 v18.9.1 v18.10.0 v18.11.0 v18.12.0 (LTS: Hydrogen) - v18.12.1 (Latest LTS: Hydrogen) v19.0.0 v19.0.1 v19.1.0 v19.2.0 v19.3.0 安裝最新版本 Node.js $ nvm install node\t# 未指定版本，即表示要安裝最新版本 Downloading and installing node v19.3.0... Downloading https://nodejs.org/dist/v19.3.0/node-v19.3.0-linux-x64.tar.xz... --2023-01-04 10:38:43-- https://nodejs.org/dist/v19.3.0/node-v19.3.0-linux-x64.tar.xz Resolving nodejs.org (nodejs.org)... 104.20.22.46, 104.20.23.46, 2606:4700:10::6814:162e, ... Connecting to nodejs.org (nodejs.org)|104.20.22.46|:443... connected. HTTP request sent, awaiting response... 200 OK Length: 23840516 (23M) [application/x-xz] Saving to: ‘/home/calvin-egs/.nvm/.cache/bin/node-v19.3.0-linux-x64/node-v19.3.0-linux-x64.tar.xz’ /home/calvin-egs/.nvm/.cache/ 100%[===============================================] 22.74M 5.32MB/s in 4.6s 2023-01-04 10:38:48 (4.96 MB/s) - ‘/home/calvin-egs/.nvm/.cache/bin/node-v19.3.0-linux-x64/node-v19.3.0-linux-x64.tar.xz’ saved [23840516/23840516] Computing checksum with sha256sum Checksums matched! Now using node v19.3.0 (npm v9.2.0) Creating default alias: default - node (- v19.3.0) 查看安裝情況\n$ nvm ls\t# 列出目前所有已安裝的 Node.js 版本 - v19.3.0\t# 目前只安裝了一個版本 v19.3.0 default - node (- v19.3.0) iojs - N/A (default) unstable - N/A (default) node - stable (- v19.3.0) (default) stable - 19.3 (- v19.3.0) (default) lts/* - lts/hydrogen (- N/A) lts/argon - v4.9.1 (- N/A) lts/boron - v6.17.1 (- N/A) lts/carbon - v8.17.0 (- N/A) lts/dubnium - v10.24.1 (- N/A) lts/erbium - v12.22.12 (- N/A) lts/fermium - v14.21.2 (- N/A) lts/gallium - v16.19.0 (- N/A) lts/hydrogen - v18.12.1 (- N/A) 安裝特定版本的最更新版 Node.js $ nvm install 18 # 安裝 version 18 版中的最更新版(如：v18.12.1) Downloading and installing node v18.12.1... Downloading https://nodejs.org/dist/v18.12.1/node-v18.12.1-linux-x64.tar.xz... --2023-01-04 10:42:41-- https://nodejs.org/dist/v18.12.1/node-v18.12.1-linux-x64.tar.xz Resolving nodejs.org (nodejs.org)... 104.20.23.46, 104.20.22.46, 2606:4700:10::6814:172e, ... Connecting to nodejs.org (nodejs.org)|104.20.23.46|:443... connected. HTTP request sent, awaiting response... 200 OK Length: 23726988 (23M) [application/x-xz] Saving to: ‘/home/calvin-egs/.nvm/.cache/bin/node-v18.12.1-linux-x64/node-v18.12.1-linux-x64.tar.xz’ /home/calvin-egs/.nvm/.cache/ 100%[===============================================] 22.63M 5.10MB/s in 4.8s 2023-01-04 10:42:46 (4.68 MB/s) - ‘/home/calvin-egs/.nvm/.cache/bin/node-v18.12.1-linux-x64/node-v18.12.1-linux-x64.tar.xz’ saved [23726988/23726988] Computing checksum with sha256sum Checksums matched! Now using node v18.12.1 (npm v8.19.2) 安裝成功後，再次查看目前安裝有那些版本，可以看到有 v18.12.1 與 v19.3.0，且目前使用的是 v18.12.1（ “-” 指示的即表示目前環境下所採用 Node.js 版本）\n$ nvm ls - v18.12.1 v19.3.0 default - node (- v19.3.0) iojs - N/A (default) unstable - N/A (default) node - stable (- v19.3.0) (default) stable - 19.3 (- v19.3.0) (default) lts/* - lts/hydrogen (- v18.12.1) lts/argon - v4.9.1 (- N/A) lts/boron - v6.17.1 (- N/A) lts/carbon - v8.17.0 (- N/A) lts/dubnium - v10.24.1 (- N/A) lts/erbium - v12.22.12 (- N/A) lts/fermium - v14.21.2 (- N/A) lts/gallium - v16.19.0 (- N/A) lts/hydrogen - v18.12.1``` ## 如何不使用 Angular Cli 來新建一支 Angular Web App 程式範本 透過　npm init @angular　指令就可以不必先安裝 Angular Cli 的前題下來建立最新版本的 Angular Web App 程式範本 ```bash $ mkdir angular15 \u0026\u0026 cd angular15 $ node -v # 先確認現行 Node.js 版本 v19.3.0 # 使用 npm init 指令 $ npm init @angular firstExample -- --routing --style=scss Need to install the following packages: @angular/create@15.0.4 Ok to proceed? (y) npm WARN deprecated @npmcli/move-file@2.0.1: This functionality has been moved to @npmcli/fs npm WARN deprecated sourcemap-codec@1.4.8: Please use @jridgewell/sourcemap-codec instead Node.js version v19.3.0 detected. Odd numbered Node.js versions will not enter LTS status and should not be used for production. For more information, please see https://nodejs.org/en/about/releases/. ? Would you like to share pseudonymous usage data about this project with the Angular Team at Google under Google's Privacy Policy at https://policies.google.com/privacy. For more details and how to change this setting, see https://angular.io/analytics. No Global setting: disabled Local setting: No local workspace configuration file. Effective status: disabled CREATE firstExample/README.md (1066 bytes) CREATE firstExample/.editorconfig (274 bytes) CREATE firstExample/.gitignore (548 bytes) CREATE firstExample/angular.json (2949 bytes) CREATE firstExample/package.json (1044 bytes) CREATE firstExample/tsconfig.json (901 bytes) CREATE firstExample/tsconfig.app.json (263 bytes) CREATE firstExample/tsconfig.spec.json (273 bytes) CREATE firstExample/.vscode/extensions.json (130 bytes) CREATE firstExample/.vscode/launch.json (474 bytes) CREATE firstExample/.vscode/tasks.json (938 bytes) CREATE firstExample/src/favicon.ico (948 bytes) CREATE firstExample/src/index.html (298 bytes) CREATE firstExample/src/main.ts (214 bytes) CREATE firstExample/src/styles.scss (80 bytes) CREATE firstExample/src/assets/.gitkeep (0 bytes) CREATE firstExample/src/app/app-routing.module.ts (245 bytes) CREATE firstExample/src/app/app.module.ts (393 bytes) CREATE firstExample/src/app/app.component.scss (0 bytes) CREATE firstExample/src/app/app.component.html (23115 bytes) CREATE firstExample/src/app/app.component.spec.ts (1091 bytes) CREATE firstExample/src/app/app.component.ts (217 bytes) ✔ Packages installed successfully. 範本建立成功後，可查看 package.json 中採用的那個版本的 Angular 程式架構\n$ cd firstExample $ cat package.json { \"name\": \"first-example\", \"version\": \"0.0.0\", \"scripts\": { \"ng\": \"ng\", \"start\": \"ng serve\", \"build\": \"ng build\", \"watch\": \"ng build --watch --configuration development\", \"test\": \"ng test\" }, \"private\": true, \"dependencies\": { \"@angular/animations\": \"^15.0.0\", \"@angular/common\": \"^15.0.0\", \"@angular/compiler\": \"^15.0.0\", \"@angular/core\": \"^15.0.0\", \"@angular/forms\": \"^15.0.0\", \"@angular/platform-browser\": \"^15.0.0\", \"@angular/platform-browser-dynamic\": \"^15.0.0\", \"@angular/router\": \"^15.0.0\", \"rxjs\": \"~7.5.0\", \"tslib\": \"^2.3.0\", \"zone.js\": \"~0.12.0\" }, \"devDependencies\": { \"@angular-devkit/build-angular\": \"^15.0.4\", \"@angular/cli\": \"~15.0.4\", \"@angular/compiler-cli\": \"^15.0.0\", \"@types/jasmine\": \"~4.3.0\", \"jasmine-core\": \"~4.5.0\", \"karma\": \"~6.4.0\", \"karma-chrome-launcher\": \"~3.1.0\", \"karma-coverage\": \"~2.2.0\", \"karma-jasmine\": \"~5.1.0\", \"karma-jasmine-html-reporter\": \"~2.0.0\", \"typescript\": \"~4.8.2\" } } 執行産生的預設程式範本\n$ npm start  first-example@0.0.0 start  ng serve Node.js version v19.3.0 detected. Odd numbered Node.js versions will not enter LTS status and should not be used for production. For more information, please see https://nodejs.org/en/about/releases/. ✔ Browser application bundle generation complete. Initial Chunk Files | Names | Raw Size vendor.js | vendor | 2.09 MB | polyfills.js | polyfills | 314.28 kB | styles.css, styles.js | styles | 209.87 kB | main.js | main | 48.10 kB | runtime.js | runtime | 6.52 kB | | Initial Total | 2.66 MB Build at: 2023-01-04T02:54:06.004Z - Hash: ef1d647f832bd9c0 - Time: 11301ms ** Angular Live Development Server is listening on localhost:4200, open your browser on http://localhost:4200/ ** ✔ Compiled successfully. 讓特定目錄自動使用特定版本的 Node.js 最得我們說說如何在切換目錄時由系統自動切換不同的 Node.js 版本。\n修改 ~/.bashrc 檔案 首先，在 ~/.bashrc 檔案最後處加入以下 script。\n### for nvm auto switch version on change directory cdnvm() { command cd \"$@\"; nvm_path=$(nvm_find_up .nvmrc | tr -d '\\n') # If there are no .nvmrc file, use the default nvm version if [[ ! $nvm_path = *[^[:space:]]* ]]; then declare default_version; default_version=$(nvm version default); # If there is no default version, set it to `node` # This will use the latest version on your machine if [[ $default_version == \"N/A\" ]]; then nvm alias default node; default_version=$(nvm version default); fi # If the current version is not the default version, set it to use the default version if [[ $(nvm current) != \"$default_version\" ]]; then nvm use default; fi elif [[ -s $nvm_path/.nvmrc \u0026\u0026 -r $nvm_path/.nvmrc ]]; then declare nvm_version nvm_version=$(\"$nvm_path\"/.nvmrc) declare locally_resolved_nvm_version # `nvm ls` will check all locally-available versions # If there are multiple matching versions, take the latest one # Remove the `-` and `*` characters and spaces # `locally_resolved_nvm_version` will be `N/A` if no local versions are found locally_resolved_nvm_version=$(nvm ls --no-colors \"$nvm_version\" | tail -1 | tr -d '\\-*' | tr -d '[:space:]') # If it is not already installed, install it # `nvm install` will implicitly use the newly-installed version if [[ \"$locally_resolved_nvm_version\" == \"N/A\" ]]; then nvm install \"$nvm_version\"; elif [[ $(nvm current) != \"$locally_resolved_nvm_version\" ]]; then nvm use \"$nvm_version\"; fi fi } alias cd='cdnvm' cd \"$PWD\" 讓修改的 ~/.bashrc Script file 即刻生效 修改完 ~/.bashrc Script file　後，使用 source 指令讓上述的 script 立即生效\n$ source ~/.bashrc 搭配 .nvmrc 檔案實現在切換工作目錄時自動切換不同的 Node.js 版本 在　angular15 目錄下再建一個名為 angular 子目錄，在這個子目錄我們要使用的 node 環境是 v18。\n$ mkdir angular \u0026\u0026 cd angular\t# 建立 angular 子目錄，並將工作目錄切換到這個子目錄中 $ $ nvm use 18\t# 使用 nvm use 指令將 Node.js 環境切換成 第18版，因為我們之前安裝的是 v18.12.1，nvm 自動採得這個最新版的第18版 $ node -v\t# 查看目前使用的工作版本 v18.12.1 $ node -v  .nvmrc\t# 將 v.18.12.1 這個版本寫入到 .nvmrc 這個檔案中。 nvm 搭配上各目錄中 .nvmrc 檔案的設定就能實現｀自動｀切換 Node.js 版本的功能。\n$ cd ~ ~$ node -v v19.3.0 ~$ cd angular15 ~/angular15$ node -v v19.3.0 ~/angular15$ cd angualr Now using node v18.12.1 (npm v8.19.2) ~/angular15/angular$ node -v v18.12.1 使用 node v18.12.1 環境來建立 angualr 15 的 app\n$ npm init @angular secondExample -- --routing --style=css CREATE secondExample/README.md (1067 bytes) CREATE secondExample/.editorconfig (274 bytes) CREATE secondExample/.gitignore (548 bytes) CREATE secondExample/angular.json (2780 bytes) CREATE secondExample/package.json (1045 bytes) CREATE secondExample/tsconfig.json (901 bytes) CREATE secondExample/tsconfig.app.json (263 bytes) CREATE secondExample/tsconfig.spec.json (273 bytes) CREATE secondExample/.vscode/extensions.json (130 bytes) CREATE secondExample/.vscode/launch.json (474 bytes) CREATE secondExample/.vscode/tasks.json (938 bytes) CREATE secondExample/src/favicon.ico (948 bytes) CREATE secondExample/src/index.html (299 bytes) CREATE secondExample/src/main.ts (214 bytes) CREATE secondExample/src/styles.css (80 bytes) CREATE secondExample/src/assets/.gitkeep (0 bytes) CREATE secondExample/src/app/app-routing.module.ts (245 bytes) CREATE secondExample/src/app/app.module.ts (393 bytes) CREATE secondExample/src/app/app.component.css (0 bytes) CREATE secondExample/src/app/app.component.html (23115 bytes) CREATE secondExample/src/app/app.component.spec.ts (1094 bytes) CREATE secondExample/src/app/app.component.ts (217 bytes) ✔ Packages installed successfully. 執行時也不會有任可版本不相搭配的警告訊息出現了。\n$ npm start  second-example@0.0.0 start  ng serve ✔ Browser application bundle generation complete. Initial Chunk Files | Names | Raw Size vendor.js | vendor | 2.09 MB | polyfills.js | polyfills | 314.28 kB | styles.css, styles.js | styles | 209.41 kB | main.js | main | 48.11 kB | runtime.js | runtime | 6.52 kB | | Initial Total | 2.66 MB Build at: 2023-01-04T03:09:19.398Z - Hash: 64669f1b8675c995 - Time: 13758ms ** Angular Live Development Server is listening on localhost:4200, open your browser on http://localhost:4200/ ** ✔ Compiled successfully. 結論：\n nvm 是管理你電腦中各式 Node.js 版本的好工具。 在新版本 Angular 中你可以不必先安裝 Cli 來建立程式範本，直接使用　npm init @angular 指令即可。  ","wordCount":"3173","inLanguage":"en","datePublished":"2023-01-05T00:00:00Z","dateModified":"2023-01-05T00:00:00Z","author":{"@type":"Person","name":"Theme PaperMod"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://calvinegs.github.io/posts/nvm-angular15/"},"publisher":{"@type":"Organization","name":"永誌不忘 • 筆記簿","logo":{"@type":"ImageObject","url":"https://calvinegs.github.io/img/favicon.png"}}}</script>
+</head>
+<body id=top>
+<script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
+<header class=header>
+<nav class=nav>
+<div class=logo>
+<a href=https://calvinegs.github.io/ accesskey=h title="永誌不忘 • 筆記簿 (Alt + H)">永誌不忘 • 筆記簿</a>
+<span class=logo-switches>
+<button id=theme-toggle accesskey=t title="(Alt + T)"><svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+</button>
+</span>
+</div>
+<ul id=menu>
+<li>
+<a href=https://calvinegs.github.io/posts/ title=Posts>
+<span>Posts</span>
+</a>
+</li>
+<li>
+<a href=https://calvinegs.github.io/archives/ title=Archive>
+<span>Archive</span>
+</a>
+</li>
+<li>
+<a href=https://calvinegs.github.io/categories/ title=Categories>
+<span>Categories</span>
+</a>
+</li>
+<li>
+<a href=https://calvinegs.github.io/tags/ title=Tags>
+<span>Tags</span>
+</a>
+</li>
+<li>
+<a href=https://calvinegs.github.io/search/ title="Search (Alt + /)" accesskey=/>
+<span>Search</span>
+</a>
+</li>
+</ul>
+</nav>
+</header>
+<main class=main>
+<article class=post-single>
+<header class=post-header>
+<div class=breadcrumbs><a href=https://calvinegs.github.io/>Home</a>&nbsp;»&nbsp;<a href=https://calvinegs.github.io/posts/>Posts</a></div>
+<h1 class=post-title>
+在 ubuntu 22.04 中建立一支 Angular 15 Web App
+</h1>
+<div class=post-description>
+本篇筆記二個重點：一是在 ubuntu 22.04 中安裝及使用 nvm，二是如何使用最簡易的方法來産生一個 Angular 15 Web App 程式架構
+</div>
+<div class=post-meta><span title="2023-01-05 00:00:00 +0000 UTC">January 5, 2023</span>&nbsp;·&nbsp;15 min&nbsp;·&nbsp;Theme PaperMod&nbsp;|&nbsp;<a href=https://github.com/adityatelange/hugo-PaperMod/tree/exampleSite/content/posts/nvm-angular15.md rel="noopener noreferrer" target=_blank>Suggest Changes</a>
+</div>
+</header> <div class=toc>
+<details>
+<summary accesskey=c title="(Alt + C)">
+<span class=details>Table of Contents</span>
+</summary>
+<div class=inner><ul>
+<li>
+<a href=#%e4%bb%a5%e6%9c%80%e7%b0%a1%e6%bd%94%e7%9a%84%e6%96%b9%e5%bc%8f%e5%9c%a8-ubuntu-2204-%e4%b8%ad%e5%bb%ba%e7%ab%8b%e4%b8%80%e6%94%af-angular-15-web-app aria-label="以最簡潔的方式在 ubuntu 22.04 中建立一支 Angular 15 Web App">以最簡潔的方式在 ubuntu 22.04 中建立一支 Angular 15 Web App</a><ul>
+<li>
+<a href=#%e4%b8%80%e8%88%ac%e7%9a%84%e6%96%b9%e5%bc%8f aria-label=一般的方式>一般的方式</a><ul>
+<li>
+<a href=#%e5%9c%a8-ubuntu-2204-%e4%b8%8a%e5%ae%89%e8%a3%9d-nodejs aria-label="在 ubuntu 22.04 上安裝 Node.js">在 ubuntu 22.04 上安裝 Node.js</a></li>
+<li>
+<a href=#%e5%9c%a8-ubuntu-2204-%e4%b8%8a%e5%ae%89%e8%a3%9d-npm aria-label="在 ubuntu 22.04 上安裝 npm">在 ubuntu 22.04 上安裝 npm</a></li>
+<li>
+<a href=#%e5%ae%89%e8%a3%9d-angular-cli aria-label="安裝 Angular Cli">安裝 Angular Cli</a></li>
+<li>
+<a href=#%e5%ae%89%e8%a3%9d-angular-cli-v13-%e5%9c%a8-local-%e7%9b%ae%e9%8c%84%e4%b8%ad aria-label="安裝 Angular Cli v13 在 local 目錄中">安裝 Angular Cli v13 在 local 目錄中</a></li>
+<li>
+<a href=#%e4%bd%bf%e7%94%a8-angular-cli-v13-%e5%bb%ba%e7%ab%8b-angular-app aria-label="使用 Angular Cli v13 建立 Angular App">使用 Angular Cli v13 建立 Angular App</a></li></ul>
+</li>
+<li>
+<a href=#%e4%bd%bf%e7%94%a8-nvm-%e4%be%86%e7%ae%a1%e7%90%86%e7%b3%bb%e7%b5%b1%e4%b8%ad%e7%9a%84-nodejs--npm aria-label="使用 nvm 來管理系統中的 Node.js &amp;amp; npm">使用 nvm 來管理系統中的 Node.js & npm</a><ul>
+<li>
+<a href=#%e5%9c%a8-ubuntu-2204-%e4%b8%8a%e5%ae%89%e8%a3%9d-nvm aria-label="在 ubuntu 22.04 上安裝 nvm">在 ubuntu 22.04 上安裝 nvm</a></li>
+<li>
+<a href=#%e4%bd%bf%e7%94%a8-nvm-%e6%9f%a5%e8%a9%a2-local-%e7%ab%af-nodejs-%e7%9b%ae%e5%89%8d%e5%ae%89%e8%a3%9d%e7%9a%84%e6%83%85%e6%b3%81 aria-label="使用 nvm 查詢 local 端 Node.js 目前安裝的情況">使用 nvm 查詢 local 端 Node.js 目前安裝的情況</a></li>
+<li>
+<a href=#%e4%bd%bf%e7%94%a8-nvm-%e6%9f%a5%e8%a9%a2-nodejs-%e7%9b%ae%e5%89%8d%e6%89%80%e6%9c%89%e7%89%88%e6%9c%ac%e6%b8%85%e5%96%ae aria-label="使用 nvm 查詢 Node.js 目前所有版本清單">使用 nvm 查詢 Node.js 目前所有版本清單</a></li>
+<li>
+<a href=#%e5%ae%89%e8%a3%9d%e6%9c%80%e6%96%b0%e7%89%88%e6%9c%ac-nodejs aria-label="安裝最新版本 Node.js">安裝最新版本 Node.js</a></li>
+<li>
+<a href=#%e5%ae%89%e8%a3%9d%e7%89%b9%e5%ae%9a%e7%89%88%e6%9c%ac%e7%9a%84%e6%9c%80%e6%9b%b4%e6%96%b0%e7%89%88-nodejs aria-label="安裝特定版本的最更新版 Node.js">安裝特定版本的最更新版 Node.js</a></li></ul>
+</li>
+<li>
+<a href=#%e8%ae%93%e7%89%b9%e5%ae%9a%e7%9b%ae%e9%8c%84%e8%87%aa%e5%8b%95%e4%bd%bf%e7%94%a8%e7%89%b9%e5%ae%9a%e7%89%88%e6%9c%ac%e7%9a%84-nodejs aria-label="讓特定目錄自動使用特定版本的 Node.js">讓特定目錄自動使用特定版本的 Node.js</a><ul>
+<li>
+<a href=#%e4%bf%ae%e6%94%b9-bashrc-%e6%aa%94%e6%a1%88 aria-label="修改 ~/.bashrc 檔案">修改 ~/.bashrc 檔案</a></li>
+<li>
+<a href=#%e8%ae%93%e4%bf%ae%e6%94%b9%e7%9a%84-bashrc-script-file-%e5%8d%b3%e5%88%bb%e7%94%9f%e6%95%88 aria-label="讓修改的 ~/.bashrc Script file 即刻生效">讓修改的 ~/.bashrc Script file 即刻生效</a></li>
+<li>
+<a href=#%e6%90%ad%e9%85%8d-nvmrc-%e6%aa%94%e6%a1%88%e5%af%a6%e7%8f%be%e5%9c%a8%e5%88%87%e6%8f%9b%e5%b7%a5%e4%bd%9c%e7%9b%ae%e9%8c%84%e6%99%82%e8%87%aa%e5%8b%95%e5%88%87%e6%8f%9b%e4%b8%8d%e5%90%8c%e7%9a%84-nodejs-%e7%89%88%e6%9c%ac aria-label="搭配 .nvmrc 檔案實現在切換工作目錄時自動切換不同的 Node.js 版本">搭配 .nvmrc 檔案實現在切換工作目錄時自動切換不同的 Node.js 版本</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</details>
+</div>
+<div class=post-content><h1 id=以最簡潔的方式在-ubuntu-2204-中建立一支-angular-15-web-app>以最簡潔的方式在 ubuntu 22.04 中建立一支 Angular 15 Web App<a hidden class=anchor aria-hidden=true href=#以最簡潔的方式在-ubuntu-2204-中建立一支-angular-15-web-app>#</a></h1>
+<p>先講結論：使用 &ldquo;npm init @angular " 就可以在不先安裝 Angular Cli 的前題下，來建立一支 Web App 範本程式。</p>
+<p>一般要新增一支 Angular Web App 都會使用 Angular Cli，而使用 Angular Cli 必須搭配上 Node.js & npm</p>
+<h2 id=一般的方式>一般的方式<a hidden class=anchor aria-hidden=true href=#一般的方式>#</a></h2>
+<h3 id=在-ubuntu-2204-上安裝-nodejs>在 ubuntu 22.04 上安裝 Node.js<a hidden class=anchor aria-hidden=true href=#在-ubuntu-2204-上安裝-nodejs>#</a></h3>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$ node -v <span style=color:#75715e># 先檢視是否有安裝 Node.js，若沒有則需安裝</span>
+$ 
+$ sudo apt update
+$ sudo apt install nodejs
+$
+$ node -v
+v12.22.9
+</code></pre></div><h3 id=在-ubuntu-2204-上安裝-npm>在 ubuntu 22.04 上安裝 npm<a hidden class=anchor aria-hidden=true href=#在-ubuntu-2204-上安裝-npm>#</a></h3>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$ npm -v	<span style=color:#75715e># 先檢視是否有安裝 npm，若沒有則需安裝</span>
+$ 
+$ sudo apt update
+$ sudo apt install npm
+$
+$ npm -v
+8.5.1
+</code></pre></div><h3 id=安裝-angular-cli>安裝 Angular Cli<a hidden class=anchor aria-hidden=true href=#安裝-angular-cli>#</a></h3>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$ mkdir ./test <span style=color:#f92672>&amp;&amp;</span> cd ./test
+$ npm install @angular/cli  <span style=color:#75715e># 在 local test 目錄下安裝最新版 Angular Cli</span>
+
+npm WARN deprecated @npmcli/move-file@2.0.1: This functionality has been moved to @npmcli/fs
+npm WARN saveError ENOENT: no such file or directory, open <span style=color:#e6db74>&#39;/home/egs/temp/v12/package.json&#39;</span>
+npm notice created a lockfile as package-lock.json. You should commit this file.
+npm WARN notsup Unsupported engine <span style=color:#66d9ef>for</span> @angular/cli@15.0.4: wanted: <span style=color:#f92672>{</span><span style=color:#e6db74>&#34;node&#34;</span>:<span style=color:#e6db74>&#34;^14.20.0 || ^16.13.0 || &gt;=18.10.0&#34;</span>,<span style=color:#e6db74>&#34;npm&#34;</span>:<span style=color:#e6db74>&#34;^6.11.0 || ^7.5.6 || &gt;=8.0.0&#34;</span>,<span style=color:#e6db74>&#34;yarn&#34;</span>:<span style=color:#e6db74>&#34;&gt;= 1.13.0&#34;</span><span style=color:#f92672>}</span> <span style=color:#f92672>(</span>current: <span style=color:#f92672>{</span><span style=color:#e6db74>&#34;node&#34;</span>:<span style=color:#e6db74>&#34;12.22.10&#34;</span>,<span style=color:#e6db74>&#34;npm&#34;</span>:<span style=color:#e6db74>&#34;6.14.16&#34;</span><span style=color:#f92672>})</span>
+npm WARN notsup Not compatible with your version of node/npm: @angular/cli@15.0.4
+npm WARN notsup Unsupported engine <span style=color:#66d9ef>for</span> npm-pick-manifest@8.0.1: wanted: <span style=color:#f92672>{</span><span style=color:#e6db74>&#34;node&#34;</span>:<span style=color:#e6db74>&#34;^14.17.0 || ^16.13.0 || &gt;=18.0.0&#34;</span><span style=color:#f92672>}</span> <span style=color:#f92672>(</span>current: <span style=color:#f92672>{</span><span style=color:#e6db74>&#34;node&#34;</span>:<span style=color:#e6db74>&#34;12.22.10&#34;</span>,<span style=color:#e6db74>&#34;npm&#34;</span>:<span style=color:#e6db74>&#34;6.14.16&#34;</span><span style=color:#f92672>})</span>
+npm WARN notsup Not compatible with your version of node/npm: npm-pick-manifest@8.0.1
+npm WARN notsup Unsupported engine <span style=color:#66d9ef>for</span> pacote@15.0.6: wanted: <span style=color:#f92672>{</span><span style=color:#e6db74>&#34;node&#34;</span>:<span style=color:#e6db74>&#34;^14.17.0 || ^16.13.0 || &gt;=18.0.0&#34;</span><span style=color:#f92672>}</span> <span style=color:#f92672>(</span>current: <span style=color:#f92672>{</span><span style=color:#e6db74>&#34;node&#34;</span>:<span style=color:#e6db74>&#34;12.22.10&#34;</span>,<span style=color:#e6db74>&#34;npm&#34;</span>:<span style=color:#e6db74>&#34;6.14.16&#34;</span><span style=color:#f92672>})</span>
+npm WARN notsup Not compatible with your version of node/npm: pacote@15.0.6
+npm WARN notsup Unsupported engine <span style=color:#66d9ef>for</span> @angular-devkit/architect@0.1500.4: wanted: <span style=color:#f92672>{</span><span style=color:#e6db74>&#34;node&#34;</span>:<span style=color:#e6db74>&#34;^14.20.0 || ^16.13.0 || &gt;=18.10.0&#34;</span>,<span style=color:#e6db74>&#34;npm&#34;</span>:<span style=color:#e6db74>&#34;^6.11.0 || ^7.5.6 || &gt;=8.0.0&#34;</span>,<span style=color:#e6db74>&#34;yarn&#34;</span>:<span style=color:#e6db74>&#34;&gt;= 1.13.0&#34;</span><span style=color:#f92672>}</span> <span style=color:#f92672>(</span>current: <span style=color:#f92672>{</span><span style=color:#e6db74>&#34;node&#34;</span>:<span style=color:#e6db74>&#34;12.22.10&#34;</span>,<span style=color:#e6db74>&#34;npm&#34;</span>:<span style=color:#e6db74>&#34;6.14.16&#34;</span><span style=color:#f92672>})</span>
+npm WARN notsup Not compatible with your version of node/npm: @angular-devkit/architect@0.1500.4
+npm WARN notsup Unsupported engine <span style=color:#66d9ef>for</span> @angular-devkit/schematics@15.0.4: wanted: <span style=color:#f92672>{</span><span style=color:#e6db74>&#34;node&#34;</span>:<span style=color:#e6db74>&#34;^14.20.0 || ^16.13.0 || &gt;=18.10.0&#34;</span>,<span style=color:#e6db74>&#34;npm&#34;</span>:<span style=color:#e6db74>&#34;^6.11.0 || ^7.5.6 || &gt;=8.0.0&#34;</span>,<span style=color:#e6db74>&#34;yarn&#34;</span>:<span style=color:#e6db74>&#34;&gt;= 1.13.0&#34;</span><span style=color:#f92672>}</span> <span style=color:#f92672>(</span>current: <span style=color:#f92672>{</span><span style=color:#e6db74>&#34;node&#34;</span>:<span style=color:#e6db74>&#34;12.22.10&#34;</span>,<span style=color:#e6db74>&#34;npm&#34;</span>:<span style=color:#e6db74>&#34;6.14.16&#34;</span><span style=color:#f92672>})</span>
+npm WARN notsup Not compatible with your version of node/npm: @angular-devkit/schematics@15.0.4
+npm WARN notsup Unsupported engine <span style=color:#66d9ef>for</span> @schematics/angular@15.0.4: wanted: <span style=color:#f92672>{</span><span style=color:#e6db74>&#34;node&#34;</span>:<span style=color:#e6db74>&#34;^14.20.0 || ^16.13.0 || &gt;=18.10.0&#34;</span>,<span style=color:#e6db74>&#34;npm&#34;</span>:<span style=color:#e6db74>&#34;^6.11.0 || ^7.5.6 || &gt;=8.0.0&#34;</span>,<span style=color:#e6db74>&#34;yarn&#34;</span>:<span style=color:#e6db74>&#34;&gt;= 1.13.0&#34;</span><span style=color:#f92672>}</span> <span style=color:#f92672>(</span>current: <span style=color:#f92672>{</span><span style=color:#e6db74>&#34;node&#34;</span>:<span style=color:#e6db74>&#34;12.22.10&#34;</span>,<span style=color:#e6db74>&#34;npm&#34;</span>:<span style=color:#e6db74>&#34;6.14.16&#34;</span><span style=color:#f92672>})</span>
+npm WARN notsup Not compatible with your version of node/npm: @schematics/angular@15.0.4
+npm WARN notsup Unsupported engine <span style=color:#66d9ef>for</span> @angular-devkit/core@15.0.4: wanted: <span style=color:#f92672>{</span><span style=color:#e6db74>&#34;node&#34;</span>:<span style=color:#e6db74>&#34;^14.20.0 || ^16.13.0 || &gt;=18.10.0&#34;</span>,<span style=color:#e6db74>&#34;npm&#34;</span>:<span style=color:#e6db74>&#34;^6.11.0 || ^7.5.6 || &gt;=8.0.0&#34;</span>,<span style=color:#e6db74>&#34;yarn&#34;</span>:<span style=color:#e6db74>&#34;&gt;= 1.13.0&#34;</span><span style=color:#f92672>}</span> <span style=color:#f92672>(</span>current: <span style=color:#f92672>{</span><span style=color:#e6db74>&#34;node&#34;</span>:<span style=color:#e6db74>&#34;12.22.10&#34;</span>,<span style=color:#e6db74>&#34;npm&#34;</span>:<span style=color:#e6db74>&#34;6.14.16&#34;</span><span style=color:#f92672>})</span>
+npm WARN notsup Not compatible with your version of node/npm: @angular-devkit/core@15.0.4
+npm WARN notsup Unsupported engine <span style=color:#66d9ef>for</span> npm-package-arg@10.1.0: wanted: <span style=color:#f92672>{</span><span style=color:#e6db74>&#34;node&#34;</span>:<span style=color:#e6db74>&#34;^14.17.0 || ^16.13.0 || &gt;=18.0.0&#34;</span><span style=color:#f92672>}</span> <span style=color:#f92672>(</span>current: <span style=color:#f92672>{</span><span style=color:#e6db74>&#34;node&#34;</span>:<span style=color:#e6db74>&#34;12.22.10&#34;</span>,<span style=color:#e6db74>&#34;npm&#34;</span>:<span style=color:#e6db74>&#34;6.14.16&#34;</span><span style=color:#f92672>})</span>
+npm WARN notsup Not compatible with your version of node/npm: npm-package-arg@10.1.0
+npm WARN notsup Unsupported engine <span style=color:#66d9ef>for</span> npm-install-checks@6.0.0: wanted: <span style=color:#f92672>{</span><span style=color:#e6db74>&#34;node&#34;</span>:<span style=color:#e6db74>&#34;^14.17.0 || ^16.13.0 || &gt;=18.0.0&#34;</span><span style=color:#f92672>}</span> <span style=color:#f92672>(</span>current: <span style=color:#f92672>{</span><span style=color:#e6db74>&#34;node&#34;</span>:<span style=color:#e6db74>&#34;12.22.10&#34;</span>,<span style=color:#e6db74>&#34;npm&#34;</span>:<span style=color:#e6db74>&#34;6.14.16&#34;</span><span style=color:#f92672>})</span>
+npm WARN notsup Not compatible with your version of node/npm: npm-install-checks@6.0.0
+npm WARN notsup Unsupported engine <span style=color:#66d9ef>for</span> npm-normalize-package-bin@3.0.0: wanted: <span style=color:#f92672>{</span><span style=color:#e6db74>&#34;node&#34;</span>:<span style=color:#e6db74>&#34;^14.17.0 || ^16.13.0 || &gt;=18.0.0&#34;</span><span style=color:#f92672>}</span> <span style=color:#f92672>(</span>current: <span style=color:#f92672>{</span><span style=color:#e6db74>&#34;node&#34;</span>:<span style=color:#e6db74>&#34;12.22.10&#34;</span>,<span style=color:#e6db74>&#34;npm&#34;</span>:<span style=color:#e6db74>&#34;6.14.16&#34;</span><span style=color:#f92672>})</span>
+npm WARN notsup Not compatible with your version of node/npm: npm-normalize-package-bin@3.0.0
+npm WARN notsup Unsupported engine <span style=color:#66d9ef>for</span> proc-log@3.0.0: wanted: <span style=color:#f92672>{</span><span style=color:#e6db74>&#34;node&#34;</span>:<span style=color:#e6db74>&#34;^14.17.0 || ^16.13.0 || &gt;=18.0.0&#34;</span><span style=color:#f92672>}</span> <span style=color:#f92672>(</span>current: <span style=color:#f92672>{</span><span style=color:#e6db74>&#34;node&#34;</span>:<span style=color:#e6db74>&#34;12.22.10&#34;</span>,<span style=color:#e6db74>&#34;npm&#34;</span>:<span style=color:#e6db74>&#34;6.14.16&#34;</span><span style=color:#f92672>})</span>
+npm WARN notsup Not compatible with your version of node/npm: proc-log@3.0.0
+npm WARN notsup Unsupported engine <span style=color:#66d9ef>for</span> hosted-git-info@6.1.1: wanted: <span style=color:#f92672>{</span><span style=color:#e6db74>&#34;node&#34;</span>:<span style=color:#e6db74>&#34;^14.17.0 || ^16.13.0 || &gt;=18.0.0&#34;</span><span style=color:#f92672>}</span> <span style=color:#f92672>(</span>current: <span style=color:#f92672>{</span><span style=color:#e6db74>&#34;node&#34;</span>:<span style=color:#e6db74>&#34;12.22.10&#34;</span>,<span style=color:#e6db74>&#34;npm&#34;</span>:<span style=color:#e6db74>&#34;6.14.16&#34;</span><span style=color:#f92672>})</span>
+npm WARN notsup Not compatible with your version of node/npm: hosted-git-info@6.1.1
+npm WARN notsup Unsupported engine <span style=color:#66d9ef>for</span> validate-npm-package-name@5.0.0: wanted: <span style=color:#f92672>{</span><span style=color:#e6db74>&#34;node&#34;</span>:<span style=color:#e6db74>&#34;^14.17.0 || ^16.13.0 || &gt;=18.0.0&#34;</span><span style=color:#f92672>}</span> <span style=color:#f92672>(</span>current: <span style=color:#f92672>{</span><span style=color:#e6db74>&#34;node&#34;</span>:<span style=color:#e6db74>&#34;12.22.10&#34;</span>,<span style=color:#e6db74>&#34;npm&#34;</span>:<span style=color:#e6db74>&#34;6.14.16&#34;</span><span style=color:#f92672>})</span>
+npm WARN notsup Not compatible with your version of node/npm: validate-npm-package-name@5.0.0
+npm WARN notsup Unsupported engine <span style=color:#66d9ef>for</span> npm-package-arg@10.1.0: wanted: <span style=color:#f92672>{</span><span style=color:#e6db74>&#34;node&#34;</span>:<span style=color:#e6db74>&#34;^14.17.0 || ^16.13.0 || &gt;=18.0.0&#34;</span><span style=color:#f92672>}</span> <span style=color:#f92672>(</span>current: <span style=color:#f92672>{</span><span style=color:#e6db74>&#34;node&#34;</span>:<span style=color:#e6db74>&#34;12.22.10&#34;</span>,<span style=color:#e6db74>&#34;npm&#34;</span>:<span style=color:#e6db74>&#34;6.14.16&#34;</span><span style=color:#f92672>})</span>
+npm WARN notsup Not compatible with your version of node/npm: npm-package-arg@10.1.0
+npm WARN notsup Unsupported engine <span style=color:#66d9ef>for</span> proc-log@3.0.0: wanted: <span style=color:#f92672>{</span><span style=color:#e6db74>&#34;node&#34;</span>:<span style=color:#e6db74>&#34;^14.17.0 || ^16.13.0 || &gt;=18.0.0&#34;</span><span style=color:#f92672>}</span> <span style=color:#f92672>(</span>current: <span style=color:#f92672>{</span><span style=color:#e6db74>&#34;node&#34;</span>:<span style=color:#e6db74>&#34;12.22.10&#34;</span>,<span style=color:#e6db74>&#34;npm&#34;</span>:<span style=color:#e6db74>&#34;6.14.16&#34;</span><span style=color:#f92672>})</span>
+npm WARN notsup Not compatible with your version of node/npm: proc-log@3.0.0
+npm WARN notsup Unsupported engine <span style=color:#66d9ef>for</span> npm-registry-fetch@14.0.3: wanted: <span style=color:#f92672>{</span><span style=color:#e6db74>&#34;node&#34;</span>:<span style=color:#e6db74>&#34;^14.17.0 || ^16.13.0 || &gt;=18.0.0&#34;</span><span style=color:#f92672>}</span> <span style=color:#f92672>(</span>current: <span style=color:#f92672>{</span><span style=color:#e6db74>&#34;node&#34;</span>:<span style=color:#e6db74>&#34;12.22.10&#34;</span>,<span style=color:#e6db74>&#34;npm&#34;</span>:<span style=color:#e6db74>&#34;6.14.16&#34;</span><span style=color:#f92672>})</span>
+npm WARN notsup Not compatible with your version of node/npm: npm-registry-fetch@14.0.3
+npm WARN notsup Unsupported engine <span style=color:#66d9ef>for</span> cacache@17.0.4: wanted: <span style=color:#f92672>{</span><span style=color:#e6db74>&#34;node&#34;</span>:<span style=color:#e6db74>&#34;^14.17.0 || ^16.13.0 || &gt;=18.0.0&#34;</span><span style=color:#f92672>}</span> <span style=color:#f92672>(</span>current: <span style=color:#f92672>{</span><span style=color:#e6db74>&#34;node&#34;</span>:<span style=color:#e6db74>&#34;12.22.10&#34;</span>,<span style=color:#e6db74>&#34;npm&#34;</span>:<span style=color:#e6db74>&#34;6.14.16&#34;</span><span style=color:#f92672>})</span>
+npm WARN notsup Not compatible with your version of node/npm: cacache@17.0.4
+npm WARN notsup Unsupported engine <span style=color:#66d9ef>for</span> npm-packlist@7.0.4: wanted: <span style=color:#f92672>{</span><span style=color:#e6db74>&#34;node&#34;</span>:<span style=color:#e6db74>&#34;^14.17.0 || ^16.13.0 || &gt;=18.0.0&#34;</span><span style=color:#f92672>}</span> <span style=color:#f92672>(</span>current: <span style=color:#f92672>{</span><span style=color:#e6db74>&#34;node&#34;</span>:<span style=color:#e6db74>&#34;12.22.10&#34;</span>,<span style=color:#e6db74>&#34;npm&#34;</span>:<span style=color:#e6db74>&#34;6.14.16&#34;</span><span style=color:#f92672>})</span>
+npm WARN notsup Not compatible with your version of node/npm: npm-packlist@7.0.4
+npm WARN notsup Unsupported engine <span style=color:#66d9ef>for</span> read-package-json-fast@3.0.2: wanted: <span style=color:#f92672>{</span><span style=color:#e6db74>&#34;node&#34;</span>:<span style=color:#e6db74>&#34;^14.17.0 || ^16.13.0 || &gt;=18.0.0&#34;</span><span style=color:#f92672>}</span> <span style=color:#f92672>(</span>current: <span style=color:#f92672>{</span><span style=color:#e6db74>&#34;node&#34;</span>:<span style=color:#e6db74>&#34;12.22.10&#34;</span>,<span style=color:#e6db74>&#34;npm&#34;</span>:<span style=color:#e6db74>&#34;6.14.16&#34;</span><span style=color:#f92672>})</span>
+npm WARN notsup Not compatible with your version of node/npm: read-package-json-fast@3.0.2
+npm WARN notsup Unsupported engine <span style=color:#66d9ef>for</span> ssri@10.0.1: wanted: <span style=color:#f92672>{</span><span style=color:#e6db74>&#34;node&#34;</span>:<span style=color:#e6db74>&#34;^14.17.0 || ^16.13.0 || &gt;=18.0.0&#34;</span><span style=color:#f92672>}</span> <span style=color:#f92672>(</span>current: <span style=color:#f92672>{</span><span style=color:#e6db74>&#34;node&#34;</span>:<span style=color:#e6db74>&#34;12.22.10&#34;</span>,<span style=color:#e6db74>&#34;npm&#34;</span>:<span style=color:#e6db74>&#34;6.14.16&#34;</span><span style=color:#f92672>})</span>
+npm WARN notsup Not compatible with your version of node/npm: ssri@10.0.1
+npm WARN notsup Unsupported engine <span style=color:#66d9ef>for</span> read-package-json@6.0.0: wanted: <span style=color:#f92672>{</span><span style=color:#e6db74>&#34;node&#34;</span>:<span style=color:#e6db74>&#34;^14.17.0 || ^16.13.0 || &gt;=18.0.0&#34;</span><span style=color:#f92672>}</span> <span style=color:#f92672>(</span>current: <span style=color:#f92672>{</span><span style=color:#e6db74>&#34;node&#34;</span>:<span style=color:#e6db74>&#34;12.22.10&#34;</span>,<span style=color:#e6db74>&#34;npm&#34;</span>:<span style=color:#e6db74>&#34;6.14.16&#34;</span><span style=color:#f92672>})</span>
+npm WARN notsup Not compatible with your version of node/npm: read-package-json@6.0.0
+npm WARN notsup Unsupported engine <span style=color:#66d9ef>for</span> @npmcli/installed-package-contents@2.0.1: wanted: <span style=color:#f92672>{</span><span style=color:#e6db74>&#34;node&#34;</span>:<span style=color:#e6db74>&#34;^14.17.0 || ^16.13.0 || &gt;=18.0.0&#34;</span><span style=color:#f92672>}</span> <span style=color:#f92672>(</span>current: <span style=color:#f92672>{</span><span style=color:#e6db74>&#34;node&#34;</span>:<span style=color:#e6db74>&#34;12.22.10&#34;</span>,<span style=color:#e6db74>&#34;npm&#34;</span>:<span style=color:#e6db74>&#34;6.14.16&#34;</span><span style=color:#f92672>})</span>
+npm WARN notsup Not compatible with your version of node/npm: @npmcli/installed-package-contents@2.0.1
+npm WARN notsup Unsupported engine <span style=color:#66d9ef>for</span> @npmcli/promise-spawn@6.0.2: wanted: <span style=color:#f92672>{</span><span style=color:#e6db74>&#34;node&#34;</span>:<span style=color:#e6db74>&#34;^14.17.0 || ^16.13.0 || &gt;=18.0.0&#34;</span><span style=color:#f92672>}</span> <span style=color:#f92672>(</span>current: <span style=color:#f92672>{</span><span style=color:#e6db74>&#34;node&#34;</span>:<span style=color:#e6db74>&#34;12.22.10&#34;</span>,<span style=color:#e6db74>&#34;npm&#34;</span>:<span style=color:#e6db74>&#34;6.14.16&#34;</span><span style=color:#f92672>})</span>
+npm WARN notsup Not compatible with your version of node/npm: @npmcli/promise-spawn@6.0.2
+npm WARN notsup Unsupported engine <span style=color:#66d9ef>for</span> @npmcli/git@4.0.3: wanted: <span style=color:#f92672>{</span><span style=color:#e6db74>&#34;node&#34;</span>:<span style=color:#e6db74>&#34;^14.17.0 || ^16.13.0 || &gt;=18.0.0&#34;</span><span style=color:#f92672>}</span> <span style=color:#f92672>(</span>current: <span style=color:#f92672>{</span><span style=color:#e6db74>&#34;node&#34;</span>:<span style=color:#e6db74>&#34;12.22.10&#34;</span>,<span style=color:#e6db74>&#34;npm&#34;</span>:<span style=color:#e6db74>&#34;6.14.16&#34;</span><span style=color:#f92672>})</span>
+npm WARN notsup Not compatible with your version of node/npm: @npmcli/git@4.0.3
+npm WARN notsup Unsupported engine <span style=color:#66d9ef>for</span> @npmcli/run-script@6.0.0: wanted: <span style=color:#f92672>{</span><span style=color:#e6db74>&#34;node&#34;</span>:<span style=color:#e6db74>&#34;^14.17.0 || ^16.13.0 || &gt;=18.0.0&#34;</span><span style=color:#f92672>}</span> <span style=color:#f92672>(</span>current: <span style=color:#f92672>{</span><span style=color:#e6db74>&#34;node&#34;</span>:<span style=color:#e6db74>&#34;12.22.10&#34;</span>,<span style=color:#e6db74>&#34;npm&#34;</span>:<span style=color:#e6db74>&#34;6.14.16&#34;</span><span style=color:#f92672>})</span>
+npm WARN notsup Not compatible with your version of node/npm: @npmcli/run-script@6.0.0
+npm WARN notsup Unsupported engine <span style=color:#66d9ef>for</span> proc-log@3.0.0: wanted: <span style=color:#f92672>{</span><span style=color:#e6db74>&#34;node&#34;</span>:<span style=color:#e6db74>&#34;^14.17.0 || ^16.13.0 || &gt;=18.0.0&#34;</span><span style=color:#f92672>}</span> <span style=color:#f92672>(</span>current: <span style=color:#f92672>{</span><span style=color:#e6db74>&#34;node&#34;</span>:<span style=color:#e6db74>&#34;12.22.10&#34;</span>,<span style=color:#e6db74>&#34;npm&#34;</span>:<span style=color:#e6db74>&#34;6.14.16&#34;</span><span style=color:#f92672>})</span>
+npm WARN notsup Not compatible with your version of node/npm: proc-log@3.0.0
+npm WARN notsup Unsupported engine <span style=color:#66d9ef>for</span> which@3.0.0: wanted: <span style=color:#f92672>{</span><span style=color:#e6db74>&#34;node&#34;</span>:<span style=color:#e6db74>&#34;^14.17.0 || ^16.13.0 || &gt;=18.0.0&#34;</span><span style=color:#f92672>}</span> <span style=color:#f92672>(</span>current: <span style=color:#f92672>{</span><span style=color:#e6db74>&#34;node&#34;</span>:<span style=color:#e6db74>&#34;12.22.10&#34;</span>,<span style=color:#e6db74>&#34;npm&#34;</span>:<span style=color:#e6db74>&#34;6.14.16&#34;</span><span style=color:#f92672>})</span>
+npm WARN notsup Not compatible with your version of node/npm: which@3.0.0
+npm WARN notsup Unsupported engine <span style=color:#66d9ef>for</span> npm-bundled@3.0.0: wanted: <span style=color:#f92672>{</span><span style=color:#e6db74>&#34;node&#34;</span>:<span style=color:#e6db74>&#34;^14.17.0 || ^16.13.0 || &gt;=18.0.0&#34;</span><span style=color:#f92672>}</span> <span style=color:#f92672>(</span>current: <span style=color:#f92672>{</span><span style=color:#e6db74>&#34;node&#34;</span>:<span style=color:#e6db74>&#34;12.22.10&#34;</span>,<span style=color:#e6db74>&#34;npm&#34;</span>:<span style=color:#e6db74>&#34;6.14.16&#34;</span><span style=color:#f92672>})</span>
+npm WARN notsup Not compatible with your version of node/npm: npm-bundled@3.0.0
+npm WARN notsup Unsupported engine <span style=color:#66d9ef>for</span> @npmcli/node-gyp@3.0.0: wanted: <span style=color:#f92672>{</span><span style=color:#e6db74>&#34;node&#34;</span>:<span style=color:#e6db74>&#34;^14.17.0 || ^16.13.0 || &gt;=18.0.0&#34;</span><span style=color:#f92672>}</span> <span style=color:#f92672>(</span>current: <span style=color:#f92672>{</span><span style=color:#e6db74>&#34;node&#34;</span>:<span style=color:#e6db74>&#34;12.22.10&#34;</span>,<span style=color:#e6db74>&#34;npm&#34;</span>:<span style=color:#e6db74>&#34;6.14.16&#34;</span><span style=color:#f92672>})</span>
+npm WARN notsup Not compatible with your version of node/npm: @npmcli/node-gyp@3.0.0
+npm WARN notsup Unsupported engine <span style=color:#66d9ef>for</span> json-parse-even-better-errors@3.0.0: wanted: <span style=color:#f92672>{</span><span style=color:#e6db74>&#34;node&#34;</span>:<span style=color:#e6db74>&#34;^14.17.0 || ^16.13.0 || &gt;=18.0.0&#34;</span><span style=color:#f92672>}</span> <span style=color:#f92672>(</span>current: <span style=color:#f92672>{</span><span style=color:#e6db74>&#34;node&#34;</span>:<span style=color:#e6db74>&#34;12.22.10&#34;</span>,<span style=color:#e6db74>&#34;npm&#34;</span>:<span style=color:#e6db74>&#34;6.14.16&#34;</span><span style=color:#f92672>})</span>
+npm WARN notsup Not compatible with your version of node/npm: json-parse-even-better-errors@3.0.0
+npm WARN notsup Unsupported engine <span style=color:#66d9ef>for</span> @npmcli/fs@3.1.0: wanted: <span style=color:#f92672>{</span><span style=color:#e6db74>&#34;node&#34;</span>:<span style=color:#e6db74>&#34;^14.17.0 || ^16.13.0 || &gt;=18.0.0&#34;</span><span style=color:#f92672>}</span> <span style=color:#f92672>(</span>current: <span style=color:#f92672>{</span><span style=color:#e6db74>&#34;node&#34;</span>:<span style=color:#e6db74>&#34;12.22.10&#34;</span>,<span style=color:#e6db74>&#34;npm&#34;</span>:<span style=color:#e6db74>&#34;6.14.16&#34;</span><span style=color:#f92672>})</span>
+npm WARN notsup Not compatible with your version of node/npm: @npmcli/fs@3.1.0
+npm WARN notsup Unsupported engine <span style=color:#66d9ef>for</span> fs-minipass@3.0.0: wanted: <span style=color:#f92672>{</span><span style=color:#e6db74>&#34;node&#34;</span>:<span style=color:#e6db74>&#34;^14.17.0 || ^16.13.0 || &gt;=18.0.0&#34;</span><span style=color:#f92672>}</span> <span style=color:#f92672>(</span>current: <span style=color:#f92672>{</span><span style=color:#e6db74>&#34;node&#34;</span>:<span style=color:#e6db74>&#34;12.22.10&#34;</span>,<span style=color:#e6db74>&#34;npm&#34;</span>:<span style=color:#e6db74>&#34;6.14.16&#34;</span><span style=color:#f92672>})</span>
+npm WARN notsup Not compatible with your version of node/npm: fs-minipass@3.0.0
+npm WARN notsup Unsupported engine <span style=color:#66d9ef>for</span> unique-filename@3.0.0: wanted: <span style=color:#f92672>{</span><span style=color:#e6db74>&#34;node&#34;</span>:<span style=color:#e6db74>&#34;^14.17.0 || ^16.13.0 || &gt;=18.0.0&#34;</span><span style=color:#f92672>}</span> <span style=color:#f92672>(</span>current: <span style=color:#f92672>{</span><span style=color:#e6db74>&#34;node&#34;</span>:<span style=color:#e6db74>&#34;12.22.10&#34;</span>,<span style=color:#e6db74>&#34;npm&#34;</span>:<span style=color:#e6db74>&#34;6.14.16&#34;</span><span style=color:#f92672>})</span>
+npm WARN notsup Not compatible with your version of node/npm: unique-filename@3.0.0
+npm WARN notsup Unsupported engine <span style=color:#66d9ef>for</span> unique-slug@4.0.0: wanted: <span style=color:#f92672>{</span><span style=color:#e6db74>&#34;node&#34;</span>:<span style=color:#e6db74>&#34;^14.17.0 || ^16.13.0 || &gt;=18.0.0&#34;</span><span style=color:#f92672>}</span> <span style=color:#f92672>(</span>current: <span style=color:#f92672>{</span><span style=color:#e6db74>&#34;node&#34;</span>:<span style=color:#e6db74>&#34;12.22.10&#34;</span>,<span style=color:#e6db74>&#34;npm&#34;</span>:<span style=color:#e6db74>&#34;6.14.16&#34;</span><span style=color:#f92672>})</span>
+npm WARN notsup Not compatible with your version of node/npm: unique-slug@4.0.0
+npm WARN notsup Unsupported engine <span style=color:#66d9ef>for</span> hosted-git-info@6.1.1: wanted: <span style=color:#f92672>{</span><span style=color:#e6db74>&#34;node&#34;</span>:<span style=color:#e6db74>&#34;^14.17.0 || ^16.13.0 || &gt;=18.0.0&#34;</span><span style=color:#f92672>}</span> <span style=color:#f92672>(</span>current: <span style=color:#f92672>{</span><span style=color:#e6db74>&#34;node&#34;</span>:<span style=color:#e6db74>&#34;12.22.10&#34;</span>,<span style=color:#e6db74>&#34;npm&#34;</span>:<span style=color:#e6db74>&#34;6.14.16&#34;</span><span style=color:#f92672>})</span>
+npm WARN notsup Not compatible with your version of node/npm: hosted-git-info@6.1.1
+npm WARN notsup Unsupported engine <span style=color:#66d9ef>for</span> validate-npm-package-name@5.0.0: wanted: <span style=color:#f92672>{</span><span style=color:#e6db74>&#34;node&#34;</span>:<span style=color:#e6db74>&#34;^14.17.0 || ^16.13.0 || &gt;=18.0.0&#34;</span><span style=color:#f92672>}</span> <span style=color:#f92672>(</span>current: <span style=color:#f92672>{</span><span style=color:#e6db74>&#34;node&#34;</span>:<span style=color:#e6db74>&#34;12.22.10&#34;</span>,<span style=color:#e6db74>&#34;npm&#34;</span>:<span style=color:#e6db74>&#34;6.14.16&#34;</span><span style=color:#f92672>})</span>
+npm WARN notsup Not compatible with your version of node/npm: validate-npm-package-name@5.0.0
+npm WARN notsup Unsupported engine <span style=color:#66d9ef>for</span> ignore-walk@6.0.0: wanted: <span style=color:#f92672>{</span><span style=color:#e6db74>&#34;node&#34;</span>:<span style=color:#e6db74>&#34;^14.17.0 || ^16.13.0 || &gt;=18.0.0&#34;</span><span style=color:#f92672>}</span> <span style=color:#f92672>(</span>current: <span style=color:#f92672>{</span><span style=color:#e6db74>&#34;node&#34;</span>:<span style=color:#e6db74>&#34;12.22.10&#34;</span>,<span style=color:#e6db74>&#34;npm&#34;</span>:<span style=color:#e6db74>&#34;6.14.16&#34;</span><span style=color:#f92672>})</span>
+npm WARN notsup Not compatible with your version of node/npm: ignore-walk@6.0.0
+npm WARN notsup Unsupported engine <span style=color:#66d9ef>for</span> npm-package-arg@10.1.0: wanted: <span style=color:#f92672>{</span><span style=color:#e6db74>&#34;node&#34;</span>:<span style=color:#e6db74>&#34;^14.17.0 || ^16.13.0 || &gt;=18.0.0&#34;</span><span style=color:#f92672>}</span> <span style=color:#f92672>(</span>current: <span style=color:#f92672>{</span><span style=color:#e6db74>&#34;node&#34;</span>:<span style=color:#e6db74>&#34;12.22.10&#34;</span>,<span style=color:#e6db74>&#34;npm&#34;</span>:<span style=color:#e6db74>&#34;6.14.16&#34;</span><span style=color:#f92672>})</span>
+npm WARN notsup Not compatible with your version of node/npm: npm-package-arg@10.1.0
+npm WARN notsup Unsupported engine <span style=color:#66d9ef>for</span> minipass-fetch@3.0.1: wanted: <span style=color:#f92672>{</span><span style=color:#e6db74>&#34;node&#34;</span>:<span style=color:#e6db74>&#34;^14.17.0 || ^16.13.0 || &gt;=18.0.0&#34;</span><span style=color:#f92672>}</span> <span style=color:#f92672>(</span>current: <span style=color:#f92672>{</span><span style=color:#e6db74>&#34;node&#34;</span>:<span style=color:#e6db74>&#34;12.22.10&#34;</span>,<span style=color:#e6db74>&#34;npm&#34;</span>:<span style=color:#e6db74>&#34;6.14.16&#34;</span><span style=color:#f92672>})</span>
+npm WARN notsup Not compatible with your version of node/npm: minipass-fetch@3.0.1
+npm WARN notsup Unsupported engine <span style=color:#66d9ef>for</span> proc-log@3.0.0: wanted: <span style=color:#f92672>{</span><span style=color:#e6db74>&#34;node&#34;</span>:<span style=color:#e6db74>&#34;^14.17.0 || ^16.13.0 || &gt;=18.0.0&#34;</span><span style=color:#f92672>}</span> <span style=color:#f92672>(</span>current: <span style=color:#f92672>{</span><span style=color:#e6db74>&#34;node&#34;</span>:<span style=color:#e6db74>&#34;12.22.10&#34;</span>,<span style=color:#e6db74>&#34;npm&#34;</span>:<span style=color:#e6db74>&#34;6.14.16&#34;</span><span style=color:#f92672>})</span>
+npm WARN notsup Not compatible with your version of node/npm: proc-log@3.0.0
+npm WARN notsup Unsupported engine <span style=color:#66d9ef>for</span> make-fetch-happen@11.0.2: wanted: <span style=color:#f92672>{</span><span style=color:#e6db74>&#34;node&#34;</span>:<span style=color:#e6db74>&#34;^14.17.0 || ^16.13.0 || &gt;=18.0.0&#34;</span><span style=color:#f92672>}</span> <span style=color:#f92672>(</span>current: <span style=color:#f92672>{</span><span style=color:#e6db74>&#34;node&#34;</span>:<span style=color:#e6db74>&#34;12.22.10&#34;</span>,<span style=color:#e6db74>&#34;npm&#34;</span>:<span style=color:#e6db74>&#34;6.14.16&#34;</span><span style=color:#f92672>})</span>
+npm WARN notsup Not compatible with your version of node/npm: make-fetch-happen@11.0.2
+npm WARN notsup Unsupported engine <span style=color:#66d9ef>for</span> hosted-git-info@6.1.1: wanted: <span style=color:#f92672>{</span><span style=color:#e6db74>&#34;node&#34;</span>:<span style=color:#e6db74>&#34;^14.17.0 || ^16.13.0 || &gt;=18.0.0&#34;</span><span style=color:#f92672>}</span> <span style=color:#f92672>(</span>current: <span style=color:#f92672>{</span><span style=color:#e6db74>&#34;node&#34;</span>:<span style=color:#e6db74>&#34;12.22.10&#34;</span>,<span style=color:#e6db74>&#34;npm&#34;</span>:<span style=color:#e6db74>&#34;6.14.16&#34;</span><span style=color:#f92672>})</span>
+npm WARN notsup Not compatible with your version of node/npm: hosted-git-info@6.1.1
+npm WARN notsup Unsupported engine <span style=color:#66d9ef>for</span> validate-npm-package-name@5.0.0: wanted: <span style=color:#f92672>{</span><span style=color:#e6db74>&#34;node&#34;</span>:<span style=color:#e6db74>&#34;^14.17.0 || ^16.13.0 || &gt;=18.0.0&#34;</span><span style=color:#f92672>}</span> <span style=color:#f92672>(</span>current: <span style=color:#f92672>{</span><span style=color:#e6db74>&#34;node&#34;</span>:<span style=color:#e6db74>&#34;12.22.10&#34;</span>,<span style=color:#e6db74>&#34;npm&#34;</span>:<span style=color:#e6db74>&#34;6.14.16&#34;</span><span style=color:#f92672>})</span>
+npm WARN notsup Not compatible with your version of node/npm: validate-npm-package-name@5.0.0
+npm WARN notsup Unsupported engine <span style=color:#66d9ef>for</span> normalize-package-data@5.0.0: wanted: <span style=color:#f92672>{</span><span style=color:#e6db74>&#34;node&#34;</span>:<span style=color:#e6db74>&#34;^14.17.0 || ^16.13.0 || &gt;=18.0.0&#34;</span><span style=color:#f92672>}</span> <span style=color:#f92672>(</span>current: <span style=color:#f92672>{</span><span style=color:#e6db74>&#34;node&#34;</span>:<span style=color:#e6db74>&#34;12.22.10&#34;</span>,<span style=color:#e6db74>&#34;npm&#34;</span>:<span style=color:#e6db74>&#34;6.14.16&#34;</span><span style=color:#f92672>})</span>
+npm WARN notsup Not compatible with your version of node/npm: normalize-package-data@5.0.0
+npm WARN notsup Unsupported engine <span style=color:#66d9ef>for</span> hosted-git-info@6.1.1: wanted: <span style=color:#f92672>{</span><span style=color:#e6db74>&#34;node&#34;</span>:<span style=color:#e6db74>&#34;^14.17.0 || ^16.13.0 || &gt;=18.0.0&#34;</span><span style=color:#f92672>}</span> <span style=color:#f92672>(</span>current: <span style=color:#f92672>{</span><span style=color:#e6db74>&#34;node&#34;</span>:<span style=color:#e6db74>&#34;12.22.10&#34;</span>,<span style=color:#e6db74>&#34;npm&#34;</span>:<span style=color:#e6db74>&#34;6.14.16&#34;</span><span style=color:#f92672>})</span>
+npm WARN notsup Not compatible with your version of node/npm: hosted-git-info@6.1.1
+npm WARN enoent ENOENT: no such file or directory, open <span style=color:#e6db74>&#39;/home/egs/temp/v12/package.json&#39;</span>
+npm WARN v12 No description
+npm WARN v12 No repository field.
+npm WARN v12 No README data
+npm WARN v12 No license field.
+
++ @angular/cli@15.0.4
+added <span style=color:#ae81ff>237</span> packages from <span style=color:#ae81ff>164</span> contributors and audited <span style=color:#ae81ff>237</span> packages in 9.17s
+
+<span style=color:#ae81ff>26</span> packages are looking <span style=color:#66d9ef>for</span> funding
+  run <span style=color:#e6db74>`</span>npm fund<span style=color:#e6db74>`</span> <span style=color:#66d9ef>for</span> details
+
+found <span style=color:#ae81ff>0</span> vulnerabilities
+</code></pre></div><p>安裝 angualr/cli 産生錯誤的原因是因為安裝指令中未指定版本時，預設是要安裝最新版（現在這個時候最新版是 v15）。
+Angular Cli 的版本與 Node.js 的版本必須要搭配合宜，譬如說 Angular Cli v15 就必須搭配 Node.js v14.20.0以上或 v16.13.0以上或 v18.10.0。</p>
+<p>註：詳細的資料可參考 <a href=https://calvinegs.github.io/posts/ngcli-nodejs-verion/>Angular 與 Node.js 對照表</a></p>
+<p>前述的問題，解決方法有二：</p>
+<ul>
+<li>方法一：不要使用最新版本的 Angular Cli，而採用可以搭配 Node.js 12 版本的 Cli(也就是 Angular Cli v13)</li>
+<li>方法二：更新 Node.js 的版本</li>
+</ul>
+<h3 id=安裝-angular-cli-v13-在-local-目錄中>安裝 Angular Cli v13 在 local 目錄中<a hidden class=anchor aria-hidden=true href=#安裝-angular-cli-v13-在-local-目錄中>#</a></h3>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$ npm install @angular/cli@13	<span style=color:#75715e># 安裝 cli 時指定特定版本</span>
+$
+$ npx ng version
+
+     _                      _                 ____ _     ___
+    / <span style=color:#ae81ff>\ </span>  _ __   __ _ _   _| | __ _ _ __     / ___| |   |_ _|
+   / △ <span style=color:#ae81ff>\ </span>| <span style=color:#e6db74>&#39;_ \ / _` | | | | |/ _` | &#39;</span>__|   | |   | |    | |
+  / ___ <span style=color:#ae81ff>\|</span> | | | <span style=color:#f92672>(</span>_| | |_| | | <span style=color:#f92672>(</span>_| | |      | |___| |___ | |
+ /_/   <span style=color:#ae81ff>\_\_</span>| |_|<span style=color:#ae81ff>\_</span>_, |<span style=color:#ae81ff>\_</span>_,_|_|<span style=color:#ae81ff>\_</span>_,_|_|       <span style=color:#ae81ff>\_</span>___|_____|___|
+                |___/
+    
+
+Angular CLI: 13.3.10
+Node: 12.22.12
+Package Manager: npm 6.14.16
+OS: linux x64
+
+Angular: 
+... 
+
+Package                      Version
+------------------------------------------------------
+@angular-devkit/architect    0.1303.10
+@angular-devkit/core         13.3.10
+@angular-devkit/schematics   13.3.10
+@schematics/angular          13.3.10
+</code></pre></div><h3 id=使用-angular-cli-v13-建立-angular-app>使用 Angular Cli v13 建立 Angular App<a hidden class=anchor aria-hidden=true href=#使用-angular-cli-v13-建立-angular-app>#</a></h3>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$ ng new testApp --routing --style<span style=color:#f92672>=</span>scss <span style=color:#f92672>&amp;&amp;</span> cd testApp
+$ npm start
+</code></pre></div><p>接下來要詳述方法二，也就是本篇筆記的重點。</p>
+<p>將 Node.js 安裝在 global 環境可能是一種最簡潔的方式，但對開發人員而言，卻可能不是最佳解。</p>
+<p>原因很簡單，因為開發人員可能要面對是不同專案、不同的開發工具、及各種不同版本環境&mldr;，將單一版本安裝在 global 中，衍生出來的版本切換問題可能造成更多不便。</p>
+<h2 id=使用-nvm-來管理系統中的-nodejs--npm>使用 nvm 來管理系統中的 Node.js & npm<a hidden class=anchor aria-hidden=true href=#使用-nvm-來管理系統中的-nodejs--npm>#</a></h2>
+<p>(在 windows 環境中可以使用 nvs，請參考這篇　https://calvinegs.github.io/categories/nvs/)</p>
+<p>在 ubuntu 中我們要用 wget 來進行 nvm 的安裝，所以首先先確認系統中已是否已安裝了 wget</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$ wget --version
+
+GNU Wget 1.21.2 built on linux-gnu.
+
+-cares +digest -gpgme +https +ipv6 +iri +large-file -metalink +nls 
++ntlm +opie +psl +ssl/openssl 
+
+Wgetrc: 
+    /etc/wgetrc <span style=color:#f92672>(</span>system<span style=color:#f92672>)</span>
+Locale: 
+    /usr/share/locale 
+Compile: 
+    gcc -DHAVE_CONFIG_H -DSYSTEM_WGETRC<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;/etc/wgetrc&#34;</span> 
+    -DLOCALEDIR<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;/usr/share/locale&#34;</span> -I. -I../../src -I../lib 
+    -I../../lib -Wdate-time -D_FORTIFY_SOURCE<span style=color:#f92672>=</span><span style=color:#ae81ff>2</span> -DHAVE_LIBSSL -DNDEBUG 
+    -g -O2 -ffile-prefix-map<span style=color:#f92672>=</span>/build/wget-8g5eYO/wget-1.21.2<span style=color:#f92672>=</span>. 
+    -flto<span style=color:#f92672>=</span>auto -ffat-lto-objects -flto<span style=color:#f92672>=</span>auto -ffat-lto-objects 
+    -fstack-protector-strong -Wformat -Werror<span style=color:#f92672>=</span>format-security 
+    -DNO_SSLv2 -D_FILE_OFFSET_BITS<span style=color:#f92672>=</span><span style=color:#ae81ff>64</span> -g -Wall 
+Link: 
+    gcc -DHAVE_LIBSSL -DNDEBUG -g -O2 
+    -ffile-prefix-map<span style=color:#f92672>=</span>/build/wget-8g5eYO/wget-1.21.2<span style=color:#f92672>=</span>. -flto<span style=color:#f92672>=</span>auto 
+    -ffat-lto-objects -flto<span style=color:#f92672>=</span>auto -ffat-lto-objects 
+    -fstack-protector-strong -Wformat -Werror<span style=color:#f92672>=</span>format-security 
+    -DNO_SSLv2 -D_FILE_OFFSET_BITS<span style=color:#f92672>=</span><span style=color:#ae81ff>64</span> -g -Wall -Wl,-Bsymbolic-functions 
+    -flto<span style=color:#f92672>=</span>auto -ffat-lto-objects -flto<span style=color:#f92672>=</span>auto -Wl,-z,relro -Wl,-z,now 
+    -lpcre2-8 -luuid -lidn2 -lssl -lcrypto -lz -lpsl ftp-opie.o 
+    openssl.o http-ntlm.o ../lib/libgnu.a 
+
+Copyright <span style=color:#f92672>(</span>C<span style=color:#f92672>)</span> <span style=color:#ae81ff>2015</span> Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version <span style=color:#ae81ff>3</span> or later
+&lt;http://www.gnu.org/licenses/gpl.html&gt;.
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+
+Originally written by Hrvoje Niksic &lt;hniksic@xemacs.org&gt;.
+Please send bug reports and questions to &lt;bug-wget@gnu.org&gt;.
+</code></pre></div><h3 id=在-ubuntu-2204-上安裝-nvm>在 ubuntu 22.04 上安裝 nvm<a hidden class=anchor aria-hidden=true href=#在-ubuntu-2204-上安裝-nvm>#</a></h3>
+<p>使用 wget 下載最新稳定版本 nvm</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$ wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+</code></pre></div><p>上述指令將 nvm repository 下載至 ~/.nvm 目錄中</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$ srouce ~/.bashrc	<span style=color:#75715e># 在當前環境中執行 .bashrc script</span>
+$ command -v nvm	<span style=color:#75715e># 確認已安裝好 NVM</span>
+$ nvm -v			<span style=color:#75715e># 顯示目前安裝的 nvm 版本</span>
+0.39.1
+</code></pre></div><h3 id=使用-nvm-查詢-local-端-nodejs-目前安裝的情況>使用 nvm 查詢 local 端 Node.js 目前安裝的情況<a hidden class=anchor aria-hidden=true href=#使用-nvm-查詢-local-端-nodejs-目前安裝的情況>#</a></h3>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$ nvm ls
+               
+         system
+iojs -&gt; N/A <span style=color:#f92672>(</span>default<span style=color:#f92672>)</span>
+node -&gt; stable <span style=color:#f92672>(</span>-&gt; N/A<span style=color:#f92672>)</span> <span style=color:#f92672>(</span>default<span style=color:#f92672>)</span>
+unstable -&gt; N/A <span style=color:#f92672>(</span>default<span style=color:#f92672>)</span>
+</code></pre></div><h3 id=使用-nvm-查詢-nodejs-目前所有版本清單>使用 nvm 查詢 Node.js 目前所有版本清單<a hidden class=anchor aria-hidden=true href=#使用-nvm-查詢-nodejs-目前所有版本清單>#</a></h3>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$ nvm ls-remote
+		...
+        v17.6.0
+        v17.7.0
+        v17.7.1
+        v17.7.2
+        v17.8.0
+        v17.9.0
+        v17.9.1
+        v18.0.0
+        v18.1.0
+        v18.2.0
+        v18.3.0
+        v18.4.0
+        v18.5.0
+        v18.6.0
+        v18.7.0
+        v18.8.0
+        v18.9.0
+        v18.9.1
+       v18.10.0
+       v18.11.0
+       v18.12.0   <span style=color:#f92672>(</span>LTS: Hydrogen<span style=color:#f92672>)</span>
+-&gt;     v18.12.1   <span style=color:#f92672>(</span>Latest LTS: Hydrogen<span style=color:#f92672>)</span>
+        v19.0.0
+        v19.0.1
+        v19.1.0
+        v19.2.0
+        v19.3.0
+</code></pre></div><h3 id=安裝最新版本-nodejs>安裝最新版本 Node.js<a hidden class=anchor aria-hidden=true href=#安裝最新版本-nodejs>#</a></h3>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$ nvm install node	<span style=color:#75715e># 未指定版本，即表示要安裝最新版本</span>
+
+Downloading and installing node v19.3.0...
+Downloading https://nodejs.org/dist/v19.3.0/node-v19.3.0-linux-x64.tar.xz...
+--2023-01-04 10:38:43--  https://nodejs.org/dist/v19.3.0/node-v19.3.0-linux-x64.tar.xz
+Resolving nodejs.org <span style=color:#f92672>(</span>nodejs.org<span style=color:#f92672>)</span>... 104.20.22.46, 104.20.23.46, 2606:4700:10::6814:162e, ...
+Connecting to nodejs.org <span style=color:#f92672>(</span>nodejs.org<span style=color:#f92672>)</span>|104.20.22.46|:443... connected.
+HTTP request sent, awaiting response... <span style=color:#ae81ff>200</span> OK
+Length: <span style=color:#ae81ff>23840516</span> <span style=color:#f92672>(</span>23M<span style=color:#f92672>)</span> <span style=color:#f92672>[</span>application/x-xz<span style=color:#f92672>]</span>
+Saving to: ‘/home/calvin-egs/.nvm/.cache/bin/node-v19.3.0-linux-x64/node-v19.3.0-linux-x64.tar.xz’
+
+/home/calvin-egs/.nvm/.cache/ 100%<span style=color:#f92672>[===============================================</span>&gt;<span style=color:#f92672>]</span>  22.74M  5.32MB/s    in 4.6s    
+
+2023-01-04 10:38:48 <span style=color:#f92672>(</span>4.96 MB/s<span style=color:#f92672>)</span> - ‘/home/calvin-egs/.nvm/.cache/bin/node-v19.3.0-linux-x64/node-v19.3.0-linux-x64.tar.xz’ saved <span style=color:#f92672>[</span>23840516/23840516<span style=color:#f92672>]</span>
+
+Computing checksum with sha256sum
+Checksums matched!
+Now using node v19.3.0 <span style=color:#f92672>(</span>npm v9.2.0<span style=color:#f92672>)</span>
+Creating default alias: default -&gt; node <span style=color:#f92672>(</span>-&gt; v19.3.0<span style=color:#f92672>)</span>
+</code></pre></div><p>查看安裝情況</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$ nvm ls			<span style=color:#75715e># 列出目前所有已安裝的 Node.js 版本</span>
+-&gt;      v19.3.0		<span style=color:#75715e># 目前只安裝了一個版本 v19.3.0</span>
+default -&gt; node <span style=color:#f92672>(</span>-&gt; v19.3.0<span style=color:#f92672>)</span>
+iojs -&gt; N/A <span style=color:#f92672>(</span>default<span style=color:#f92672>)</span>
+unstable -&gt; N/A <span style=color:#f92672>(</span>default<span style=color:#f92672>)</span>
+node -&gt; stable <span style=color:#f92672>(</span>-&gt; v19.3.0<span style=color:#f92672>)</span> <span style=color:#f92672>(</span>default<span style=color:#f92672>)</span>
+stable -&gt; 19.3 <span style=color:#f92672>(</span>-&gt; v19.3.0<span style=color:#f92672>)</span> <span style=color:#f92672>(</span>default<span style=color:#f92672>)</span>
+lts/* -&gt; lts/hydrogen <span style=color:#f92672>(</span>-&gt; N/A<span style=color:#f92672>)</span>
+lts/argon -&gt; v4.9.1 <span style=color:#f92672>(</span>-&gt; N/A<span style=color:#f92672>)</span>
+lts/boron -&gt; v6.17.1 <span style=color:#f92672>(</span>-&gt; N/A<span style=color:#f92672>)</span>
+lts/carbon -&gt; v8.17.0 <span style=color:#f92672>(</span>-&gt; N/A<span style=color:#f92672>)</span>
+lts/dubnium -&gt; v10.24.1 <span style=color:#f92672>(</span>-&gt; N/A<span style=color:#f92672>)</span>
+lts/erbium -&gt; v12.22.12 <span style=color:#f92672>(</span>-&gt; N/A<span style=color:#f92672>)</span>
+lts/fermium -&gt; v14.21.2 <span style=color:#f92672>(</span>-&gt; N/A<span style=color:#f92672>)</span>
+lts/gallium -&gt; v16.19.0 <span style=color:#f92672>(</span>-&gt; N/A<span style=color:#f92672>)</span>
+lts/hydrogen -&gt; v18.12.1 <span style=color:#f92672>(</span>-&gt; N/A<span style=color:#f92672>)</span>
+</code></pre></div><h3 id=安裝特定版本的最更新版-nodejs>安裝特定版本的最更新版 Node.js<a hidden class=anchor aria-hidden=true href=#安裝特定版本的最更新版-nodejs>#</a></h3>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$ nvm install <span style=color:#ae81ff>18</span> <span style=color:#75715e># 安裝 version 18 版中的最更新版(如：v18.12.1)</span>
+
+Downloading and installing node v18.12.1...
+Downloading https://nodejs.org/dist/v18.12.1/node-v18.12.1-linux-x64.tar.xz...
+--2023-01-04 10:42:41--  https://nodejs.org/dist/v18.12.1/node-v18.12.1-linux-x64.tar.xz
+Resolving nodejs.org <span style=color:#f92672>(</span>nodejs.org<span style=color:#f92672>)</span>... 104.20.23.46, 104.20.22.46, 2606:4700:10::6814:172e, ...
+Connecting to nodejs.org <span style=color:#f92672>(</span>nodejs.org<span style=color:#f92672>)</span>|104.20.23.46|:443... connected.
+HTTP request sent, awaiting response... <span style=color:#ae81ff>200</span> OK
+Length: <span style=color:#ae81ff>23726988</span> <span style=color:#f92672>(</span>23M<span style=color:#f92672>)</span> <span style=color:#f92672>[</span>application/x-xz<span style=color:#f92672>]</span>
+Saving to: ‘/home/calvin-egs/.nvm/.cache/bin/node-v18.12.1-linux-x64/node-v18.12.1-linux-x64.tar.xz’
+
+/home/calvin-egs/.nvm/.cache/ 100%<span style=color:#f92672>[===============================================</span>&gt;<span style=color:#f92672>]</span>  22.63M  5.10MB/s    in 4.8s    
+
+2023-01-04 10:42:46 <span style=color:#f92672>(</span>4.68 MB/s<span style=color:#f92672>)</span> - ‘/home/calvin-egs/.nvm/.cache/bin/node-v18.12.1-linux-x64/node-v18.12.1-linux-x64.tar.xz’ saved <span style=color:#f92672>[</span>23726988/23726988<span style=color:#f92672>]</span>
+
+Computing checksum with sha256sum
+Checksums matched!
+Now using node v18.12.1 <span style=color:#f92672>(</span>npm v8.19.2<span style=color:#f92672>)</span>
+</code></pre></div><p>安裝成功後，再次查看目前安裝有那些版本，可以看到有 v18.12.1 與 v19.3.0，且目前使用的是 v18.12.1（ &ldquo;->&rdquo; 指示的即表示目前環境下所採用 Node.js 版本）</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$ nvm ls
+
+-&gt;     v18.12.1
+        v19.3.0
+default -&gt; node <span style=color:#f92672>(</span>-&gt; v19.3.0<span style=color:#f92672>)</span>
+iojs -&gt; N/A <span style=color:#f92672>(</span>default<span style=color:#f92672>)</span>
+unstable -&gt; N/A <span style=color:#f92672>(</span>default<span style=color:#f92672>)</span>
+node -&gt; stable <span style=color:#f92672>(</span>-&gt; v19.3.0<span style=color:#f92672>)</span> <span style=color:#f92672>(</span>default<span style=color:#f92672>)</span>
+stable -&gt; 19.3 <span style=color:#f92672>(</span>-&gt; v19.3.0<span style=color:#f92672>)</span> <span style=color:#f92672>(</span>default<span style=color:#f92672>)</span>
+lts/* -&gt; lts/hydrogen <span style=color:#f92672>(</span>-&gt; v18.12.1<span style=color:#f92672>)</span>
+lts/argon -&gt; v4.9.1 <span style=color:#f92672>(</span>-&gt; N/A<span style=color:#f92672>)</span>
+lts/boron -&gt; v6.17.1 <span style=color:#f92672>(</span>-&gt; N/A<span style=color:#f92672>)</span>
+lts/carbon -&gt; v8.17.0 <span style=color:#f92672>(</span>-&gt; N/A<span style=color:#f92672>)</span>
+lts/dubnium -&gt; v10.24.1 <span style=color:#f92672>(</span>-&gt; N/A<span style=color:#f92672>)</span>
+lts/erbium -&gt; v12.22.12 <span style=color:#f92672>(</span>-&gt; N/A<span style=color:#f92672>)</span>
+lts/fermium -&gt; v14.21.2 <span style=color:#f92672>(</span>-&gt; N/A<span style=color:#f92672>)</span>
+lts/gallium -&gt; v16.19.0 <span style=color:#f92672>(</span>-&gt; N/A<span style=color:#f92672>)</span>
+lts/hydrogen -&gt; v18.12.1<span style=color:#e6db74>```</span>
+
+
+<span style=color:#75715e>## 如何不使用 Angular Cli 來新建一支 Angular Web App 程式範本</span>
+
+透過　npm init @angular　指令就可以不必先安裝 Angular Cli 的前題下來建立最新版本的 Angular Web App 程式範本
+
+<span style=color:#e6db74>```</span>bash
+$ mkdir angular15 <span style=color:#f92672>&amp;&amp;</span> cd angular15
+$ node -v   <span style=color:#75715e># 先確認現行 Node.js 版本</span>
+v19.3.0
+
+
+<span style=color:#75715e># 使用 npm init 指令</span>
+$ npm init @angular firstExample -- --routing --style<span style=color:#f92672>=</span>scss
+
+Need to install the following packages:
+  @angular/create@15.0.4
+Ok to proceed? <span style=color:#f92672>(</span>y<span style=color:#f92672>)</span> 
+npm WARN deprecated @npmcli/move-file@2.0.1: This functionality has been moved to @npmcli/fs
+npm WARN deprecated sourcemap-codec@1.4.8: Please use @jridgewell/sourcemap-codec instead
+Node.js version v19.3.0 detected.
+Odd numbered Node.js versions will not enter LTS status and should not be used <span style=color:#66d9ef>for</span> production. For more information, please see https://nodejs.org/en/about/releases/.
+? Would you like to share pseudonymous usage data about this project with the Angular Team
+at Google under Google<span style=color:#960050;background-color:#1e0010>&#39;</span>s Privacy Policy at https://policies.google.com/privacy. For more
+details and how to change this setting, see https://angular.io/analytics. No
+Global setting: disabled
+Local setting: No local workspace configuration file.
+Effective status: disabled
+CREATE firstExample/README.md <span style=color:#f92672>(</span><span style=color:#ae81ff>1066</span> bytes<span style=color:#f92672>)</span>
+CREATE firstExample/.editorconfig <span style=color:#f92672>(</span><span style=color:#ae81ff>274</span> bytes<span style=color:#f92672>)</span>
+CREATE firstExample/.gitignore <span style=color:#f92672>(</span><span style=color:#ae81ff>548</span> bytes<span style=color:#f92672>)</span>
+CREATE firstExample/angular.json <span style=color:#f92672>(</span><span style=color:#ae81ff>2949</span> bytes<span style=color:#f92672>)</span>
+CREATE firstExample/package.json <span style=color:#f92672>(</span><span style=color:#ae81ff>1044</span> bytes<span style=color:#f92672>)</span>
+CREATE firstExample/tsconfig.json <span style=color:#f92672>(</span><span style=color:#ae81ff>901</span> bytes<span style=color:#f92672>)</span>
+CREATE firstExample/tsconfig.app.json <span style=color:#f92672>(</span><span style=color:#ae81ff>263</span> bytes<span style=color:#f92672>)</span>
+CREATE firstExample/tsconfig.spec.json <span style=color:#f92672>(</span><span style=color:#ae81ff>273</span> bytes<span style=color:#f92672>)</span>
+CREATE firstExample/.vscode/extensions.json <span style=color:#f92672>(</span><span style=color:#ae81ff>130</span> bytes<span style=color:#f92672>)</span>
+CREATE firstExample/.vscode/launch.json <span style=color:#f92672>(</span><span style=color:#ae81ff>474</span> bytes<span style=color:#f92672>)</span>
+CREATE firstExample/.vscode/tasks.json <span style=color:#f92672>(</span><span style=color:#ae81ff>938</span> bytes<span style=color:#f92672>)</span>
+CREATE firstExample/src/favicon.ico <span style=color:#f92672>(</span><span style=color:#ae81ff>948</span> bytes<span style=color:#f92672>)</span>
+CREATE firstExample/src/index.html <span style=color:#f92672>(</span><span style=color:#ae81ff>298</span> bytes<span style=color:#f92672>)</span>
+CREATE firstExample/src/main.ts <span style=color:#f92672>(</span><span style=color:#ae81ff>214</span> bytes<span style=color:#f92672>)</span>
+CREATE firstExample/src/styles.scss <span style=color:#f92672>(</span><span style=color:#ae81ff>80</span> bytes<span style=color:#f92672>)</span>
+CREATE firstExample/src/assets/.gitkeep <span style=color:#f92672>(</span><span style=color:#ae81ff>0</span> bytes<span style=color:#f92672>)</span>
+CREATE firstExample/src/app/app-routing.module.ts <span style=color:#f92672>(</span><span style=color:#ae81ff>245</span> bytes<span style=color:#f92672>)</span>
+CREATE firstExample/src/app/app.module.ts <span style=color:#f92672>(</span><span style=color:#ae81ff>393</span> bytes<span style=color:#f92672>)</span>
+CREATE firstExample/src/app/app.component.scss <span style=color:#f92672>(</span><span style=color:#ae81ff>0</span> bytes<span style=color:#f92672>)</span>
+CREATE firstExample/src/app/app.component.html <span style=color:#f92672>(</span><span style=color:#ae81ff>23115</span> bytes<span style=color:#f92672>)</span>
+CREATE firstExample/src/app/app.component.spec.ts <span style=color:#f92672>(</span><span style=color:#ae81ff>1091</span> bytes<span style=color:#f92672>)</span>
+CREATE firstExample/src/app/app.component.ts <span style=color:#f92672>(</span><span style=color:#ae81ff>217</span> bytes<span style=color:#f92672>)</span>
+✔ Packages installed successfully.
+</code></pre></div><p>範本建立成功後，可查看 package.json 中採用的那個版本的 Angular 程式架構</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$ cd firstExample
+$ cat package.json
+
+<span style=color:#f92672>{</span>
+  <span style=color:#e6db74>&#34;name&#34;</span>: <span style=color:#e6db74>&#34;first-example&#34;</span>,
+  <span style=color:#e6db74>&#34;version&#34;</span>: <span style=color:#e6db74>&#34;0.0.0&#34;</span>,
+  <span style=color:#e6db74>&#34;scripts&#34;</span>: <span style=color:#f92672>{</span>
+    <span style=color:#e6db74>&#34;ng&#34;</span>: <span style=color:#e6db74>&#34;ng&#34;</span>,
+    <span style=color:#e6db74>&#34;start&#34;</span>: <span style=color:#e6db74>&#34;ng serve&#34;</span>,
+    <span style=color:#e6db74>&#34;build&#34;</span>: <span style=color:#e6db74>&#34;ng build&#34;</span>,
+    <span style=color:#e6db74>&#34;watch&#34;</span>: <span style=color:#e6db74>&#34;ng build --watch --configuration development&#34;</span>,
+    <span style=color:#e6db74>&#34;test&#34;</span>: <span style=color:#e6db74>&#34;ng test&#34;</span>
+  <span style=color:#f92672>}</span>,
+  <span style=color:#e6db74>&#34;private&#34;</span>: true,
+  <span style=color:#e6db74>&#34;dependencies&#34;</span>: <span style=color:#f92672>{</span>
+    <span style=color:#e6db74>&#34;@angular/animations&#34;</span>: <span style=color:#e6db74>&#34;^15.0.0&#34;</span>,
+    <span style=color:#e6db74>&#34;@angular/common&#34;</span>: <span style=color:#e6db74>&#34;^15.0.0&#34;</span>,
+    <span style=color:#e6db74>&#34;@angular/compiler&#34;</span>: <span style=color:#e6db74>&#34;^15.0.0&#34;</span>,
+    <span style=color:#e6db74>&#34;@angular/core&#34;</span>: <span style=color:#e6db74>&#34;^15.0.0&#34;</span>,
+    <span style=color:#e6db74>&#34;@angular/forms&#34;</span>: <span style=color:#e6db74>&#34;^15.0.0&#34;</span>,
+    <span style=color:#e6db74>&#34;@angular/platform-browser&#34;</span>: <span style=color:#e6db74>&#34;^15.0.0&#34;</span>,
+    <span style=color:#e6db74>&#34;@angular/platform-browser-dynamic&#34;</span>: <span style=color:#e6db74>&#34;^15.0.0&#34;</span>,
+    <span style=color:#e6db74>&#34;@angular/router&#34;</span>: <span style=color:#e6db74>&#34;^15.0.0&#34;</span>,
+    <span style=color:#e6db74>&#34;rxjs&#34;</span>: <span style=color:#e6db74>&#34;~7.5.0&#34;</span>,
+    <span style=color:#e6db74>&#34;tslib&#34;</span>: <span style=color:#e6db74>&#34;^2.3.0&#34;</span>,
+    <span style=color:#e6db74>&#34;zone.js&#34;</span>: <span style=color:#e6db74>&#34;~0.12.0&#34;</span>
+  <span style=color:#f92672>}</span>,
+  <span style=color:#e6db74>&#34;devDependencies&#34;</span>: <span style=color:#f92672>{</span>
+    <span style=color:#e6db74>&#34;@angular-devkit/build-angular&#34;</span>: <span style=color:#e6db74>&#34;^15.0.4&#34;</span>,
+    <span style=color:#e6db74>&#34;@angular/cli&#34;</span>: <span style=color:#e6db74>&#34;~15.0.4&#34;</span>,
+    <span style=color:#e6db74>&#34;@angular/compiler-cli&#34;</span>: <span style=color:#e6db74>&#34;^15.0.0&#34;</span>,
+    <span style=color:#e6db74>&#34;@types/jasmine&#34;</span>: <span style=color:#e6db74>&#34;~4.3.0&#34;</span>,
+    <span style=color:#e6db74>&#34;jasmine-core&#34;</span>: <span style=color:#e6db74>&#34;~4.5.0&#34;</span>,
+    <span style=color:#e6db74>&#34;karma&#34;</span>: <span style=color:#e6db74>&#34;~6.4.0&#34;</span>,
+    <span style=color:#e6db74>&#34;karma-chrome-launcher&#34;</span>: <span style=color:#e6db74>&#34;~3.1.0&#34;</span>,
+    <span style=color:#e6db74>&#34;karma-coverage&#34;</span>: <span style=color:#e6db74>&#34;~2.2.0&#34;</span>,
+    <span style=color:#e6db74>&#34;karma-jasmine&#34;</span>: <span style=color:#e6db74>&#34;~5.1.0&#34;</span>,
+    <span style=color:#e6db74>&#34;karma-jasmine-html-reporter&#34;</span>: <span style=color:#e6db74>&#34;~2.0.0&#34;</span>,
+    <span style=color:#e6db74>&#34;typescript&#34;</span>: <span style=color:#e6db74>&#34;~4.8.2&#34;</span>
+  <span style=color:#f92672>}</span>
+<span style=color:#f92672>}</span>
+</code></pre></div><p>執行産生的預設程式範本</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$ npm start
+
+&gt; first-example@0.0.0 start
+&gt; ng serve
+
+Node.js version v19.3.0 detected.
+Odd numbered Node.js versions will not enter LTS status and should not be used <span style=color:#66d9ef>for</span> production. For more information, please see https://nodejs.org/en/about/releases/.
+✔ Browser application bundle generation complete.
+
+Initial Chunk Files   | Names         |  Raw Size
+vendor.js             | vendor        |   2.09 MB | 
+polyfills.js          | polyfills     | 314.28 kB | 
+styles.css, styles.js | styles        | 209.87 kB | 
+main.js               | main          |  48.10 kB | 
+runtime.js            | runtime       |   6.52 kB | 
+
+                      | Initial Total |   2.66 MB
+
+Build at: 2023-01-04T02:54:06.004Z - Hash: ef1d647f832bd9c0 - Time: 11301ms
+
+** Angular Live Development Server is listening on localhost:4200, open your browser on http://localhost:4200/ **
+
+
+✔ Compiled successfully.
+</code></pre></div><h2 id=讓特定目錄自動使用特定版本的-nodejs>讓特定目錄自動使用特定版本的 Node.js<a hidden class=anchor aria-hidden=true href=#讓特定目錄自動使用特定版本的-nodejs>#</a></h2>
+<p>最得我們說說如何在切換目錄時由系統自動切換不同的 Node.js 版本。</p>
+<h3 id=修改-bashrc-檔案>修改 ~/.bashrc 檔案<a hidden class=anchor aria-hidden=true href=#修改-bashrc-檔案>#</a></h3>
+<p>首先，在 ~/.bashrc 檔案最後處加入以下 script。</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#75715e>### for nvm auto switch version on change directory</span>
+cdnvm<span style=color:#f92672>()</span> <span style=color:#f92672>{</span>
+    command cd <span style=color:#e6db74>&#34;</span>$@<span style=color:#e6db74>&#34;</span>;
+    nvm_path<span style=color:#f92672>=</span><span style=color:#66d9ef>$(</span>nvm_find_up .nvmrc | tr -d <span style=color:#e6db74>&#39;\n&#39;</span><span style=color:#66d9ef>)</span>
+
+    <span style=color:#75715e># If there are no .nvmrc file, use the default nvm version</span>
+    <span style=color:#66d9ef>if</span> <span style=color:#f92672>[[</span> ! $nvm_path <span style=color:#f92672>=</span> *<span style=color:#f92672>[</span>^<span style=color:#f92672>[</span>:space:<span style=color:#f92672>]]</span>* <span style=color:#f92672>]]</span>; <span style=color:#66d9ef>then</span>
+
+        declare default_version;
+        default_version<span style=color:#f92672>=</span><span style=color:#66d9ef>$(</span>nvm version default<span style=color:#66d9ef>)</span>;
+
+        <span style=color:#75715e># If there is no default version, set it to `node`</span>
+        <span style=color:#75715e># This will use the latest version on your machine</span>
+        <span style=color:#66d9ef>if</span> <span style=color:#f92672>[[</span> $default_version <span style=color:#f92672>==</span> <span style=color:#e6db74>&#34;N/A&#34;</span> <span style=color:#f92672>]]</span>; <span style=color:#66d9ef>then</span>
+            nvm alias default node;
+            default_version<span style=color:#f92672>=</span><span style=color:#66d9ef>$(</span>nvm version default<span style=color:#66d9ef>)</span>;
+        <span style=color:#66d9ef>fi</span>
+
+        <span style=color:#75715e># If the current version is not the default version, set it to use the default version</span>
+        <span style=color:#66d9ef>if</span> <span style=color:#f92672>[[</span> <span style=color:#66d9ef>$(</span>nvm current<span style=color:#66d9ef>)</span> !<span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;</span>$default_version<span style=color:#e6db74>&#34;</span> <span style=color:#f92672>]]</span>; <span style=color:#66d9ef>then</span>
+            nvm use default;
+        <span style=color:#66d9ef>fi</span>
+
+    <span style=color:#66d9ef>elif</span> <span style=color:#f92672>[[</span> -s $nvm_path/.nvmrc <span style=color:#f92672>&amp;&amp;</span> -r $nvm_path/.nvmrc <span style=color:#f92672>]]</span>; <span style=color:#66d9ef>then</span>
+        declare nvm_version
+        nvm_version<span style=color:#f92672>=</span><span style=color:#66d9ef>$(</span>&lt;<span style=color:#e6db74>&#34;</span>$nvm_path<span style=color:#e6db74>&#34;</span>/.nvmrc<span style=color:#66d9ef>)</span>
+
+        declare locally_resolved_nvm_version
+        <span style=color:#75715e># `nvm ls` will check all locally-available versions</span>
+        <span style=color:#75715e># If there are multiple matching versions, take the latest one</span>
+        <span style=color:#75715e># Remove the `-&gt;` and `*` characters and spaces</span>
+        <span style=color:#75715e># `locally_resolved_nvm_version` will be `N/A` if no local versions are found</span>
+        locally_resolved_nvm_version<span style=color:#f92672>=</span><span style=color:#66d9ef>$(</span>nvm ls --no-colors <span style=color:#e6db74>&#34;</span>$nvm_version<span style=color:#e6db74>&#34;</span> | tail -1 | tr -d <span style=color:#e6db74>&#39;\-&gt;*&#39;</span> | tr -d <span style=color:#e6db74>&#39;[:space:]&#39;</span><span style=color:#66d9ef>)</span>
+
+        <span style=color:#75715e># If it is not already installed, install it</span>
+        <span style=color:#75715e># `nvm install` will implicitly use the newly-installed version</span>
+        <span style=color:#66d9ef>if</span> <span style=color:#f92672>[[</span> <span style=color:#e6db74>&#34;</span>$locally_resolved_nvm_version<span style=color:#e6db74>&#34;</span> <span style=color:#f92672>==</span> <span style=color:#e6db74>&#34;N/A&#34;</span> <span style=color:#f92672>]]</span>; <span style=color:#66d9ef>then</span>
+            nvm install <span style=color:#e6db74>&#34;</span>$nvm_version<span style=color:#e6db74>&#34;</span>;
+        <span style=color:#66d9ef>elif</span> <span style=color:#f92672>[[</span> <span style=color:#66d9ef>$(</span>nvm current<span style=color:#66d9ef>)</span> !<span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;</span>$locally_resolved_nvm_version<span style=color:#e6db74>&#34;</span> <span style=color:#f92672>]]</span>; <span style=color:#66d9ef>then</span>
+            nvm use <span style=color:#e6db74>&#34;</span>$nvm_version<span style=color:#e6db74>&#34;</span>;
+        <span style=color:#66d9ef>fi</span>
+    <span style=color:#66d9ef>fi</span>
+<span style=color:#f92672>}</span>
+alias cd<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;cdnvm&#39;</span>
+cd <span style=color:#e6db74>&#34;</span>$PWD<span style=color:#e6db74>&#34;</span>
+</code></pre></div><h3 id=讓修改的-bashrc-script-file-即刻生效>讓修改的 ~/.bashrc Script file 即刻生效<a hidden class=anchor aria-hidden=true href=#讓修改的-bashrc-script-file-即刻生效>#</a></h3>
+<p>修改完 ~/.bashrc Script file　後，使用 source 指令讓上述的 script 立即生效</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$ source ~/.bashrc
+</code></pre></div><h3 id=搭配-nvmrc-檔案實現在切換工作目錄時自動切換不同的-nodejs-版本>搭配 .nvmrc 檔案實現在切換工作目錄時自動切換不同的 Node.js 版本<a hidden class=anchor aria-hidden=true href=#搭配-nvmrc-檔案實現在切換工作目錄時自動切換不同的-nodejs-版本>#</a></h3>
+<p>在　angular15 目錄下再建一個名為 angular 子目錄，在這個子目錄我們要使用的 node 環境是 v18。</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$ mkdir angular <span style=color:#f92672>&amp;&amp;</span> cd angular	<span style=color:#75715e># 建立 angular 子目錄，並將工作目錄切換到這個子目錄中</span>
+$
+$ nvm use 18	<span style=color:#75715e># 使用 nvm use 指令將 Node.js 環境切換成 第18版，因為我們之前安裝的是 v18.12.1，nvm 自動採得這個最新版的第18版</span>
+$ node -v		<span style=color:#75715e># 查看目前使用的工作版本</span>
+v18.12.1
+$ node -v &gt; .nvmrc	<span style=color:#75715e># 將 v.18.12.1 這個版本寫入到 .nvmrc 這個檔案中。</span>
+</code></pre></div><p>nvm 搭配上各目錄中 .nvmrc 檔案的設定就能實現｀自動｀切換 Node.js 版本的功能。</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$ cd ~
+~$ node -v
+v19.3.0
+~$ cd angular15
+~/angular15$ node -v
+v19.3.0
+~/angular15$ cd angualr
+Now using node v18.12.1 <span style=color:#f92672>(</span>npm v8.19.2<span style=color:#f92672>)</span>
+~/angular15/angular$ node -v
+v18.12.1
+</code></pre></div><p>使用 node v18.12.1 環境來建立 angualr 15 的 app</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$ npm init @angular secondExample -- --routing --style<span style=color:#f92672>=</span>css
+CREATE secondExample/README.md <span style=color:#f92672>(</span><span style=color:#ae81ff>1067</span> bytes<span style=color:#f92672>)</span>
+CREATE secondExample/.editorconfig <span style=color:#f92672>(</span><span style=color:#ae81ff>274</span> bytes<span style=color:#f92672>)</span>
+CREATE secondExample/.gitignore <span style=color:#f92672>(</span><span style=color:#ae81ff>548</span> bytes<span style=color:#f92672>)</span>
+CREATE secondExample/angular.json <span style=color:#f92672>(</span><span style=color:#ae81ff>2780</span> bytes<span style=color:#f92672>)</span>
+CREATE secondExample/package.json <span style=color:#f92672>(</span><span style=color:#ae81ff>1045</span> bytes<span style=color:#f92672>)</span>
+CREATE secondExample/tsconfig.json <span style=color:#f92672>(</span><span style=color:#ae81ff>901</span> bytes<span style=color:#f92672>)</span>
+CREATE secondExample/tsconfig.app.json <span style=color:#f92672>(</span><span style=color:#ae81ff>263</span> bytes<span style=color:#f92672>)</span>
+CREATE secondExample/tsconfig.spec.json <span style=color:#f92672>(</span><span style=color:#ae81ff>273</span> bytes<span style=color:#f92672>)</span>
+CREATE secondExample/.vscode/extensions.json <span style=color:#f92672>(</span><span style=color:#ae81ff>130</span> bytes<span style=color:#f92672>)</span>
+CREATE secondExample/.vscode/launch.json <span style=color:#f92672>(</span><span style=color:#ae81ff>474</span> bytes<span style=color:#f92672>)</span>
+CREATE secondExample/.vscode/tasks.json <span style=color:#f92672>(</span><span style=color:#ae81ff>938</span> bytes<span style=color:#f92672>)</span>
+CREATE secondExample/src/favicon.ico <span style=color:#f92672>(</span><span style=color:#ae81ff>948</span> bytes<span style=color:#f92672>)</span>
+CREATE secondExample/src/index.html <span style=color:#f92672>(</span><span style=color:#ae81ff>299</span> bytes<span style=color:#f92672>)</span>
+CREATE secondExample/src/main.ts <span style=color:#f92672>(</span><span style=color:#ae81ff>214</span> bytes<span style=color:#f92672>)</span>
+CREATE secondExample/src/styles.css <span style=color:#f92672>(</span><span style=color:#ae81ff>80</span> bytes<span style=color:#f92672>)</span>
+CREATE secondExample/src/assets/.gitkeep <span style=color:#f92672>(</span><span style=color:#ae81ff>0</span> bytes<span style=color:#f92672>)</span>
+CREATE secondExample/src/app/app-routing.module.ts <span style=color:#f92672>(</span><span style=color:#ae81ff>245</span> bytes<span style=color:#f92672>)</span>
+CREATE secondExample/src/app/app.module.ts <span style=color:#f92672>(</span><span style=color:#ae81ff>393</span> bytes<span style=color:#f92672>)</span>
+CREATE secondExample/src/app/app.component.css <span style=color:#f92672>(</span><span style=color:#ae81ff>0</span> bytes<span style=color:#f92672>)</span>
+CREATE secondExample/src/app/app.component.html <span style=color:#f92672>(</span><span style=color:#ae81ff>23115</span> bytes<span style=color:#f92672>)</span>
+CREATE secondExample/src/app/app.component.spec.ts <span style=color:#f92672>(</span><span style=color:#ae81ff>1094</span> bytes<span style=color:#f92672>)</span>
+CREATE secondExample/src/app/app.component.ts <span style=color:#f92672>(</span><span style=color:#ae81ff>217</span> bytes<span style=color:#f92672>)</span>
+✔ Packages installed successfully.
+</code></pre></div><p>執行時也不會有任可版本不相搭配的警告訊息出現了。</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$ npm start
+
+&gt; second-example@0.0.0 start
+&gt; ng serve
+
+✔ Browser application bundle generation complete.
+
+Initial Chunk Files   | Names         |  Raw Size
+vendor.js             | vendor        |   2.09 MB | 
+polyfills.js          | polyfills     | 314.28 kB | 
+styles.css, styles.js | styles        | 209.41 kB | 
+main.js               | main          |  48.11 kB | 
+runtime.js            | runtime       |   6.52 kB | 
+
+                      | Initial Total |   2.66 MB
+
+Build at: 2023-01-04T03:09:19.398Z - Hash: 64669f1b8675c995 - Time: 13758ms
+
+** Angular Live Development Server is listening on localhost:4200, open your browser on http://localhost:4200/ **
+
+
+✔ Compiled successfully.
+</code></pre></div><p>結論：</p>
+<ul>
+<li>nvm 是管理你電腦中各式 Node.js 版本的好工具。</li>
+<li>在新版本 Angular 中你可以不必先安裝 Cli 來建立程式範本，直接使用　npm init @angular 　指令即可。</li>
+</ul>
+</div>
+<footer class=post-footer>
+<ul class=post-tags>
+<li><a href=https://calvinegs.github.io/tags/angular/>angular</a></li>
+<li><a href=https://calvinegs.github.io/tags/node.js/>Node.js</a></li>
+<li><a href=https://calvinegs.github.io/tags/nvm/>nvm</a></li>
+<li><a href=https://calvinegs.github.io/tags/ubuntu-22.04/>ubuntu 22.04</a></li>
+</ul>
+<nav class=paginav>
+<a class=next href=https://calvinegs.github.io/posts/angular-ngoninit/>
+<span class=title>Next Page »</span>
+<br>
+<span>關於 Angular中的 constructor 與 ngOnInit</span>
+</a>
+</nav>
+<div class=share-buttons>
+<a target=_blank rel="noopener noreferrer" aria-label="share 在 ubuntu 22.04 中建立一支 Angular 15 Web App on twitter" href="https://twitter.com/intent/tweet/?text=%e5%9c%a8%20ubuntu%2022.04%20%e4%b8%ad%e5%bb%ba%e7%ab%8b%e4%b8%80%e6%94%af%20Angular%2015%20Web%20App&url=https%3a%2f%2fcalvinegs.github.io%2fposts%2fnvm-angular15%2f&hashtags=angular%2cnode.js%2cnvm%2cubuntu22.04"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zM195.519 424.544c135.939.0 210.268-112.643 210.268-210.268.0-3.218.0-6.437-.153-9.502 14.406-10.421 26.973-23.448 36.935-38.314-13.18 5.824-27.433 9.809-42.452 11.648 15.326-9.196 26.973-23.602 32.49-40.92-14.252 8.429-30.038 14.56-46.896 17.931-13.487-14.406-32.644-23.295-53.946-23.295-40.767.0-73.87 33.104-73.87 73.87.0 5.824.613 11.494 1.992 16.858-61.456-3.065-115.862-32.49-152.337-77.241-6.284 10.881-9.962 23.601-9.962 37.088.0 25.594 13.027 48.276 32.95 61.456-12.107-.307-23.448-3.678-33.41-9.196v.92c0 35.862 25.441 65.594 59.311 72.49-6.13 1.686-12.72 2.606-19.464 2.606-4.751.0-9.348-.46-13.946-1.38 9.349 29.426 36.628 50.728 68.965 51.341-25.287 19.771-57.164 31.571-91.8 31.571-5.977.0-11.801-.306-17.625-1.073 32.337 21.15 71.264 33.41 112.95 33.41z"/></svg>
+</a>
+<a target=_blank rel="noopener noreferrer" aria-label="share 在 ubuntu 22.04 中建立一支 Angular 15 Web App on linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2fcalvinegs.github.io%2fposts%2fnvm-angular15%2f&title=%e5%9c%a8%20ubuntu%2022.04%20%e4%b8%ad%e5%bb%ba%e7%ab%8b%e4%b8%80%e6%94%af%20Angular%2015%20Web%20App&summary=%e5%9c%a8%20ubuntu%2022.04%20%e4%b8%ad%e5%bb%ba%e7%ab%8b%e4%b8%80%e6%94%af%20Angular%2015%20Web%20App&source=https%3a%2f%2fcalvinegs.github.io%2fposts%2fnvm-angular15%2f"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zM160.461 423.278V197.561h-75.04v225.717h75.04zm270.539.0V293.839c0-69.333-37.018-101.586-86.381-101.586-39.804.0-57.634 21.891-67.617 37.266v-31.958h-75.021c.995 21.181.0 225.717.0 225.717h75.02V297.222c0-6.748.486-13.492 2.474-18.315 5.414-13.475 17.767-27.434 38.494-27.434 27.135.0 38.007 20.707 38.007 51.037v120.768H431zM123.448 88.722C97.774 88.722 81 105.601 81 127.724c0 21.658 16.264 39.002 41.455 39.002h.484c26.165.0 42.452-17.344 42.452-39.002-.485-22.092-16.241-38.954-41.943-39.002z"/></svg>
+</a>
+<a target=_blank rel="noopener noreferrer" aria-label="share 在 ubuntu 22.04 中建立一支 Angular 15 Web App on reddit" href="https://reddit.com/submit?url=https%3a%2f%2fcalvinegs.github.io%2fposts%2fnvm-angular15%2f&title=%e5%9c%a8%20ubuntu%2022.04%20%e4%b8%ad%e5%bb%ba%e7%ab%8b%e4%b8%80%e6%94%af%20Angular%2015%20Web%20App"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zM446 265.638c0-22.964-18.616-41.58-41.58-41.58-11.211.0-21.361 4.457-28.841 11.666-28.424-20.508-67.586-33.757-111.204-35.278l18.941-89.121 61.884 13.157c.756 15.734 13.642 28.29 29.56 28.29 16.407.0 29.706-13.299 29.706-29.701.0-16.403-13.299-29.702-29.706-29.702-11.666.0-21.657 6.792-26.515 16.578l-69.105-14.69c-1.922-.418-3.939-.042-5.585 1.036-1.658 1.073-2.811 2.761-3.224 4.686l-21.152 99.438c-44.258 1.228-84.046 14.494-112.837 35.232-7.468-7.164-17.589-11.591-28.757-11.591-22.965.0-41.585 18.616-41.585 41.58.0 16.896 10.095 31.41 24.568 37.918-.639 4.135-.99 8.328-.99 12.576.0 63.977 74.469 115.836 166.33 115.836s166.334-51.859 166.334-115.836c0-4.218-.347-8.387-.977-12.493 14.564-6.47 24.735-21.034 24.735-38.001zM326.526 373.831c-20.27 20.241-59.115 21.816-70.534 21.816-11.428.0-50.277-1.575-70.522-21.82-3.007-3.008-3.007-7.882.0-10.889 3.003-2.999 7.882-3.003 10.885.0 12.777 12.781 40.11 17.317 59.637 17.317 19.522.0 46.86-4.536 59.657-17.321 3.016-2.999 7.886-2.995 10.885.008 3.008 3.011 3.003 7.882-.008 10.889zm-5.23-48.781c-16.373.0-29.701-13.324-29.701-29.698.0-16.381 13.328-29.714 29.701-29.714 16.378.0 29.706 13.333 29.706 29.714.0 16.374-13.328 29.698-29.706 29.698zM160.91 295.348c0-16.381 13.328-29.71 29.714-29.71 16.369.0 29.689 13.329 29.689 29.71.0 16.373-13.32 29.693-29.689 29.693-16.386.0-29.714-13.32-29.714-29.693z"/></svg>
+</a>
+<a target=_blank rel="noopener noreferrer" aria-label="share 在 ubuntu 22.04 中建立一支 Angular 15 Web App on facebook" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fcalvinegs.github.io%2fposts%2fnvm-angular15%2f"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H342.978V319.085h66.6l12.672-82.621h-79.272v-53.617c0-22.603 11.073-44.636 46.58-44.636H425.6v-70.34s-32.71-5.582-63.982-5.582c-65.288.0-107.96 39.569-107.96 111.204v62.971h-72.573v82.621h72.573V512h-191.104c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892z"/></svg>
+</a>
+<a target=_blank rel="noopener noreferrer" aria-label="share 在 ubuntu 22.04 中建立一支 Angular 15 Web App on whatsapp" href="https://api.whatsapp.com/send?text=%e5%9c%a8%20ubuntu%2022.04%20%e4%b8%ad%e5%bb%ba%e7%ab%8b%e4%b8%80%e6%94%af%20Angular%2015%20Web%20App%20-%20https%3a%2f%2fcalvinegs.github.io%2fposts%2fnvm-angular15%2f"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zm-58.673 127.703c-33.842-33.881-78.847-52.548-126.798-52.568-98.799.0-179.21 80.405-179.249 179.234-.013 31.593 8.241 62.428 23.927 89.612l-25.429 92.884 95.021-24.925c26.181 14.28 55.659 21.807 85.658 21.816h.074c98.789.0 179.206-80.413 179.247-179.243.018-47.895-18.61-92.93-52.451-126.81zM263.976 403.485h-.06c-26.734-.01-52.954-7.193-75.828-20.767l-5.441-3.229-56.386 14.792 15.05-54.977-3.542-5.637c-14.913-23.72-22.791-51.136-22.779-79.287.033-82.142 66.867-148.971 149.046-148.971 39.793.014 77.199 15.531 105.329 43.692 28.128 28.16 43.609 65.592 43.594 105.4-.034 82.149-66.866 148.983-148.983 148.984zm81.721-111.581c-4.479-2.242-26.499-13.075-30.604-14.571-4.105-1.495-7.091-2.241-10.077 2.241-2.986 4.483-11.569 14.572-14.182 17.562-2.612 2.988-5.225 3.364-9.703 1.12-4.479-2.241-18.91-6.97-36.017-22.23C231.8 264.15 222.81 249.484 220.198 245s-.279-6.908 1.963-9.14c2.016-2.007 4.48-5.232 6.719-7.847 2.24-2.615 2.986-4.484 4.479-7.472 1.493-2.99.747-5.604-.374-7.846-1.119-2.241-10.077-24.288-13.809-33.256-3.635-8.733-7.327-7.55-10.077-7.688-2.609-.13-5.598-.158-8.583-.158-2.986.0-7.839 1.121-11.944 5.604-4.105 4.484-15.675 15.32-15.675 37.364.0 22.046 16.048 43.342 18.287 46.332 2.24 2.99 31.582 48.227 76.511 67.627 10.685 4.615 19.028 7.371 25.533 9.434 10.728 3.41 20.492 2.929 28.209 1.775 8.605-1.285 26.499-10.833 30.231-21.295 3.732-10.464 3.732-19.431 2.612-21.298-1.119-1.869-4.105-2.99-8.583-5.232z"/></svg>
+</a>
+<a target=_blank rel="noopener noreferrer" aria-label="share 在 ubuntu 22.04 中建立一支 Angular 15 Web App on telegram" href="https://telegram.me/share/url?text=%e5%9c%a8%20ubuntu%2022.04%20%e4%b8%ad%e5%bb%ba%e7%ab%8b%e4%b8%80%e6%94%af%20Angular%2015%20Web%20App&url=https%3a%2f%2fcalvinegs.github.io%2fposts%2fnvm-angular15%2f"><svg viewBox="2 2 28 28"><path d="M26.49 29.86H5.5a3.37 3.37.0 01-2.47-1 3.35 3.35.0 01-1-2.47V5.48A3.36 3.36.0 013 3 3.37 3.37.0 015.5 2h21A3.38 3.38.0 0129 3a3.36 3.36.0 011 2.46V26.37a3.35 3.35.0 01-1 2.47 3.38 3.38.0 01-2.51 1.02zm-5.38-6.71a.79.79.0 00.85-.66L24.73 9.24a.55.55.0 00-.18-.46.62.62.0 00-.41-.17q-.08.0-16.53 6.11a.59.59.0 00-.41.59.57.57.0 00.43.52l4 1.24 1.61 4.83a.62.62.0 00.63.43.56.56.0 00.4-.17L16.54 20l4.09 3A.9.9.0 0021.11 23.15zM13.8 20.71l-1.21-4q8.72-5.55 8.78-5.55c.15.0.23.0.23.16a.18.18.0 010 .06s-2.51 2.3-7.52 6.8z"/></svg>
+</a>
+</div>
+</footer>
+<div>
+<div id=disqus_thread></div>
+<script type=text/javascript>(function(){var a,b;if(window.location.hostname=="localhost")return;a=document.createElement('script'),a.type='text/javascript',a.async=!0,b='calvinegs-github-io',a.src='//'+b+'.disqus.com/embed.js',(document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild(a)})()</script>
+<noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript>
+<a href=https://disqus.com/ class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a>
+</div>
+</article>
+</main>
+<footer class=footer>
+<span>&copy; 2023 <a href=https://calvinegs.github.io/>永誌不忘 • 筆記簿</a></span>
+<span>
+Powered by
+<a href=https://gohugo.io/ rel="noopener noreferrer" target=_blank>Hugo</a> &
+        <a href=https://git.io/hugopapermod rel=noopener target=_blank>PaperMod</a>
+</span>
+</footer>
+<a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentcolor"><path d="M12 6H0l6-6z"/></svg>
+</a>
+<script>let menu=document.getElementById('menu');menu&&(menu.scrollLeft=localStorage.getItem("menu-scroll-position"),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}),document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener("click",function(b){b.preventDefault();var a=this.getAttribute("href").substr(1);window.matchMedia('(prefers-reduced-motion: reduce)').matches?document.querySelector(`[id='${decodeURIComponent(a)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(a)}']`).scrollIntoView({behavior:"smooth"}),a==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${a}`)})})</script>
+<script>var mybutton=document.getElementById("top-link");window.onscroll=function(){document.body.scrollTop>800||document.documentElement.scrollTop>800?(mybutton.style.visibility="visible",mybutton.style.opacity="1"):(mybutton.style.visibility="hidden",mybutton.style.opacity="0")}</script>
+<script>document.getElementById("theme-toggle").addEventListener("click",()=>{document.body.className.includes("dark")?(document.body.classList.remove('dark'),localStorage.setItem("pref-theme",'light')):(document.body.classList.add('dark'),localStorage.setItem("pref-theme",'dark'))})</script>
+<script>document.querySelectorAll('pre > code').forEach(b=>{const c=b.parentNode.parentNode,a=document.createElement('button');a.classList.add('copy-code'),a.innerText='copy';function d(){a.innerText='copied!',setTimeout(()=>{a.innerText='copy'},2e3)}a.addEventListener('click',e=>{if('clipboard'in navigator){navigator.clipboard.writeText(b.textContent),d();return}const a=document.createRange();a.selectNodeContents(b);const c=window.getSelection();c.removeAllRanges(),c.addRange(a);try{document.execCommand('copy'),d()}catch(a){}c.removeRange(a)}),c.classList.contains("highlight")?c.appendChild(a):c.parentNode.firstChild==c||(b.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName=="TABLE"?b.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(a):b.parentNode.appendChild(a))})</script>
+</body>
+</html>

@@ -3,27 +3,42 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://calvinegs.github.io/tags/angular/</loc>
-    <lastmod>2023-01-02T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://calvinegs.github.io/categories/angular/</loc>
-    <lastmod>2023-01-02T00:00:00+00:00</lastmod>
+    <lastmod>2023-01-05T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://calvinegs.github.io/categories/</loc>
+    <lastmod>2023-01-05T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://calvinegs.github.io/tags/node.js/</loc>
+    <lastmod>2023-01-05T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://calvinegs.github.io/tags/nvm/</loc>
+    <lastmod>2023-01-05T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://calvinegs.github.io/categories/nvm/</loc>
+    <lastmod>2023-01-05T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://calvinegs.github.io/posts/</loc>
+    <lastmod>2023-01-05T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://calvinegs.github.io/tags/</loc>
+    <lastmod>2023-01-05T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://calvinegs.github.io/tags/ubuntu-22.04/</loc>
+    <lastmod>2023-01-05T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://calvinegs.github.io/posts/nvm-angular15/</loc>
+    <lastmod>2023-01-05T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://calvinegs.github.io/</loc>
+    <lastmod>2023-01-05T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://calvinegs.github.io/categories/angular/</loc>
     <lastmod>2023-01-02T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://calvinegs.github.io/tags/life-cycle/</loc>
     <lastmod>2023-01-02T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://calvinegs.github.io/posts/</loc>
-    <lastmod>2023-01-02T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://calvinegs.github.io/tags/rxjs/</loc>
-    <lastmod>2023-01-02T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://calvinegs.github.io/tags/</loc>
-    <lastmod>2023-01-02T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://calvinegs.github.io/</loc>
     <lastmod>2023-01-02T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://calvinegs.github.io/posts/angular-ngoninit/</loc>
@@ -59,16 +74,13 @@
     <loc>https://calvinegs.github.io/tags/json-server/</loc>
     <lastmod>2022-08-26T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://calvinegs.github.io/tags/node.js/</loc>
-    <lastmod>2022-08-26T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://calvinegs.github.io/tags/npm-run-all/</loc>
     <lastmod>2022-08-26T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://calvinegs.github.io/tags/react/</loc>
     <lastmod>2022-08-26T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://calvinegs.github.io/categories/react/</loc>
+    <loc>https://calvinegs.github.io/categories/vue/</loc>
     <lastmod>2022-08-26T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://calvinegs.github.io/tags/vue-router/</loc>
@@ -79,6 +91,9 @@
   </url><url>
     <loc>https://calvinegs.github.io/posts/webapp-vue/</loc>
     <lastmod>2022-08-26T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://calvinegs.github.io/categories/react/</loc>
+    <lastmod>2022-08-23T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://calvinegs.github.io/tags/react-router/</loc>
     <lastmod>2022-08-23T00:00:00+00:00</lastmod>
