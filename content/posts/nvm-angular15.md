@@ -456,6 +456,8 @@ CREATE firstExample/src/app/app.component.spec.ts (1091 bytes)
 CREATE firstExample/src/app/app.component.ts (217 bytes)
 ✔ Packages installed successfully.
 ```
+註：“npm init @angular projectName -- --routing --style=scss”　指令等同 “npx @angular/create projectName --routing --style=scss”
+
 
 範本建立成功後，可查看 package.json 中採用的那個版本的 Angular 程式架構
 
