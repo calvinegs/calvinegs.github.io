@@ -77,6 +77,23 @@
 </header>
 <article class=post-entry>
 <header class=entry-header>
+<h2>Angular Intercoptor 使用案例一：Loading Spinner
+</h2>
+</header>
+<section class=entry-content>
+<p>github Source code
+除非你和我一樣是個‘老傢伙’,使用過 Angular ver 4.3 以前的版本，否則你一定會遇到它 - interceptor(攔截器)。接下來將用幾篇筆記把各種使用 interceptor 情境的範例給記錄下來。
+Angular Interceptor 可以用來作什麼用途呢
+修改 HTTP Headers 修改 HTTP request body 設定 authentication/authorization token　（身份認證） 模擬 backend api 修改 HTTP response 處理 HTTP 錯誤 (HTTP Error Handlin) 顯示 Loading Spinner 格式化 JSON Responses 日誌記錄 本篇筆記我們先來看看如何使用 Interceptor 來完成一個當你在讀取後端資料時可在畫面上顯示一個“正在讀取中…“的動畫效果，這可以讓使用者有良好的使用體驗。
+筆記最後要達的效果是，在按下“取得資料”按鈕時，由程式向後端 API 讀取資料，而在讀取完成前，畫面中的所有 UI (如：按鈕）都是呈現無作用的狀況，直到資料回傳完畢。同時如果“向後端 API 讀取資料”的作業時間小於一秒鐘，則不顯示 “讀取中…" 這個動畫效果。
+建立 Angular 專案架構 使用 npm init @angular 語法來建立 Angular project
+$ npm init @angular loadingSpin -- --routing --style=scss $ cd loadingSpin $ code ....</p>
+</section>
+<footer class=entry-footer><span title="2023-01-31 00:00:00 +0000 UTC">January 31, 2023</span>&nbsp;·&nbsp;5 min&nbsp;·&nbsp;Theme PaperMod</footer>
+<a class=entry-link aria-label="post link to Angular Intercoptor 使用案例一：Loading Spinner" href=https://calvinegs.github.io/posts/angular-intercoptor-loadingspinner/></a>
+</article>
+<article class=post-entry>
+<header class=entry-header>
 <h2>在 ubuntu 22.04 中建立一支 Angular 15 Web App
 </h2>
 </header>
@@ -133,22 +150,6 @@ function add(a, b) { return a + b; } add(25, null); 上述的程式可否通過 
 </section>
 <footer class=entry-footer><span title="2022-09-24 00:00:00 +0000 UTC">September 24, 2022</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;Theme PaperMod</footer>
 <a class=entry-link aria-label="post link to TypeScript 編譯器的選項" href=https://calvinegs.github.io/posts/typescript-compiler-options/></a>
-</article>
-<article class=post-entry>
-<header class=entry-header>
-<h2>使用 Vue 來建立網路應用程式
-</h2>
-</header>
-<section class=entry-content>
-<p>github Source code
-Angular、React、Vue 是三個最受歡迎的前端框架，這是三篇筆記分別使用這三個不同的框架來建立功能一模一樣的網路應用程式中的第三篇 - 使用 Vue 來建立網路應用程式。
-這個網路應用程式的需求
-産品訂購功能 表頭：訂購商品總數、總額及送出訂單功能 商品過濾功能：依産品類別來顯示商品 商品清單：顯示商品明細、商品售價、訂購數量下拉選單及加入購物車等功能 訂單確認功能：顯示訂購商品明細及總金額 訂購成功功能：顯示訂購完成資訊 使用技術:
-Vue 3 Bootstrap 5 (UI Framework) Vue Router 4 Vuex 4 axios 0.27 NodeJS 18.5 & Express 4.18 json-server 0.17.0 npm-run-all 4.1.5 (npm 套件) @vue/cli 建立新專案 使用下列的 npx 語法即可建立最新版 Vue 預設的應用程式結構
-$ npx @vue/cli create vueapp Vue CLI v5.0.8 ? Please pick a preset: Manually select features ?...</p>
-</section>
-<footer class=entry-footer><span title="2022-08-26 00:00:00 +0000 UTC">August 26, 2022</span>&nbsp;·&nbsp;16 min&nbsp;·&nbsp;Theme PaperMod</footer>
-<a class=entry-link aria-label="post link to 使用 Vue 來建立網路應用程式" href=https://calvinegs.github.io/posts/webapp-vue/></a>
 </article>
 <footer class=page-footer>
 <nav class=pagination>

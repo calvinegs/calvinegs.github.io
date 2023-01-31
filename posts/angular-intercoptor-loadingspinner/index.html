@@ -1,0 +1,569 @@
+<!doctype html><html lang=en dir=auto>
+<head><meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no">
+<meta name=robots content="index, follow">
+<title>Angular Intercoptor 使用案例一：Loading Spinner | 永誌不忘 • 筆記簿</title>
+<meta name=keywords content="angular,webapi,interceptor,httpclient,css,rxjs">
+<meta name=description content="使用 Interceptor 來完成一個當讀取後端資料時可在畫面上顯示一個“讀取中...“的動畫效果，讓使用者有良好的使用體驗">
+<meta name=author content="Theme PaperMod">
+<link rel=canonical href=https://calvinegs.github.io/posts/angular-intercoptor-loadingspinner/>
+<link crossorigin=anonymous href=/assets/css/stylesheet.min.c88963fe2d79462000fd0fb1b3737783c32855d340583e4523343f8735c787f0.css integrity="sha256-yIlj/i15RiAA/Q+xs3N3g8MoVdNAWD5FIzQ/hzXHh/A=" rel="preload stylesheet" as=style>
+<script defer crossorigin=anonymous src=/assets/js/highlight.min.7680afc38aa6b15ddf158a4f3780b7b1f7dde7e91d26f073e6229bb7a0793c92.js integrity="sha256-doCvw4qmsV3fFYpPN4C3sffd5+kdJvBz5iKbt6B5PJI=" onload=hljs.initHighlightingOnLoad()></script>
+<link rel=icon href=https://calvinegs.github.io/img/favicon.png>
+<link rel=icon type=image/png sizes=16x16 href=https://calvinegs.github.io/favicon-16x16.png>
+<link rel=icon type=image/png sizes=32x32 href=https://calvinegs.github.io/favicon-32x32.png>
+<link rel=apple-touch-icon href=https://calvinegs.github.io/apple-touch-icon.png>
+<link rel=mask-icon href=https://calvinegs.github.io/safari-pinned-tab.svg>
+<meta name=theme-color content="#2e2e33">
+<meta name=msapplication-TileColor content="#2e2e33">
+<meta name=generator content="Hugo 0.91.2">
+<noscript>
+<style>#theme-toggle,.top-link{display:none}</style>
+<style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--hljs-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style>
+</noscript><meta property="og:title" content="Angular Intercoptor 使用案例一：Loading Spinner">
+<meta property="og:description" content="使用 Interceptor 來完成一個當讀取後端資料時可在畫面上顯示一個“讀取中...“的動畫效果，讓使用者有良好的使用體驗">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://calvinegs.github.io/posts/angular-intercoptor-loadingspinner/"><meta property="og:image" content="https://calvinegs.github.io/papermod-cover.png"><meta property="article:section" content="posts">
+<meta property="article:published_time" content="2023-01-31T00:00:00+00:00">
+<meta property="article:modified_time" content="2023-01-31T00:00:00+00:00">
+<meta name=twitter:card content="summary_large_image">
+<meta name=twitter:image content="https://calvinegs.github.io/papermod-cover.png">
+<meta name=twitter:title content="Angular Intercoptor 使用案例一：Loading Spinner">
+<meta name=twitter:description content="使用 Interceptor 來完成一個當讀取後端資料時可在畫面上顯示一個“讀取中...“的動畫效果，讓使用者有良好的使用體驗">
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Posts","item":"https://calvinegs.github.io/posts/"},{"@type":"ListItem","position":2,"name":"Angular Intercoptor 使用案例一：Loading Spinner","item":"https://calvinegs.github.io/posts/angular-intercoptor-loadingspinner/"}]}</script>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"Angular Intercoptor 使用案例一：Loading Spinner","name":"Angular Intercoptor 使用案例一：Loading Spinner","description":"使用 Interceptor 來完成一個當讀取後端資料時可在畫面上顯示一個“讀取中...“的動畫效果，讓使用者有良好的使用體驗","keywords":["angular","webapi","interceptor","httpclient","css","rxjs"],"articleBody":"github Source code\n除非你和我一樣是個‘老傢伙’,使用過 Angular ver 4.3 以前的版本，否則你一定會遇到它 - interceptor(攔截器)。接下來將用幾篇筆記把各種使用 interceptor 情境的範例給記錄下來。\nAngular Interceptor 可以用來作什麼用途呢\n 修改 HTTP Headers 修改 HTTP request body 設定 authentication/authorization token　（身份認證） 模擬 backend api 修改 HTTP response 處理 HTTP 錯誤 (HTTP Error Handlin) 顯示 Loading Spinner 格式化 JSON Responses 日誌記錄  本篇筆記我們先來看看如何使用 Interceptor 來完成一個當你在讀取後端資料時可在畫面上顯示一個“正在讀取中…“的動畫效果，這可以讓使用者有良好的使用體驗。\n筆記最後要達的效果是，在按下“取得資料”按鈕時，由程式向後端 API 讀取資料，而在讀取完成前，畫面中的所有 UI (如：按鈕）都是呈現無作用的狀況，直到資料回傳完畢。同時如果“向後端 API 讀取資料”的作業時間小於一秒鐘，則不顯示 “讀取中…\" 這個動畫效果。\n建立 Angular 專案架構 使用 npm init @angular 語法來建立 Angular project\n$ npm init @angular loadingSpin -- --routing --style=scss $ cd loadingSpin $ code . 安裝 material component\n$ npx ng add @angular/material ℹ Using package manager: npm ✔ Found compatible package version: @angular/material@15.1.2. ✔ Package information loaded. The package @angular/material@15.1.2 will be installed and executed. Would you like to proceed? Yes ✔ Packages successfully installed. ? Choose a prebuilt theme name, or \"custom\" for a custom theme: Indigo/Pink [ Preview: https://material.angular.io?theme=indigo-pink ] ? Set up global Angular Material typography styles? No ? Include the Angular animations module? Include and enable animations UPDATE package.json (1108 bytes) ✔ Packages installed successfully. UPDATE src/app/app.module.ts (502 bytes) UPDATE angular.json (3077 bytes) UPDATE src/index.html (556 bytes) UPDATE src/styles.scss (181 bytes) 使用 @angular/material component 來建立 UI 在使用 material component 之前，先在 app.module 中 import 要使用的 UI component，如: Toolbar、Button、Progress Spinner等。\n# app.module.ts import { NgModule } from '@angular/core'; import { BrowserModule } from '@angular/platform-browser'; import { AppRoutingModule } from './app-routing.module'; import { AppComponent } from './app.component'; import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; import { MatToolbarModule } from '@angular/material/toolbar'; import { MatButtonModule } from '@angular/material/button'; import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'; @NgModule({ declarations: [ AppComponent ], imports: [ BrowserModule, AppRoutingModule, BrowserAnimationsModule, MatToolbarModule, MatButtonModule, MatProgressSpinnerModule ], providers: [], bootstrap: [AppComponent] }) export class AppModule { } 在 app.component.html 中，建立一個表頭、二個按鈕、及放入 material spinner（用來顯示正在處理中的動畫圖示） 組件。\n# app.component.html mat-toolbar color=\"primary\" 使用 RxJS and HttpInterceptor 來實現 \"資料讀取中...\" 動畫效果的功能 mat-toolbar div class=\"content\" button mat-raised-button (click)=\"showSpinner()\"顯示button button mat-raised-button color=\"warn\" (click)=\"hideSpinner()\"隐蔵button div mat-spinner *ngIf=\"loading\"mat-spinner 在 app.component.scss 中設定了畫面上按鈕排版位置。\n# app.component.scss .content { padding: 16px; } button { margin: 8px; } 在 app.component.ts component class 中宣告了一個 property: loading，用來控制畫面上 Spinner 的顯示與否。\n# app.component.ts import { Component } from '@angular/core'; @Component({ selector: 'app-root', templateUrl: './app.component.html', styleUrls: ['./app.component.scss'] }) export class AppComponent { loading = false; showSpinner() { this.loading = true; } hideSpinner() { this.loading = false; } } 測試 mat-spinner 顯示效果 測試後，微調了一下 spinner 在畫面中的位置。\napp.component.scss 調整如下：\n# ... # 加入以下設定：調整顯示的位置 mat-spinner { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 5; } 調整後效果如下：\n使用 HTTPClient 讀取後端資料 建立一個呼叫後端 Api 的 service\n$ npx ng g s services/getData # services/get-data.service.ts import { HttpClient } from '@angular/common/http'; import { Injectable } from '@angular/core'; @Injectable({ providedIn: 'root' }) export class GetDataService { constructor(private http: HttpClient) { } getData() { return this.http.get('https://jsonplaceholder.typicode.com/posts'); } } 使用到了 HttpClient，所以要記得在 AppModule 中匯入 HttpClientModule\n# app.module.ts import { NgModule } from '@angular/core'; import { BrowserModule } from '@angular/platform-browser'; import { AppRoutingModule } from './app-routing.module'; import { AppComponent } from './app.component'; import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; import { MatToolbarModule } from '@angular/material/toolbar'; import { MatButtonModule } from '@angular/material/button'; import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'; import { HttpClientModule } from '@angular/common/http'; @NgModule({ declarations: [ AppComponent ], imports: [ BrowserModule, AppRoutingModule, BrowserAnimationsModule, MatToolbarModule, MatButtonModule, MatProgressSpinnerModule, HttpClientModule ], providers: [], bootstrap: [AppComponent] }) export class AppModule { } 在 Template (app.component.html) 中加入一個“取得資料”的按鈕。\n使用 RxJS and HttpInterceptor 來實現 \"資料讀取中...\" 動畫效果的功能  顯示 隐蔵 取得資料   在 component class 中呼叫 Service 來向後端 API 讀取資料。\nimport { Component } from '@angular/core'; import { GetDataService } from './services/get-data.service'; @Component({ selector: 'app-root', templateUrl: './app.component.html', styleUrls: ['./app.component.scss'] }) export class AppComponent { loading = false; data: unknown; constructor(private _getData: GetDataService){ } showSpinner() { this.loading = true; } hideSpinner() { this.loading = false; } getData() { this.loading = true; this._getData.getData().subscribe(data = { this.loading = false; this.data = data; }); } } 完成以上程式後，在按下“取得資料“按鈕執行讀取後端 API 時畫面已可以正確的顯示資料讀取中的動畫圖示了。\n使用 Interceptor 來優化程式 接下來要透過 Angular Interceptor 來優化程式。上述程式碼在每支與後端API有互動的程式中都會重複出現，可以透過將相同邏輯統一放置在 Interceptor 中來優化整個系統。\n建立一個 Interceptor\n$ npx ng g interceptor interceptors/httpLoadingSpin CREATE src/app/interceptors/http-loading-spin.interceptor.spec.ts (472 bytes) CREATE src/app/interceptors/http-loading-spin.interceptor.ts (420 bytes) 將 ‘狀態’ 資訊放在另一支 Service 程式中\n$ npx ng g s services/loading CREATE src/app/services/loading.service.spec.ts (362 bytes) CREATE src/app/services/loading.service.ts (136 bytes) loading.service.ts 程式內容如下：\nimport { Injectable } from '@angular/core'; import { BehaviorSubject } from 'rxjs'; @Injectable({ providedIn: 'root' }) export class LoadingService { private _loading$ = new BehaviorSubjectboolean(false); loading$ = this._loading$.asObservable(); constructor() { } show() { this._loading$.next(true); } hide() { this._loading$.next(false); } } 在前面新建立的 Interceptor 程式修改如下：\nimport { Injectable } from '@angular/core'; import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor } from '@angular/common/http'; import { finalize, Observable } from 'rxjs'; import { LoadingService } from '../services/loading.service'; @Injectable() export class HttpLoadingSpinInterceptor implements HttpInterceptor { constructor(private loadingService: LoadingService) {} intercept(request: HttpRequest, next: HttpHandler): Observable { this.loadingService.show(); return next.handle(request).pipe( finalize(() = { this.loadingService.hide(); }) ); } } 並且記得要在 app.moudle.ts 註冊這個新建立的 interceptor\n... providers: [{ provide: HTTP_INTERCEPTORS, useClass: HttpLoadingSpinInterceptor, multi: true }], ... app.component.ts 這個 component class 程式改成使用新建立的 LoadingService\nimport { Component } from '@angular/core'; import { GetDataService } from './services/get-data.service'; import { LoadingService } from './services/loading.service'; @Component({ selector: 'app-root', templateUrl: './app.component.html', styleUrls: ['./app.component.scss'] }) export class AppComponent { // loading = false; loading$ = this.loadingService.loading$; data: unknown; constructor(private _getData: GetDataService , private loadingService: LoadingService){ } showSpinner() { // this.loading = true; this.loadingService.show(); } hideSpinner() { // this.loading = false; this.loadingService.hide(); } getData() { // this.loading = true; this._getData.getData().subscribe(data = { // this.loading = false; this.data = data; }); } } 樣本（app.component.html）中的 ngIf 判斷條件改使用 loading$，並搭配使用 async pipe\nmat-toolbar color=\"primary\" 使用 RxJS and HttpInterceptor 來實現 \"資料讀取中...\" 動畫效果的功能 mat-toolbar div class=\"content\" button mat-raised-button (click)=\"showSpinner()\"顯示button button mat-raised-button color=\"warn\" (click)=\"hideSpinner()\"隐蔵button button mat-raised-button color=\"primary\" (click)=\"getData()\"取得資料button div mat-spinner *ngIf=\"loading$ | async\"mat-spinner 以上是透過 interceptor 方式來優化我們的程式\n透過使用 RXJS Operator 再對程式進行優化 最後，將再進行更新一步的優化：\n 在按下“取得資料”按鈕後與取得資料前（即資料回傳完畢前）畫面上的所有按鈕（UI）都保持 disable 狀況，直到資料回傳完畢 如果“取得資料”的作業時間很短（如：小於等於1秒鐘），將不顯示“讀取中…“這個動畫效果  需求一 上述需求一可透過 CSS 來達成，首先將 app.component.html mat-spinner 程式碼調整如下\n -- ng-container *ngIf=\"loading$ | async\" div class=\"overlay\"div mat-spinnermat-spinner ng-container 其中的 overlay div 是用來遮敝在整個晝面上，來達到讀取完成前畫面是無回應的要求。\n.content { padding: 16px; } button { margin: 8px; } mat-spinner { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 5; } .overlay { top: 0; bottom: 0; left: 0; right: 0; position: absolute; z-index: 2; backdrop-filter: blur(2px); } 使用後的效果如下圖：\n需求二 第二個需求可以在 LoadingService 使用相關的 RXJS Operator 來達成：\n... // loading$ = this._loading$.asObservable();  loading$: Observableboolean = this._loading$.pipe( switchMap(isLoading = { if (!isLoading) { return of(false); } return of(true).pipe(delay(1000)); }) ) ... 下篇筆記將來記錄 如何使用 Interceptor 來設定 authentication/authorization token（身份認證）。\n","wordCount":"1022","inLanguage":"en","datePublished":"2023-01-31T00:00:00Z","dateModified":"2023-01-31T00:00:00Z","author":{"@type":"Person","name":"Theme PaperMod"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://calvinegs.github.io/posts/angular-intercoptor-loadingspinner/"},"publisher":{"@type":"Organization","name":"永誌不忘 • 筆記簿","logo":{"@type":"ImageObject","url":"https://calvinegs.github.io/img/favicon.png"}}}</script>
+</head>
+<body id=top>
+<script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
+<header class=header>
+<nav class=nav>
+<div class=logo>
+<a href=https://calvinegs.github.io/ accesskey=h title="永誌不忘 • 筆記簿 (Alt + H)">永誌不忘 • 筆記簿</a>
+<span class=logo-switches>
+<button id=theme-toggle accesskey=t title="(Alt + T)"><svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+</button>
+</span>
+</div>
+<ul id=menu>
+<li>
+<a href=https://calvinegs.github.io/posts/ title=Posts>
+<span>Posts</span>
+</a>
+</li>
+<li>
+<a href=https://calvinegs.github.io/archives/ title=Archive>
+<span>Archive</span>
+</a>
+</li>
+<li>
+<a href=https://calvinegs.github.io/categories/ title=Categories>
+<span>Categories</span>
+</a>
+</li>
+<li>
+<a href=https://calvinegs.github.io/tags/ title=Tags>
+<span>Tags</span>
+</a>
+</li>
+<li>
+<a href=https://calvinegs.github.io/search/ title="Search (Alt + /)" accesskey=/>
+<span>Search</span>
+</a>
+</li>
+</ul>
+</nav>
+</header>
+<main class=main>
+<article class=post-single>
+<header class=post-header>
+<div class=breadcrumbs><a href=https://calvinegs.github.io/>Home</a>&nbsp;»&nbsp;<a href=https://calvinegs.github.io/posts/>Posts</a></div>
+<h1 class=post-title>
+Angular Intercoptor 使用案例一：Loading Spinner
+</h1>
+<div class=post-description>
+使用 Interceptor 來完成一個當讀取後端資料時可在畫面上顯示一個“讀取中...“的動畫效果，讓使用者有良好的使用體驗
+</div>
+<div class=post-meta><span title="2023-01-31 00:00:00 +0000 UTC">January 31, 2023</span>&nbsp;·&nbsp;5 min&nbsp;·&nbsp;Theme PaperMod&nbsp;|&nbsp;<a href=https://github.com/adityatelange/hugo-PaperMod/tree/exampleSite/content/posts/angular-intercoptor-loadingSpinner.md rel="noopener noreferrer" target=_blank>Suggest Changes</a>
+</div>
+</header> <div class=toc>
+<details>
+<summary accesskey=c title="(Alt + C)">
+<span class=details>Table of Contents</span>
+</summary>
+<div class=inner><ul>
+<li>
+<a href=#%e5%bb%ba%e7%ab%8b-angular-%e5%b0%88%e6%a1%88%e6%9e%b6%e6%a7%8b aria-label="建立 Angular 專案架構">建立 Angular 專案架構</a></li>
+<li>
+<a href=#%e4%bd%bf%e7%94%a8-angularmaterial-component-%e4%be%86%e5%bb%ba%e7%ab%8b-ui aria-label="使用 @angular/material component 來建立 UI">使用 @angular/material component 來建立 UI</a></li>
+<li>
+<a href=#%e6%b8%ac%e8%a9%a6-mat-spinner-%e9%a1%af%e7%a4%ba%e6%95%88%e6%9e%9c aria-label="測試 mat-spinner 顯示效果">測試 mat-spinner 顯示效果</a></li>
+<li>
+<a href=#%e4%bd%bf%e7%94%a8-httpclient-%e8%ae%80%e5%8f%96%e5%be%8c%e7%ab%af%e8%b3%87%e6%96%99 aria-label="使用 HTTPClient 讀取後端資料">使用 HTTPClient 讀取後端資料</a></li>
+<li>
+<a href=#%e4%bd%bf%e7%94%a8-interceptor-%e4%be%86%e5%84%aa%e5%8c%96%e7%a8%8b%e5%bc%8f aria-label="使用 Interceptor 來優化程式">使用 Interceptor 來優化程式</a></li>
+<li>
+<a href=#%e9%80%8f%e9%81%8e%e4%bd%bf%e7%94%a8-rxjs-operator-%e5%86%8d%e5%b0%8d%e7%a8%8b%e5%bc%8f%e9%80%b2%e8%a1%8c%e5%84%aa%e5%8c%96 aria-label="透過使用 RXJS Operator 再對程式進行優化">透過使用 RXJS Operator 再對程式進行優化</a><ul>
+<li>
+<a href=#%e9%9c%80%e6%b1%82%e4%b8%80 aria-label=需求一>需求一</a></li>
+<li>
+<a href=#%e9%9c%80%e6%b1%82%e4%ba%8c aria-label=需求二>需求二</a>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</details>
+</div>
+<div class=post-content><p><em><a href=https://github.com/calvinegs/angular-interceptor-loadingSpinner.git>github Source code</a></em></p>
+<p>除非你和我一樣是個‘老傢伙’,使用過 Angular ver 4.3 以前的版本，否則你一定會遇到它 - interceptor(攔截器)。接下來將用幾篇筆記把各種使用 interceptor 情境的範例給記錄下來。</p>
+<p>Angular Interceptor 可以用來作什麼用途呢</p>
+<ul>
+<li>修改 HTTP Headers</li>
+<li>修改 HTTP request body</li>
+<li>設定 authentication/authorization token　（身份認證）</li>
+<li>模擬 backend api</li>
+<li>修改 HTTP response</li>
+<li>處理 HTTP 錯誤 (HTTP Error Handlin)</li>
+<li>顯示 Loading Spinner</li>
+<li>格式化 JSON Responses</li>
+<li>日誌記錄</li>
+</ul>
+<p>本篇筆記我們先來看看如何使用 Interceptor 來完成一個當你在讀取後端資料時可在畫面上顯示一個“正在讀取中&mldr;“的動畫效果，這可以讓使用者有良好的使用體驗。</p>
+<p>筆記最後要達的效果是，在按下“取得資料”按鈕時，由程式向後端 API 讀取資料，而在讀取完成前，畫面中的所有 UI (如：按鈕）都是呈現無作用的狀況，直到資料回傳完畢。同時如果“向後端 API 讀取資料”的作業時間小於一秒鐘，則不顯示 “讀取中&mldr;" 這個動畫效果。</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/215669141-ba667303-9a2b-4805-be0b-bb14d450d125.png alt=image>
+</p>
+<h2 id=建立-angular-專案架構>建立 Angular 專案架構<a hidden class=anchor aria-hidden=true href=#建立-angular-專案架構>#</a></h2>
+<p>使用 npm init @angular 語法來建立 Angular project</p>
+<pre tabindex=0><code class="language-bash{hl_lines=[1]}" data-lang="bash{hl_lines=[1]}">$ npm init @angular loadingSpin -- --routing --style=scss
+$ cd loadingSpin
+$ code .
+</code></pre><p>安裝 material component</p>
+<pre tabindex=0><code class="language-bash{linenos=table,hl_lines=[1]}" data-lang="bash{linenos=table,hl_lines=[1]}">$ npx ng add @angular/material
+
+ℹ Using package manager: npm
+✔ Found compatible package version: @angular/material@15.1.2.
+✔ Package information loaded.
+
+The package @angular/material@15.1.2 will be installed and executed.
+Would you like to proceed? Yes
+✔ Packages successfully installed.
+? Choose a prebuilt theme name, or &quot;custom&quot; for a custom theme: Indigo/Pink        [ Preview: 
+https://material.angular.io?theme=indigo-pink ]
+? Set up global Angular Material typography styles? No
+? Include the Angular animations module? Include and enable animations
+UPDATE package.json (1108 bytes)
+✔ Packages installed successfully.
+UPDATE src/app/app.module.ts (502 bytes)
+UPDATE angular.json (3077 bytes)
+UPDATE src/index.html (556 bytes)
+UPDATE src/styles.scss (181 bytes)
+</code></pre><h2 id=使用-angularmaterial-component-來建立-ui>使用 @angular/material component 來建立 UI<a hidden class=anchor aria-hidden=true href=#使用-angularmaterial-component-來建立-ui>#</a></h2>
+<p>在使用 material component 之前，先在 app.module 中 import 要使用的 UI component，如: Toolbar、Button、Progress Spinner等。</p>
+<pre tabindex=0><code class="language-ts{hl_lines=[8-10,19-21]}" data-lang="ts{hl_lines=[8-10,19-21]}"># app.module.ts
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatButtonModule } from '@angular/material/button';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+@NgModule({
+  declarations: [
+    AppComponent
+  ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatProgressSpinnerModule
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+</code></pre><p>在 app.component.html 中，建立一個表頭、二個按鈕、及放入 material spinner（用來顯示正在處理中的動畫圖示） 組件。</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html># app.component.html
+&lt;<span style=color:#f92672>mat-toolbar</span> <span style=color:#a6e22e>color</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;primary&#34;</span>&gt;
+  使用 RxJS and HttpInterceptor 來實現 &#34;資料讀取中...&#34; 動畫效果的功能
+&lt;/<span style=color:#f92672>mat-toolbar</span>&gt;
+&lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;content&#34;</span>&gt;
+  &lt;<span style=color:#f92672>button</span> <span style=color:#a6e22e>mat-raised-button</span> <span style=color:#960050;background-color:#1e0010>(</span><span style=color:#a6e22e>click</span><span style=color:#960050;background-color:#1e0010>)=&#34;</span><span style=color:#a6e22e>showSpinner</span><span style=color:#960050;background-color:#1e0010>()&#34;</span>&gt;顯示&lt;/<span style=color:#f92672>button</span>&gt;
+  &lt;<span style=color:#f92672>button</span> <span style=color:#a6e22e>mat-raised-button</span> <span style=color:#a6e22e>color</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;warn&#34;</span> <span style=color:#960050;background-color:#1e0010>(</span><span style=color:#a6e22e>click</span><span style=color:#960050;background-color:#1e0010>)=&#34;</span><span style=color:#a6e22e>hideSpinner</span><span style=color:#960050;background-color:#1e0010>()&#34;</span>&gt;隐蔵&lt;/<span style=color:#f92672>button</span>&gt;
+&lt;/<span style=color:#f92672>div</span>&gt;  
+
+&lt;<span style=color:#f92672>mat-spinner</span> <span style=color:#960050;background-color:#1e0010>*</span><span style=color:#a6e22e>ngIf</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;loading&#34;</span>&gt;&lt;/<span style=color:#f92672>mat-spinner</span>&gt;
+</code></pre></div><p>在 app.component.scss 中設定了畫面上按鈕排版位置。</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-css data-lang=css><span style=color:#960050;background-color:#1e0010>#</span> <span style=color:#f92672>app</span>.<span style=color:#a6e22e>component</span>.<span style=color:#a6e22e>scss</span>
+.<span style=color:#a6e22e>content</span> {
+    <span style=color:#66d9ef>padding</span>: <span style=color:#ae81ff>16</span><span style=color:#66d9ef>px</span>;
+}
+
+<span style=color:#f92672>button</span> {
+    <span style=color:#66d9ef>margin</span>: <span style=color:#ae81ff>8</span><span style=color:#66d9ef>px</span>;
+}
+</code></pre></div><p>在 app.component.ts component class 中宣告了一個 property: loading，用來控制畫面上 Spinner 的顯示與否。</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-ts data-lang=ts><span style=color:#960050;background-color:#1e0010>#</span> <span style=color:#a6e22e>app</span>.<span style=color:#a6e22e>component</span>.<span style=color:#a6e22e>ts</span>
+<span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>Component</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;@angular/core&#39;</span>;
+
+<span style=color:#66d9ef>@Component</span>({
+  <span style=color:#a6e22e>selector</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;app-root&#39;</span>,
+  <span style=color:#a6e22e>templateUrl</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;./app.component.html&#39;</span>,
+  <span style=color:#a6e22e>styleUrls</span><span style=color:#f92672>:</span> [<span style=color:#e6db74>&#39;./app.component.scss&#39;</span>]
+})
+<span style=color:#66d9ef>export</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>AppComponent</span> {
+  <span style=color:#a6e22e>loading</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>false</span>;
+
+  <span style=color:#a6e22e>showSpinner() {</span>
+    <span style=color:#66d9ef>this</span>.<span style=color:#a6e22e>loading</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>true</span>;
+  }
+
+  <span style=color:#a6e22e>hideSpinner() {</span>
+    <span style=color:#66d9ef>this</span>.<span style=color:#a6e22e>loading</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>false</span>;
+  }
+
+}
+</code></pre></div><h2 id=測試-mat-spinner-顯示效果>測試 mat-spinner 顯示效果<a hidden class=anchor aria-hidden=true href=#測試-mat-spinner-顯示效果>#</a></h2>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/215626226-f9966a4b-7acb-4369-b6be-1e58664a3e0d.png alt="2023-01-30 22-00-51 的螢幕擷圖">
+</p>
+<p>測試後，微調了一下 spinner 在畫面中的位置。</p>
+<p>app.component.scss 調整如下：</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-css data-lang=css><span style=color:#960050;background-color:#1e0010>#</span> <span style=color:#f92672>...</span>
+<span style=color:#960050;background-color:#1e0010>#</span> <span style=color:#f92672>加入以下設定</span><span style=color:#960050;background-color:#1e0010>：</span><span style=color:#f92672>調整顯示的位置</span>
+<span style=color:#f92672>mat-spinner</span> {
+    <span style=color:#66d9ef>position</span>: <span style=color:#66d9ef>absolute</span>;
+    <span style=color:#66d9ef>top</span>: <span style=color:#ae81ff>50</span><span style=color:#66d9ef>%</span>;
+    <span style=color:#66d9ef>left</span>: <span style=color:#ae81ff>50</span><span style=color:#66d9ef>%</span>;
+    <span style=color:#66d9ef>transform</span>: translate(<span style=color:#ae81ff>-50</span><span style=color:#66d9ef>%</span>, <span style=color:#ae81ff>-50</span><span style=color:#66d9ef>%</span>);
+    <span style=color:#66d9ef>z-index</span>: <span style=color:#ae81ff>5</span>;
+}
+</code></pre></div><p>調整後效果如下：</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/215627819-ba916314-a2e6-41b0-9d46-80b85e150a55.png alt="2023-01-30 22-02-31 的螢幕擷圖">
+</p>
+<h2 id=使用-httpclient-讀取後端資料>使用 HTTPClient 讀取後端資料<a hidden class=anchor aria-hidden=true href=#使用-httpclient-讀取後端資料>#</a></h2>
+<p>建立一個呼叫後端 Api 的 service</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$ npx ng g s services/getData
+</code></pre></div><pre tabindex=0><code class="language-ts{linenos=table,hl_lines=[1,9,12]}" data-lang="ts{linenos=table,hl_lines=[1,9,12]}"># services/get-data.service.ts
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class GetDataService {
+
+  constructor(private http: HttpClient) { }
+
+  getData() {
+    return this.http.get('https://jsonplaceholder.typicode.com/posts');
+  }
+}
+</code></pre><p>使用到了 HttpClient，所以要記得在 AppModule 中匯入 HttpClientModule</p>
+<pre tabindex=0><code class="language-ts{linenos=table,hl_lines=[12,24]}" data-lang="ts{linenos=table,hl_lines=[12,24]}"># app.module.ts
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatButtonModule } from '@angular/material/button';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+
+import { HttpClientModule } from '@angular/common/http';
+@NgModule({
+  declarations: [
+    AppComponent
+  ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatProgressSpinnerModule,
+    HttpClientModule
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+</code></pre><p>在 Template (app.component.html) 中加入一個“取得資料”的按鈕。</p>
+<pre tabindex=0><code class="language-html{linenos=table,hl_lines=[7]}" data-lang="html{linenos=table,hl_lines=[7]}">&lt;mat-toolbar color=&quot;primary&quot;&gt;
+  使用 RxJS and HttpInterceptor 來實現 &quot;資料讀取中...&quot; 動畫效果的功能
+&lt;/mat-toolbar&gt;
+&lt;div class=&quot;content&quot;&gt;
+  &lt;button mat-raised-button (click)=&quot;showSpinner()&quot;&gt;顯示&lt;/button&gt;
+  &lt;button mat-raised-button color=&quot;warn&quot; (click)=&quot;hideSpinner()&quot;&gt;隐蔵&lt;/button&gt;
+  &lt;button mat-raised-button color=&quot;primary&quot; (click)=&quot;getData()&quot;&gt;取得資料&lt;/button&gt;
+&lt;/div&gt;  
+
+&lt;mat-spinner *ngIf=&quot;loading&quot;&gt;&lt;/mat-spinner&gt;
+</code></pre><p>在 component class 中呼叫 Service 來向後端 API 讀取資料。</p>
+<pre tabindex=0><code class="language-ts{linenos=table,hl_lines=[11,13,22-28]}" data-lang="ts{linenos=table,hl_lines=[11,13,22-28]}">import { Component } from '@angular/core';
+import { GetDataService } from './services/get-data.service';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss']
+})
+export class AppComponent {
+  loading = false;
+  data: unknown;
+
+  constructor(private _getData: GetDataService){ }
+  showSpinner() {
+    this.loading = true;
+  }
+
+  hideSpinner() {
+    this.loading = false;
+  }
+
+  getData() {
+    this.loading = true;
+    this._getData.getData().subscribe(data =&gt; {
+      this.loading = false;
+      this.data = data;
+    });
+  }
+}
+</code></pre><p>完成以上程式後，在按下“取得資料“按鈕執行讀取後端 API 時畫面已可以正確的顯示資料讀取中的動畫圖示了。</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/215631441-858391b6-43ef-4df7-b569-4023f27c1d5f.png alt=image>
+</p>
+<h2 id=使用-interceptor-來優化程式>使用 Interceptor 來優化程式<a hidden class=anchor aria-hidden=true href=#使用-interceptor-來優化程式>#</a></h2>
+<p>接下來要透過 Angular Interceptor 來優化程式。上述程式碼在每支與後端API有互動的程式中都會重複出現，可以透過將相同邏輯統一放置在 Interceptor 中來優化整個系統。</p>
+<p>建立一個 Interceptor</p>
+<pre tabindex=0><code class="language-bash{linenos=table,hl_lines=[1]}" data-lang="bash{linenos=table,hl_lines=[1]}">$ npx ng g interceptor interceptors/httpLoadingSpin
+
+CREATE src/app/interceptors/http-loading-spin.interceptor.spec.ts (472 bytes)
+CREATE src/app/interceptors/http-loading-spin.interceptor.ts (420 bytes)
+</code></pre><p>將 &lsquo;狀態&rsquo; 資訊放在另一支 Service 程式中</p>
+<pre tabindex=0><code class="language-bash{linenos=table,hl_lines=[1]}" data-lang="bash{linenos=table,hl_lines=[1]}">$ npx ng g s services/loading
+
+CREATE src/app/services/loading.service.spec.ts (362 bytes)
+CREATE src/app/services/loading.service.ts (136 bytes)
+</code></pre><p>loading.service.ts 程式內容如下：</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-ts data-lang=ts><span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>Injectable</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;@angular/core&#39;</span>;
+<span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>BehaviorSubject</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;rxjs&#39;</span>;
+
+<span style=color:#66d9ef>@Injectable</span>({
+  <span style=color:#a6e22e>providedIn</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;root&#39;</span>
+})
+<span style=color:#66d9ef>export</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>LoadingService</span> {
+  <span style=color:#66d9ef>private</span> <span style=color:#a6e22e>_loading$</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> <span style=color:#a6e22e>BehaviorSubject</span>&lt;<span style=color:#f92672>boolean</span>&gt;(<span style=color:#66d9ef>false</span>);
+  <span style=color:#a6e22e>loading$</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>this</span>.<span style=color:#a6e22e>_loading$</span>.<span style=color:#a6e22e>asObservable</span>();
+
+  <span style=color:#66d9ef>constructor</span>() { }
+
+  <span style=color:#a6e22e>show() {</span>
+    <span style=color:#66d9ef>this</span>.<span style=color:#a6e22e>_loading$</span>.<span style=color:#a6e22e>next</span>(<span style=color:#66d9ef>true</span>);
+  }
+
+  <span style=color:#a6e22e>hide() {</span>
+    <span style=color:#66d9ef>this</span>.<span style=color:#a6e22e>_loading$</span>.<span style=color:#a6e22e>next</span>(<span style=color:#66d9ef>false</span>);
+  }
+}
+</code></pre></div><p>在前面新建立的 Interceptor 程式修改如下：</p>
+<pre tabindex=0><code class="language-ts{linenos=table,hl_lines=[9,14,17,21]}" data-lang="ts{linenos=table,hl_lines=[9,14,17,21]}">import { Injectable } from '@angular/core';
+import {
+  HttpRequest,
+  HttpHandler,
+  HttpEvent,
+  HttpInterceptor
+} from '@angular/common/http';
+import { finalize, Observable } from 'rxjs';
+import { LoadingService } from '../services/loading.service';
+
+@Injectable()
+export class HttpLoadingSpinInterceptor implements HttpInterceptor {
+
+  constructor(private loadingService: LoadingService) {}
+
+  intercept(request: HttpRequest&lt;unknown&gt;, next: HttpHandler): Observable&lt;HttpEvent&lt;unknown&gt;&gt; {
+    this.loadingService.show();
+
+    return next.handle(request).pipe(
+      finalize(() =&gt; {
+        this.loadingService.hide();
+      })
+    );
+  }
+}
+</code></pre><p>並且記得要在 app.moudle.ts 註冊這個新建立的 interceptor</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-ts data-lang=ts>...
+<span style=color:#a6e22e>providers</span><span style=color:#f92672>:</span> [{
+    <span style=color:#a6e22e>provide</span>: <span style=color:#66d9ef>HTTP_INTERCEPTORS</span>,
+    <span style=color:#a6e22e>useClass</span>: <span style=color:#66d9ef>HttpLoadingSpinInterceptor</span>,
+    <span style=color:#a6e22e>multi</span>: <span style=color:#66d9ef>true</span>
+  }],
+...
+</code></pre></div><p>app.component.ts 這個 component class 程式改成使用新建立的 LoadingService</p>
+<pre tabindex=0><code class="language-ts{linenos=table,hl_lines=[3,16,20,25]}" data-lang="ts{linenos=table,hl_lines=[3,16,20,25]}">import { Component } from '@angular/core';
+import { GetDataService } from './services/get-data.service';
+import { LoadingService } from './services/loading.service';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss']
+})
+export class AppComponent {
+  // loading = false;
+  loading$ = this.loadingService.loading$;
+  data: unknown;
+
+  constructor(private _getData: GetDataService
+    , private loadingService: LoadingService){ }
+  
+  showSpinner() {
+    // this.loading = true;
+    this.loadingService.show();
+  }
+
+  hideSpinner() {
+    // this.loading = false;
+    this.loadingService.hide();
+  }
+
+  getData() {
+    // this.loading = true;
+    this._getData.getData().subscribe(data =&gt; {
+      // this.loading = false;
+      this.data = data;
+    });
+  }
+}
+</code></pre><p>樣本（app.component.html）中的 ngIf 判斷條件改使用 loading$，並搭配使用 async pipe</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html>&lt;<span style=color:#f92672>mat-toolbar</span> <span style=color:#a6e22e>color</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;primary&#34;</span>&gt;
+  使用 RxJS and HttpInterceptor 來實現 &#34;資料讀取中...&#34; 動畫效果的功能
+&lt;/<span style=color:#f92672>mat-toolbar</span>&gt;
+&lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;content&#34;</span>&gt;
+  &lt;<span style=color:#f92672>button</span> <span style=color:#a6e22e>mat-raised-button</span> <span style=color:#960050;background-color:#1e0010>(</span><span style=color:#a6e22e>click</span><span style=color:#960050;background-color:#1e0010>)=&#34;</span><span style=color:#a6e22e>showSpinner</span><span style=color:#960050;background-color:#1e0010>()&#34;</span>&gt;顯示&lt;/<span style=color:#f92672>button</span>&gt;
+  &lt;<span style=color:#f92672>button</span> <span style=color:#a6e22e>mat-raised-button</span> <span style=color:#a6e22e>color</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;warn&#34;</span> <span style=color:#960050;background-color:#1e0010>(</span><span style=color:#a6e22e>click</span><span style=color:#960050;background-color:#1e0010>)=&#34;</span><span style=color:#a6e22e>hideSpinner</span><span style=color:#960050;background-color:#1e0010>()&#34;</span>&gt;隐蔵&lt;/<span style=color:#f92672>button</span>&gt;
+  &lt;<span style=color:#f92672>button</span> <span style=color:#a6e22e>mat-raised-button</span> <span style=color:#a6e22e>color</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;primary&#34;</span> <span style=color:#960050;background-color:#1e0010>(</span><span style=color:#a6e22e>click</span><span style=color:#960050;background-color:#1e0010>)=&#34;</span><span style=color:#a6e22e>getData</span><span style=color:#960050;background-color:#1e0010>()&#34;</span>&gt;取得資料&lt;/<span style=color:#f92672>button</span>&gt;
+&lt;/<span style=color:#f92672>div</span>&gt;  
+
+&lt;<span style=color:#f92672>mat-spinner</span> <span style=color:#960050;background-color:#1e0010>*</span><span style=color:#a6e22e>ngIf</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;loading$ | async&#34;</span>&gt;&lt;/<span style=color:#f92672>mat-spinner</span>&gt;
+</code></pre></div><p>以上是透過 interceptor 方式來優化我們的程式</p>
+<h2 id=透過使用-rxjs-operator-再對程式進行優化>透過使用 RXJS Operator 再對程式進行優化<a hidden class=anchor aria-hidden=true href=#透過使用-rxjs-operator-再對程式進行優化>#</a></h2>
+<p>最後，將再進行更新一步的優化：</p>
+<ul>
+<li>在按下“取得資料”按鈕後與取得資料前（即資料回傳完畢前）畫面上的所有按鈕（UI）都保持 disable 狀況，直到資料回傳完畢</li>
+<li>如果“取得資料”的作業時間很短（如：小於等於1秒鐘），將不顯示“讀取中&mldr;&ldquo;這個動畫效果</li>
+</ul>
+<h3 id=需求一>需求一<a hidden class=anchor aria-hidden=true href=#需求一>#</a></h3>
+<p>上述需求一可透過 CSS 來達成，首先將 app.component.html mat-spinner 程式碼調整如下</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html><span style=color:#75715e>&lt;!-- &lt;mat-spinner *ngIf=&#34;loading$ | async&#34;&gt;&lt;/mat-spinner&gt; --&gt;</span>
+&lt;<span style=color:#f92672>ng-container</span> <span style=color:#960050;background-color:#1e0010>*</span><span style=color:#a6e22e>ngIf</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;loading$ | async&#34;</span>&gt;
+    &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;overlay&#34;</span>&gt;&lt;/<span style=color:#f92672>div</span>&gt;
+    &lt;<span style=color:#f92672>mat-spinner</span>&gt;&lt;/<span style=color:#f92672>mat-spinner</span>&gt;
+&lt;/<span style=color:#f92672>ng-container</span>&gt;
+</code></pre></div><p>其中的 overlay div 是用來遮敝在整個晝面上，來達到讀取完成前畫面是無回應的要求。</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-css data-lang=css>.<span style=color:#a6e22e>content</span> {
+    <span style=color:#66d9ef>padding</span>: <span style=color:#ae81ff>16</span><span style=color:#66d9ef>px</span>;
+}
+
+<span style=color:#f92672>button</span> {
+    <span style=color:#66d9ef>margin</span>: <span style=color:#ae81ff>8</span><span style=color:#66d9ef>px</span>;
+}
+
+<span style=color:#f92672>mat-spinner</span> {
+    <span style=color:#66d9ef>position</span>: <span style=color:#66d9ef>absolute</span>;
+    <span style=color:#66d9ef>top</span>: <span style=color:#ae81ff>50</span><span style=color:#66d9ef>%</span>;
+    <span style=color:#66d9ef>left</span>: <span style=color:#ae81ff>50</span><span style=color:#66d9ef>%</span>;
+    <span style=color:#66d9ef>transform</span>: translate(<span style=color:#ae81ff>-50</span><span style=color:#66d9ef>%</span>, <span style=color:#ae81ff>-50</span><span style=color:#66d9ef>%</span>);
+    <span style=color:#66d9ef>z-index</span>: <span style=color:#ae81ff>5</span>;
+}
+
+.<span style=color:#a6e22e>overlay</span> {
+    <span style=color:#66d9ef>top</span>: <span style=color:#ae81ff>0</span>;
+    <span style=color:#66d9ef>bottom</span>: <span style=color:#ae81ff>0</span>;
+    <span style=color:#66d9ef>left</span>: <span style=color:#ae81ff>0</span>;
+    <span style=color:#66d9ef>right</span>: <span style=color:#ae81ff>0</span>;
+    <span style=color:#66d9ef>position</span>: <span style=color:#66d9ef>absolute</span>;
+    <span style=color:#66d9ef>z-index</span>: <span style=color:#ae81ff>2</span>;
+    backdrop-filter: blur(<span style=color:#ae81ff>2</span><span style=color:#66d9ef>px</span>);
+}
+</code></pre></div><p>使用後的效果如下圖：</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/215666807-55128a8c-3a6e-45b0-a341-f8c2fed42da9.png alt="2023-01-31 12-38-25 的螢幕擷圖">
+</p>
+<h3 id=需求二>需求二<a hidden class=anchor aria-hidden=true href=#需求二>#</a></h3>
+<p>第二個需求可以在 LoadingService 使用相關的 RXJS Operator 來達成：</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-ts data-lang=ts>...
+
+  <span style=color:#75715e>// loading$ = this._loading$.asObservable();
+</span><span style=color:#75715e></span>  <span style=color:#a6e22e>loading$</span>: <span style=color:#66d9ef>Observable</span>&lt;<span style=color:#f92672>boolean</span>&gt; <span style=color:#f92672>=</span> <span style=color:#66d9ef>this</span>.<span style=color:#a6e22e>_loading$</span>.<span style=color:#a6e22e>pipe</span>(
+    <span style=color:#a6e22e>switchMap</span>(<span style=color:#a6e22e>isLoading</span> <span style=color:#f92672>=&gt;</span> {
+      <span style=color:#66d9ef>if</span> (<span style=color:#f92672>!</span><span style=color:#a6e22e>isLoading</span>) {
+        <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>of</span>(<span style=color:#66d9ef>false</span>);
+      }
+      <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>of</span>(<span style=color:#66d9ef>true</span>).<span style=color:#a6e22e>pipe</span>(<span style=color:#a6e22e>delay</span>(<span style=color:#ae81ff>1000</span>));
+    })
+  )
+  
+  ...
+</code></pre></div><p>下篇筆記將來記錄 如何使用 Interceptor 來設定 authentication/authorization token（身份認證）。</p>
+</div>
+<footer class=post-footer>
+<ul class=post-tags>
+<li><a href=https://calvinegs.github.io/tags/angular/>angular</a></li>
+<li><a href=https://calvinegs.github.io/tags/webapi/>webapi</a></li>
+<li><a href=https://calvinegs.github.io/tags/interceptor/>interceptor</a></li>
+<li><a href=https://calvinegs.github.io/tags/httpclient/>httpclient</a></li>
+<li><a href=https://calvinegs.github.io/tags/css/>css</a></li>
+<li><a href=https://calvinegs.github.io/tags/rxjs/>rxjs</a></li>
+</ul>
+<nav class=paginav>
+<a class=next href=https://calvinegs.github.io/posts/nvm-angular15/>
+<span class=title>Next Page »</span>
+<br>
+<span>在 ubuntu 22.04 中建立一支 Angular 15 Web App</span>
+</a>
+</nav>
+<div class=share-buttons>
+<a target=_blank rel="noopener noreferrer" aria-label="share Angular Intercoptor 使用案例一：Loading Spinner on twitter" href="https://twitter.com/intent/tweet/?text=Angular%20Intercoptor%20%e4%bd%bf%e7%94%a8%e6%a1%88%e4%be%8b%e4%b8%80%ef%bc%9aLoading%20Spinner&url=https%3a%2f%2fcalvinegs.github.io%2fposts%2fangular-intercoptor-loadingspinner%2f&hashtags=angular%2cwebapi%2cinterceptor%2chttpclient%2ccss%2crxjs"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zM195.519 424.544c135.939.0 210.268-112.643 210.268-210.268.0-3.218.0-6.437-.153-9.502 14.406-10.421 26.973-23.448 36.935-38.314-13.18 5.824-27.433 9.809-42.452 11.648 15.326-9.196 26.973-23.602 32.49-40.92-14.252 8.429-30.038 14.56-46.896 17.931-13.487-14.406-32.644-23.295-53.946-23.295-40.767.0-73.87 33.104-73.87 73.87.0 5.824.613 11.494 1.992 16.858-61.456-3.065-115.862-32.49-152.337-77.241-6.284 10.881-9.962 23.601-9.962 37.088.0 25.594 13.027 48.276 32.95 61.456-12.107-.307-23.448-3.678-33.41-9.196v.92c0 35.862 25.441 65.594 59.311 72.49-6.13 1.686-12.72 2.606-19.464 2.606-4.751.0-9.348-.46-13.946-1.38 9.349 29.426 36.628 50.728 68.965 51.341-25.287 19.771-57.164 31.571-91.8 31.571-5.977.0-11.801-.306-17.625-1.073 32.337 21.15 71.264 33.41 112.95 33.41z"/></svg>
+</a>
+<a target=_blank rel="noopener noreferrer" aria-label="share Angular Intercoptor 使用案例一：Loading Spinner on linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2fcalvinegs.github.io%2fposts%2fangular-intercoptor-loadingspinner%2f&title=Angular%20Intercoptor%20%e4%bd%bf%e7%94%a8%e6%a1%88%e4%be%8b%e4%b8%80%ef%bc%9aLoading%20Spinner&summary=Angular%20Intercoptor%20%e4%bd%bf%e7%94%a8%e6%a1%88%e4%be%8b%e4%b8%80%ef%bc%9aLoading%20Spinner&source=https%3a%2f%2fcalvinegs.github.io%2fposts%2fangular-intercoptor-loadingspinner%2f"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zM160.461 423.278V197.561h-75.04v225.717h75.04zm270.539.0V293.839c0-69.333-37.018-101.586-86.381-101.586-39.804.0-57.634 21.891-67.617 37.266v-31.958h-75.021c.995 21.181.0 225.717.0 225.717h75.02V297.222c0-6.748.486-13.492 2.474-18.315 5.414-13.475 17.767-27.434 38.494-27.434 27.135.0 38.007 20.707 38.007 51.037v120.768H431zM123.448 88.722C97.774 88.722 81 105.601 81 127.724c0 21.658 16.264 39.002 41.455 39.002h.484c26.165.0 42.452-17.344 42.452-39.002-.485-22.092-16.241-38.954-41.943-39.002z"/></svg>
+</a>
+<a target=_blank rel="noopener noreferrer" aria-label="share Angular Intercoptor 使用案例一：Loading Spinner on reddit" href="https://reddit.com/submit?url=https%3a%2f%2fcalvinegs.github.io%2fposts%2fangular-intercoptor-loadingspinner%2f&title=Angular%20Intercoptor%20%e4%bd%bf%e7%94%a8%e6%a1%88%e4%be%8b%e4%b8%80%ef%bc%9aLoading%20Spinner"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zM446 265.638c0-22.964-18.616-41.58-41.58-41.58-11.211.0-21.361 4.457-28.841 11.666-28.424-20.508-67.586-33.757-111.204-35.278l18.941-89.121 61.884 13.157c.756 15.734 13.642 28.29 29.56 28.29 16.407.0 29.706-13.299 29.706-29.701.0-16.403-13.299-29.702-29.706-29.702-11.666.0-21.657 6.792-26.515 16.578l-69.105-14.69c-1.922-.418-3.939-.042-5.585 1.036-1.658 1.073-2.811 2.761-3.224 4.686l-21.152 99.438c-44.258 1.228-84.046 14.494-112.837 35.232-7.468-7.164-17.589-11.591-28.757-11.591-22.965.0-41.585 18.616-41.585 41.58.0 16.896 10.095 31.41 24.568 37.918-.639 4.135-.99 8.328-.99 12.576.0 63.977 74.469 115.836 166.33 115.836s166.334-51.859 166.334-115.836c0-4.218-.347-8.387-.977-12.493 14.564-6.47 24.735-21.034 24.735-38.001zM326.526 373.831c-20.27 20.241-59.115 21.816-70.534 21.816-11.428.0-50.277-1.575-70.522-21.82-3.007-3.008-3.007-7.882.0-10.889 3.003-2.999 7.882-3.003 10.885.0 12.777 12.781 40.11 17.317 59.637 17.317 19.522.0 46.86-4.536 59.657-17.321 3.016-2.999 7.886-2.995 10.885.008 3.008 3.011 3.003 7.882-.008 10.889zm-5.23-48.781c-16.373.0-29.701-13.324-29.701-29.698.0-16.381 13.328-29.714 29.701-29.714 16.378.0 29.706 13.333 29.706 29.714.0 16.374-13.328 29.698-29.706 29.698zM160.91 295.348c0-16.381 13.328-29.71 29.714-29.71 16.369.0 29.689 13.329 29.689 29.71.0 16.373-13.32 29.693-29.689 29.693-16.386.0-29.714-13.32-29.714-29.693z"/></svg>
+</a>
+<a target=_blank rel="noopener noreferrer" aria-label="share Angular Intercoptor 使用案例一：Loading Spinner on facebook" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fcalvinegs.github.io%2fposts%2fangular-intercoptor-loadingspinner%2f"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H342.978V319.085h66.6l12.672-82.621h-79.272v-53.617c0-22.603 11.073-44.636 46.58-44.636H425.6v-70.34s-32.71-5.582-63.982-5.582c-65.288.0-107.96 39.569-107.96 111.204v62.971h-72.573v82.621h72.573V512h-191.104c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892z"/></svg>
+</a>
+<a target=_blank rel="noopener noreferrer" aria-label="share Angular Intercoptor 使用案例一：Loading Spinner on whatsapp" href="https://api.whatsapp.com/send?text=Angular%20Intercoptor%20%e4%bd%bf%e7%94%a8%e6%a1%88%e4%be%8b%e4%b8%80%ef%bc%9aLoading%20Spinner%20-%20https%3a%2f%2fcalvinegs.github.io%2fposts%2fangular-intercoptor-loadingspinner%2f"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zm-58.673 127.703c-33.842-33.881-78.847-52.548-126.798-52.568-98.799.0-179.21 80.405-179.249 179.234-.013 31.593 8.241 62.428 23.927 89.612l-25.429 92.884 95.021-24.925c26.181 14.28 55.659 21.807 85.658 21.816h.074c98.789.0 179.206-80.413 179.247-179.243.018-47.895-18.61-92.93-52.451-126.81zM263.976 403.485h-.06c-26.734-.01-52.954-7.193-75.828-20.767l-5.441-3.229-56.386 14.792 15.05-54.977-3.542-5.637c-14.913-23.72-22.791-51.136-22.779-79.287.033-82.142 66.867-148.971 149.046-148.971 39.793.014 77.199 15.531 105.329 43.692 28.128 28.16 43.609 65.592 43.594 105.4-.034 82.149-66.866 148.983-148.983 148.984zm81.721-111.581c-4.479-2.242-26.499-13.075-30.604-14.571-4.105-1.495-7.091-2.241-10.077 2.241-2.986 4.483-11.569 14.572-14.182 17.562-2.612 2.988-5.225 3.364-9.703 1.12-4.479-2.241-18.91-6.97-36.017-22.23C231.8 264.15 222.81 249.484 220.198 245s-.279-6.908 1.963-9.14c2.016-2.007 4.48-5.232 6.719-7.847 2.24-2.615 2.986-4.484 4.479-7.472 1.493-2.99.747-5.604-.374-7.846-1.119-2.241-10.077-24.288-13.809-33.256-3.635-8.733-7.327-7.55-10.077-7.688-2.609-.13-5.598-.158-8.583-.158-2.986.0-7.839 1.121-11.944 5.604-4.105 4.484-15.675 15.32-15.675 37.364.0 22.046 16.048 43.342 18.287 46.332 2.24 2.99 31.582 48.227 76.511 67.627 10.685 4.615 19.028 7.371 25.533 9.434 10.728 3.41 20.492 2.929 28.209 1.775 8.605-1.285 26.499-10.833 30.231-21.295 3.732-10.464 3.732-19.431 2.612-21.298-1.119-1.869-4.105-2.99-8.583-5.232z"/></svg>
+</a>
+<a target=_blank rel="noopener noreferrer" aria-label="share Angular Intercoptor 使用案例一：Loading Spinner on telegram" href="https://telegram.me/share/url?text=Angular%20Intercoptor%20%e4%bd%bf%e7%94%a8%e6%a1%88%e4%be%8b%e4%b8%80%ef%bc%9aLoading%20Spinner&url=https%3a%2f%2fcalvinegs.github.io%2fposts%2fangular-intercoptor-loadingspinner%2f"><svg viewBox="2 2 28 28"><path d="M26.49 29.86H5.5a3.37 3.37.0 01-2.47-1 3.35 3.35.0 01-1-2.47V5.48A3.36 3.36.0 013 3 3.37 3.37.0 015.5 2h21A3.38 3.38.0 0129 3a3.36 3.36.0 011 2.46V26.37a3.35 3.35.0 01-1 2.47 3.38 3.38.0 01-2.51 1.02zm-5.38-6.71a.79.79.0 00.85-.66L24.73 9.24a.55.55.0 00-.18-.46.62.62.0 00-.41-.17q-.08.0-16.53 6.11a.59.59.0 00-.41.59.57.57.0 00.43.52l4 1.24 1.61 4.83a.62.62.0 00.63.43.56.56.0 00.4-.17L16.54 20l4.09 3A.9.9.0 0021.11 23.15zM13.8 20.71l-1.21-4q8.72-5.55 8.78-5.55c.15.0.23.0.23.16a.18.18.0 010 .06s-2.51 2.3-7.52 6.8z"/></svg>
+</a>
+</div>
+</footer>
+<div>
+<div id=disqus_thread></div>
+<script type=text/javascript>(function(){var a,b;if(window.location.hostname=="localhost")return;a=document.createElement('script'),a.type='text/javascript',a.async=!0,b='calvinegs-github-io',a.src='//'+b+'.disqus.com/embed.js',(document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild(a)})()</script>
+<noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript>
+<a href=https://disqus.com/ class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a>
+</div>
+</article>
+</main>
+<footer class=footer>
+<span>&copy; 2023 <a href=https://calvinegs.github.io/>永誌不忘 • 筆記簿</a></span>
+<span>
+Powered by
+<a href=https://gohugo.io/ rel="noopener noreferrer" target=_blank>Hugo</a> &
+        <a href=https://git.io/hugopapermod rel=noopener target=_blank>PaperMod</a>
+</span>
+</footer>
+<a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentcolor"><path d="M12 6H0l6-6z"/></svg>
+</a>
+<script>let menu=document.getElementById('menu');menu&&(menu.scrollLeft=localStorage.getItem("menu-scroll-position"),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}),document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener("click",function(b){b.preventDefault();var a=this.getAttribute("href").substr(1);window.matchMedia('(prefers-reduced-motion: reduce)').matches?document.querySelector(`[id='${decodeURIComponent(a)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(a)}']`).scrollIntoView({behavior:"smooth"}),a==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${a}`)})})</script>
+<script>var mybutton=document.getElementById("top-link");window.onscroll=function(){document.body.scrollTop>800||document.documentElement.scrollTop>800?(mybutton.style.visibility="visible",mybutton.style.opacity="1"):(mybutton.style.visibility="hidden",mybutton.style.opacity="0")}</script>
+<script>document.getElementById("theme-toggle").addEventListener("click",()=>{document.body.className.includes("dark")?(document.body.classList.remove('dark'),localStorage.setItem("pref-theme",'light')):(document.body.classList.add('dark'),localStorage.setItem("pref-theme",'dark'))})</script>
+<script>document.querySelectorAll('pre > code').forEach(b=>{const c=b.parentNode.parentNode,a=document.createElement('button');a.classList.add('copy-code'),a.innerText='copy';function d(){a.innerText='copied!',setTimeout(()=>{a.innerText='copy'},2e3)}a.addEventListener('click',e=>{if('clipboard'in navigator){navigator.clipboard.writeText(b.textContent),d();return}const a=document.createRange();a.selectNodeContents(b);const c=window.getSelection();c.removeAllRanges(),c.addRange(a);try{document.execCommand('copy'),d()}catch(a){}c.removeRange(a)}),c.classList.contains("highlight")?c.appendChild(a):c.parentNode.firstChild==c||(b.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName=="TABLE"?b.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(a):b.parentNode.appendChild(a))})</script>
+</body>
+</html>

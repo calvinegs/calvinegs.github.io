@@ -76,6 +76,23 @@
 </header>
 <article class="post-entry tag-entry">
 <header class=entry-header>
+<h2>Angular Intercoptor 使用案例一：Loading Spinner
+</h2>
+</header>
+<section class=entry-content>
+<p>github Source code
+除非你和我一樣是個‘老傢伙’,使用過 Angular ver 4.3 以前的版本，否則你一定會遇到它 - interceptor(攔截器)。接下來將用幾篇筆記把各種使用 interceptor 情境的範例給記錄下來。
+Angular Interceptor 可以用來作什麼用途呢
+修改 HTTP Headers 修改 HTTP request body 設定 authentication/authorization token　（身份認證） 模擬 backend api 修改 HTTP response 處理 HTTP 錯誤 (HTTP Error Handlin) 顯示 Loading Spinner 格式化 JSON Responses 日誌記錄 本篇筆記我們先來看看如何使用 Interceptor 來完成一個當你在讀取後端資料時可在畫面上顯示一個“正在讀取中…“的動畫效果，這可以讓使用者有良好的使用體驗。
+筆記最後要達的效果是，在按下“取得資料”按鈕時，由程式向後端 API 讀取資料，而在讀取完成前，畫面中的所有 UI (如：按鈕）都是呈現無作用的狀況，直到資料回傳完畢。同時如果“向後端 API 讀取資料”的作業時間小於一秒鐘，則不顯示 “讀取中…" 這個動畫效果。
+建立 Angular 專案架構 使用 npm init @angular 語法來建立 Angular project
+$ npm init @angular loadingSpin -- --routing --style=scss $ cd loadingSpin $ code ....</p>
+</section>
+<footer class=entry-footer><span title="2023-01-31 00:00:00 +0000 UTC">January 31, 2023</span>&nbsp;·&nbsp;5 min&nbsp;·&nbsp;Theme PaperMod</footer>
+<a class=entry-link aria-label="post link to Angular Intercoptor 使用案例一：Loading Spinner" href=https://calvinegs.github.io/posts/angular-intercoptor-loadingspinner/></a>
+</article>
+<article class="post-entry tag-entry">
+<header class=entry-header>
 <h2>使用 Node.js + express + MariaDB 建立一個後端服務 REST API
 </h2>
 </header>
@@ -126,19 +143,6 @@ NodeJs 17.6.0 Express 4.17.1 cors 2.8.5 crypto-js 4.1.1 # 加解密套件 jsonwe
 </section>
 <footer class=entry-footer><span title="2022-06-02 00:00:00 +0000 UTC">June 2, 2022</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;Theme PaperMod</footer>
 <a class=entry-link aria-label="post link to 使用 .NET 6.0 進行 JWT 身份驗證的 ASP.NET Web Api。並使用 Microsoft Identity 框架來存儲使用者和角色等資料（使用 PostgresSQL）" href=https://calvinegs.github.io/posts/dotnet6-webapi-jwt-postgres/></a>
-</article>
-<article class="post-entry tag-entry">
-<header class=entry-header>
-<h2>使用 .NET 6.0 進行 JWT 身份驗證的 ASP.NET Web Api。並使用 Microsoft Identity 框架來存儲使用者和角色等資料
-</h2>
-</header>
-<section class=entry-content>
-<p>github Source code
-本文將記錄如何一步步從無到有使用 Dotnet Core 6.0 建立 ASP.NET Core Web API，其中將會使用到下列技術:
-Dotnet CLI Entity Framework Json Web Token SQL Server (Docker Version) ASP.NET Core Generator 專案完成後的檔案結構 ./專案目錄 ├── .config/ │ └── dotnet-tools.json ├── .vscode/ │ ├── launch.js │ └── tasks.json ├── Controller/ │ ├── AuthenticateController.cs │ ├── TodoController.cs │ └── WeatherForecast.cs ├── Data/ │ └── ApiDbContext.cs ├── Migrations/ ├── Models/ │ ├── AuthenticateData.cs │ └── ItemData.cs ├── obj/ ├── Properties/ │ └── launchSettings....</p>
-</section>
-<footer class=entry-footer><span title="2022-05-20 00:00:00 +0000 UTC">May 20, 2022</span>&nbsp;·&nbsp;12 min&nbsp;·&nbsp;Theme PaperMod</footer>
-<a class=entry-link aria-label="post link to 使用 .NET 6.0 進行 JWT 身份驗證的 ASP.NET Web Api。並使用 Microsoft Identity 框架來存儲使用者和角色等資料" href=https://calvinegs.github.io/posts/dotnet6-webapi-jwt/></a>
 </article>
 <footer class=page-footer>
 <nav class=pagination>

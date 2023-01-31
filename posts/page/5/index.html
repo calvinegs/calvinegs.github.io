@@ -77,6 +77,18 @@
 </header>
 <article class=post-entry>
 <header class=entry-header>
+<h2>Run SQL Server container images with Docker
+</h2>
+</header>
+<section class=entry-content>
+<p>如何在 Ubuntu 中使用 Docker 啟動 MS SQL Server 2019 參考資料：　https://docs.microsoft.com/en-us/sql/linux/quickstart-install-connect-docker?view=sql-server-ver15&pivots=cs1-bash
+首先當然在你的作業系統中必須先安裝好 Docker 下載　SQL Server Image file $ sudo docker pull mcr.microsoft.com/mssql/server:2019-latest $ docker images REPOSITORY TAG IMAGE ID CREATED SIZE mcr.microsoft.com/mssql/server 2019-latest f554c0722914 4 weeks ago 1.64GB 使用 Docker 把 SQL Server image file 啟動 $ docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=Sql@1234" \ -p 1433:1433 --name sql1 -h sql1 \ -v sqlvolume:/var/opt/mssql \ # 將資料映射到 local 的 volume 上 -d mcr....</p>
+</section>
+<footer class=entry-footer><span title="2022-05-19 00:00:00 +0000 UTC">May 19, 2022</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;Theme PaperMod</footer>
+<a class=entry-link aria-label="post link to Run SQL Server container images with Docker" href=https://calvinegs.github.io/posts/sqlserver2019-docker/></a>
+</article>
+<article class=post-entry>
+<header class=entry-header>
 <h2>使用 ASP.NET Core 6 提供的 Minimal APIs 新框架建置一個極簡的 Web API 服務
 </h2>
 </header>
@@ -127,17 +139,6 @@ rest 的範例 // 將使用者提供的某些值放入陣列中 function myBio(f
 </section>
 <footer class=entry-footer><span title="2022-04-12 00:00:00 +0000 UTC">April 12, 2022</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;Theme PaperMod</footer>
 <a class=entry-link aria-label="post link to 透過範例了解 Javascript Rest ＆ Spread 運算符有何不同" href=https://calvinegs.github.io/posts/rest-spread-js/></a>
-</article>
-<article class=post-entry>
-<header class=entry-header>
-<h2>透過範例了解 Javascript Destructuring (解構指定值)
-</h2>
-</header>
-<section class=entry-content>
-<p>物件解構 指定值給已存在的變數 const superHero = { name : "Spiderman", power : "Spider Sense", color : "red" }; const { name, power, color } = superHero; console.log("name:", name); // Spiderman console.log("color:", color); // red console.log("power:", power); // Spider Sense 重新指定值的用法 const superMan = { name : "Superman", power : "Super Sense", color : "blue" }; ({ name, power, color } = superMan); console.log("name:", name); console.log("color:", color); console.log("power:", power); 指定值給新的變數 const superHero = { name : "Spiderman", power : "Spider Sense", color : "red" }; const { name : n, power : p, color : c } = superHero; console....</p>
-</section>
-<footer class=entry-footer><span title="2022-04-11 00:00:00 +0000 UTC">April 11, 2022</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;Theme PaperMod</footer>
-<a class=entry-link aria-label="post link to 透過範例了解 Javascript Destructuring (解構指定值)" href=https://calvinegs.github.io/posts/destructuring-js/></a>
 </article>
 <footer class=page-footer>
 <nav class=pagination>
