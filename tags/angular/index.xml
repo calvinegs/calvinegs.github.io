@@ -17,7 +17,7 @@
       <pubDate>Tue, 31 Jan 2023 00:00:00 +0000</pubDate>
       
       <guid>https://calvinegs.github.io/posts/angular-intercoptor-loadingspinner/</guid>
-      <description>使用 Interceptor 來完成一個當讀取後端資料時可在畫面上顯示一個“讀取中...“的動畫效果，讓使用者有良好的使用體驗</description>
+      <description>使用 Interceptor 來完成當程式讀取後端資料時於畫面上顯示 “讀取中...“ 動畫效果的等待畫面，讓使用者有良好的使用體驗</description>
     </item>
     
     <item>
