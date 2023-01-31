@@ -2,13 +2,13 @@
 title: "Angular Intercoptor 使用案例一：Loading Spinner"
 date: 2023-01-31
 draft: false
-description: "使用 Interceptor 來完成一個當讀取後端資料時可在畫面上顯示一個“讀取中...“的動畫效果，讓使用者有良好的使用體驗"
+description: "使用 Interceptor 來完成當程式讀取後端資料時於畫面上顯示 “讀取中...“ 動畫效果的等待畫面，讓使用者有良好的使用體驗"
 tags: ["angular", "webapi", "interceptor", "httpclient", "css", "rxjs"]
 categories: ["angular"]
 ---
 *[github Source code](https://github.com/calvinegs/angular-interceptor-loadingSpinner.git)*
 
-除非你和我一樣是個‘老傢伙’,使用過 Angular ver 4.3 以前的版本，否則你一定會遇到它 - interceptor(攔截器)。接下來將用幾篇筆記把各種使用 interceptor 情境的範例給記錄下來。
+除非你和我一樣是個‘老傢伙’，使用過 Angular ver 4.3 以前的版本，否則你一定會遇到它 - interceptor(攔截器)。接下來將用幾篇筆記把各種使用 interceptor 情境的範例給記錄下來。
 
 Angular Interceptor 可以用來作什麼用途呢
  - 修改 HTTP Headers
@@ -22,11 +22,11 @@ Angular Interceptor 可以用來作什麼用途呢
  - 日誌記錄 
 
 
-本篇筆記我們先來看看如何使用 Interceptor 來完成一個當你在讀取後端資料時可在畫面上顯示一個“正在讀取中...“的動畫效果，這可以讓使用者有良好的使用體驗。
+首先先來看看如何使用 Interceptor 來完成一個當你在讀取後端資料時可在畫面上顯示一個“正在讀取中...“的動畫效果，這可以讓使用者有良好的使用體驗。
 
 筆記最後要達的效果是，在按下“取得資料”按鈕時，由程式向後端 API 讀取資料，而在讀取完成前，畫面中的所有 UI (如：按鈕）都是呈現無作用的狀況，直到資料回傳完畢。同時如果“向後端 API 讀取資料”的作業時間小於一秒鐘，則不顯示 “讀取中..." 這個動畫效果。
 
-![image](https://user-images.githubusercontent.com/21993717/215669141-ba667303-9a2b-4805-be0b-bb14d450d125.png)
+![image](https://user-images.githubusercontent.com/21993717/215711964-9771e53a-3dc6-4cc5-9d23-4ae3e225152b.png)
 
 
 ## 建立 Angular 專案架構
@@ -417,7 +417,7 @@ export class AppComponent {
 }
 ```
 
-樣本（app.component.html）中的 ngIf 判斷條件改使用 loading$，並搭配使用 async pipe
+template（app.component.html）中的 ngIf 判斷條件改使用 loading$，並搭配使用 async pipe
 
 ```html
 <mat-toolbar color="primary">
@@ -432,7 +432,7 @@ export class AppComponent {
 <mat-spinner *ngIf="loading$ | async"></mat-spinner>
 ```
 
-以上是透過 interceptor 方式來優化我們的程式
+以上是透過 interceptor 方式來優化程式。
 
 
 ## 透過使用 RXJS Operator 再對程式進行優化
@@ -484,8 +484,7 @@ mat-spinner {
 
 使用後的效果如下圖：
 
-![2023-01-31 12-38-25 的螢幕擷圖](https://user-images.githubusercontent.com/21993717/215666807-55128a8c-3a6e-45b0-a341-f8c2fed42da9.png)
-
+![image](https://user-images.githubusercontent.com/21993717/215712330-654d853d-097f-45de-8a43-1ef8d0da26f0.png)
 ### 需求二
 
 第二個需求可以在 LoadingService 使用相關的 RXJS Operator 來達成：
