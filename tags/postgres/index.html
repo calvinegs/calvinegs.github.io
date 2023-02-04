@@ -94,9 +94,9 @@ NodeJs 17.6.0 Express 4.17.1 cors 2.8.5 crypto-js 4.1.1 # 加解密套件 jsonwe
 </header>
 <section class=entry-content>
 <p>github Source code
-在之前的筆記中 使用 .NET 6.0 進行 JWT 身份驗證的 ASP.NET Web Api。並使用 Microsoft Identity 框架來存儲使用者和角色等資料 已仔細的紀錄如何使用 .Net 6.0 來建置一個支援 JWT ＆ Identity framework 的 WebApi 網站應用程式，在該篇筆記中所使用的資料庫是 MS SQL 2019，而這篇筆記裡將紀錄如何將它改成支援 PostgresSQL。
+在之前的筆記中 使用 .NET 6.0 進行 JWT 身份驗證的 ASP.NET Web Api 已仔細的紀錄如何使用 .Net 6.0 來建置一個支援 JWT ＆ Identity framework 的 WebApi 網站應用程式，在該篇筆記中所使用的資料庫是 MS SQL 2019，而這篇筆記裡將紀錄如何將它改成支援 PostgresSQL。
 若你還沒有安裝 PostgresSQL 可以參考這筆記先將資料庫管理系統備妥 使用 Docker 執行 PostgresSQL 與 pgAdmin
-專案完成後的檔案結構 ./專案目錄 ├── .config/ │ └── dotnet-tools.json ├── .vscode/ │ ├── launch.js │ └── tasks.json ├── Controller/ │ ├── AuthenticateController.cs │ ├── TodoController.cs │ └── WeatherForecast.cs ├── Data/ │ └── ApiDbContext....</p>
+專案完成後的檔案結構 ./專案目錄 ├── .config/ │ └── dotnet-tools.json ├── .vscode/ │ ├── launch.js │ └── tasks.json ├── Controller/ │ ├── AuthenticateController.cs │ ├── TodoController.cs │ └── WeatherForecast.cs ├── Data/ │ └── ApiDbContext.cs ├── Migrations/ ├── Models/ │ ├── AuthenticateData....</p>
 </section>
 <footer class=entry-footer><span title="2022-06-02 00:00:00 +0000 UTC">June 2, 2022</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;Theme PaperMod</footer>
 <a class=entry-link aria-label="post link to 使用 .NET 6.0 進行 JWT 身份驗證的 ASP.NET Web Api。並使用 Microsoft Identity 框架來存儲使用者和角色等資料（使用 PostgresSQL）" href=https://calvinegs.github.io/posts/dotnet6-webapi-jwt-postgres/></a>
