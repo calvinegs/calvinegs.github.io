@@ -2,6 +2,36 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://calvinegs.github.io/categories/</loc>
+    <lastmod>2023-02-08T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://calvinegs.github.io/categories/database/</loc>
+    <lastmod>2023-02-08T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://calvinegs.github.io/tags/docker/</loc>
+    <lastmod>2023-02-08T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://calvinegs.github.io/tags/docker-compose/</loc>
+    <lastmod>2023-02-08T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://calvinegs.github.io/tags/mongodb/</loc>
+    <lastmod>2023-02-08T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://calvinegs.github.io/tags/mongodb-compass/</loc>
+    <lastmod>2023-02-08T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://calvinegs.github.io/posts/</loc>
+    <lastmod>2023-02-08T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://calvinegs.github.io/tags/</loc>
+    <lastmod>2023-02-08T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://calvinegs.github.io/posts/docker-mongodb/</loc>
+    <lastmod>2023-02-08T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://calvinegs.github.io/</loc>
+    <lastmod>2023-02-08T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://calvinegs.github.io/tags/angular/</loc>
     <lastmod>2023-01-31T00:00:00+00:00</lastmod>
   </url><url>
@@ -9,9 +39,6 @@
     <lastmod>2023-01-31T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://calvinegs.github.io/posts/angular-intercoptor-loadingspinner/</loc>
-    <lastmod>2023-01-31T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://calvinegs.github.io/categories/</loc>
     <lastmod>2023-01-31T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://calvinegs.github.io/tags/css/</loc>
@@ -23,19 +50,10 @@
     <loc>https://calvinegs.github.io/tags/interceptor/</loc>
     <lastmod>2023-01-31T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://calvinegs.github.io/posts/</loc>
-    <lastmod>2023-01-31T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://calvinegs.github.io/tags/rxjs/</loc>
     <lastmod>2023-01-31T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://calvinegs.github.io/tags/</loc>
-    <lastmod>2023-01-31T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://calvinegs.github.io/tags/webapi/</loc>
-    <lastmod>2023-01-31T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://calvinegs.github.io/</loc>
     <lastmod>2023-01-31T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://calvinegs.github.io/tags/node.js/</loc>
@@ -155,15 +173,6 @@
     <loc>https://calvinegs.github.io/posts/nodejs-restapi-mariadb/</loc>
     <lastmod>2022-07-08T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://calvinegs.github.io/categories/database/</loc>
-    <lastmod>2022-07-07T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://calvinegs.github.io/tags/docker/</loc>
-    <lastmod>2022-07-07T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://calvinegs.github.io/tags/docker-compose/</loc>
-    <lastmod>2022-07-07T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://calvinegs.github.io/tags/ubuntu/</loc>
     <lastmod>2022-07-07T00:00:00+00:00</lastmod>
   </url><url>
@@ -238,9 +247,6 @@
   </url><url>
     <loc>https://calvinegs.github.io/posts/snowpack-typescript/</loc>
     <lastmod>2022-05-01T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://calvinegs.github.io/tags/mongodb/</loc>
-    <lastmod>2022-04-25T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://calvinegs.github.io/posts/nodejs-restapi-example/</loc>
     <lastmod>2022-04-25T00:00:00+00:00</lastmod>

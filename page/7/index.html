@@ -74,6 +74,19 @@
 <main class=main>
 <article class=post-entry>
 <header class=entry-header>
+<h2>ASP.NET Core 6 Web API 使用 Dapper ORM 連結 Oracle
+</h2>
+</header>
+<section class=entry-content>
+<p>github Source code #tag: dapper_oracle
+當已有現存的資料庫(此以 Oracle 為例)並且存在有歷史資料，或與其他系統共用資料庫，在這前題下，通常無法隨意的去更改資料庫結構，這時若要採用 Entity Framework 架構就容易遇到資料庫結構正規化的問題。另一種情境是，舊系統使用了非常的SQL語法，要將這些邏輯"翻譯"成合理的 Entity Framework 架構有技術上或時間上的限制時，就會考慮使用 Dapper 這個輕量的 ORM 搭配上 SQL 語法。
+使用 dotnet cli 建立專案 $ dotnet new webapi -o OracleDapperRepository && cd OracleDapperRepository $ dotnet build $ dotnet run $ dotnet new gitignore $ git init && git add . && git commit -m "Initial commit" 安裝相依套件 $ dotnet add package Dapper --2.0.123 # 加入 Dapper package $ dotnet add package Oracle....</p>
+</section>
+<footer class=entry-footer><span title="2022-01-28 00:00:00 +0000 UTC">January 28, 2022</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;Theme PaperMod</footer>
+<a class=entry-link aria-label="post link to ASP.NET Core 6 Web API 使用 Dapper ORM 連結 Oracle" href=https://calvinegs.github.io/posts/dotnet6-webapi-oracle-dapper/></a>
+</article>
+<article class=post-entry>
+<header class=entry-header>
 <h2>VS Code 中常用快捷鍵
 </h2>
 </header>
@@ -124,21 +137,6 @@ Dotnet cli Entity Framework Sqlite ASP.NET Core Generator 使用 dotnet cli 建�
 </section>
 <footer class=entry-footer><span title="2022-01-11 00:00:00 +0000 UTC">January 11, 2022</span>&nbsp;·&nbsp;4 min&nbsp;·&nbsp;Theme PaperMod</footer>
 <a class=entry-link aria-label="post link to ASP.NET Core 5 Web API - 從無到有" href=https://calvinegs.github.io/posts/dotnet5-webapi/></a>
-</article>
-<article class=post-entry>
-<header class=entry-header>
-<h2>使用 nvs 來管理不同版本 Node.js 執行環境
-</h2>
-</header>
-<section class=entry-content>
-<p>Angular 的版本更新迭代的相當快 (所有的前端開於工具都有相同的情形)，安裝及使用 Angular Cli 時必須在有 Node.js 的環境下才能進行。
-當你在同一台電腦中使用不同版本的 Angular 時就容易在安裝相關套件時遇到警語，原因常是因為 Angular 與 Node.js 版本搭配的關係。
-至於為何有同時使用不同版本的 Angular 呢? 除了開發的專案沒有全部都一起升級至統一版本(這是一件複雜的事)的因素外，個人最常遇到的狀況是: 當在網上(github)找到很棒的 Demo / Sample 程式，在 git clone 回電腦後發現它的版本是舊版本 Angular 所撰寫，使用 npm install 安裝相關套件時，出現警告訊息，甚至無法安裝成功。
-為了要管理同一台電腦中存在著有不同版 Node.js，讓你很容易在各版本中自由的進行切換 (甚至在進入不同目錄時自動切換對應的 Node.js 版本)，你需要 Node.js 版本管理工具，如: NVM 或 NVS，在這個筆記中要記錄的是 NVS。
-安裝 nvs F:\> choco list nvs #先查看是否已安裝了 nvs F:\> choco install nvs #安裝 nvs F:\> nvs --version #查看是否安裝成功，並顯示 nvs 版本 註：安裝完成後若遇到在 cmd 中可正常執行，但在Windows PowerShell 無法使用時，可使用‘系統管理員’身份開啟 Posershell，並執行 PS>Set-ExecutionPolicy RemoteSigned 應可解決這個問題。...</p>
-</section>
-<footer class=entry-footer><span title="2021-12-12 00:00:00 +0000 UTC">December 12, 2021</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;Theme PaperMod</footer>
-<a class=entry-link aria-label="post link to 使用 nvs 來管理不同版本 Node.js 執行環境" href=https://calvinegs.github.io/posts/nvs-using/></a>
 </article>
 <footer class=page-footer>
 <nav class=pagination>
