@@ -1,5 +1,5 @@
 ---
-title: "使用 Docker 執行 PostgresSQL 與 pgAdmin"
+title: "使用 Docker 執行 MongoDb"
 date: 2023-02-08
 description: "在開發的環境中我們常會需要搭配資料庫，而常見的資料庫管理系統種類、版本繁多，如果直接安裝在 local 端作業系統中，可能會造成開發環境混亂，其中採 Docker 方式來安裝測試用資料庫的方式是一個不錯的解決方案"
 tags: ["mongodb", "mongodb compass", "docker", "docker compose"]
