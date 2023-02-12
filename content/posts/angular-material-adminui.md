@@ -703,7 +703,7 @@ export class ShareMaterialModule { }
           <mat-icon>wb_sunny</mat-icon>
         </div>
       </ng-template>
-      <mat-slide-toggle [(ngModel)]="isDarkTheme" labelPosition="before" >
+      <mat-slide-toggle [(ngModel)]="isDarkTheme"  (change)="storeThemeSelection()">
       </mat-slide-toggle>    
     </mat-toolbar>
     <!-- Add Content Here -->
