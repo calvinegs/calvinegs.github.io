@@ -1,0 +1,759 @@
+<!doctype html><html lang=en dir=auto>
+<head><meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no">
+<meta name=robots content="index, follow">
+<title>使用 Angular Material 建立一個簡易的 Admin Template | 永誌不忘 • 筆記簿</title>
+<meta name=keywords content="angular,material,admin template">
+<meta name=description content="在這個範例中可以看到使用 Angular 搭配 angular material 所建立的簡易版的｀admin template｀">
+<meta name=author content="Theme PaperMod">
+<link rel=canonical href=https://calvinegs.github.io/posts/angular-material-adminui/>
+<link crossorigin=anonymous href=/assets/css/stylesheet.min.c88963fe2d79462000fd0fb1b3737783c32855d340583e4523343f8735c787f0.css integrity="sha256-yIlj/i15RiAA/Q+xs3N3g8MoVdNAWD5FIzQ/hzXHh/A=" rel="preload stylesheet" as=style>
+<script defer crossorigin=anonymous src=/assets/js/highlight.min.7680afc38aa6b15ddf158a4f3780b7b1f7dde7e91d26f073e6229bb7a0793c92.js integrity="sha256-doCvw4qmsV3fFYpPN4C3sffd5+kdJvBz5iKbt6B5PJI=" onload=hljs.initHighlightingOnLoad()></script>
+<link rel=icon href=https://calvinegs.github.io/img/favicon.png>
+<link rel=icon type=image/png sizes=16x16 href=https://calvinegs.github.io/favicon-16x16.png>
+<link rel=icon type=image/png sizes=32x32 href=https://calvinegs.github.io/favicon-32x32.png>
+<link rel=apple-touch-icon href=https://calvinegs.github.io/apple-touch-icon.png>
+<link rel=mask-icon href=https://calvinegs.github.io/safari-pinned-tab.svg>
+<meta name=theme-color content="#2e2e33">
+<meta name=msapplication-TileColor content="#2e2e33">
+<meta name=generator content="Hugo 0.91.2">
+<noscript>
+<style>#theme-toggle,.top-link{display:none}</style>
+<style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--hljs-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style>
+</noscript><meta property="og:title" content="使用 Angular Material 建立一個簡易的 Admin Template">
+<meta property="og:description" content="在這個範例中可以看到使用 Angular 搭配 angular material 所建立的簡易版的｀admin template｀">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://calvinegs.github.io/posts/angular-material-adminui/"><meta property="og:image" content="https://calvinegs.github.io/papermod-cover.png"><meta property="article:section" content="posts">
+<meta property="article:published_time" content="2023-02-12T00:00:00+00:00">
+<meta property="article:modified_time" content="2023-02-12T00:00:00+00:00">
+<meta name=twitter:card content="summary_large_image">
+<meta name=twitter:image content="https://calvinegs.github.io/papermod-cover.png">
+<meta name=twitter:title content="使用 Angular Material 建立一個簡易的 Admin Template">
+<meta name=twitter:description content="在這個範例中可以看到使用 Angular 搭配 angular material 所建立的簡易版的｀admin template｀">
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Posts","item":"https://calvinegs.github.io/posts/"},{"@type":"ListItem","position":2,"name":"使用 Angular Material 建立一個簡易的 Admin Template","item":"https://calvinegs.github.io/posts/angular-material-adminui/"}]}</script>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"使用 Angular Material 建立一個簡易的 Admin Template","name":"使用 Angular Material 建立一個簡易的 Admin Template","description":"在這個範例中可以看到使用 Angular 搭配 angular material 所建立的簡易版的｀admin template｀","keywords":["angular","material","admin template"],"articleBody":"github Source code\n使用 Angular Material 建立一個簡易的 Admin Template Angular 是一個標準的 SPA App framework，今天要記錄的是使用 angular material 來建立一個 SPA App 的範本，除了介紹 Material 相關的功能外，完成的這個簡易型 admin template 剛好可以用來引申後續 angular 筆記範例中的㮒準介面(UI).\n檢視環境 在開發環境中必須有 NodeJs\n$ node -v v18.12.1 angular cli 則只需安裝在 Local 目錄中即可 ng version\n$ ng version Command 'ng' not found, but can be installed with: sudo apt install ng-common 建立 Angular 專案 透過 npm init @angular 語法即可在不必安裝 angular cli 前題下來建立一個 angular project。\n下述語法中的  替換成實際的專案名稱（如：adminTemplate)\n$ npm init @angular -- --routing --style=scss \u0026\u0026 cd CREATE adminTest/README.md (1063 bytes) CREATE adminTest/.editorconfig (274 bytes) CREATE adminTest/.gitignore (548 bytes) CREATE adminTest/angular.json (2934 bytes) CREATE adminTest/package.json (1041 bytes) CREATE adminTest/tsconfig.json (901 bytes) CREATE adminTest/tsconfig.app.json (263 bytes) CREATE adminTest/tsconfig.spec.json (273 bytes) CREATE adminTest/.vscode/extensions.json (130 bytes) CREATE adminTest/.vscode/launch.json (474 bytes) CREATE adminTest/.vscode/tasks.json (938 bytes) CREATE adminTest/src/favicon.ico (948 bytes) CREATE adminTest/src/index.html (295 bytes) CREATE adminTest/src/main.ts (214 bytes) CREATE adminTest/src/styles.scss (80 bytes) CREATE adminTest/src/assets/.gitkeep (0 bytes) CREATE adminTest/src/app/app-routing.module.ts (245 bytes) CREATE adminTest/src/app/app.module.ts (393 bytes) CREATE adminTest/src/app/app.component.scss (0 bytes) CREATE adminTest/src/app/app.component.html (23115 bytes) CREATE adminTest/src/app/app.component.spec.ts (1082 bytes) CREATE adminTest/src/app/app.component.ts (214 bytes) ✔ Packages installed successfully. Successfully initialized git. 建立成功後可使用 npx ng version 來檢視專案中使用的 angular cli 版本。\n$ npx ng version _ _ ____ _ ___ / \\  _ __ __ _ _ _| | __ _ _ __ / ___| | |_ _| / △ \\ | '_ \\ / _` | | | | |/ _` | '__| | | | | | | / ___ \\| | | | (_| | |_| | | (_| | | | |___| |___ | | /_/ \\_\\_| |_|\\__, |\\__,_|_|\\__,_|_| \\____|_____|___| |___/ Angular CLI: 15.0.5 Node: 18.12.1 Package Manager: npm 8.19.2 OS: linux x64 Angular: 15.1.4 ... animations, common, compiler, compiler-cli, core, forms ... platform-browser, platform-browser-dynamic, router Package Version --------------------------------------------------------- @angular-devkit/architect 0.1501.5 @angular-devkit/build-angular 15.1.5 @angular-devkit/core 15.1.5 @angular-devkit/schematics 15.0.5 @angular/cli 15.0.5 @schematics/angular 15.0.5 rxjs 7.5.7 typescript 4.8.4 安裝 Angular Material 使用 ng add @angular/material 指令來為專案設置要使用 Material ui component 的相關環境。(安裝 Angular Material、Component Dev Kit (CDK) 和 Angular Animations 及引用字型…等)\n$ npx ng add @angular/material ℹ Using package manager: npm ✔ Found compatible package version: @angular/material@15.1.4. ✔ Package information loaded. The package @angular/material@15.1.4 will be installed and executed. Would you like to proceed? Yes ✔ Packages successfully installed. ? Choose a prebuilt theme name, or \"custom\" for a custom theme: Custom ? Set up global Angular Material typography styles? Yes ? Include the Angular animations module? Include and enable animations UPDATE package.json (1111 bytes) ✔ Packages installed successfully. CREATE src/custom-theme.scss (1479 bytes) UPDATE src/app/app.module.ts (502 bytes) UPDATE angular.json (2819 bytes) UPDATE src/index.html (581 bytes) UPDATE src/styles.css (181 bytes) 加入 git 新版本\n$ git add . \u0026\u0026 git commit -m \"Add Material to project\" 建立一個專屬的 module file 為使專案管理方便，先建立一個 material 專屬的 module file.\n$ npx ng g m ./shared/shareMaterial --flat 由上述 angular cli 所産生的 share-material.module.ts 檔案\nimport { NgModule } from '@angular/core'; import { CommonModule } from '@angular/common'; @NgModule({ declarations: [], imports: [ CommonModule ] }) export class ShareMaterialModuleModule { } 使用 material 所附加的 schematics 來建立 admin template ui 下述語法中的參數 --module ./shared/share-material，為的是將新産生的 material navigation compoent 産生在 share-material module 中。\n$ npx ng g @angular/material:navigation navigation --module ./shared/share-material 註：除上述的 @angular/material:navigation 外，還有：\n address-form dashboard table tree  使用 @angular/material:navigation schematics 除了産生 navigation component 外，也會自動在 module file (share-material.module.ts) 中自動引中必需的 module\nimport { NgModule } from '@angular/core'; import { CommonModule } from '@angular/common'; import { NavigationComponent } from '../navigation/navigation.component'; import { LayoutModule } from '@angular/cdk/layout'; import { MatToolbarModule } from '@angular/material/toolbar'; import { MatButtonModule } from '@angular/material/button'; import { MatSidenavModule } from '@angular/material/sidenav'; import { MatIconModule } from '@angular/material/icon'; import { MatListModule } from '@angular/material/list'; import { MatSlideToggleModule } from '@angular/material/slide-toggle'; import { FormsModule } from '@angular/forms'; @NgModule({ declarations: [ NavigationComponent ], imports: [ CommonModule, FormsModule, LayoutModule, MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule, MatSlideToggleModule ], exports: [ NavigationComponent ] }) export class ShareMaterialModule { } 把 ShareMaterialModule 匯入到 app.module.ts 檔案中 為了在專案其他地方(如：AppComponent中）使用 NavidationComponent，不要忘記在 app.module.ts 中引入 ShareMaterialModule module。\n# app.module.ts import { NgModule } from '@angular/core'; import { BrowserModule } from '@angular/platform-browser'; import { AppRoutingModule } from './app-routing.module'; import { AppComponent } from './app.component'; import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; import { ShareMaterialModule } from './shared/share-material.module'; @NgModule({ declarations: [ AppComponent, ], imports: [ BrowserModule, AppRoutingModule, BrowserAnimationsModule, ShareMaterialModule ], providers: [], bootstrap: [AppComponent] }) export class AppModule { } 把 NavigationComponent export 出去 同時為了在 AppComponent 中使用 NavigationComponent，也別忘了把 NavidationComponent export 出去。\nshare-material.module.ts:\nimport { NgModule } from '@angular/core'; import { CommonModule } from '@angular/common'; import { NavigationComponent } from '../navigation/navigation.component'; import { LayoutModule } from '@angular/cdk/layout'; import { MatToolbarModule } from '@angular/material/toolbar'; import { MatButtonModule } from '@angular/material/button'; import { MatSidenavModule } from '@angular/material/sidenav'; import { MatIconModule } from '@angular/material/icon'; import { MatListModule } from '@angular/material/list'; @NgModule({ declarations: [ NavigationComponent ], imports: [ CommonModule, LayoutModule, MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule, ], exports: [ NavigationComponent ] }) export class ShareMaterialModule { } 修改 app.component.html 將內容刪除,並將 app-navigation selector 放進 app.component.html\napp-navigationapp-navigation 執行測試 使用 $ npm start 來查看一下結果。\n新增 Dark Theme (暗黑主題) 到目前為止，已經産生了一個陽春版的 admin template 了，接下來來豐富一下這個樣本的其他功能-新增一個｀暗黑主題｀。\n在 styles.scss 新增 Dark theme 相關設定 ... // for Dark Mode $adminTemplate-primary-dark: mat.define-palette(mat.$purple-palette); $adminTemplate-accent-dark: mat.define-palette(mat.$green-palette, A200, A100, A400); $adminTemplate-warn-dark: mat.define-palette(mat.$red-palette); $adminTemplate-theme-dark: mat.define-dark-theme(( color: ( primary: $adminTemplate-primary-dark, accent: $adminTemplate-accent-dark, warn: $adminTemplate-warn-dark, ) )); .dark-theme-mode { @include mat.all-component-themes($adminTemplate-theme-dark); } 完成 CSS 中加入 Dark Theme 的設置後，先在 navigation.component.ts 中新增一個變數: isDarkTheme 用來記錄是否切換到 Dark 主題。\nnavigation.component.html 中的相關設置 並在 navigation.component.html 中透過 ngClass 語法加入設置好的 dark theme。\nmat-sidenav-container class=\"sidenav-container mat-app-background\" [ngClass]=\"{'dark-theme-mode':isDarkTheme}\" 接著繼續在 html 中加入一個可切換的開關 component: mat-slide-toggle 並透過 ngModel 綁定到 isDarkTheme 變數\nmat-slide-toggle [(ngModel)]=\"isDarkTheme\"mat-slide-toggle share-material.module.ts 要匯入相關 module 要使用 mat-slide-toggle component 必須在 module file 中 import MatSlideToggleModule\n# share-material.module.ts ... import { MatSlideToggleModule } from '@angular/material/slide-toggle'; ... imports:[ ... MatSlideToggleModule ], ... 由於使用到了 [(ngModel)]，所以必須在 module file 中 import FormsModule\n# share-material.module.ts ... import { FormsModule } from '@angular/forms'; ... imports:[ ... FormsModule ], ... 完成後的 navigation.component.html\nmat-sidenav-container class=\"sidenav-container mat-app-background\" [ngClass]=\"{'dark-theme-mode':isDarkTheme}\" mat-sidenav #drawer class=\"sidenav\" fixedInViewport [attr.role]=\"(isHandset$ | async) ? 'dialog' : 'navigation'\" [mode]=\"(isHandset$ | async) ? 'over' : 'side'\" [opened]=\"(isHandset$ | async) === false\" mat-toolbarMenumat-toolbar mat-nav-list a mat-list-item href=\"#\"Link 1a a mat-list-item href=\"#\"Link 2a a mat-list-item href=\"#\"Link 3a mat-nav-list mat-sidenav mat-sidenav-content mat-toolbar color=\"primary\" button type=\"button\" aria-label=\"Toggle sidenav\" mat-icon-button (click)=\"drawer.toggle()\" *ngIf=\"isHandset$ | async\" mat-icon aria-label=\"Side nav toggle icon\"menumat-icon button spanadminTestspan mat-slide-toggle [(ngModel)]=\"isDarkTheme\"mat-slide-toggle mat-toolbar  mat-sidenav-content mat-sidenav-container 完成後的 navigation.component.ts\nimport { Component } from '@angular/core'; import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout'; import { Observable } from 'rxjs'; import { map, shareReplay } from 'rxjs/operators'; @Component({ selector: 'app-navigation', templateUrl: './navigation.component.html', styleUrls: ['./navigation.component.scss'] }) export class NavigationComponent { isDarkTheme= false; isHandset$: Observableboolean = this.breakpointObserver.observe(Breakpoints.Handset) .pipe( map(result = result.matches), shareReplay() ); constructor(private breakpointObserver: BreakpointObserver) {} } 完成後的 share-material.module.ts\nimport { NgModule } from '@angular/core'; import { CommonModule } from '@angular/common'; import { NavigationComponent } from '../navigation/navigation.component'; import { LayoutModule } from '@angular/cdk/layout'; import { MatToolbarModule } from '@angular/material/toolbar'; import { MatButtonModule } from '@angular/material/button'; import { MatSidenavModule } from '@angular/material/sidenav'; import { MatIconModule } from '@angular/material/icon'; import { MatListModule } from '@angular/material/list'; import { MatSlideToggleModule } from '@angular/material/slide-toggle'; import { FormsModule } from '@angular/forms'; @NgModule({ declarations: [ NavigationComponent ], imports: [ CommonModule, FormsModule, LayoutModule, MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule, MatSlideToggleModule ], exports: [ NavigationComponent ] }) export class ShareMaterialModule { } 測試結果 執行 $ npm start 來看一下結果\n程式已經可以透過開關來切換不同的主題。\n優化 UI 接著，將 UI 再優化一下，把開關移至畫面右側，並於開關前面顯示一個圖示，分別表示套用了不同的主題。\nspan class=\"ext-space\"span div *ngIf=\"this.isDarkTheme; else LightTheme\" mat-iconbedtimemat-icon div ng-template #LightTheme div *ngIf=\"!this.isDarkTheme\" mat-iconwb_sunnymat-icon div ng-template mat-slide-toggle [(ngModel)]=\"isDarkTheme\" mat-slide-toggle 在 navigation.component.scss 加入下列的設定，為的是將 slide-toggle 元件顯示在畫面右側\n... .ext-space { flex: 1 0 auto; } 看結果發現畫面已符合預期：\n將開關切換的狀態記錄下來 當在瀏覽器上按下 F5 時會發現套用 Dark Theme 不會被程式記著，開關又回復到原有的狀態。繼續調整程式把切換結果記錄到 localstorage 中。\nmat-slide-toggle [(ngModel)]=\"isDarkTheme\" (change)=\"storeThemeSelection()\" 在 navigation.component.ts 加入相關程式碼\nimport { Component } from '@angular/core'; import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout'; import { Observable } from 'rxjs'; import { map, shareReplay } from 'rxjs/operators'; @Component({ selector: 'app-navigation', templateUrl: './navigation.component.html', styleUrls: ['./navigation.component.scss'] }) export class NavigationComponent { isDarkTheme = false; isHandset$: Observable = this.breakpointObserver.observe(Breakpoints.Handset) .pipe( map(result = result.matches), shareReplay() ); constructor(private breakpointObserver: BreakpointObserver) {} ngOnInit() { this.isDarkTheme = localStorage.getItem('theme') === \"Dark\" ? true : false; } storeThemeSelection() { localStorage.setItem('theme', this.isDarkTheme ? \"Dark\" : \"Light\"); } } 再次測試發現開關切換的結果會被記錄下來了。admin template 至此已算完成。下面來看看如何使用這個樣本範例。\n使用 admin template 建立新組件 Components 使用 angular cli 來産生一個新元件：$ npx ng g c components/flexbox\n設置 routes 在 app-routing.module.ts 中加入 routes 相關設定\nconst routes: Routes = [{ path: 'flexbox', component: FlexboxComponent }]; 在 html 中加入 router-outlet 在 navigation.component.html 中加入 router-outlet\nmat-sidenav-container class=\"sidenav-container mat-app-background\" [ngClass]=\"{'dark-theme-mode':isDarkTheme}\" mat-sidenav #drawer class=\"sidenav\" fixedInViewport [attr.role]=\"(isHandset$ | async) ? 'dialog' : 'navigation'\" [mode]=\"(isHandset$ | async) ? 'over' : 'side'\" [opened]=\"(isHandset$ | async) === false\" mat-toolbarMenumat-toolbar mat-nav-list a mat-list-item href=\"#\"Link 1a a mat-list-item href=\"#\"Link 2a a mat-list-item href=\"#\"Link 3a mat-nav-list mat-sidenav mat-sidenav-content mat-toolbar color=\"primary\" button type=\"button\" aria-label=\"Toggle sidenav\" mat-icon-button (click)=\"drawer.toggle()\" *ngIf=\"isHandset$ | async\" mat-icon aria-label=\"Side nav toggle icon\"menumat-icon button spanadminTestspan span class=\"ext-space\"span div *ngIf=\"this.isDarkTheme; else LightTheme\" mat-iconbedtimemat-icon div ng-template #LightTheme div *ngIf=\"!this.isDarkTheme\" mat-iconwb_sunnymat-icon div ng-template mat-slide-toggle [(ngModel)]=\"isDarkTheme\" labelPosition=\"before\"  mat-slide-toggle mat-toolbar  router-outletrouter-outlet mat-sidenav-content mat-sidenav-container 匯入 RouterModule Module 由於在 html 中加入 router-outlet，所以必須在 share-material.module.ts 中匯入 RouterModule Module\nimport { NgModule } from '@angular/core'; import { CommonModule } from '@angular/common'; import { NavigationComponent } from '../navigation/navigation.component'; import { LayoutModule } from '@angular/cdk/layout'; import { MatToolbarModule } from '@angular/material/toolbar'; import { MatButtonModule } from '@angular/material/button'; import { MatSidenavModule } from '@angular/material/sidenav'; import { MatIconModule } from '@angular/material/icon'; import { MatListModule } from '@angular/material/list'; import { MatSlideToggleModule } from '@angular/material/slide-toggle'; import { FormsModule } from '@angular/forms'; import { RouterModule } from '@angular/router'; @NgModule({ declarations: [ NavigationComponent ], imports: [ CommonModule, FormsModule, LayoutModule, MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule, MatSlideToggleModule, RouterModule ], exports: [ NavigationComponent ] }) export class ShareMaterialModule { } 測試 routes 是否設定正確, 直接在瀏覽器輸入 localhost:4200/flexbox\n結果顯示 routes 設置無誤，接下去來完成 route-link 的設置。\nroute-link 設置 在 navigation.component.html file 中加入 route-link 到 list 上: flex box\nmat-sidenav-container class=\"sidenav-container mat-app-background\" [ngClass]=\"{'dark-theme-mode':isDarkTheme}\" mat-sidenav #drawer class=\"sidenav\" fixedInViewport [attr.role]=\"(isHandset$ | async) ? 'dialog' : 'navigation'\" [mode]=\"(isHandset$ | async) ? 'over' : 'side'\" [opened]=\"(isHandset$ | async) === false\" mat-toolbar功能列mat-toolbar mat-nav-list a mat-list-item routerLink=\"/flexbox\"flex boxa a mat-list-item href=\"#\"Link 2a a mat-list-item href=\"#\"Link 3a mat-nav-list mat-sidenav mat-sidenav-content mat-toolbar color=\"primary\" button type=\"button\" aria-label=\"Toggle sidenav\" mat-icon-button (click)=\"drawer.toggle()\" *ngIf=\"isHandset$ | async\" mat-icon aria-label=\"Side nav toggle icon\"menumat-icon button span簡易的 admin templatespan span class=\"ext-space\"span div *ngIf=\"this.isDarkTheme; else LightTheme\" mat-iconbedtimemat-icon div ng-template #LightTheme div *ngIf=\"!this.isDarkTheme\" mat-iconwb_sunnymat-icon div ng-template mat-slide-toggle [(ngModel)]=\"isDarkTheme\" labelPosition=\"before\"  mat-slide-toggle mat-toolbar  router-outletrouter-outlet mat-sidenav-content mat-sidenav-container ","wordCount":"1656","inLanguage":"en","datePublished":"2023-02-12T00:00:00Z","dateModified":"2023-02-12T00:00:00Z","author":{"@type":"Person","name":"Theme PaperMod"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://calvinegs.github.io/posts/angular-material-adminui/"},"publisher":{"@type":"Organization","name":"永誌不忘 • 筆記簿","logo":{"@type":"ImageObject","url":"https://calvinegs.github.io/img/favicon.png"}}}</script>
+</head>
+<body id=top>
+<script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
+<header class=header>
+<nav class=nav>
+<div class=logo>
+<a href=https://calvinegs.github.io/ accesskey=h title="永誌不忘 • 筆記簿 (Alt + H)">永誌不忘 • 筆記簿</a>
+<span class=logo-switches>
+<button id=theme-toggle accesskey=t title="(Alt + T)"><svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+</button>
+</span>
+</div>
+<ul id=menu>
+<li>
+<a href=https://calvinegs.github.io/posts/ title=Posts>
+<span>Posts</span>
+</a>
+</li>
+<li>
+<a href=https://calvinegs.github.io/archives/ title=Archive>
+<span>Archive</span>
+</a>
+</li>
+<li>
+<a href=https://calvinegs.github.io/categories/ title=Categories>
+<span>Categories</span>
+</a>
+</li>
+<li>
+<a href=https://calvinegs.github.io/tags/ title=Tags>
+<span>Tags</span>
+</a>
+</li>
+<li>
+<a href=https://calvinegs.github.io/search/ title="Search (Alt + /)" accesskey=/>
+<span>Search</span>
+</a>
+</li>
+</ul>
+</nav>
+</header>
+<main class=main>
+<article class=post-single>
+<header class=post-header>
+<div class=breadcrumbs><a href=https://calvinegs.github.io/>Home</a>&nbsp;»&nbsp;<a href=https://calvinegs.github.io/posts/>Posts</a></div>
+<h1 class=post-title>
+使用 Angular Material 建立一個簡易的 Admin Template
+</h1>
+<div class=post-description>
+在這個範例中可以看到使用 Angular 搭配 angular material 所建立的簡易版的｀admin template｀
+</div>
+<div class=post-meta><span title="2023-02-12 00:00:00 +0000 UTC">February 12, 2023</span>&nbsp;·&nbsp;8 min&nbsp;·&nbsp;Theme PaperMod&nbsp;|&nbsp;<a href=https://github.com/adityatelange/hugo-PaperMod/tree/exampleSite/content/posts/angular-material-adminui.md rel="noopener noreferrer" target=_blank>Suggest Changes</a>
+</div>
+</header> <div class=toc>
+<details>
+<summary accesskey=c title="(Alt + C)">
+<span class=details>Table of Contents</span>
+</summary>
+<div class=inner><ul>
+<li>
+<a href=#%e4%bd%bf%e7%94%a8-angular-material-%e5%bb%ba%e7%ab%8b%e4%b8%80%e5%80%8b%e7%b0%a1%e6%98%93%e7%9a%84-admin-template aria-label="使用 Angular Material 建立一個簡易的 Admin Template">使用 Angular Material 建立一個簡易的 Admin Template</a><ul>
+<li>
+<a href=#%e6%aa%a2%e8%a6%96%e7%92%b0%e5%a2%83 aria-label=檢視環境>檢視環境</a></li>
+<li>
+<a href=#%e5%bb%ba%e7%ab%8b-angular-%e5%b0%88%e6%a1%88 aria-label="建立 Angular 專案">建立 Angular 專案</a></li>
+<li>
+<a href=#%e5%ae%89%e8%a3%9d-angular-material aria-label="安裝 Angular Material">安裝 Angular Material</a></li>
+<li>
+<a href=#%e5%bb%ba%e7%ab%8b%e4%b8%80%e5%80%8b%e5%b0%88%e5%b1%ac%e7%9a%84-module-file aria-label="建立一個專屬的 module file">建立一個專屬的 module file</a></li>
+<li>
+<a href=#%e4%bd%bf%e7%94%a8-material-%e6%89%80%e9%99%84%e5%8a%a0%e7%9a%84-schematics-%e4%be%86%e5%bb%ba%e7%ab%8b-admin-template-ui aria-label="使用 material 所附加的 schematics 來建立 admin template ui">使用 material 所附加的 schematics 來建立 admin template ui</a></li>
+<li>
+<a href=#%e6%8a%8a-sharematerialmodule-%e5%8c%af%e5%85%a5%e5%88%b0-appmodulets-%e6%aa%94%e6%a1%88%e4%b8%ad aria-label="把 ShareMaterialModule 匯入到 app.module.ts 檔案中">把 ShareMaterialModule 匯入到 app.module.ts 檔案中</a></li>
+<li>
+<a href=#%e6%8a%8a-navigationcomponent-export-%e5%87%ba%e5%8e%bb aria-label="把 NavigationComponent export 出去">把 NavigationComponent export 出去</a></li>
+<li>
+<a href=#%e4%bf%ae%e6%94%b9-appcomponenthtml aria-label="修改 app.component.html">修改 app.component.html</a></li>
+<li>
+<a href=#%e5%9f%b7%e8%a1%8c%e6%b8%ac%e8%a9%a6 aria-label=執行測試>執行測試</a></li>
+<li>
+<a href=#%e6%96%b0%e5%a2%9e-dark-theme-%e6%9a%97%e9%bb%91%e4%b8%bb%e9%a1%8c aria-label="新增 Dark Theme (暗黑主題)">新增 Dark Theme (暗黑主題)</a><ul>
+<li>
+<a href=#%e5%9c%a8-stylesscss-%e6%96%b0%e5%a2%9e-dark-theme-%e7%9b%b8%e9%97%9c%e8%a8%ad%e5%ae%9a aria-label="在 styles.scss 新增 Dark theme 相關設定">在 styles.scss 新增 Dark theme 相關設定</a></li>
+<li>
+<a href=#navigationcomponenthtml-%e4%b8%ad%e7%9a%84%e7%9b%b8%e9%97%9c%e8%a8%ad%e7%bd%ae aria-label="navigation.component.html 中的相關設置">navigation.component.html 中的相關設置</a></li>
+<li>
+<a href=#share-materialmodulets-%e8%a6%81%e5%8c%af%e5%85%a5%e7%9b%b8%e9%97%9c-module aria-label="share-material.module.ts 要匯入相關 module">share-material.module.ts 要匯入相關 module</a></li>
+<li>
+<a href=#%e6%b8%ac%e8%a9%a6%e7%b5%90%e6%9e%9c aria-label=測試結果>測試結果</a></li>
+<li>
+<a href=#%e5%84%aa%e5%8c%96-ui aria-label="優化 UI">優化 UI</a></li></ul>
+</li>
+<li>
+<a href=#%e5%b0%87%e9%96%8b%e9%97%9c%e5%88%87%e6%8f%9b%e7%9a%84%e7%8b%80%e6%85%8b%e8%a8%98%e9%8c%84%e4%b8%8b%e4%be%86 aria-label=將開關切換的狀態記錄下來>將開關切換的狀態記錄下來</a></li>
+<li>
+<a href=#%e4%bd%bf%e7%94%a8-admin-template aria-label="使用 admin template">使用 admin template</a><ul>
+<li>
+<a href=#%e5%bb%ba%e7%ab%8b%e6%96%b0%e7%b5%84%e4%bb%b6-components aria-label="建立新組件 Components">建立新組件 Components</a></li>
+<li>
+<a href=#%e8%a8%ad%e7%bd%ae-routes aria-label="設置 routes">設置 routes</a></li>
+<li>
+<a href=#%e5%9c%a8-html-%e4%b8%ad%e5%8a%a0%e5%85%a5-router-outlet aria-label="在 html 中加入 router-outlet">在 html 中加入 router-outlet</a></li>
+<li>
+<a href=#%e5%8c%af%e5%85%a5-routermodule-module aria-label="匯入 RouterModule Module">匯入 RouterModule Module</a></li>
+<li>
+<a href=#route-link-%e8%a8%ad%e7%bd%ae aria-label="route-link 設置">route-link 設置</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</details>
+</div>
+<div class=post-content><p><em><a href=https://github.com/calvinegs/angular13-form-validation.git>github Source code</a></em></p>
+<h1 id=使用-angular-material-建立一個簡易的-admin-template>使用 Angular Material 建立一個簡易的 Admin Template<a hidden class=anchor aria-hidden=true href=#使用-angular-material-建立一個簡易的-admin-template>#</a></h1>
+<p>Angular 是一個標準的 SPA App framework，今天要記錄的是使用 angular material 來建立一個 SPA App 的範本，除了介紹 Material 相關的功能外，完成的這個簡易型 admin template 剛好可以用來引申後續 angular 筆記範例中的㮒準介面(UI).</p>
+<h2 id=檢視環境>檢視環境<a hidden class=anchor aria-hidden=true href=#檢視環境>#</a></h2>
+<p>在開發環境中必須有 NodeJs</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$ node -v
+v18.12.1
+</code></pre></div><p>angular cli 則只需安裝在 Local 目錄中即可
+ng version</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$ ng version
+Command <span style=color:#e6db74>&#39;ng&#39;</span> not found, but can be installed with:
+
+sudo apt install ng-common
+</code></pre></div><h2 id=建立-angular-專案>建立 Angular 專案<a hidden class=anchor aria-hidden=true href=#建立-angular-專案>#</a></h2>
+<p>透過 <code>npm init @angular </code>語法即可在不必安裝 angular cli 前題下來建立一個 angular project。</p>
+<p>下述語法中的 <code>&lt;project Name></code> 替換成實際的專案名稱（如：adminTemplate)</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$ npm init @angular &lt;project Name&gt; -- --routing --style<span style=color:#f92672>=</span>scss <span style=color:#f92672>&amp;&amp;</span> cd &lt;project Name&gt;
+
+CREATE adminTest/README.md <span style=color:#f92672>(</span><span style=color:#ae81ff>1063</span> bytes<span style=color:#f92672>)</span>
+CREATE adminTest/.editorconfig <span style=color:#f92672>(</span><span style=color:#ae81ff>274</span> bytes<span style=color:#f92672>)</span>
+CREATE adminTest/.gitignore <span style=color:#f92672>(</span><span style=color:#ae81ff>548</span> bytes<span style=color:#f92672>)</span>
+CREATE adminTest/angular.json <span style=color:#f92672>(</span><span style=color:#ae81ff>2934</span> bytes<span style=color:#f92672>)</span>
+CREATE adminTest/package.json <span style=color:#f92672>(</span><span style=color:#ae81ff>1041</span> bytes<span style=color:#f92672>)</span>
+CREATE adminTest/tsconfig.json <span style=color:#f92672>(</span><span style=color:#ae81ff>901</span> bytes<span style=color:#f92672>)</span>
+CREATE adminTest/tsconfig.app.json <span style=color:#f92672>(</span><span style=color:#ae81ff>263</span> bytes<span style=color:#f92672>)</span>
+CREATE adminTest/tsconfig.spec.json <span style=color:#f92672>(</span><span style=color:#ae81ff>273</span> bytes<span style=color:#f92672>)</span>
+CREATE adminTest/.vscode/extensions.json <span style=color:#f92672>(</span><span style=color:#ae81ff>130</span> bytes<span style=color:#f92672>)</span>
+CREATE adminTest/.vscode/launch.json <span style=color:#f92672>(</span><span style=color:#ae81ff>474</span> bytes<span style=color:#f92672>)</span>
+CREATE adminTest/.vscode/tasks.json <span style=color:#f92672>(</span><span style=color:#ae81ff>938</span> bytes<span style=color:#f92672>)</span>
+CREATE adminTest/src/favicon.ico <span style=color:#f92672>(</span><span style=color:#ae81ff>948</span> bytes<span style=color:#f92672>)</span>
+CREATE adminTest/src/index.html <span style=color:#f92672>(</span><span style=color:#ae81ff>295</span> bytes<span style=color:#f92672>)</span>
+CREATE adminTest/src/main.ts <span style=color:#f92672>(</span><span style=color:#ae81ff>214</span> bytes<span style=color:#f92672>)</span>
+CREATE adminTest/src/styles.scss <span style=color:#f92672>(</span><span style=color:#ae81ff>80</span> bytes<span style=color:#f92672>)</span>
+CREATE adminTest/src/assets/.gitkeep <span style=color:#f92672>(</span><span style=color:#ae81ff>0</span> bytes<span style=color:#f92672>)</span>
+CREATE adminTest/src/app/app-routing.module.ts <span style=color:#f92672>(</span><span style=color:#ae81ff>245</span> bytes<span style=color:#f92672>)</span>
+CREATE adminTest/src/app/app.module.ts <span style=color:#f92672>(</span><span style=color:#ae81ff>393</span> bytes<span style=color:#f92672>)</span>
+CREATE adminTest/src/app/app.component.scss <span style=color:#f92672>(</span><span style=color:#ae81ff>0</span> bytes<span style=color:#f92672>)</span>
+CREATE adminTest/src/app/app.component.html <span style=color:#f92672>(</span><span style=color:#ae81ff>23115</span> bytes<span style=color:#f92672>)</span>
+CREATE adminTest/src/app/app.component.spec.ts <span style=color:#f92672>(</span><span style=color:#ae81ff>1082</span> bytes<span style=color:#f92672>)</span>
+CREATE adminTest/src/app/app.component.ts <span style=color:#f92672>(</span><span style=color:#ae81ff>214</span> bytes<span style=color:#f92672>)</span>
+✔ Packages installed successfully.
+    Successfully initialized git.
+</code></pre></div><p>建立成功後可使用 <code>npx ng version</code> 來檢視專案中使用的 angular cli 版本。</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$ npx ng version
+
+
+     _                      _                 ____ _     ___
+    / <span style=color:#ae81ff>\ </span>  _ __   __ _ _   _| | __ _ _ __     / ___| |   |_ _|
+   / △ <span style=color:#ae81ff>\ </span>| <span style=color:#e6db74>&#39;_ \ / _` | | | | |/ _` | &#39;</span>__|   | |   | |    | |
+  / ___ <span style=color:#ae81ff>\|</span> | | | <span style=color:#f92672>(</span>_| | |_| | | <span style=color:#f92672>(</span>_| | |      | |___| |___ | |
+ /_/   <span style=color:#ae81ff>\_\_</span>| |_|<span style=color:#ae81ff>\_</span>_, |<span style=color:#ae81ff>\_</span>_,_|_|<span style=color:#ae81ff>\_</span>_,_|_|       <span style=color:#ae81ff>\_</span>___|_____|___|
+                |___/
+    
+
+Angular CLI: 15.0.5
+Node: 18.12.1
+Package Manager: npm 8.19.2
+OS: linux x64
+
+Angular: 15.1.4
+... animations, common, compiler, compiler-cli, core, forms
+... platform-browser, platform-browser-dynamic, router
+
+Package                         Version
+---------------------------------------------------------
+@angular-devkit/architect       0.1501.5
+@angular-devkit/build-angular   15.1.5
+@angular-devkit/core            15.1.5
+@angular-devkit/schematics      15.0.5
+@angular/cli                    15.0.5
+@schematics/angular             15.0.5
+rxjs                            7.5.7
+typescript                      4.8.4
+</code></pre></div><h2 id=安裝-angular-material>安裝 Angular Material<a hidden class=anchor aria-hidden=true href=#安裝-angular-material>#</a></h2>
+<p>使用 <code>ng add @angular/material</code> 指令來為專案設置要使用 Material ui component 的相關環境。(安裝 Angular Material、Component Dev Kit (CDK) 和 Angular Animations 及引用字型&mldr;等)</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$ npx ng add @angular/material
+
+ℹ Using package manager: npm
+✔ Found compatible package version: @angular/material@15.1.4.
+✔ Package information loaded.
+
+The package @angular/material@15.1.4 will be installed and executed.
+Would you like to proceed? Yes
+✔ Packages successfully installed.
+? Choose a prebuilt theme name, or <span style=color:#e6db74>&#34;custom&#34;</span> <span style=color:#66d9ef>for</span> a custom theme: Custom
+? Set up global Angular Material typography styles? Yes
+? Include the Angular animations module? Include and enable animations
+UPDATE package.json <span style=color:#f92672>(</span><span style=color:#ae81ff>1111</span> bytes<span style=color:#f92672>)</span>
+✔ Packages installed successfully.
+CREATE src/custom-theme.scss <span style=color:#f92672>(</span><span style=color:#ae81ff>1479</span> bytes<span style=color:#f92672>)</span>
+UPDATE src/app/app.module.ts <span style=color:#f92672>(</span><span style=color:#ae81ff>502</span> bytes<span style=color:#f92672>)</span>
+UPDATE angular.json <span style=color:#f92672>(</span><span style=color:#ae81ff>2819</span> bytes<span style=color:#f92672>)</span>
+UPDATE src/index.html <span style=color:#f92672>(</span><span style=color:#ae81ff>581</span> bytes<span style=color:#f92672>)</span>
+UPDATE src/styles.css <span style=color:#f92672>(</span><span style=color:#ae81ff>181</span> bytes<span style=color:#f92672>)</span>
+</code></pre></div><p>加入 git 新版本</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$ git add . <span style=color:#f92672>&amp;&amp;</span> git commit -m <span style=color:#e6db74>&#34;Add Material to project&#34;</span>
+</code></pre></div><h2 id=建立一個專屬的-module-file>建立一個專屬的 module file<a hidden class=anchor aria-hidden=true href=#建立一個專屬的-module-file>#</a></h2>
+<p>為使專案管理方便，先建立一個 material 專屬的 module file.</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$ npx ng g m ./shared/shareMaterial --flat
+</code></pre></div><p>由上述 angular cli 所産生的 share-material.module.ts 檔案</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-ts data-lang=ts><span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>NgModule</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;@angular/core&#39;</span>;
+<span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>CommonModule</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;@angular/common&#39;</span>;
+
+
+
+<span style=color:#66d9ef>@NgModule</span>({
+  <span style=color:#a6e22e>declarations</span><span style=color:#f92672>:</span> [],
+  <span style=color:#a6e22e>imports</span><span style=color:#f92672>:</span> [
+    <span style=color:#a6e22e>CommonModule</span>
+  ]
+})
+<span style=color:#66d9ef>export</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>ShareMaterialModuleModule</span> { }
+</code></pre></div><h2 id=使用-material-所附加的-schematics-來建立-admin-template-ui>使用 material 所附加的 schematics 來建立 admin template ui<a hidden class=anchor aria-hidden=true href=#使用-material-所附加的-schematics-來建立-admin-template-ui>#</a></h2>
+<p>下述語法中的參數 <code>--module ./shared/share-material</code>，為的是將新産生的 material navigation compoent 産生在 share-material module 中。</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$ npx ng g @angular/material:navigation navigation --module ./shared/share-material
+</code></pre></div><p>註：除上述的 @angular/material:navigation 外，還有：</p>
+<ul>
+<li>address-form</li>
+<li>dashboard</li>
+<li>table</li>
+<li>tree</li>
+</ul>
+<p>使用 @angular/material:navigation schematics 除了産生 navigation component 外，也會自動在 module file (share-material.module.ts) 中自動引中必需的 module</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-ts data-lang=ts><span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>NgModule</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;@angular/core&#39;</span>;
+<span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>CommonModule</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;@angular/common&#39;</span>;
+<span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>NavigationComponent</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;../navigation/navigation.component&#39;</span>;
+<span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>LayoutModule</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;@angular/cdk/layout&#39;</span>;
+<span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>MatToolbarModule</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;@angular/material/toolbar&#39;</span>;
+<span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>MatButtonModule</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;@angular/material/button&#39;</span>;
+<span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>MatSidenavModule</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;@angular/material/sidenav&#39;</span>;
+<span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>MatIconModule</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;@angular/material/icon&#39;</span>;
+<span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>MatListModule</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;@angular/material/list&#39;</span>;
+<span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>MatSlideToggleModule</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;@angular/material/slide-toggle&#39;</span>;
+<span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>FormsModule</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;@angular/forms&#39;</span>;
+
+
+
+<span style=color:#66d9ef>@NgModule</span>({
+  <span style=color:#a6e22e>declarations</span><span style=color:#f92672>:</span> [
+    <span style=color:#a6e22e>NavigationComponent</span>
+  ],
+  <span style=color:#a6e22e>imports</span><span style=color:#f92672>:</span> [
+    <span style=color:#a6e22e>CommonModule</span>,
+    <span style=color:#a6e22e>FormsModule</span>,
+    <span style=color:#a6e22e>LayoutModule</span>,
+    <span style=color:#a6e22e>MatToolbarModule</span>,
+    <span style=color:#a6e22e>MatButtonModule</span>,
+    <span style=color:#a6e22e>MatSidenavModule</span>,
+    <span style=color:#a6e22e>MatIconModule</span>,
+    <span style=color:#a6e22e>MatListModule</span>,
+    <span style=color:#a6e22e>MatSlideToggleModule</span>
+  ],
+  <span style=color:#a6e22e>exports</span><span style=color:#f92672>:</span> [
+    <span style=color:#a6e22e>NavigationComponent</span>
+  ]
+})
+<span style=color:#66d9ef>export</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>ShareMaterialModule</span> { }
+</code></pre></div><h2 id=把-sharematerialmodule-匯入到-appmodulets-檔案中>把 ShareMaterialModule 匯入到 app.module.ts 檔案中<a hidden class=anchor aria-hidden=true href=#把-sharematerialmodule-匯入到-appmodulets-檔案中>#</a></h2>
+<p>為了在專案其他地方(如：AppComponent中）使用 NavidationComponent，不要忘記在 app.module.ts 中引入 ShareMaterialModule module。</p>
+<pre tabindex=0><code class="language-ts{hl_linenos=[8,17]}" data-lang="ts{hl_linenos=[8,17]}"># app.module.ts 
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ShareMaterialModule } from './shared/share-material.module';
+
+@NgModule({
+  declarations: [
+    AppComponent,
+  ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    ShareMaterialModule
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+
+</code></pre><h2 id=把-navigationcomponent-export-出去>把 NavigationComponent export 出去<a hidden class=anchor aria-hidden=true href=#把-navigationcomponent-export-出去>#</a></h2>
+<p>同時為了在 AppComponent 中使用 NavigationComponent，也別忘了把 NavidationComponent export 出去。</p>
+<p>share-material.module.ts:</p>
+<pre tabindex=0><code class="language-ts{hl_linenos=[8,30-32]}" data-lang="ts{hl_linenos=[8,30-32]}">import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { NavigationComponent } from '../navigation/navigation.component';
+import { LayoutModule } from '@angular/cdk/layout';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
+
+@NgModule({
+  declarations: [
+    NavigationComponent
+  ],
+  imports: [
+    CommonModule,
+    LayoutModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatSidenavModule,
+    MatIconModule,
+    MatListModule,
+  ],
+  exports: [
+    NavigationComponent
+  ]
+})
+export class ShareMaterialModule { }
+</code></pre><h2 id=修改-appcomponenthtml>修改 app.component.html<a hidden class=anchor aria-hidden=true href=#修改-appcomponenthtml>#</a></h2>
+<p>將內容刪除,並將 app-navigation selector 放進 app.component.html</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html>&lt;<span style=color:#f92672>app-navigation</span>&gt;&lt;/<span style=color:#f92672>app-navigation</span>&gt;
+</code></pre></div><h2 id=執行測試>執行測試<a hidden class=anchor aria-hidden=true href=#執行測試>#</a></h2>
+<p>使用 <code>$ npm start</code> 來查看一下結果。</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/218250294-4e6f7bf5-9e68-4c28-8fee-6720e90d8eae.png alt=image>
+</p>
+<h2 id=新增-dark-theme-暗黑主題>新增 Dark Theme (暗黑主題)<a hidden class=anchor aria-hidden=true href=#新增-dark-theme-暗黑主題>#</a></h2>
+<p>到目前為止，已經産生了一個陽春版的 admin template 了，接下來來豐富一下這個樣本的其他功能-新增一個｀暗黑主題｀。</p>
+<h3 id=在-stylesscss-新增-dark-theme-相關設定>在 styles.scss 新增 Dark theme 相關設定<a hidden class=anchor aria-hidden=true href=#在-stylesscss-新增-dark-theme-相關設定>#</a></h3>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-css data-lang=css><span style=color:#f92672>...</span>
+<span style=color:#f92672>//</span> <span style=color:#f92672>for</span> <span style=color:#f92672>Dark</span> <span style=color:#f92672>Mode</span>
+<span style=color:#f92672>$</span><span style=color:#f92672>adminTemplate-primary-dark</span><span style=color:#f92672>:</span> <span style=color:#f92672>mat</span>.<span style=color:#a6e22e>define-palette</span><span style=color:#f92672>(</span><span style=color:#f92672>mat</span><span style=color:#f92672>.$</span><span style=color:#f92672>purple-palette</span><span style=color:#f92672>);</span>
+<span style=color:#f92672>$</span><span style=color:#f92672>adminTemplate-accent-dark</span><span style=color:#f92672>:</span> <span style=color:#f92672>mat</span>.<span style=color:#a6e22e>define-palette</span><span style=color:#f92672>(</span><span style=color:#f92672>mat</span><span style=color:#f92672>.$</span><span style=color:#f92672>green-palette</span><span style=color:#f92672>,</span> <span style=color:#f92672>A200</span><span style=color:#f92672>,</span> <span style=color:#f92672>A100</span><span style=color:#f92672>,</span> <span style=color:#f92672>A400</span><span style=color:#f92672>);</span>
+<span style=color:#f92672>$</span><span style=color:#f92672>adminTemplate-warn-dark</span><span style=color:#f92672>:</span> <span style=color:#f92672>mat</span>.<span style=color:#a6e22e>define-palette</span><span style=color:#f92672>(</span><span style=color:#f92672>mat</span><span style=color:#f92672>.$</span><span style=color:#f92672>red-palette</span><span style=color:#f92672>);</span>
+
+<span style=color:#f92672>$</span><span style=color:#f92672>adminTemplate-theme-dark</span><span style=color:#f92672>:</span> <span style=color:#f92672>mat</span>.<span style=color:#a6e22e>define-dark-theme</span><span style=color:#f92672>((</span>
+  <span style=color:#f92672>color</span><span style=color:#f92672>:</span> <span style=color:#f92672>(</span>
+    <span style=color:#f92672>primary</span><span style=color:#f92672>:</span> <span style=color:#f92672>$</span><span style=color:#f92672>adminTemplate-primary-dark</span><span style=color:#f92672>,</span>
+    <span style=color:#f92672>accent</span><span style=color:#f92672>:</span> <span style=color:#f92672>$</span><span style=color:#f92672>adminTemplate-accent-dark</span><span style=color:#f92672>,</span>
+    <span style=color:#f92672>warn</span><span style=color:#f92672>:</span> <span style=color:#f92672>$</span><span style=color:#f92672>adminTemplate-warn-dark</span><span style=color:#f92672>,</span>
+  <span style=color:#f92672>)</span>
+<span style=color:#f92672>));</span>
+
+.<span style=color:#a6e22e>dark-theme-mode</span> {
+  <span style=color:#960050;background-color:#1e0010>@include</span> <span style=color:#960050;background-color:#1e0010>mat.all-component-themes($adminTemplate-theme-dark)</span>;
+}
+</code></pre></div><p>完成 CSS 中加入 Dark Theme 的設置後，先在 navigation.component.ts 中新增一個變數: isDarkTheme 用來記錄是否切換到 Dark 主題。</p>
+<h3 id=navigationcomponenthtml-中的相關設置>navigation.component.html 中的相關設置<a hidden class=anchor aria-hidden=true href=#navigationcomponenthtml-中的相關設置>#</a></h3>
+<p>並在 navigation.component.html 中透過 ngClass 語法加入設置好的 dark theme。</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html>&lt;<span style=color:#f92672>mat-sidenav-container</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;sidenav-container mat-app-background&#34;</span> <span style=color:#960050;background-color:#1e0010>[</span><span style=color:#a6e22e>ngClass</span><span style=color:#960050;background-color:#1e0010>]=&#34;{&#39;</span><span style=color:#a6e22e>dark-theme-mode</span><span style=color:#960050;background-color:#1e0010>&#39;</span><span style=color:#a6e22e>:isDarkTheme</span><span style=color:#960050;background-color:#1e0010>}&#34;</span>&gt;
+</code></pre></div><p>接著繼續在 html 中加入一個可切換的開關 component: mat-slide-toggle 並透過 ngModel 綁定到 isDarkTheme 變數</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html>	&lt;<span style=color:#f92672>mat-slide-toggle</span> <span style=color:#960050;background-color:#1e0010>[(</span><span style=color:#a6e22e>ngModel</span><span style=color:#960050;background-color:#1e0010>)]=&#34;</span><span style=color:#a6e22e>isDarkTheme</span><span style=color:#960050;background-color:#1e0010>&#34;</span>&gt;&lt;/<span style=color:#f92672>mat-slide-toggle</span>&gt;
+</code></pre></div><h3 id=share-materialmodulets-要匯入相關-module>share-material.module.ts 要匯入相關 module<a hidden class=anchor aria-hidden=true href=#share-materialmodulets-要匯入相關-module>#</a></h3>
+<p>要使用 mat-slide-toggle component 必須在 module file 中 import MatSlideToggleModule</p>
+<pre tabindex=0><code># share-material.module.ts
+...
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+
+...
+
+imports:[
+	...
+	MatSlideToggleModule
+],
+...
+</code></pre><p>由於使用到了 [(ngModel)]，所以必須在 module file 中 import FormsModule</p>
+<pre tabindex=0><code># share-material.module.ts
+...
+import { FormsModule } from '@angular/forms';
+
+...
+
+imports:[
+	...
+	FormsModule
+],
+...
+</code></pre><p>完成後的 navigation.component.html</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html>&lt;<span style=color:#f92672>mat-sidenav-container</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;sidenav-container mat-app-background&#34;</span> <span style=color:#960050;background-color:#1e0010>[</span><span style=color:#a6e22e>ngClass</span><span style=color:#960050;background-color:#1e0010>]=&#34;{&#39;</span><span style=color:#a6e22e>dark-theme-mode</span><span style=color:#960050;background-color:#1e0010>&#39;</span><span style=color:#a6e22e>:isDarkTheme</span><span style=color:#960050;background-color:#1e0010>}&#34;</span>&gt;
+  &lt;<span style=color:#f92672>mat-sidenav</span> <span style=color:#960050;background-color:#1e0010>#</span><span style=color:#a6e22e>drawer</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;sidenav&#34;</span> <span style=color:#a6e22e>fixedInViewport</span>
+      <span style=color:#960050;background-color:#1e0010>[</span><span style=color:#a6e22e>attr</span><span style=color:#960050;background-color:#1e0010>.</span><span style=color:#a6e22e>role</span><span style=color:#960050;background-color:#1e0010>]=&#34;(</span><span style=color:#a6e22e>isHandset</span><span style=color:#960050;background-color:#1e0010>$</span> <span style=color:#960050;background-color:#1e0010>|</span> <span style=color:#a6e22e>async</span><span style=color:#960050;background-color:#1e0010>)</span> <span style=color:#960050;background-color:#1e0010>?</span> <span style=color:#960050;background-color:#1e0010>&#39;</span><span style=color:#a6e22e>dialog</span><span style=color:#960050;background-color:#1e0010>&#39;</span> <span style=color:#a6e22e>:</span> <span style=color:#960050;background-color:#1e0010>&#39;</span><span style=color:#a6e22e>navigation</span><span style=color:#960050;background-color:#1e0010>&#39;&#34;</span>
+      <span style=color:#960050;background-color:#1e0010>[</span><span style=color:#a6e22e>mode</span><span style=color:#960050;background-color:#1e0010>]=&#34;(</span><span style=color:#a6e22e>isHandset</span><span style=color:#960050;background-color:#1e0010>$</span> <span style=color:#960050;background-color:#1e0010>|</span> <span style=color:#a6e22e>async</span><span style=color:#960050;background-color:#1e0010>)</span> <span style=color:#960050;background-color:#1e0010>?</span> <span style=color:#960050;background-color:#1e0010>&#39;</span><span style=color:#a6e22e>over</span><span style=color:#960050;background-color:#1e0010>&#39;</span> <span style=color:#a6e22e>:</span> <span style=color:#960050;background-color:#1e0010>&#39;</span><span style=color:#a6e22e>side</span><span style=color:#960050;background-color:#1e0010>&#39;&#34;</span>
+      <span style=color:#960050;background-color:#1e0010>[</span><span style=color:#a6e22e>opened</span><span style=color:#960050;background-color:#1e0010>]=&#34;(</span><span style=color:#a6e22e>isHandset</span><span style=color:#960050;background-color:#1e0010>$</span> <span style=color:#960050;background-color:#1e0010>|</span> <span style=color:#a6e22e>async</span><span style=color:#960050;background-color:#1e0010>)</span> <span style=color:#960050;background-color:#1e0010>===</span> <span style=color:#a6e22e>false</span><span style=color:#960050;background-color:#1e0010>&#34;</span>&gt;
+    &lt;<span style=color:#f92672>mat-toolbar</span>&gt;Menu&lt;/<span style=color:#f92672>mat-toolbar</span>&gt;
+    &lt;<span style=color:#f92672>mat-nav-list</span>&gt;
+      &lt;<span style=color:#f92672>a</span> <span style=color:#a6e22e>mat-list-item</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;#&#34;</span>&gt;Link 1&lt;/<span style=color:#f92672>a</span>&gt;
+      &lt;<span style=color:#f92672>a</span> <span style=color:#a6e22e>mat-list-item</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;#&#34;</span>&gt;Link 2&lt;/<span style=color:#f92672>a</span>&gt;
+      &lt;<span style=color:#f92672>a</span> <span style=color:#a6e22e>mat-list-item</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;#&#34;</span>&gt;Link 3&lt;/<span style=color:#f92672>a</span>&gt;
+    &lt;/<span style=color:#f92672>mat-nav-list</span>&gt;
+  &lt;/<span style=color:#f92672>mat-sidenav</span>&gt;
+  &lt;<span style=color:#f92672>mat-sidenav-content</span>&gt;
+    &lt;<span style=color:#f92672>mat-toolbar</span> <span style=color:#a6e22e>color</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;primary&#34;</span>&gt;
+      &lt;<span style=color:#f92672>button</span>
+        <span style=color:#a6e22e>type</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;button&#34;</span>
+        <span style=color:#a6e22e>aria-label</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;Toggle sidenav&#34;</span>
+        <span style=color:#a6e22e>mat-icon-button</span>
+        <span style=color:#960050;background-color:#1e0010>(</span><span style=color:#a6e22e>click</span><span style=color:#960050;background-color:#1e0010>)=&#34;</span><span style=color:#a6e22e>drawer</span><span style=color:#960050;background-color:#1e0010>.</span><span style=color:#a6e22e>toggle</span><span style=color:#960050;background-color:#1e0010>()&#34;</span>
+        <span style=color:#960050;background-color:#1e0010>*</span><span style=color:#a6e22e>ngIf</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;isHandset$ | async&#34;</span>&gt;
+        &lt;<span style=color:#f92672>mat-icon</span> <span style=color:#a6e22e>aria-label</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;Side nav toggle icon&#34;</span>&gt;menu&lt;/<span style=color:#f92672>mat-icon</span>&gt;
+      &lt;/<span style=color:#f92672>button</span>&gt;
+      &lt;<span style=color:#f92672>span</span>&gt;adminTest&lt;/<span style=color:#f92672>span</span>&gt;
+      &lt;<span style=color:#f92672>mat-slide-toggle</span> <span style=color:#960050;background-color:#1e0010>[(</span><span style=color:#a6e22e>ngModel</span><span style=color:#960050;background-color:#1e0010>)]=&#34;</span><span style=color:#a6e22e>isDarkTheme</span><span style=color:#960050;background-color:#1e0010>&#34;</span>&gt;&lt;/<span style=color:#f92672>mat-slide-toggle</span>&gt;
+    &lt;/<span style=color:#f92672>mat-toolbar</span>&gt;
+    <span style=color:#75715e>&lt;!-- Add Content Here --&gt;</span>
+  &lt;/<span style=color:#f92672>mat-sidenav-content</span>&gt;
+&lt;/<span style=color:#f92672>mat-sidenav-container</span>&gt;
+</code></pre></div><p>完成後的 navigation.component.ts</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-ts data-lang=ts><span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>Component</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;@angular/core&#39;</span>;
+<span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>BreakpointObserver</span>, <span style=color:#a6e22e>Breakpoints</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;@angular/cdk/layout&#39;</span>;
+<span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>Observable</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;rxjs&#39;</span>;
+<span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>map</span>, <span style=color:#a6e22e>shareReplay</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;rxjs/operators&#39;</span>;
+
+<span style=color:#66d9ef>@Component</span>({
+  <span style=color:#a6e22e>selector</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;app-navigation&#39;</span>,
+  <span style=color:#a6e22e>templateUrl</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;./navigation.component.html&#39;</span>,
+  <span style=color:#a6e22e>styleUrls</span><span style=color:#f92672>:</span> [<span style=color:#e6db74>&#39;./navigation.component.scss&#39;</span>]
+})
+<span style=color:#66d9ef>export</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>NavigationComponent</span> {
+  <span style=color:#a6e22e>isDarkTheme</span><span style=color:#f92672>=</span> <span style=color:#66d9ef>false</span>;
+  
+  <span style=color:#a6e22e>isHandset$</span>: <span style=color:#66d9ef>Observable</span>&lt;<span style=color:#f92672>boolean</span>&gt; <span style=color:#f92672>=</span> <span style=color:#66d9ef>this</span>.<span style=color:#a6e22e>breakpointObserver</span>.<span style=color:#a6e22e>observe</span>(<span style=color:#a6e22e>Breakpoints</span>.<span style=color:#a6e22e>Handset</span>)
+    .<span style=color:#a6e22e>pipe</span>(
+      <span style=color:#a6e22e>map</span>(<span style=color:#a6e22e>result</span> <span style=color:#f92672>=&gt;</span> <span style=color:#a6e22e>result</span>.<span style=color:#a6e22e>matches</span>),
+      <span style=color:#a6e22e>shareReplay</span>()
+    );
+
+  <span style=color:#66d9ef>constructor</span>(<span style=color:#66d9ef>private</span> <span style=color:#a6e22e>breakpointObserver</span>: <span style=color:#66d9ef>BreakpointObserver</span>) {}
+
+}
+</code></pre></div><p>完成後的 share-material.module.ts</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-ts data-lang=ts><span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>NgModule</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;@angular/core&#39;</span>;
+<span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>CommonModule</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;@angular/common&#39;</span>;
+<span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>NavigationComponent</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;../navigation/navigation.component&#39;</span>;
+<span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>LayoutModule</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;@angular/cdk/layout&#39;</span>;
+<span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>MatToolbarModule</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;@angular/material/toolbar&#39;</span>;
+<span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>MatButtonModule</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;@angular/material/button&#39;</span>;
+<span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>MatSidenavModule</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;@angular/material/sidenav&#39;</span>;
+<span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>MatIconModule</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;@angular/material/icon&#39;</span>;
+<span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>MatListModule</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;@angular/material/list&#39;</span>;
+<span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>MatSlideToggleModule</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;@angular/material/slide-toggle&#39;</span>;
+<span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>FormsModule</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;@angular/forms&#39;</span>;
+
+
+
+<span style=color:#66d9ef>@NgModule</span>({
+  <span style=color:#a6e22e>declarations</span><span style=color:#f92672>:</span> [
+    <span style=color:#a6e22e>NavigationComponent</span>
+  ],
+  <span style=color:#a6e22e>imports</span><span style=color:#f92672>:</span> [
+    <span style=color:#a6e22e>CommonModule</span>,
+    <span style=color:#a6e22e>FormsModule</span>,
+    <span style=color:#a6e22e>LayoutModule</span>,
+    <span style=color:#a6e22e>MatToolbarModule</span>,
+    <span style=color:#a6e22e>MatButtonModule</span>,
+    <span style=color:#a6e22e>MatSidenavModule</span>,
+    <span style=color:#a6e22e>MatIconModule</span>,
+    <span style=color:#a6e22e>MatListModule</span>,
+    <span style=color:#a6e22e>MatSlideToggleModule</span>
+  ],
+  <span style=color:#a6e22e>exports</span><span style=color:#f92672>:</span> [
+    <span style=color:#a6e22e>NavigationComponent</span>
+  ]
+})
+<span style=color:#66d9ef>export</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>ShareMaterialModule</span> { }
+</code></pre></div><h3 id=測試結果>測試結果<a hidden class=anchor aria-hidden=true href=#測試結果>#</a></h3>
+<p>執行 $ npm start 來看一下結果</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/218253626-3d2b5906-0c3b-4621-8796-df2bd485ea14.png alt=image>
+</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/218253646-5fce145f-c48d-4664-8c7a-d05e9dfb6242.png alt=image>
+</p>
+<p>程式已經可以透過<code>開關</code>來切換不同的主題。</p>
+<h3 id=優化-ui>優化 UI<a hidden class=anchor aria-hidden=true href=#優化-ui>#</a></h3>
+<p>接著，將 UI 再優化一下，把開關移至畫面右側，並於開關前面顯示一個圖示，分別表示套用了不同的主題。</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html>      &lt;<span style=color:#f92672>span</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;ext-space&#34;</span>&gt;&lt;/<span style=color:#f92672>span</span>&gt;
+      &lt;<span style=color:#f92672>div</span> <span style=color:#960050;background-color:#1e0010>*</span><span style=color:#a6e22e>ngIf</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;this.isDarkTheme; else LightTheme&#34;</span>&gt;
+        &lt;<span style=color:#f92672>mat-icon</span>&gt;bedtime&lt;/<span style=color:#f92672>mat-icon</span>&gt;
+      &lt;/<span style=color:#f92672>div</span>&gt;
+      &lt;<span style=color:#f92672>ng-template</span> <span style=color:#960050;background-color:#1e0010>#</span><span style=color:#a6e22e>LightTheme</span>&gt;
+        &lt;<span style=color:#f92672>div</span> <span style=color:#960050;background-color:#1e0010>*</span><span style=color:#a6e22e>ngIf</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;!this.isDarkTheme&#34;</span>&gt;
+          &lt;<span style=color:#f92672>mat-icon</span>&gt;wb_sunny&lt;/<span style=color:#f92672>mat-icon</span>&gt;
+        &lt;/<span style=color:#f92672>div</span>&gt;
+      &lt;/<span style=color:#f92672>ng-template</span>&gt;
+      &lt;<span style=color:#f92672>mat-slide-toggle</span> <span style=color:#960050;background-color:#1e0010>[(</span><span style=color:#a6e22e>ngModel</span><span style=color:#960050;background-color:#1e0010>)]=&#34;</span><span style=color:#a6e22e>isDarkTheme</span><span style=color:#960050;background-color:#1e0010>&#34;</span>&gt;
+      &lt;/<span style=color:#f92672>mat-slide-toggle</span>&gt;
+</code></pre></div><p>在 navigation.component.scss 加入下列的設定，為的是將 slide-toggle 元件顯示在畫面右側</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-css data-lang=css><span style=color:#f92672>...</span>
+.<span style=color:#a6e22e>ext-space</span> {
+  <span style=color:#66d9ef>flex</span>: <span style=color:#ae81ff>1</span> <span style=color:#ae81ff>0</span> <span style=color:#66d9ef>auto</span>;
+}
+</code></pre></div><p>看結果發現畫面已符合預期：</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/218253897-f19021d3-58a5-418f-a708-7d99063809b0.png alt=image>
+</p>
+<h2 id=將開關切換的狀態記錄下來>將開關切換的狀態記錄下來<a hidden class=anchor aria-hidden=true href=#將開關切換的狀態記錄下來>#</a></h2>
+<p>當在瀏覽器上按下 F5 時會發現套用 Dark Theme 不會被程式記著，開關又回復到原有的狀態。繼續調整程式把切換結果記錄到 localstorage 中。</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html>&lt;<span style=color:#f92672>mat-slide-toggle</span> <span style=color:#960050;background-color:#1e0010>[(</span><span style=color:#a6e22e>ngModel</span><span style=color:#960050;background-color:#1e0010>)]=&#34;</span><span style=color:#a6e22e>isDarkTheme</span><span style=color:#960050;background-color:#1e0010>&#34;</span> <span style=color:#960050;background-color:#1e0010>(</span><span style=color:#a6e22e>change</span><span style=color:#960050;background-color:#1e0010>)=&#34;</span><span style=color:#a6e22e>storeThemeSelection</span><span style=color:#960050;background-color:#1e0010>()&#34;</span>&gt;
+</code></pre></div><p>在 navigation.component.ts 加入相關程式碼</p>
+<pre tabindex=0><code class="language-ts{hl_linenos=[22-28]}" data-lang="ts{hl_linenos=[22-28]}">import { Component } from '@angular/core';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { Observable } from 'rxjs';
+import { map, shareReplay } from 'rxjs/operators';
+
+@Component({
+  selector: 'app-navigation',
+  templateUrl: './navigation.component.html',
+  styleUrls: ['./navigation.component.scss']
+})
+export class NavigationComponent {
+  isDarkTheme = false;
+
+  isHandset$: Observable&lt;boolean&gt; = this.breakpointObserver.observe(Breakpoints.Handset)
+    .pipe(
+      map(result =&gt; result.matches),
+      shareReplay()
+    );
+
+  constructor(private breakpointObserver: BreakpointObserver) {}
+
+  ngOnInit() {
+    this.isDarkTheme = localStorage.getItem('theme') === &quot;Dark&quot; ? true : false;
+  }
+  
+  storeThemeSelection() {
+    localStorage.setItem('theme', this.isDarkTheme ? &quot;Dark&quot; : &quot;Light&quot;);
+  }
+}
+</code></pre><p>再次測試發現開關切換的結果會被記錄下來了。admin template 至此已算完成。下面來看看如何使用這個樣本範例。</p>
+<h2 id=使用-admin-template>使用 admin template<a hidden class=anchor aria-hidden=true href=#使用-admin-template>#</a></h2>
+<h3 id=建立新組件-components>建立新組件 Components<a hidden class=anchor aria-hidden=true href=#建立新組件-components>#</a></h3>
+<p>使用 angular cli 來産生一個新元件：<code>$ npx ng g c components/flexbox</code></p>
+<h3 id=設置-routes>設置 routes<a hidden class=anchor aria-hidden=true href=#設置-routes>#</a></h3>
+<p>在 app-routing.module.ts 中加入 routes 相關設定</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-ts data-lang=ts><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>routes</span>: <span style=color:#66d9ef>Routes</span> <span style=color:#f92672>=</span> [{
+  <span style=color:#a6e22e>path</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;flexbox&#39;</span>, <span style=color:#a6e22e>component</span>: <span style=color:#66d9ef>FlexboxComponent</span>
+}];
+</code></pre></div><h3 id=在-html-中加入-router-outlet>在 html 中加入 router-outlet<a hidden class=anchor aria-hidden=true href=#在-html-中加入-router-outlet>#</a></h3>
+<p>在 navigation.component.html 中加入 router-outlet</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html>&lt;<span style=color:#f92672>mat-sidenav-container</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;sidenav-container mat-app-background&#34;</span> <span style=color:#960050;background-color:#1e0010>[</span><span style=color:#a6e22e>ngClass</span><span style=color:#960050;background-color:#1e0010>]=&#34;{&#39;</span><span style=color:#a6e22e>dark-theme-mode</span><span style=color:#960050;background-color:#1e0010>&#39;</span><span style=color:#a6e22e>:isDarkTheme</span><span style=color:#960050;background-color:#1e0010>}&#34;</span>&gt;
+  &lt;<span style=color:#f92672>mat-sidenav</span> <span style=color:#960050;background-color:#1e0010>#</span><span style=color:#a6e22e>drawer</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;sidenav&#34;</span> <span style=color:#a6e22e>fixedInViewport</span>
+      <span style=color:#960050;background-color:#1e0010>[</span><span style=color:#a6e22e>attr</span><span style=color:#960050;background-color:#1e0010>.</span><span style=color:#a6e22e>role</span><span style=color:#960050;background-color:#1e0010>]=&#34;(</span><span style=color:#a6e22e>isHandset</span><span style=color:#960050;background-color:#1e0010>$</span> <span style=color:#960050;background-color:#1e0010>|</span> <span style=color:#a6e22e>async</span><span style=color:#960050;background-color:#1e0010>)</span> <span style=color:#960050;background-color:#1e0010>?</span> <span style=color:#960050;background-color:#1e0010>&#39;</span><span style=color:#a6e22e>dialog</span><span style=color:#960050;background-color:#1e0010>&#39;</span> <span style=color:#a6e22e>:</span> <span style=color:#960050;background-color:#1e0010>&#39;</span><span style=color:#a6e22e>navigation</span><span style=color:#960050;background-color:#1e0010>&#39;&#34;</span>
+      <span style=color:#960050;background-color:#1e0010>[</span><span style=color:#a6e22e>mode</span><span style=color:#960050;background-color:#1e0010>]=&#34;(</span><span style=color:#a6e22e>isHandset</span><span style=color:#960050;background-color:#1e0010>$</span> <span style=color:#960050;background-color:#1e0010>|</span> <span style=color:#a6e22e>async</span><span style=color:#960050;background-color:#1e0010>)</span> <span style=color:#960050;background-color:#1e0010>?</span> <span style=color:#960050;background-color:#1e0010>&#39;</span><span style=color:#a6e22e>over</span><span style=color:#960050;background-color:#1e0010>&#39;</span> <span style=color:#a6e22e>:</span> <span style=color:#960050;background-color:#1e0010>&#39;</span><span style=color:#a6e22e>side</span><span style=color:#960050;background-color:#1e0010>&#39;&#34;</span>
+      <span style=color:#960050;background-color:#1e0010>[</span><span style=color:#a6e22e>opened</span><span style=color:#960050;background-color:#1e0010>]=&#34;(</span><span style=color:#a6e22e>isHandset</span><span style=color:#960050;background-color:#1e0010>$</span> <span style=color:#960050;background-color:#1e0010>|</span> <span style=color:#a6e22e>async</span><span style=color:#960050;background-color:#1e0010>)</span> <span style=color:#960050;background-color:#1e0010>===</span> <span style=color:#a6e22e>false</span><span style=color:#960050;background-color:#1e0010>&#34;</span>&gt;
+    &lt;<span style=color:#f92672>mat-toolbar</span>&gt;Menu&lt;/<span style=color:#f92672>mat-toolbar</span>&gt;
+    &lt;<span style=color:#f92672>mat-nav-list</span>&gt;
+      &lt;<span style=color:#f92672>a</span> <span style=color:#a6e22e>mat-list-item</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;#&#34;</span>&gt;Link 1&lt;/<span style=color:#f92672>a</span>&gt;
+      &lt;<span style=color:#f92672>a</span> <span style=color:#a6e22e>mat-list-item</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;#&#34;</span>&gt;Link 2&lt;/<span style=color:#f92672>a</span>&gt;
+      &lt;<span style=color:#f92672>a</span> <span style=color:#a6e22e>mat-list-item</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;#&#34;</span>&gt;Link 3&lt;/<span style=color:#f92672>a</span>&gt;
+    &lt;/<span style=color:#f92672>mat-nav-list</span>&gt;
+  &lt;/<span style=color:#f92672>mat-sidenav</span>&gt;
+  &lt;<span style=color:#f92672>mat-sidenav-content</span>&gt;
+    &lt;<span style=color:#f92672>mat-toolbar</span> <span style=color:#a6e22e>color</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;primary&#34;</span>&gt;
+      &lt;<span style=color:#f92672>button</span>
+        <span style=color:#a6e22e>type</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;button&#34;</span>
+        <span style=color:#a6e22e>aria-label</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;Toggle sidenav&#34;</span>
+        <span style=color:#a6e22e>mat-icon-button</span>
+        <span style=color:#960050;background-color:#1e0010>(</span><span style=color:#a6e22e>click</span><span style=color:#960050;background-color:#1e0010>)=&#34;</span><span style=color:#a6e22e>drawer</span><span style=color:#960050;background-color:#1e0010>.</span><span style=color:#a6e22e>toggle</span><span style=color:#960050;background-color:#1e0010>()&#34;</span>
+        <span style=color:#960050;background-color:#1e0010>*</span><span style=color:#a6e22e>ngIf</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;isHandset$ | async&#34;</span>&gt;
+        &lt;<span style=color:#f92672>mat-icon</span> <span style=color:#a6e22e>aria-label</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;Side nav toggle icon&#34;</span>&gt;menu&lt;/<span style=color:#f92672>mat-icon</span>&gt;
+      &lt;/<span style=color:#f92672>button</span>&gt;
+      &lt;<span style=color:#f92672>span</span>&gt;adminTest&lt;/<span style=color:#f92672>span</span>&gt;
+      &lt;<span style=color:#f92672>span</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;ext-space&#34;</span>&gt;&lt;/<span style=color:#f92672>span</span>&gt;
+      &lt;<span style=color:#f92672>div</span> <span style=color:#960050;background-color:#1e0010>*</span><span style=color:#a6e22e>ngIf</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;this.isDarkTheme; else LightTheme&#34;</span>&gt;
+        &lt;<span style=color:#f92672>mat-icon</span>&gt;bedtime&lt;/<span style=color:#f92672>mat-icon</span>&gt;
+      &lt;/<span style=color:#f92672>div</span>&gt;
+      &lt;<span style=color:#f92672>ng-template</span> <span style=color:#960050;background-color:#1e0010>#</span><span style=color:#a6e22e>LightTheme</span>&gt;
+        &lt;<span style=color:#f92672>div</span> <span style=color:#960050;background-color:#1e0010>*</span><span style=color:#a6e22e>ngIf</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;!this.isDarkTheme&#34;</span>&gt;
+          &lt;<span style=color:#f92672>mat-icon</span>&gt;wb_sunny&lt;/<span style=color:#f92672>mat-icon</span>&gt;
+        &lt;/<span style=color:#f92672>div</span>&gt;
+      &lt;/<span style=color:#f92672>ng-template</span>&gt;
+      &lt;<span style=color:#f92672>mat-slide-toggle</span> <span style=color:#960050;background-color:#1e0010>[(</span><span style=color:#a6e22e>ngModel</span><span style=color:#960050;background-color:#1e0010>)]=&#34;</span><span style=color:#a6e22e>isDarkTheme</span><span style=color:#960050;background-color:#1e0010>&#34;</span> <span style=color:#a6e22e>labelPosition</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;before&#34;</span> &gt;
+      &lt;/<span style=color:#f92672>mat-slide-toggle</span>&gt;    
+    &lt;/<span style=color:#f92672>mat-toolbar</span>&gt;
+    <span style=color:#75715e>&lt;!-- Add Content Here --&gt;</span>
+    &lt;<span style=color:#f92672>router-outlet</span>&gt;&lt;/<span style=color:#f92672>router-outlet</span>&gt;
+  &lt;/<span style=color:#f92672>mat-sidenav-content</span>&gt;
+&lt;/<span style=color:#f92672>mat-sidenav-container</span>&gt;
+</code></pre></div><h3 id=匯入-routermodule-module>匯入 RouterModule Module<a hidden class=anchor aria-hidden=true href=#匯入-routermodule-module>#</a></h3>
+<p>由於在 html 中加入 router-outlet，所以必須在 share-material.module.ts 中匯入 RouterModule Module</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-ts data-lang=ts><span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>NgModule</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;@angular/core&#39;</span>;
+<span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>CommonModule</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;@angular/common&#39;</span>;
+<span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>NavigationComponent</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;../navigation/navigation.component&#39;</span>;
+<span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>LayoutModule</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;@angular/cdk/layout&#39;</span>;
+<span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>MatToolbarModule</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;@angular/material/toolbar&#39;</span>;
+<span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>MatButtonModule</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;@angular/material/button&#39;</span>;
+<span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>MatSidenavModule</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;@angular/material/sidenav&#39;</span>;
+<span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>MatIconModule</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;@angular/material/icon&#39;</span>;
+<span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>MatListModule</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;@angular/material/list&#39;</span>;
+<span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>MatSlideToggleModule</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;@angular/material/slide-toggle&#39;</span>;
+<span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>FormsModule</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;@angular/forms&#39;</span>;
+<span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>RouterModule</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;@angular/router&#39;</span>;
+
+
+
+<span style=color:#66d9ef>@NgModule</span>({
+  <span style=color:#a6e22e>declarations</span><span style=color:#f92672>:</span> [
+    <span style=color:#a6e22e>NavigationComponent</span>
+  ],
+  <span style=color:#a6e22e>imports</span><span style=color:#f92672>:</span> [
+    <span style=color:#a6e22e>CommonModule</span>,
+    <span style=color:#a6e22e>FormsModule</span>,
+    <span style=color:#a6e22e>LayoutModule</span>,
+    <span style=color:#a6e22e>MatToolbarModule</span>,
+    <span style=color:#a6e22e>MatButtonModule</span>,
+    <span style=color:#a6e22e>MatSidenavModule</span>,
+    <span style=color:#a6e22e>MatIconModule</span>,
+    <span style=color:#a6e22e>MatListModule</span>,
+    <span style=color:#a6e22e>MatSlideToggleModule</span>,
+    <span style=color:#a6e22e>RouterModule</span>
+  ],
+  <span style=color:#a6e22e>exports</span><span style=color:#f92672>:</span> [
+    <span style=color:#a6e22e>NavigationComponent</span>
+  ]
+})
+<span style=color:#66d9ef>export</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>ShareMaterialModule</span> { }
+</code></pre></div><p>測試 routes 是否設定正確, 直接在瀏覽器輸入 localhost:4200/flexbox</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/218293259-7d09115a-db8a-4253-95ae-ef9f0d7eafce.png alt=image>
+</p>
+<p>結果顯示 routes 設置無誤，接下去來完成 route-link 的設置。</p>
+<h3 id=route-link-設置>route-link 設置<a hidden class=anchor aria-hidden=true href=#route-link-設置>#</a></h3>
+<p>在 navigation.component.html file 中加入 route-link 到 list 上: <code>&lt;a mat-list-item routerLink="/flexbox">flex box&lt;/a></code></p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html>&lt;<span style=color:#f92672>mat-sidenav-container</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;sidenav-container mat-app-background&#34;</span> <span style=color:#960050;background-color:#1e0010>[</span><span style=color:#a6e22e>ngClass</span><span style=color:#960050;background-color:#1e0010>]=&#34;{&#39;</span><span style=color:#a6e22e>dark-theme-mode</span><span style=color:#960050;background-color:#1e0010>&#39;</span><span style=color:#a6e22e>:isDarkTheme</span><span style=color:#960050;background-color:#1e0010>}&#34;</span>&gt;
+  &lt;<span style=color:#f92672>mat-sidenav</span> <span style=color:#960050;background-color:#1e0010>#</span><span style=color:#a6e22e>drawer</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;sidenav&#34;</span> <span style=color:#a6e22e>fixedInViewport</span>
+      <span style=color:#960050;background-color:#1e0010>[</span><span style=color:#a6e22e>attr</span><span style=color:#960050;background-color:#1e0010>.</span><span style=color:#a6e22e>role</span><span style=color:#960050;background-color:#1e0010>]=&#34;(</span><span style=color:#a6e22e>isHandset</span><span style=color:#960050;background-color:#1e0010>$</span> <span style=color:#960050;background-color:#1e0010>|</span> <span style=color:#a6e22e>async</span><span style=color:#960050;background-color:#1e0010>)</span> <span style=color:#960050;background-color:#1e0010>?</span> <span style=color:#960050;background-color:#1e0010>&#39;</span><span style=color:#a6e22e>dialog</span><span style=color:#960050;background-color:#1e0010>&#39;</span> <span style=color:#a6e22e>:</span> <span style=color:#960050;background-color:#1e0010>&#39;</span><span style=color:#a6e22e>navigation</span><span style=color:#960050;background-color:#1e0010>&#39;&#34;</span>
+      <span style=color:#960050;background-color:#1e0010>[</span><span style=color:#a6e22e>mode</span><span style=color:#960050;background-color:#1e0010>]=&#34;(</span><span style=color:#a6e22e>isHandset</span><span style=color:#960050;background-color:#1e0010>$</span> <span style=color:#960050;background-color:#1e0010>|</span> <span style=color:#a6e22e>async</span><span style=color:#960050;background-color:#1e0010>)</span> <span style=color:#960050;background-color:#1e0010>?</span> <span style=color:#960050;background-color:#1e0010>&#39;</span><span style=color:#a6e22e>over</span><span style=color:#960050;background-color:#1e0010>&#39;</span> <span style=color:#a6e22e>:</span> <span style=color:#960050;background-color:#1e0010>&#39;</span><span style=color:#a6e22e>side</span><span style=color:#960050;background-color:#1e0010>&#39;&#34;</span>
+      <span style=color:#960050;background-color:#1e0010>[</span><span style=color:#a6e22e>opened</span><span style=color:#960050;background-color:#1e0010>]=&#34;(</span><span style=color:#a6e22e>isHandset</span><span style=color:#960050;background-color:#1e0010>$</span> <span style=color:#960050;background-color:#1e0010>|</span> <span style=color:#a6e22e>async</span><span style=color:#960050;background-color:#1e0010>)</span> <span style=color:#960050;background-color:#1e0010>===</span> <span style=color:#a6e22e>false</span><span style=color:#960050;background-color:#1e0010>&#34;</span>&gt;
+    &lt;<span style=color:#f92672>mat-toolbar</span>&gt;功能列&lt;/<span style=color:#f92672>mat-toolbar</span>&gt;
+    &lt;<span style=color:#f92672>mat-nav-list</span>&gt;
+      &lt;<span style=color:#f92672>a</span> <span style=color:#a6e22e>mat-list-item</span> <span style=color:#a6e22e>routerLink</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;/flexbox&#34;</span>&gt;flex box&lt;/<span style=color:#f92672>a</span>&gt;
+      &lt;<span style=color:#f92672>a</span> <span style=color:#a6e22e>mat-list-item</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;#&#34;</span>&gt;Link 2&lt;/<span style=color:#f92672>a</span>&gt;
+      &lt;<span style=color:#f92672>a</span> <span style=color:#a6e22e>mat-list-item</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;#&#34;</span>&gt;Link 3&lt;/<span style=color:#f92672>a</span>&gt;
+    &lt;/<span style=color:#f92672>mat-nav-list</span>&gt;
+  &lt;/<span style=color:#f92672>mat-sidenav</span>&gt;
+  &lt;<span style=color:#f92672>mat-sidenav-content</span>&gt;
+    &lt;<span style=color:#f92672>mat-toolbar</span> <span style=color:#a6e22e>color</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;primary&#34;</span>&gt;
+      &lt;<span style=color:#f92672>button</span>
+        <span style=color:#a6e22e>type</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;button&#34;</span>
+        <span style=color:#a6e22e>aria-label</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;Toggle sidenav&#34;</span>
+        <span style=color:#a6e22e>mat-icon-button</span>
+        <span style=color:#960050;background-color:#1e0010>(</span><span style=color:#a6e22e>click</span><span style=color:#960050;background-color:#1e0010>)=&#34;</span><span style=color:#a6e22e>drawer</span><span style=color:#960050;background-color:#1e0010>.</span><span style=color:#a6e22e>toggle</span><span style=color:#960050;background-color:#1e0010>()&#34;</span>
+        <span style=color:#960050;background-color:#1e0010>*</span><span style=color:#a6e22e>ngIf</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;isHandset$ | async&#34;</span>&gt;
+        &lt;<span style=color:#f92672>mat-icon</span> <span style=color:#a6e22e>aria-label</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;Side nav toggle icon&#34;</span>&gt;menu&lt;/<span style=color:#f92672>mat-icon</span>&gt;
+      &lt;/<span style=color:#f92672>button</span>&gt;
+      &lt;<span style=color:#f92672>span</span>&gt;簡易的 admin template&lt;/<span style=color:#f92672>span</span>&gt;
+      &lt;<span style=color:#f92672>span</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;ext-space&#34;</span>&gt;&lt;/<span style=color:#f92672>span</span>&gt;
+      &lt;<span style=color:#f92672>div</span> <span style=color:#960050;background-color:#1e0010>*</span><span style=color:#a6e22e>ngIf</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;this.isDarkTheme; else LightTheme&#34;</span>&gt;
+        &lt;<span style=color:#f92672>mat-icon</span>&gt;bedtime&lt;/<span style=color:#f92672>mat-icon</span>&gt;
+      &lt;/<span style=color:#f92672>div</span>&gt;
+      &lt;<span style=color:#f92672>ng-template</span> <span style=color:#960050;background-color:#1e0010>#</span><span style=color:#a6e22e>LightTheme</span>&gt;
+        &lt;<span style=color:#f92672>div</span> <span style=color:#960050;background-color:#1e0010>*</span><span style=color:#a6e22e>ngIf</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;!this.isDarkTheme&#34;</span>&gt;
+          &lt;<span style=color:#f92672>mat-icon</span>&gt;wb_sunny&lt;/<span style=color:#f92672>mat-icon</span>&gt;
+        &lt;/<span style=color:#f92672>div</span>&gt;
+      &lt;/<span style=color:#f92672>ng-template</span>&gt;
+      &lt;<span style=color:#f92672>mat-slide-toggle</span> <span style=color:#960050;background-color:#1e0010>[(</span><span style=color:#a6e22e>ngModel</span><span style=color:#960050;background-color:#1e0010>)]=&#34;</span><span style=color:#a6e22e>isDarkTheme</span><span style=color:#960050;background-color:#1e0010>&#34;</span> <span style=color:#a6e22e>labelPosition</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;before&#34;</span> &gt;
+      &lt;/<span style=color:#f92672>mat-slide-toggle</span>&gt;    
+    &lt;/<span style=color:#f92672>mat-toolbar</span>&gt;
+    <span style=color:#75715e>&lt;!-- Add Content Here --&gt;</span>
+    &lt;<span style=color:#f92672>router-outlet</span>&gt;&lt;/<span style=color:#f92672>router-outlet</span>&gt;
+  &lt;/<span style=color:#f92672>mat-sidenav-content</span>&gt;
+&lt;/<span style=color:#f92672>mat-sidenav-container</span>&gt;
+
+</code></pre></div><p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/218293377-7777e217-5c57-4a5e-9f78-e06ce878dc58.png alt="2023-02-12 12-43-16 的螢幕擷圖">
+</p>
+</div>
+<footer class=post-footer>
+<ul class=post-tags>
+<li><a href=https://calvinegs.github.io/tags/angular/>angular</a></li>
+<li><a href=https://calvinegs.github.io/tags/material/>material</a></li>
+<li><a href=https://calvinegs.github.io/tags/admin-template/>admin template</a></li>
+</ul>
+<nav class=paginav>
+<a class=next href=https://calvinegs.github.io/posts/docker-mongodb/>
+<span class=title>Next Page »</span>
+<br>
+<span>使用 Docker 執行 MongoDb</span>
+</a>
+</nav>
+<div class=share-buttons>
+<a target=_blank rel="noopener noreferrer" aria-label="share 使用 Angular Material 建立一個簡易的 Admin Template on twitter" href="https://twitter.com/intent/tweet/?text=%e4%bd%bf%e7%94%a8%20Angular%20Material%20%e5%bb%ba%e7%ab%8b%e4%b8%80%e5%80%8b%e7%b0%a1%e6%98%93%e7%9a%84%20Admin%20Template&url=https%3a%2f%2fcalvinegs.github.io%2fposts%2fangular-material-adminui%2f&hashtags=angular%2cmaterial%2cadmintemplate"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zM195.519 424.544c135.939.0 210.268-112.643 210.268-210.268.0-3.218.0-6.437-.153-9.502 14.406-10.421 26.973-23.448 36.935-38.314-13.18 5.824-27.433 9.809-42.452 11.648 15.326-9.196 26.973-23.602 32.49-40.92-14.252 8.429-30.038 14.56-46.896 17.931-13.487-14.406-32.644-23.295-53.946-23.295-40.767.0-73.87 33.104-73.87 73.87.0 5.824.613 11.494 1.992 16.858-61.456-3.065-115.862-32.49-152.337-77.241-6.284 10.881-9.962 23.601-9.962 37.088.0 25.594 13.027 48.276 32.95 61.456-12.107-.307-23.448-3.678-33.41-9.196v.92c0 35.862 25.441 65.594 59.311 72.49-6.13 1.686-12.72 2.606-19.464 2.606-4.751.0-9.348-.46-13.946-1.38 9.349 29.426 36.628 50.728 68.965 51.341-25.287 19.771-57.164 31.571-91.8 31.571-5.977.0-11.801-.306-17.625-1.073 32.337 21.15 71.264 33.41 112.95 33.41z"/></svg>
+</a>
+<a target=_blank rel="noopener noreferrer" aria-label="share 使用 Angular Material 建立一個簡易的 Admin Template on linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2fcalvinegs.github.io%2fposts%2fangular-material-adminui%2f&title=%e4%bd%bf%e7%94%a8%20Angular%20Material%20%e5%bb%ba%e7%ab%8b%e4%b8%80%e5%80%8b%e7%b0%a1%e6%98%93%e7%9a%84%20Admin%20Template&summary=%e4%bd%bf%e7%94%a8%20Angular%20Material%20%e5%bb%ba%e7%ab%8b%e4%b8%80%e5%80%8b%e7%b0%a1%e6%98%93%e7%9a%84%20Admin%20Template&source=https%3a%2f%2fcalvinegs.github.io%2fposts%2fangular-material-adminui%2f"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zM160.461 423.278V197.561h-75.04v225.717h75.04zm270.539.0V293.839c0-69.333-37.018-101.586-86.381-101.586-39.804.0-57.634 21.891-67.617 37.266v-31.958h-75.021c.995 21.181.0 225.717.0 225.717h75.02V297.222c0-6.748.486-13.492 2.474-18.315 5.414-13.475 17.767-27.434 38.494-27.434 27.135.0 38.007 20.707 38.007 51.037v120.768H431zM123.448 88.722C97.774 88.722 81 105.601 81 127.724c0 21.658 16.264 39.002 41.455 39.002h.484c26.165.0 42.452-17.344 42.452-39.002-.485-22.092-16.241-38.954-41.943-39.002z"/></svg>
+</a>
+<a target=_blank rel="noopener noreferrer" aria-label="share 使用 Angular Material 建立一個簡易的 Admin Template on reddit" href="https://reddit.com/submit?url=https%3a%2f%2fcalvinegs.github.io%2fposts%2fangular-material-adminui%2f&title=%e4%bd%bf%e7%94%a8%20Angular%20Material%20%e5%bb%ba%e7%ab%8b%e4%b8%80%e5%80%8b%e7%b0%a1%e6%98%93%e7%9a%84%20Admin%20Template"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zM446 265.638c0-22.964-18.616-41.58-41.58-41.58-11.211.0-21.361 4.457-28.841 11.666-28.424-20.508-67.586-33.757-111.204-35.278l18.941-89.121 61.884 13.157c.756 15.734 13.642 28.29 29.56 28.29 16.407.0 29.706-13.299 29.706-29.701.0-16.403-13.299-29.702-29.706-29.702-11.666.0-21.657 6.792-26.515 16.578l-69.105-14.69c-1.922-.418-3.939-.042-5.585 1.036-1.658 1.073-2.811 2.761-3.224 4.686l-21.152 99.438c-44.258 1.228-84.046 14.494-112.837 35.232-7.468-7.164-17.589-11.591-28.757-11.591-22.965.0-41.585 18.616-41.585 41.58.0 16.896 10.095 31.41 24.568 37.918-.639 4.135-.99 8.328-.99 12.576.0 63.977 74.469 115.836 166.33 115.836s166.334-51.859 166.334-115.836c0-4.218-.347-8.387-.977-12.493 14.564-6.47 24.735-21.034 24.735-38.001zM326.526 373.831c-20.27 20.241-59.115 21.816-70.534 21.816-11.428.0-50.277-1.575-70.522-21.82-3.007-3.008-3.007-7.882.0-10.889 3.003-2.999 7.882-3.003 10.885.0 12.777 12.781 40.11 17.317 59.637 17.317 19.522.0 46.86-4.536 59.657-17.321 3.016-2.999 7.886-2.995 10.885.008 3.008 3.011 3.003 7.882-.008 10.889zm-5.23-48.781c-16.373.0-29.701-13.324-29.701-29.698.0-16.381 13.328-29.714 29.701-29.714 16.378.0 29.706 13.333 29.706 29.714.0 16.374-13.328 29.698-29.706 29.698zM160.91 295.348c0-16.381 13.328-29.71 29.714-29.71 16.369.0 29.689 13.329 29.689 29.71.0 16.373-13.32 29.693-29.689 29.693-16.386.0-29.714-13.32-29.714-29.693z"/></svg>
+</a>
+<a target=_blank rel="noopener noreferrer" aria-label="share 使用 Angular Material 建立一個簡易的 Admin Template on facebook" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fcalvinegs.github.io%2fposts%2fangular-material-adminui%2f"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H342.978V319.085h66.6l12.672-82.621h-79.272v-53.617c0-22.603 11.073-44.636 46.58-44.636H425.6v-70.34s-32.71-5.582-63.982-5.582c-65.288.0-107.96 39.569-107.96 111.204v62.971h-72.573v82.621h72.573V512h-191.104c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892z"/></svg>
+</a>
+<a target=_blank rel="noopener noreferrer" aria-label="share 使用 Angular Material 建立一個簡易的 Admin Template on whatsapp" href="https://api.whatsapp.com/send?text=%e4%bd%bf%e7%94%a8%20Angular%20Material%20%e5%bb%ba%e7%ab%8b%e4%b8%80%e5%80%8b%e7%b0%a1%e6%98%93%e7%9a%84%20Admin%20Template%20-%20https%3a%2f%2fcalvinegs.github.io%2fposts%2fangular-material-adminui%2f"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zm-58.673 127.703c-33.842-33.881-78.847-52.548-126.798-52.568-98.799.0-179.21 80.405-179.249 179.234-.013 31.593 8.241 62.428 23.927 89.612l-25.429 92.884 95.021-24.925c26.181 14.28 55.659 21.807 85.658 21.816h.074c98.789.0 179.206-80.413 179.247-179.243.018-47.895-18.61-92.93-52.451-126.81zM263.976 403.485h-.06c-26.734-.01-52.954-7.193-75.828-20.767l-5.441-3.229-56.386 14.792 15.05-54.977-3.542-5.637c-14.913-23.72-22.791-51.136-22.779-79.287.033-82.142 66.867-148.971 149.046-148.971 39.793.014 77.199 15.531 105.329 43.692 28.128 28.16 43.609 65.592 43.594 105.4-.034 82.149-66.866 148.983-148.983 148.984zm81.721-111.581c-4.479-2.242-26.499-13.075-30.604-14.571-4.105-1.495-7.091-2.241-10.077 2.241-2.986 4.483-11.569 14.572-14.182 17.562-2.612 2.988-5.225 3.364-9.703 1.12-4.479-2.241-18.91-6.97-36.017-22.23C231.8 264.15 222.81 249.484 220.198 245s-.279-6.908 1.963-9.14c2.016-2.007 4.48-5.232 6.719-7.847 2.24-2.615 2.986-4.484 4.479-7.472 1.493-2.99.747-5.604-.374-7.846-1.119-2.241-10.077-24.288-13.809-33.256-3.635-8.733-7.327-7.55-10.077-7.688-2.609-.13-5.598-.158-8.583-.158-2.986.0-7.839 1.121-11.944 5.604-4.105 4.484-15.675 15.32-15.675 37.364.0 22.046 16.048 43.342 18.287 46.332 2.24 2.99 31.582 48.227 76.511 67.627 10.685 4.615 19.028 7.371 25.533 9.434 10.728 3.41 20.492 2.929 28.209 1.775 8.605-1.285 26.499-10.833 30.231-21.295 3.732-10.464 3.732-19.431 2.612-21.298-1.119-1.869-4.105-2.99-8.583-5.232z"/></svg>
+</a>
+<a target=_blank rel="noopener noreferrer" aria-label="share 使用 Angular Material 建立一個簡易的 Admin Template on telegram" href="https://telegram.me/share/url?text=%e4%bd%bf%e7%94%a8%20Angular%20Material%20%e5%bb%ba%e7%ab%8b%e4%b8%80%e5%80%8b%e7%b0%a1%e6%98%93%e7%9a%84%20Admin%20Template&url=https%3a%2f%2fcalvinegs.github.io%2fposts%2fangular-material-adminui%2f"><svg viewBox="2 2 28 28"><path d="M26.49 29.86H5.5a3.37 3.37.0 01-2.47-1 3.35 3.35.0 01-1-2.47V5.48A3.36 3.36.0 013 3 3.37 3.37.0 015.5 2h21A3.38 3.38.0 0129 3a3.36 3.36.0 011 2.46V26.37a3.35 3.35.0 01-1 2.47 3.38 3.38.0 01-2.51 1.02zm-5.38-6.71a.79.79.0 00.85-.66L24.73 9.24a.55.55.0 00-.18-.46.62.62.0 00-.41-.17q-.08.0-16.53 6.11a.59.59.0 00-.41.59.57.57.0 00.43.52l4 1.24 1.61 4.83a.62.62.0 00.63.43.56.56.0 00.4-.17L16.54 20l4.09 3A.9.9.0 0021.11 23.15zM13.8 20.71l-1.21-4q8.72-5.55 8.78-5.55c.15.0.23.0.23.16a.18.18.0 010 .06s-2.51 2.3-7.52 6.8z"/></svg>
+</a>
+</div>
+</footer>
+<div>
+<div id=disqus_thread></div>
+<script type=text/javascript>(function(){var a,b;if(window.location.hostname=="localhost")return;a=document.createElement('script'),a.type='text/javascript',a.async=!0,b='calvinegs-github-io',a.src='//'+b+'.disqus.com/embed.js',(document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild(a)})()</script>
+<noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript>
+<a href=https://disqus.com/ class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a>
+</div>
+</article>
+</main>
+<footer class=footer>
+<span>&copy; 2023 <a href=https://calvinegs.github.io/>永誌不忘 • 筆記簿</a></span>
+<span>
+Powered by
+<a href=https://gohugo.io/ rel="noopener noreferrer" target=_blank>Hugo</a> &
+        <a href=https://git.io/hugopapermod rel=noopener target=_blank>PaperMod</a>
+</span>
+</footer>
+<a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentcolor"><path d="M12 6H0l6-6z"/></svg>
+</a>
+<script>let menu=document.getElementById('menu');menu&&(menu.scrollLeft=localStorage.getItem("menu-scroll-position"),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}),document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener("click",function(b){b.preventDefault();var a=this.getAttribute("href").substr(1);window.matchMedia('(prefers-reduced-motion: reduce)').matches?document.querySelector(`[id='${decodeURIComponent(a)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(a)}']`).scrollIntoView({behavior:"smooth"}),a==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${a}`)})})</script>
+<script>var mybutton=document.getElementById("top-link");window.onscroll=function(){document.body.scrollTop>800||document.documentElement.scrollTop>800?(mybutton.style.visibility="visible",mybutton.style.opacity="1"):(mybutton.style.visibility="hidden",mybutton.style.opacity="0")}</script>
+<script>document.getElementById("theme-toggle").addEventListener("click",()=>{document.body.className.includes("dark")?(document.body.classList.remove('dark'),localStorage.setItem("pref-theme",'light')):(document.body.classList.add('dark'),localStorage.setItem("pref-theme",'dark'))})</script>
+<script>document.querySelectorAll('pre > code').forEach(b=>{const c=b.parentNode.parentNode,a=document.createElement('button');a.classList.add('copy-code'),a.innerText='copy';function d(){a.innerText='copied!',setTimeout(()=>{a.innerText='copy'},2e3)}a.addEventListener('click',e=>{if('clipboard'in navigator){navigator.clipboard.writeText(b.textContent),d();return}const a=document.createRange();a.selectNodeContents(b);const c=window.getSelection();c.removeAllRanges(),c.addRange(a);try{document.execCommand('copy'),d()}catch(a){}c.removeRange(a)}),c.classList.contains("highlight")?c.appendChild(a):c.parentNode.firstChild==c||(b.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName=="TABLE"?b.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(a):b.parentNode.appendChild(a))})</script>
+</body>
+</html>

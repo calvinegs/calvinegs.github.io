@@ -10,7 +10,34 @@
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 08 Feb 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://calvinegs.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 12 Feb 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://calvinegs.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>admin template</title>
+      <link>https://calvinegs.github.io/tags/admin-template/</link>
+      <pubDate>Sun, 12 Feb 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://calvinegs.github.io/tags/admin-template/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>angular</title>
+      <link>https://calvinegs.github.io/tags/angular/</link>
+      <pubDate>Sun, 12 Feb 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://calvinegs.github.io/tags/angular/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>material</title>
+      <link>https://calvinegs.github.io/tags/material/</link>
+      <pubDate>Sun, 12 Feb 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://calvinegs.github.io/tags/material/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>docker</title>
       <link>https://calvinegs.github.io/tags/docker/</link>
@@ -44,15 +71,6 @@
       <pubDate>Wed, 08 Feb 2023 00:00:00 +0000</pubDate>
       
       <guid>https://calvinegs.github.io/tags/mongodb-compass/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>angular</title>
-      <link>https://calvinegs.github.io/tags/angular/</link>
-      <pubDate>Tue, 31 Jan 2023 00:00:00 +0000</pubDate>
-      
-      <guid>https://calvinegs.github.io/tags/angular/</guid>
       <description></description>
     </item>
     
