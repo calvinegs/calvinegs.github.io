@@ -33,7 +33,7 @@ Angular Interceptor 可以用來作什麼用途呢
 
 使用 npm init @angular 語法來建立 Angular project
 
-```bash{hl_lines=[1]}
+```bash {linenos=table,hl_lines=[1]}
 $ npm init @angular loadingSpin -- --routing --style=scss
 $ cd loadingSpin
 $ code .
@@ -41,7 +41,7 @@ $ code .
 
 安裝 material component 
 
-```bash{linenos=table,hl_lines=[1]}
+```bash {linenos=table,hl_lines=[1]}
 $ npx ng add @angular/material
 
 ℹ Using package manager: npm
@@ -67,7 +67,7 @@ UPDATE src/styles.scss (181 bytes)
 
 在使用 material component 之前，先在 app.module 中 import 要使用的 UI component，如: Toolbar、Button、Progress Spinner等。
 
-```ts{hl_lines=[8-10,19-21]}
+```ts {hl_lines=[9-11,20-22]}
 # app.module.ts
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -183,7 +183,7 @@ mat-spinner {
 $ npx ng g s services/getData
 ```
 
-```ts{linenos=table,hl_lines=[1,9,12]}
+```ts {linenos=table,hl_lines=[2,10,13]}
 # services/get-data.service.ts
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -203,7 +203,7 @@ export class GetDataService {
 
 使用到了 HttpClient，所以要記得在 AppModule 中匯入 HttpClientModule
 
-```ts{linenos=table,hl_lines=[12,24]}
+```ts {linenos=table,hl_lines=[13,25]}
 # app.module.ts
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -238,7 +238,7 @@ export class AppModule { }
 
 在 Template (app.component.html) 中加入一個“取得資料”的按鈕。
 
-```html{linenos=table,hl_lines=[7]}
+```html {linenos=table,hl_lines=[7]}
 <mat-toolbar color="primary">
   使用 RxJS and HttpInterceptor 來實現 "資料讀取中..." 動畫效果的功能
 </mat-toolbar>
@@ -253,7 +253,7 @@ export class AppModule { }
 
 在 component class 中呼叫 Service 來向後端 API 讀取資料。
 
-```ts{linenos=table,hl_lines=[11,13,22-28]}
+```ts {linenos=table,hl_lines=[11,13,22-28]}
 import { Component } from '@angular/core';
 import { GetDataService } from './services/get-data.service';
 
@@ -296,7 +296,7 @@ export class AppComponent {
 
 建立一個 Interceptor
 
-```bash{linenos=table,hl_lines=[1]}
+```bash {linenos=table,hl_lines=[1]}
 $ npx ng g interceptor interceptors/httpLoadingSpin
 
 CREATE src/app/interceptors/http-loading-spin.interceptor.spec.ts (472 bytes)
@@ -304,7 +304,7 @@ CREATE src/app/interceptors/http-loading-spin.interceptor.ts (420 bytes)
 ```
 將 '狀態' 資訊放在另一支 Service 程式中
 
-```bash{linenos=table,hl_lines=[1]}
+```bash {linenos=table,hl_lines=[1]}
 $ npx ng g s services/loading
 
 CREATE src/app/services/loading.service.spec.ts (362 bytes)
@@ -338,7 +338,7 @@ export class LoadingService {
 
 在前面新建立的 Interceptor 程式修改如下：
 
-```ts{linenos=table,hl_lines=[9,14,17,21]}
+```ts {linenos=table,hl_lines=[9,14,17,21]}
 import { Injectable } from '@angular/core';
 import {
   HttpRequest,
@@ -379,7 +379,7 @@ providers: [{
 
 app.component.ts 這個 component class 程式改成使用新建立的 LoadingService
 
-```ts{linenos=table,hl_lines=[3,16,20,25]}
+```ts {linenos=table,hl_lines=[3,12，16,20,25]}
 import { Component } from '@angular/core';
 import { GetDataService } from './services/get-data.service';
 import { LoadingService } from './services/loading.service';

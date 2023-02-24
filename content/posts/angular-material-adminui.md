@@ -216,7 +216,7 @@ export class ShareMaterialModule { }
 
 為了在專案其他地方(如：AppComponent中）使用 NavidationComponent，不要忘記在 app.module.ts 中引入 ShareMaterialModule module。
 
-```ts{hl_linenos=[8,17]}
+```ts {linenos=table,hl_lines=[8,17]}
 # app.module.ts 
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -249,7 +249,7 @@ export class AppModule { }
 
 share-material.module.ts:
 
-```ts{hl_linenos=[8,30-32]}
+```ts {linenos=table,hl_lines=[8,30-32]}
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NavigationComponent } from '../navigation/navigation.component';
@@ -519,7 +519,7 @@ export class ShareMaterialModule { }
 
 在 navigation.component.ts 加入相關程式碼
 
-```ts{hl_linenos=[22-28]}
+```ts {linenos=table,hl_lines=[22-28]}
 import { Component } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
