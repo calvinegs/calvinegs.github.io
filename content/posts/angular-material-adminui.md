@@ -144,7 +144,7 @@ $ npx ng g m ./shared/shareMaterial --flat
 
 由上述 angular cli 所産生的 share-material.module.ts 檔案
 
-```ts
+```ts {linenos=table}
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -175,7 +175,7 @@ $ npx ng g @angular/material:navigation navigation --module ./shared/share-mater
 
 使用 @angular/material:navigation schematics 除了産生 navigation component 外，也會自動在 module file (share-material.module.ts) 中自動引中必需的 module
 
-```ts
+```ts {linenos=table}
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NavigationComponent } from '../navigation/navigation.component';
@@ -249,7 +249,7 @@ export class AppModule { }
 
 share-material.module.ts:
 
-```ts {linenos=table,hl_lines=[8,30-32]}
+```ts {linenos=table,hl_lines=[8,25]}
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NavigationComponent } from '../navigation/navigation.component';
@@ -300,8 +300,8 @@ export class ShareMaterialModule { }
 
 ### 在 styles.scss 新增 Dark theme 相關設定
 
-```css
-...
+```css {linenos=table}
+/* ... */
 // for Dark Mode
 $adminTemplate-primary-dark: mat.define-palette(mat.$purple-palette);
 $adminTemplate-accent-dark: mat.define-palette(mat.$green-palette, A200, A100, A400);
@@ -341,38 +341,38 @@ $adminTemplate-theme-dark: mat.define-dark-theme((
 
 要使用 mat-slide-toggle component 必須在 module file 中 import MatSlideToggleModule
 
-```
+```ts
 # share-material.module.ts
-...
+<!-- ... -->
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
-...
+<!-- ... -->
 
 imports:[
 	...
 	MatSlideToggleModule
 ],
-...
+// ...
 ```
 
 由於使用到了 [(ngModel)]，所以必須在 module file 中 import FormsModule
 
-```
+```ts
 # share-material.module.ts
-...
+// ...
 import { FormsModule } from '@angular/forms';
 
-...
+// ...
 
 imports:[
-	...
+	// ...
 	FormsModule
 ],
-...
+// ...
 ```
 
 完成後的 navigation.component.html
-```html
+```html {linenos=table}
 <mat-sidenav-container class="sidenav-container mat-app-background" [ngClass]="{'dark-theme-mode':isDarkTheme}">
   <mat-sidenav #drawer class="sidenav" fixedInViewport
       [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
@@ -404,7 +404,7 @@ imports:[
 ```
 
 完成後的 navigation.component.ts
-```ts
+```ts {linenos=table}
 import { Component } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
@@ -430,7 +430,7 @@ export class NavigationComponent {
 ```
 
 完成後的 share-material.module.ts 
-```ts
+```ts {linenos=table}
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NavigationComponent } from '../navigation/navigation.component';
@@ -481,7 +481,7 @@ export class ShareMaterialModule { }
 
 接著，將 UI 再優化一下，把開關移至畫面右側，並於開關前面顯示一個圖示，分別表示套用了不同的主題。
 
-```html
+```html {linenos=table}
       <span class="ext-space"></span>
       <div *ngIf="this.isDarkTheme; else LightTheme">
         <mat-icon>bedtime</mat-icon>
@@ -498,7 +498,7 @@ export class ShareMaterialModule { }
 在 navigation.component.scss 加入下列的設定，為的是將 slide-toggle 元件顯示在畫面右側
 
 ```css
-...
+/* ... */
 .ext-space {
   flex: 1 0 auto;
 }
@@ -519,7 +519,7 @@ export class ShareMaterialModule { }
 
 在 navigation.component.ts 加入相關程式碼
 
-```ts {linenos=table,hl_lines=[22-28]}
+```ts {linenos=table,hl_lines=["22-28"]}
 import { Component } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
@@ -575,7 +575,7 @@ const routes: Routes = [{
 
 在 navigation.component.html 中加入 router-outlet
 
-```html
+```html {linenos=table}
 <mat-sidenav-container class="sidenav-container mat-app-background" [ngClass]="{'dark-theme-mode':isDarkTheme}">
   <mat-sidenav #drawer class="sidenav" fixedInViewport
       [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
@@ -620,7 +620,7 @@ const routes: Routes = [{
 ### 匯入 RouterModule Module
 由於在 html 中加入 router-outlet，所以必須在 share-material.module.ts 中匯入 RouterModule Module
 
-```ts
+```ts {linenos=table}
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NavigationComponent } from '../navigation/navigation.component';
@@ -670,7 +670,7 @@ export class ShareMaterialModule { }
 
 在 navigation.component.html file 中加入 route-link 到 list 上: `<a mat-list-item routerLink="/flexbox">flex box</a>`
 
-```html
+```html {linenos=table}
 <mat-sidenav-container class="sidenav-container mat-app-background" [ngClass]="{'dark-theme-mode':isDarkTheme}">
   <mat-sidenav #drawer class="sidenav" fixedInViewport
       [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"

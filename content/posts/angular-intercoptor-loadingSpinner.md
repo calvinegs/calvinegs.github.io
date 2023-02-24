@@ -67,8 +67,8 @@ UPDATE src/styles.scss (181 bytes)
 
 在使用 material component 之前，先在 app.module 中 import 要使用的 UI component，如: Toolbar、Button、Progress Spinner等。
 
-```ts {hl_lines=["9-11","20-22"]}
-# app.module.ts
+```ts {linenos=table,hl_lines=["9-11","20-22"]}
+# app.module.ts {linenos=table}
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -99,8 +99,8 @@ export class AppModule { }
 
 在 app.component.html 中，建立一個表頭、二個按鈕、及放入 material spinner（用來顯示正在處理中的動畫圖示） 組件。
 
-```html
-# app.component.html
+```html {linenos=table}
+<!-- app.component.html -->
 <mat-toolbar color="primary">
   使用 RxJS and HttpInterceptor 來實現 "資料讀取中..." 動畫效果的功能
 </mat-toolbar>
@@ -114,8 +114,8 @@ export class AppModule { }
 
 在 app.component.scss 中設定了畫面上按鈕排版位置。
 
-```css
-# app.component.scss
+```css {linenos=table}
+/* app.component.scss */
 .content {
     padding: 16px;
 }
@@ -127,8 +127,8 @@ button {
 
 在 app.component.ts component class 中宣告了一個 property: loading，用來控制畫面上 Spinner 的顯示與否。
 
-```ts
-# app.component.ts
+```ts {linenos=table}
+// app.component.ts
 import { Component } from '@angular/core';
 
 @Component({
@@ -159,8 +159,8 @@ export class AppComponent {
 app.component.scss 調整如下：
 
 ```css
-# ...
-# 加入以下設定：調整顯示的位置
+/* ... */
+/* 加入以下設定：調整顯示的位置 */
 mat-spinner {
     position: absolute;
     top: 50%;
@@ -184,7 +184,7 @@ $ npx ng g s services/getData
 ```
 
 ```ts {linenos=table,hl_lines=[2,10,13]}
-# services/get-data.service.ts
+// services/get-data.service.ts
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
@@ -204,7 +204,7 @@ export class GetDataService {
 使用到了 HttpClient，所以要記得在 AppModule 中匯入 HttpClientModule
 
 ```ts {linenos=table,hl_lines=[13,25]}
-# app.module.ts
+// app.module.ts
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -302,6 +302,7 @@ $ npx ng g interceptor interceptors/httpLoadingSpin
 CREATE src/app/interceptors/http-loading-spin.interceptor.spec.ts (472 bytes)
 CREATE src/app/interceptors/http-loading-spin.interceptor.ts (420 bytes)
 ```
+
 將 '狀態' 資訊放在另一支 Service 程式中
 
 ```bash {linenos=table,hl_lines=[1]}
@@ -313,7 +314,7 @@ CREATE src/app/services/loading.service.ts (136 bytes)
 
 loading.service.ts 程式內容如下：
 
-```ts
+```ts {linenos=table}
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
@@ -367,14 +368,14 @@ export class HttpLoadingSpinInterceptor implements HttpInterceptor {
 ```
 
 並且記得要在 app.moudle.ts 註冊這個新建立的 interceptor
-```ts
-...
+```ts {linenos=table}
+// ...
 providers: [{
     provide: HTTP_INTERCEPTORS,
     useClass: HttpLoadingSpinInterceptor,
     multi: true
   }],
-...
+// ...
 ```
 
 app.component.ts 這個 component class 程式改成使用新建立的 LoadingService
@@ -419,7 +420,7 @@ export class AppComponent {
 
 template（app.component.html）中的 ngIf 判斷條件改使用 loading$，並搭配使用 async pipe
 
-```html
+```html {linenos=table}
 <mat-toolbar color="primary">
   使用 RxJS and HttpInterceptor 來實現 "資料讀取中..." 動畫效果的功能
 </mat-toolbar>
@@ -454,7 +455,7 @@ template（app.component.html）中的 ngIf 判斷條件改使用 loading$，並
 
 其中的 overlay div 是用來遮敝在整個晝面上，來達到讀取完成前畫面是無回應的要求。
 
-```css
+```css {linenos=table}
 .content {
     padding: 16px;
 }
@@ -488,8 +489,9 @@ mat-spinner {
 ### 需求二
 
 第二個需求可以在 LoadingService 使用相關的 RXJS Operator 來達成：
-```ts
-...
+
+```ts {linenos=table}
+  // ...
 
   // loading$ = this._loading$.asObservable();
   loading$: Observable<boolean> = this._loading$.pipe(
@@ -501,5 +503,5 @@ mat-spinner {
     })
   )
   
-  ...
+  // ...
 ```
