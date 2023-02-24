@@ -102,7 +102,7 @@ $ npx ng g s services/notifier
 
 NotifierService 程式碼如下：
 
-```ts {linenos=table,hl_lines=[10,12-18]}
+```ts {linenos=table,hl_lines=[10,"12-18"]}
 // notifier.service.ts
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -197,7 +197,7 @@ flexBox component class 的程式碼如下：
 - 先在 constructor 中注入 Notifier Service
 - 再建立一個 showError() method，並在這個方法內呼叫 Notifier Service 中的 showNotification() 方法。
 
-```ts {linenos=table,hl_lines=[10,12-14]}
+```ts {linenos=table,hl_lines=[10,"12-14"]}
 //  flexbox.component.ts
 import { Component } from '@angular/core';
 import { NotifierService } from 'src/app/services/notifier.service';
@@ -253,7 +253,7 @@ export class FlexboxComponent {
 
 修改 flexbox.component.html：
 
-```html {linenos=tables,hl_lines=[3-6]}
+```html {linenos=tables,hl_lines=["3-6"]}
 <p>flexbox works!</p>
 
 <div class="button-container">
@@ -276,7 +276,7 @@ export class FlexboxComponent {
 
 修改 flexbox.component.ts
 
-```ts {linenos=tables,hl_lines=[12-16]}
+```ts {linenos=tables,hl_lines=["12-16"]}
 import { Component } from '@angular/core';
 import { NotifierService } from 'src/app/services/notifier.service';
 
