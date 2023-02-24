@@ -33,7 +33,7 @@ Angular Interceptor 可以用來作什麼用途呢
 
 使用 npm init @angular 語法來建立 Angular project
 
-```bash {linenos=table,hl_lines=[1]}
+```bash {linenos=table,hl_lines=[1],linenostart=1}
 $ npm init @angular loadingSpin -- --routing --style=scss
 $ cd loadingSpin
 $ code .
@@ -67,7 +67,7 @@ UPDATE src/styles.scss (181 bytes)
 
 在使用 material component 之前，先在 app.module 中 import 要使用的 UI component，如: Toolbar、Button、Progress Spinner等。
 
-```ts {hl_lines=[9-11,20-22]}
+```ts {hl_lines=["9-11","20-22"]}
 # app.module.ts
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -253,7 +253,7 @@ export class AppModule { }
 
 在 component class 中呼叫 Service 來向後端 API 讀取資料。
 
-```ts {linenos=table,hl_lines=[11,13,22-28]}
+```ts {linenos=table,hl_lines=[11,13,"22-28"]}
 import { Component } from '@angular/core';
 import { GetDataService } from './services/get-data.service';
 
@@ -379,7 +379,7 @@ providers: [{
 
 app.component.ts 這個 component class 程式改成使用新建立的 LoadingService
 
-```ts {linenos=table,hl_lines=[3,12，16,20,25]}
+```ts {linenos=table,hl_lines=[3,12,16,20,25]}
 import { Component } from '@angular/core';
 import { GetDataService } from './services/get-data.service';
 import { LoadingService } from './services/loading.service';
@@ -503,5 +503,3 @@ mat-spinner {
   
   ...
 ```
-
-下篇筆記將來記錄 如何使用 Interceptor 來設定 authentication/authorization token（身份認證）。
