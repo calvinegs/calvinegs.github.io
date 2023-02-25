@@ -309,7 +309,7 @@ export class AppSettings {
 ### 註冊與登入使用的服務程式 auth.service.ts
 註冊與登入功能須搭配後端 API，可參考　*[使用 Node.js + express + MariaDB 建立一個後端服務 REST API](https://calvinegs.github.io/posts/nodejs-restapi-mariadb/)*
 
-```ts
+```ts {linenos=table,hl_lines=[],linenostart=1}
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -342,8 +342,8 @@ export class AuthService {
 ```
 
 ### Token 相關的服務程式 token-storage.service.ts
-在本範例中，我們會把由 API 回來回來的 Token 儲存在 local 瀏覽器中的 Session Local Storage 中。
-```ts
+在本範例中，我們會把由 API 讀取回來的 Token 儲存在 local 瀏覽器中的 Session Local Storage 中。
+```ts {linenos=table}
 import { Injectable } from '@angular/core';
 
 const TOKEN_KEY = 'auth-token';
@@ -387,7 +387,7 @@ export class TokenStorageService {
 ### Todo 相關的服務程式 todo.service.ts
 todo service 是藉由 後端的 Web API 來完成 Todo 資料的新增、修改、刪除、查詢等資料庫功能。
 
-```ts
+```ts {linenos=table}
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -427,7 +427,7 @@ export class TodoService {
 ## 撰寫 HTTP Interceptor 程式
 HTTP Interceptor 可以讓我們很容易的在每一個 request Header 中加入我們登入成功後由 API 回傳回來的｀合法Token`。在這個程式中唯一要注意的是，不應更改原始的 request，而是應該透過 clone 功能來産生一個新的 request 再將 token 寫入這個新 request 的 Header。
 
-```ts
+```ts {linenos=table}
 // ./app/shared/interceptor/auth.interceptor.ts
 import { Injectable } from '@angular/core';
 import {

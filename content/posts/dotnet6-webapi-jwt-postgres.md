@@ -8,7 +8,7 @@ categories: ["webapi"]
 *[github Source code](https://github.com/calvinegs/dotnet6-webapi-jwt-postgres.git)*
 
 
-在之前的筆記中 *[使用 .NET 6.0 進行 JWT 身份驗證的 ASP.NET Web Api](https://calvinegs.github.io/posts/dotnet6-minimalapi-jwt/)* 已仔細的紀錄如何使用 .Net 6.0 來建置一個支援 JWT ＆ Identity framework 的 WebApi 網站應用程式，在該篇筆記中所使用的資料庫是 `MS SQL 2019`，而這篇筆記裡將紀錄如何將它改成支援 PostgresSQL。
+在之前的筆記中 *[使用 .NET 6.0 進行 JWT 身份驗證的 ASP.NET Web Api](https://calvinegs.github.io/posts/dotnet6-webapi-jwt/)* 已仔細的紀錄如何使用 .Net 6.0 來建置一個支援 JWT ＆ Identity framework 的 WebApi 網站應用程式，在該篇筆記中所使用的資料庫是 `MS SQL 2019`，而這篇筆記裡將紀錄如何將它改成支援 PostgresSQL。
 
 若你還沒有安裝 PostgresSQL 可以參考這筆記先將資料庫管理系統備妥 *[使用 Docker 執行 PostgresSQL 與 pgAdmin](https://calvinegs.github.io/posts/docker-postgres-pgadmin/)*
 
