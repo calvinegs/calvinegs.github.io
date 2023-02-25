@@ -138,7 +138,7 @@ drwxr-x---  2 systemd-coredump systemd-coredump     4096  六  17 15:45  testing
 
 開始設置連線資料設定，選擇資料庫 - MySQL 按下 ｀Next`
 
-![image](https://user-images.githubusercontent.com/21993717/171553828-60166d3b-79be-4000-9103-ae6d679f82f7.png)
+![image](https://user-images.githubusercontent.com/21993717/221338726-b279cdd9-38a4-4e61-839c-c58c6ece71ab.png)
 
 輸入相關資訊，如 Database name、Username、Password...等，按下｀Test Connectiono...｀來測試設定是否成功。
 
@@ -269,7 +269,7 @@ d081aaf01c4e   mysql:8.0   "docker-entrypoint.s…"   About a minute ago   Up Ab
 
 開始設置連線資料設定，選擇資料庫 - MySQL 按下 ｀Next`
 
-![image](https://user-images.githubusercontent.com/21993717/171553828-60166d3b-79be-4000-9103-ae6d679f82f7.png)
+![image](https://user-images.githubusercontent.com/21993717/221338726-b279cdd9-38a4-4e61-839c-c58c6ece71ab.png)
 
 輸入相關資訊，如 Database name、Username、Password...等，按下｀Test Connectiono...｀來測試設定是否成功。
 
