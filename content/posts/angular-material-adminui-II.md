@@ -7,7 +7,7 @@ categories: ["angular"]
 ---
 *[github Source code](https://github.com/calvinegs/Angular_Material_Admin_Template.git)*
 
-註: 若只要取得本篇筆記所介紹的內容可使用以下指令: `“git clone --depth 1 --branch v2.0 https://github.com/calvinegs/Angular_Material_Admin_Template.git”`
+註: 若只要取得本篇筆記所介紹的內容可使用以下指令: `“git clone --branch v2.0 https://github.com/calvinegs/Angular_Material_Admin_Template.git”`
 
 在本篇筆記中將繼續使用 Angular Material 中的其他 components 來加強 Admin Template。在此文中除了會使用 SnackBar component 來實做一個 Notifier ，同時也把之前介紹過的 Loading Spnner 功能也一併加入。
 
@@ -41,7 +41,7 @@ categories: ["angular"]
 
 ## 取得 Admin Template 第一個版本程式碼
 
-首先要為 Admin Template 第一個版本加入 Notifier 功能，可以使用 ｀git clone｀指令取得特定版程式碼。以下指令是取得 Tag為 ver-1.0 版本的程式碼： `“git clone --depth 1 --branch v1.1 https://github.com/calvinegs/Angular_Material_Admin_Template.git”`。使用這個版本的程式碼繼續在上面加入本篇筆記的相關功能。
+首先要為 Admin Template 第一個版本加入 Notifier 功能，可以使用 ｀git clone｀指令取得特定版程式碼。以下指令是取得 Tag為 ver-1.0 版本的程式碼： `“git clone --branch v1.1 https://github.com/calvinegs/Angular_Material_Admin_Template.git”`。使用這個版本的程式碼繼續在上面加入本篇筆記的相關功能。
 
 
 ## 實現基本版本 Notifier
