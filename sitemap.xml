@@ -2,6 +2,36 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://calvinegs.github.io/categories/</loc>
+    <lastmod>2023-02-26T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://calvinegs.github.io/categories/database/</loc>
+    <lastmod>2023-02-26T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://calvinegs.github.io/tags/docker/</loc>
+    <lastmod>2023-02-26T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://calvinegs.github.io/tags/docker-compose/</loc>
+    <lastmod>2023-02-26T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://calvinegs.github.io/tags/mssql/</loc>
+    <lastmod>2023-02-26T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://calvinegs.github.io/posts/</loc>
+    <lastmod>2023-02-26T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://calvinegs.github.io/tags/</loc>
+    <lastmod>2023-02-26T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://calvinegs.github.io/tags/ubuntu/</loc>
+    <lastmod>2023-02-26T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://calvinegs.github.io/posts/docker-compose-mssql/</loc>
+    <lastmod>2023-02-26T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://calvinegs.github.io/</loc>
+    <lastmod>2023-02-26T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://calvinegs.github.io/tags/admin-template/</loc>
     <lastmod>2023-02-23T00:00:00+00:00</lastmod>
   </url><url>
@@ -11,35 +41,14 @@
     <loc>https://calvinegs.github.io/categories/angular/</loc>
     <lastmod>2023-02-23T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://calvinegs.github.io/categories/</loc>
-    <lastmod>2023-02-23T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://calvinegs.github.io/tags/material/</loc>
-    <lastmod>2023-02-23T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://calvinegs.github.io/posts/</loc>
-    <lastmod>2023-02-23T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://calvinegs.github.io/tags/</loc>
     <lastmod>2023-02-23T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://calvinegs.github.io/posts/angular-material-adminui-ii/</loc>
     <lastmod>2023-02-23T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://calvinegs.github.io/</loc>
-    <lastmod>2023-02-23T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://calvinegs.github.io/posts/angular-material-adminui/</loc>
     <lastmod>2023-02-12T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://calvinegs.github.io/categories/database/</loc>
-    <lastmod>2023-02-08T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://calvinegs.github.io/tags/docker/</loc>
-    <lastmod>2023-02-08T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://calvinegs.github.io/tags/docker-compose/</loc>
-    <lastmod>2023-02-08T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://calvinegs.github.io/tags/mongodb/</loc>
     <lastmod>2023-02-08T00:00:00+00:00</lastmod>
@@ -184,9 +193,6 @@
   </url><url>
     <loc>https://calvinegs.github.io/posts/nodejs-restapi-mariadb/</loc>
     <lastmod>2022-07-08T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://calvinegs.github.io/tags/ubuntu/</loc>
-    <lastmod>2022-07-07T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://calvinegs.github.io/posts/docker-mariadb/</loc>
     <lastmod>2022-07-07T00:00:00+00:00</lastmod>
