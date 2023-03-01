@@ -971,3 +971,145 @@ namespace dotnet6_webapi_jwt.Controllers
 
 
 以上可以發現使用 ASPNET Codegenerator 自動産生的程式就可簡單的完成資料表格的新增、查詢、修改、刪除等日常功能，真是方便呢！
+
+## CORS 議題
+
+Web App 與 Web Api Server 若處於“不同源”時，當 App 使用 http request 呼叫 Web Api Server 上端點時就會有“同源策略“的問題，這個狀況在測試環境中尤為明顯。
+要解決這個問題就必須透過 CORS (Cross-Origin Resource Sharing) 相關設定來應對。在 DotNet Core 中設定相關簡易，僅須在 Program.cs 中加入以下二段程式碼即可：
+
+```cs
+var MyAllOrigins = "allowAll";
+builder.Services.AddCors(option => 
+    option.AddPolicy(name: MyAllOrigins, 
+        policy =>
+        {
+            policy.WithOrigins("http://localhost:4200").AllowAnyMethod().AllowAnyHeader();
+        }
+    )
+);
+```
+以及
+
+```cs
+app.UseCors(MyAllOrigins);
+```
+
+完成後，當前端 Web App (如： angular 在測試環境下預設是使用 localhost:4200) 使用 http request 呼叫後端 Web Api (本例中 Web Api 使用的是 localhost:7087) 時就可避到同源策略的要求。
+
+Program.cs 完整程式碼
+```cs
+using System.Text;
+using dotnet6_webapi_jwt.Data;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
+
+var builder = WebApplication.CreateBuilder(args);
+
+ConfigurationManager _configuration = builder.Configuration;
+var secret = _configuration.GetValue<string>("JwtSettings:Secret");
+
+// Add services to the container.
+builder.Services.AddDbContext<ApiDbContext>(
+    options => options.UseSqlServer(
+        _configuration.GetConnectionString("ConnStr")
+    )
+);
+builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+    .AddEntityFrameworkStores<ApiDbContext>()
+    .AddDefaultTokenProviders();
+
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+
+})
+.AddJwtBearer(options =>
+{
+    // 當驗證失敗時，回應標頭會包含 WWW-Authenticate 標頭，這裡會顯示失敗的詳細錯誤原因
+    options.IncludeErrorDetails = true; // 預設值為 true，有時會特別關閉
+
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        // 透過這項宣告，就可以從 "NAME" 取值
+        NameClaimType = "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier",
+        // 透過這項宣告，就可以從 "Role" 取值，並可讓 [Authorize] 判斷角色
+        RoleClaimType = "http://schemas.microsoft.com/ws/2008/06/identity/claims/role",
+
+        // 驗證 Issuer (一般都會)
+        ValidateIssuer = true,
+        ValidIssuer = _configuration.GetValue<string>("JwtSettings:ValidIssuer"),
+
+        // 驗證 Audience (通常不太需要)
+        ValidateAudience = false,
+        //ValidAudience = = _configuration.GetValue<string>("JwtSettings:ValidAudience"),
+
+        // 驗證 Token 的有效期間 (一般都會)
+        ValidateLifetime = true,
+
+        // 如果 Token 中包含 key 才需要驗證，一般都只有簽章而已
+        ValidateIssuerSigningKey = false,
+
+        // 應該從 IConfiguration 取得
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secret))
+    };
+});
+
+var MyAllOrigins = "allowAll";
+builder.Services.AddCors(option => 
+    option.AddPolicy(name: MyAllOrigins, 
+        policy =>
+        {
+            policy.WithOrigins("http://localhost:4200").AllowAnyMethod().AllowAnyHeader();
+        }
+    )
+);
+
+// builder.Services.AddAuthorization();
+builder.Services.AddControllers();
+// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "JwtDemo", Version = "v1" });
+    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        In = ParameterLocation.Header,
+        Description = "Please enter JWT with Bearer into field",
+        Name = "Authorization",
+        Type = SecuritySchemeType.ApiKey
+    });
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+                {
+                    Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = "Bearer"}
+                },
+            new string[] {}
+        }
+    });
+});
+
+var app = builder.Build();
+
+// Configure the HTTP request pipeline.
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
+
+app.UseHttpsRedirection();
+app.UseCors(MyAllOrigins);
+app.UseAuthentication();
+app.UseAuthorization();
+
+app.MapControllers();
+
+app.Run();
+``
