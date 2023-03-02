@@ -104,6 +104,21 @@
 </article>
 <article class=post-entry>
 <header class=entry-header>
+<h2>Angular Intercoptor 使用案例二：搭配 Jason Web Token + Session Storage 來實現使用者身份驗證功能
+</h2>
+</header>
+<section class=entry-content>
+<p>github Source code
+Angular Intercoptor 使用案例二：搭配 Jason Web Token + Session Storage 來實現使用者身份驗證功能 使用者驗證在所有的應用程式中都是很重要的一個環節。本篇筆記中將使用 Angular Interceptor + Jason Web Token 以及 Session Storage 來實現這個重點功能。
+本篇這個“前端登入功能”所搭配的後端程式可詳見 “使用 .NET 6.0 進行 JWT 身份驗證的 ASP.NET Web Api”
+執行步驟如下：
+取得預備的程式碼 建立 appSettings 來存放程式參數值 建立 auth.service.ts 建立 token-storage.service.ts 完成 login page component 中的程式碼 執行測試 建立 interceptor 程式 建立 Guard 程式 取得預備的程式碼 在 “使用 Angular Material 建立一個簡易的 Admin Template II” 已經使用 Material UI Component 設計好登入畫面，接下來就直接捉取這個版本的程式碼來接續完成使用者登入功能的所有程式。...</p>
+</section>
+<footer class=entry-footer><span title="2023-02-25 00:00:00 +0000 UTC">February 25, 2023</span>&nbsp;·&nbsp;7 min&nbsp;·&nbsp;Theme PaperMod</footer>
+<a class=entry-link aria-label="post link to Angular Intercoptor 使用案例二：搭配 Jason Web Token + Session Storage 來實現使用者身份驗證功能" href=https://calvinegs.github.io/posts/angular-interceptor-jwt/></a>
+</article>
+<article class=post-entry>
+<header class=entry-header>
 <h2>使用 Angular Material 建立一個簡易的 Admin Template II
 </h2>
 </header>
@@ -147,23 +162,6 @@ $ ng version Command 'ng' not found, but can be installed with: sudo apt install
 </section>
 <footer class=entry-footer><span title="2023-02-08 00:00:00 +0000 UTC">February 8, 2023</span>&nbsp;·&nbsp;4 min&nbsp;·&nbsp;Theme PaperMod</footer>
 <a class=entry-link aria-label="post link to 使用 Docker 執行 MongoDb" href=https://calvinegs.github.io/posts/docker-mongodb/></a>
-</article>
-<article class=post-entry>
-<header class=entry-header>
-<h2>Angular Intercoptor 使用案例一：Loading Spinner
-</h2>
-</header>
-<section class=entry-content>
-<p>github Source code
-除非你和我一樣是個‘老傢伙’，使用過 Angular ver 4.3 以前的版本，否則你一定會遇到它 - interceptor(攔截器)。接下來將用幾篇筆記把各種使用 interceptor 情境的範例給記錄下來。
-Angular Interceptor 可以用來作什麼用途呢
-修改 HTTP Headers 修改 HTTP request body 設定 authentication/authorization token　（身份認證） 模擬 backend api 修改 HTTP response 處理 HTTP 錯誤 (HTTP Error Handlin) 顯示 Loading Spinner 格式化 JSON Responses 日誌記錄 首先先來看看如何使用 Interceptor 來完成一個當你在讀取後端資料時可在畫面上顯示一個“正在讀取中…“的動畫效果，這可以讓使用者有良好的使用體驗。
-筆記最後要達的效果是，在按下“取得資料”按鈕時，由程式向後端 API 讀取資料，而在讀取完成前，畫面中的所有 UI (如：按鈕）都是呈現無作用的狀況，直到資料回傳完畢。同時如果“向後端 API 讀取資料”的作業時間小於一秒鐘，則不顯示 “讀取中…" 這個動畫效果。
-建立 Angular 專案架構 使用 npm init @angular 語法來建立 Angular project
-1 2 3 $ npm init @angular loadingSpin -- --routing --style=scss $ cd loadingSpin $ code ....</p>
-</section>
-<footer class=entry-footer><span title="2023-01-31 00:00:00 +0000 UTC">January 31, 2023</span>&nbsp;·&nbsp;7 min&nbsp;·&nbsp;Theme PaperMod</footer>
-<a class=entry-link aria-label="post link to Angular Intercoptor 使用案例一：Loading Spinner" href=https://calvinegs.github.io/posts/angular-intercoptor-loadingspinner/></a>
 </article>
 <footer class=page-footer>
 <nav class=pagination>

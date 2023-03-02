@@ -10,7 +10,16 @@
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 31 Jan 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://calvinegs.github.io/tags/httpclient/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 25 Feb 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://calvinegs.github.io/tags/httpclient/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Angular Intercoptor 使用案例二：搭配 Jason Web Token &#43; Session Storage 來實現使用者身份驗證功能</title>
+      <link>https://calvinegs.github.io/posts/angular-interceptor-jwt/</link>
+      <pubDate>Sat, 25 Feb 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://calvinegs.github.io/posts/angular-interceptor-jwt/</guid>
+      <description>使用 Interceptor 來完成當程式讀取後端資料時於畫面上顯示 “讀取中...“ 動畫效果的等待畫面，讓使用者有良好的使用體驗</description>
+    </item>
+    
     <item>
       <title>Angular Intercoptor 使用案例一：Loading Spinner</title>
       <link>https://calvinegs.github.io/posts/angular-intercoptor-loadingspinner/</link>
