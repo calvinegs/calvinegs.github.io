@@ -3,11 +3,11 @@
 <meta http-equiv=x-ua-compatible content="IE=edge">
 <meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no">
 <meta name=robots content="index, follow">
-<title>webapi | 永誌不忘 • 筆記簿</title>
+<title>dotnet 7 | 永誌不忘 • 筆記簿</title>
 <meta name=keywords content>
 <meta name=description content="Theme PaperMod - https://github.com/adityatelange/hugo-PaperMod">
 <meta name=author content="Theme PaperMod">
-<link rel=canonical href=https://calvinegs.github.io/categories/webapi/>
+<link rel=canonical href=https://calvinegs.github.io/tags/dotnet-7/>
 <link crossorigin=anonymous href=/assets/css/stylesheet.min.c88963fe2d79462000fd0fb1b3737783c32855d340583e4523343f8735c787f0.css integrity="sha256-yIlj/i15RiAA/Q+xs3N3g8MoVdNAWD5FIzQ/hzXHh/A=" rel="preload stylesheet" as=style>
 <link rel=icon href=https://calvinegs.github.io/img/favicon.png>
 <link rel=icon type=image/png sizes=16x16 href=https://calvinegs.github.io/favicon-16x16.png>
@@ -17,17 +17,17 @@
 <meta name=theme-color content="#2e2e33">
 <meta name=msapplication-TileColor content="#2e2e33">
 <meta name=generator content="Hugo 0.91.2">
-<link rel=alternate type=application/rss+xml href=https://calvinegs.github.io/categories/webapi/index.xml>
+<link rel=alternate type=application/rss+xml href=https://calvinegs.github.io/tags/dotnet-7/index.xml>
 <noscript>
 <style>#theme-toggle,.top-link{display:none}</style>
 <style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--hljs-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style>
-</noscript><meta property="og:title" content="webapi">
+</noscript><meta property="og:title" content="dotnet 7">
 <meta property="og:description" content="Theme PaperMod - https://github.com/adityatelange/hugo-PaperMod">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://calvinegs.github.io/categories/webapi/"><meta property="og:image" content="https://calvinegs.github.io/papermod-cover.png">
+<meta property="og:url" content="https://calvinegs.github.io/tags/dotnet-7/"><meta property="og:image" content="https://calvinegs.github.io/papermod-cover.png">
 <meta name=twitter:card content="summary_large_image">
 <meta name=twitter:image content="https://calvinegs.github.io/papermod-cover.png">
-<meta name=twitter:title content="webapi">
+<meta name=twitter:title content="dotnet 7">
 <meta name=twitter:description content="Theme PaperMod - https://github.com/adityatelange/hugo-PaperMod">
 </head>
 <body class=list id=top>
@@ -71,42 +71,22 @@
 </nav>
 </header>
 <main class=main>
-<header class=page-header><div class=breadcrumbs><a href=https://calvinegs.github.io/>Home</a>&nbsp;»&nbsp;<a href=https://calvinegs.github.io/categories/>Categories</a></div>
-<h1>webapi</h1>
+<header class=page-header><div class=breadcrumbs><a href=https://calvinegs.github.io/>Home</a>&nbsp;»&nbsp;<a href=https://calvinegs.github.io/tags/>Tags</a></div>
+<h1>dotnet 7</h1>
 </header>
 <article class="post-entry tag-entry">
 <header class=entry-header>
-<h2>ASP.NET Core 5 Web API 加入權限管理 (Dotnet Core Identity Framework + JWT)
+<h2>使用 .NET 7.0 建立使用 以 JWT 身份驗證機制的 ASP.NET Web Api（並使用 Microsoft Identity 框架來存儲使用者和角色等資料）
 </h2>
 </header>
 <section class=entry-content>
-<p>在另一篇筆記中 ASP.NET Core 5 Web API - 從無到有 已經了解如何從無到有 使用 Dotnet core 5.0 建立 一個 Web API，本篇筆記將以此有基礎來記錄如何使用 Asp.Net Core Identity framework 及 JWT 來建置一個簡單又安全的 “使用者權限管理"功能。
-github Source code #tag: identity_jwt
-使用 Asp.Net Core Identity framework 來管理使用者使用權限 ASP.NET Core Identity:
-支援使用者介面 (UI) 登入功能的 API。 管理使用者、密碼、設定檔資料、角色、宣告、權杖、電子郵件確認等。 ASP.Net Core Identity Framework 是一個很方便且還算完善的使用權限管理架構。
-安裝給 AspNetCore Idendity Framework 使用的相關套件 $ dotnet add package Microsoft.AspNetCore.Identity.EntityFrameworkCore --version 5.0.13 $ dotnet add package Microsoft.AspNetCore.Identity.UI --version 5.0.13 除了安裝相關套件外，還要調整相關程式:...</p>
+<p>github Source code
+本文將記錄如何一步步從無到有，使用 Dotnet Core 7.0 建立 ASP.NET Core Web API，其中將會使用到下列技術:
+Dotnet CLI Entity Framework 7.0 Json Web Token PostgreSQL DB (Docker Version) ASP.NET Core Generator 專案完成後的檔案結構 ./專案目錄 ├── .config/ │ └── dotnet-tools.json ├── .vscode/ │ ├── launch.js │ └── tasks.json ├── Controller/ │ ├── AuthenticateController.cs │ ├── TodoController.cs │ └── WeatherForecast.cs ├── Data/ │ └── ApiDbContext.cs ├── Migrations/ ├── Models/ │ ├── AuthenticateData.cs │ └── TodoList.cs ├── obj/ ├── Properties/ │ └── launchSettings....</p>
 </section>
-<footer class=entry-footer><span title="2022-01-20 00:00:00 +0000 UTC">January 20, 2022</span>&nbsp;·&nbsp;7 min&nbsp;·&nbsp;Theme PaperMod</footer>
-<a class=entry-link aria-label="post link to ASP.NET Core 5 Web API 加入權限管理 (Dotnet Core Identity Framework + JWT)" href=https://calvinegs.github.io/posts/dotnet5-webapi-ii/></a>
+<footer class=entry-footer><span title="2023-03-06 00:00:00 +0000 UTC">March 6, 2023</span>&nbsp;·&nbsp;16 min&nbsp;·&nbsp;Theme PaperMod</footer>
+<a class=entry-link aria-label="post link to 使用 .NET 7.0 建立使用 以 JWT 身份驗證機制的 ASP.NET Web Api（並使用 Microsoft Identity 框架來存儲使用者和角色等資料）" href=https://calvinegs.github.io/posts/dotnet7-webapi-jwt/></a>
 </article>
-<article class="post-entry tag-entry">
-<header class=entry-header>
-<h2>ASP.NET Core 5 Web API - 從無到有
-</h2>
-</header>
-<section class=entry-content>
-<p>github Source code #tag: web_api
-本文將記錄如何一步步從無到有使用 Dotnet Core 5.0 建立 ASP.NET Core 5 Web API，其中將會使用到下列技術:
-Dotnet cli Entity Framework Sqlite ASP.NET Core Generator 使用 dotnet cli 建立專案 $ dotnet --version # 檢查 dotnet 版本，目前版本為: 5.0.201 $ dotnet new webapi -n "Todo5" && cd "Todo5" $ ls # 查看 專案檔案結構 $ dotnet new gitignore # 使用 dotnet cli 來產生預設的 git ignore 檔案 建立 git 初始版本 $ git init && git add ....</p>
-</section>
-<footer class=entry-footer><span title="2022-01-11 00:00:00 +0000 UTC">January 11, 2022</span>&nbsp;·&nbsp;4 min&nbsp;·&nbsp;Theme PaperMod</footer>
-<a class=entry-link aria-label="post link to ASP.NET Core 5 Web API - 從無到有" href=https://calvinegs.github.io/posts/dotnet5-webapi/></a>
-</article>
-<footer class=page-footer>
-<nav class=pagination>
-<a class=prev href=https://calvinegs.github.io/categories/webapi/>« Prev Page</a>
-</nav>
-</footer>
 </main>
 <footer class=footer>
 <span>&copy; 2023 <a href=https://calvinegs.github.io/>永誌不忘 • 筆記簿</a></span>

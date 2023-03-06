@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>dotnet 7 on 永誌不忘 • 筆記簿</title>
+    <link>https://calvinegs.github.io/tags/dotnet-7/</link>
+    <description>Recent content in dotnet 7 on 永誌不忘 • 筆記簿</description>
+    <image>
+      <url>https://calvinegs.github.io/papermod-cover.png</url>
+      <link>https://calvinegs.github.io/papermod-cover.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 06 Mar 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://calvinegs.github.io/tags/dotnet-7/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>使用 .NET 7.0 建立使用 以 JWT 身份驗證機制的 ASP.NET Web Api（並使用 Microsoft Identity 框架來存儲使用者和角色等資料）</title>
+      <link>https://calvinegs.github.io/posts/dotnet7-webapi-jwt/</link>
+      <pubDate>Mon, 06 Mar 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://calvinegs.github.io/posts/dotnet7-webapi-jwt/</guid>
+      <description>本篇將要紀錄如何使用　.NET 7.0 來建立 一個可方便擴展 Web API</description>
+    </item>
+    
+  </channel>
+</rss>
