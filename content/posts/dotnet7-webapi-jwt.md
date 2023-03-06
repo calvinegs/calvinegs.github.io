@@ -1,5 +1,5 @@
 ---
-title: "使用 .NET 7.0 建立使用 以 JWT 身份驗證機制的 ASP.NET Web Api"（並使用 Microsoft Identity 框架來存儲使用者和角色等資料）"
+title: "使用 .NET 7.0 建立使用 以 JWT 身份驗證機制的 ASP.NET Web Api（並使用 Microsoft Identity 框架來存儲使用者和角色等資料）"
 date: 2023-03-06
 description: "本篇將要紀錄如何使用　.NET 7.0 來建立 一個可方便擴展 Web API"
 tags: ["dotnet 7", "webapi", "jwt", "docker", "PostgreSQL DB", "openapi", "swagger"]
