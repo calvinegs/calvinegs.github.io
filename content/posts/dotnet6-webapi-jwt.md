@@ -57,8 +57,8 @@ categories: ["webapi"]
 |GET| /api/Todos|get all Todos|
 |POST| /api/Todos|add New Todo|
 |GET| /api/Todos/:id|get Todo by id|
-|PUT| /api/todos/:id|update Todo by id|
-|DELETE| /api/todos/:id|remove Todo by id|
+|PUT| /api/Todos/:id|update Todo by id|
+|DELETE| /api/Todos/:id|remove Todo by id|
 
 ## 建置新專案
 
@@ -88,7 +88,7 @@ drwxrwxr-x  2 egs egs 4096  五  20 09:38 Properties
 -rw-rw-r--  1 egs egs  267  五  20 09:38 WeatherForecast.cs
 ```
 
-dotnet code 版本安裝與管理
+dotnet 版本管理
 
 ```bash
 $ dotnet --list-sdks    # 顯示已安裝的 sdk 版本資訊
