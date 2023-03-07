@@ -74,7 +74,7 @@ $ dotnet --version  # 顯示目前所使用的版本
 ### 使用 dotnet cli 建立新專案
 
 ```bash
-$ dotnet new webapi -o dotnet6-webapi-jwt
+$ dotnet new webapi -o dotnet7-webapi-jwt
 歡迎使用 .NET 7.0!
 ---------------------
 SDK 版本: 7.0.201
@@ -107,7 +107,7 @@ Use 'dotnet --help' 查看可用的命令或瀏覽: https://aka.ms/dotnet-cli
 新專案
 
 ```
-$ cd dotnet6-webapi-jwt
+$ cd dotnet7-webapi-jwt
 $ ls -al
 總用量 40
 drwxrwxr-x 5 egs egs 4096  3月  6 10:23 .
@@ -438,9 +438,9 @@ $ git add . && git commit -m "新增一個 entity framework 遷移 並 更新資
     "ConnStr": "User ID =docker;Password=docker;Server=localhost;Port=5432;Database=pg_testdb; Integrated Security=true;Pooling=true"
   },
   "JwtSettings": {
-    "ValidIssuer": "Dotnet6WebApiDemo",
-    "ValidAudience": "Dotnet6WebApiDemo",
-    "Secret": "Dotnet6 WebApi Demo. Using Json Web Token Technology to keep user info."
+    "ValidIssuer": "Dotnet7WebApiDemo",
+    "ValidAudience": "Dotnet7WebApiDemo",
+    "Secret": "Dotnet7 WebApi Demo. Using Json Web Token Technology to keep user info."
   }
 }
 ```
@@ -450,7 +450,7 @@ $ git add . && git commit -m "新增一個 entity framework 遷移 並 更新資
 ```cs {linenos=table,hl_lines=[],linenostart=1}
 using System.ComponentModel.DataAnnotations;
 
-namespace dotnet6_webapi_jwt.Models;
+namespace dotnet7_webapi_jwt.Models;
 
 public class Response
 {
@@ -494,12 +494,12 @@ public static class UserRoles
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using dotnet6_webapi_jwt.Models;
+using dotnet7_webapi_jwt.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 
-namespace dotnet6_webapi_jwt.Controllers;
+namespace dotnet7_webapi_jwt.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
@@ -821,7 +821,7 @@ $ dotnet new class -o Models -n TodoList
 將 Models/ItemData.cs 補齊欄位設定
 
 ```cs {linenos=table,hl_lines=[]}
-namespace dotnet6_webapi_jwt.Models;
+namespace dotnet7_webapi_jwt.Models;
 public class TodoList
 {
     public int Id { get; set; }
@@ -877,10 +877,10 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using dotnet6_webapi_jwt.Data;
-using dotnet6_webapi_jwt.Models;
+using dotnet7_webapi_jwt.Data;
+using dotnet7_webapi_jwt.Models;
 
-namespace dotnet6_webapi_jwt.Controllers
+namespace dotnet7_webapi_jwt.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
