@@ -76,6 +76,24 @@
 </header>
 <article class="post-entry tag-entry">
 <header class=entry-header>
+<h2>關於 Angular中的 constructor 與 ngOnInit
+</h2>
+</header>
+<section class=entry-content>
+<p>Angular中的 constructor 與 ngOnInit 在本篇筆記中來紀錄一下 Angular中的 constructor 與 ngOnInit 有何不同的使用情境，也探討一下 ngOnInit() 的非必要性。
+ngOnInit 與 constructor ngOnInit() 與 Class 中的其他 Method 無異，僅因為它剛好被命名為 ngOnInit，常會被與 constructor 搞混用途。其實它並非是必要的，完全取決於你。當 Angular 編譯器進行程式編譯時會將是否 Class 中有實現 ngOnInit() 的方法記錄在特定的 Flag 中，這個 Flag 會在 “變更檢測"時決定是不是要呼叫 ngOnInit() 這個方法。
+而 constructor 則完全是另外的一件事，不管你有沒有在類別中實現它，在建立類別實例時它都會被呼叫到。
+Angular啟動時的二個主要階段：
+建構元件樹(component tree) 執行變更檢測(change detection) constructor 是在第一個階段被呼叫的，這就是為什麼我們不能將任何依賴於 DOM、元素、輸入數據、綁定等的初始化邏輯放在constructor— 因為它們尚不可使用。 而 ngOnInit 則在第二階段，實際上所有的生命週期鉤子都是“變更檢測”階段的一部份。
+當 Angular 開始變更檢測時，組件樹已被構建，樹中所有組件的構造函數都被調用。它已經完成了組件 DOM 的創建，通過構造函數注入了所有必需的依賴項並處理了輸入綁定。每個組件的模板節點都被添加到 DOM 中。 也可以取得初始化組件可能需要的所有資料，如：DI Provider、DOM 和輸入綁定(input bindings)。
+在實際的使用案例上 constructor 最常被使用的是用來“注入依賴項目”(當然不僅限於此)
+ngOnInit 是否為必須 在之前使用 angular cli(如：14....</p>
+</section>
+<footer class=entry-footer><span title="2023-01-02 00:00:00 +0000 UTC">January 2, 2023</span>&nbsp;·&nbsp;4 min&nbsp;·&nbsp;Theme PaperMod</footer>
+<a class=entry-link aria-label="post link to 關於 Angular中的 constructor 與 ngOnInit" href=https://calvinegs.github.io/posts/angular-ngoninit/></a>
+</article>
+<article class="post-entry tag-entry">
+<header class=entry-header>
 <h2>使用 Angular 來建立網路應用程式
 </h2>
 </header>
@@ -133,19 +151,6 @@ $ node --version v16.14.0 $ ng version _ _ ____ _ ___ / \ _ __ __ _ _ _| | __ _ 
 </section>
 <footer class=entry-footer><span title="2022-06-15 00:00:00 +0000 UTC">June 15, 2022</span>&nbsp;·&nbsp;19 min&nbsp;·&nbsp;Theme PaperMod</footer>
 <a class=entry-link aria-label="post link to 使用 Angular 14 建立 Reactive Form 表單驗證範例" href=https://calvinegs.github.io/posts/angular-auth-jwt/></a>
-</article>
-<article class="post-entry tag-entry">
-<header class=entry-header>
-<h2>使用 Angular 13 建立 Reactive Form 表單驗證範例
-</h2>
-</header>
-<section class=entry-content>
-<p>github Source code
-本文將記錄如何一步步從無到有使用 Angular 13 Reactive Form 表單驗證 與 Bootstrap 建立 一個使用者資料註冊的表單　功能，在這個表單中當按下送出時會自動檢核使用者所輸入的資料是否合乎程式中所設定的檢核邏輯，並顯示合適的訊息反應給使用者。其中將會使用到下列技術:
-Angular CLI Bootstrap 4 & 5 (UI Framework) Angular Reactive Form Custome Validator 建立新專案 $ ng version Angular CLI: 13.3.6 Node: 16.14.0 Package Manager: npm 8.3.1 OS: linux x64 Angular: 13.3.9 ... animations, common, compiler, compiler-cli, core, forms ... platform-browser, platform-browser-dynamic, router Package Version --------------------------------------------------------- @angular-devkit/architect 0.1303.6 @angular-devkit/build-angular 13.3.6 @angular-devkit/core 13.3.6 @angular-devkit/schematics 13.3.6 @angular/cli 13....</p>
-</section>
-<footer class=entry-footer><span title="2022-05-28 00:00:00 +0000 UTC">May 28, 2022</span>&nbsp;·&nbsp;8 min&nbsp;·&nbsp;Theme PaperMod</footer>
-<a class=entry-link aria-label="post link to 使用 Angular 13 建立 Reactive Form 表單驗證範例" href=https://calvinegs.github.io/posts/angular-formvalidate/></a>
 </article>
 <footer class=page-footer>
 <nav class=pagination>

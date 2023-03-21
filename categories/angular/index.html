@@ -76,6 +76,22 @@
 </header>
 <article class="post-entry tag-entry">
 <header class=entry-header>
+<h2>在 Angular 中實現 CAPTCHA 驗證碼功能
+</h2>
+</header>
+<section class=entry-content>
+<p>在 Angular 中實現 CAPTCHA 驗證碼功能 先來看看完成後的效果：
+關於 reCAPTCHA 目前 reCAPTCHA 共有 v2、v3、Enterprise 三種版本。在此我們將採用 v2。使用 reCAPTCHA 需先申在 google 網站上申請 API Key，申請完成後會有二個 API Key，一個是被用來放在前端 App 中，另一個是使用在呼叫 Google API 取得驗證結果時要用的。申請網站在 https://www.google.com/recaptcha/admin，使用 Gmail 帳號登入，若從未申請過會跳到註冊新網站頁面：
+識別這組 Key 用的標籤文字 reCAPTCHA 類型 (使用 v2) 應用網域 (本機測試可加 localhost) 登入 Gmail 是預設擁有者，可加入其他管理者 接受服務條款 傳送通知給擁有者（發生問題或流量異常時發送通知） 使用 Gmail 帳號進行登入 輸入好資料後按下提交
+完成後會産生二個 api key:
+按下“複製網站金鑰”備用。（將放至 angular login component 中）
+設置專案環境 這個專案不會從頭從無到有紀錄每一個建置的步驟，而是採取套用 “使用 Angular 14 建立 Reactive Form 表單驗證範例” 這篇筆記所完成的程式碼來擴充 reCAPTCHA 功能。...</p>
+</section>
+<footer class=entry-footer><span title="2023-03-21 00:00:00 +0000 UTC">March 21, 2023</span>&nbsp;·&nbsp;5 min&nbsp;·&nbsp;Theme PaperMod</footer>
+<a class=entry-link aria-label="post link to 在 Angular 中實現 CAPTCHA 驗證碼功能" href=https://calvinegs.github.io/posts/angular-recaptcha/></a>
+</article>
+<article class="post-entry tag-entry">
+<header class=entry-header>
 <h2>Angular Intercoptor 使用案例二：搭配 Jason Web Token + Session Storage 來實現使用者身份驗證功能
 </h2>
 </header>
@@ -139,24 +155,6 @@ Angular Interceptor 可以用來作什麼用途呢
 </section>
 <footer class=entry-footer><span title="2023-01-31 00:00:00 +0000 UTC">January 31, 2023</span>&nbsp;·&nbsp;7 min&nbsp;·&nbsp;Theme PaperMod</footer>
 <a class=entry-link aria-label="post link to Angular Intercoptor 使用案例一：Loading Spinner" href=https://calvinegs.github.io/posts/angular-intercoptor-loadingspinner/></a>
-</article>
-<article class="post-entry tag-entry">
-<header class=entry-header>
-<h2>關於 Angular中的 constructor 與 ngOnInit
-</h2>
-</header>
-<section class=entry-content>
-<p>Angular中的 constructor 與 ngOnInit 在本篇筆記中來紀錄一下 Angular中的 constructor 與 ngOnInit 有何不同的使用情境，也探討一下 ngOnInit() 的非必要性。
-ngOnInit 與 constructor ngOnInit() 與 Class 中的其他 Method 無異，僅因為它剛好被命名為 ngOnInit，常會被與 constructor 搞混用途。其實它並非是必要的，完全取決於你。當 Angular 編譯器進行程式編譯時會將是否 Class 中有實現 ngOnInit() 的方法記錄在特定的 Flag 中，這個 Flag 會在 “變更檢測"時決定是不是要呼叫 ngOnInit() 這個方法。
-而 constructor 則完全是另外的一件事，不管你有沒有在類別中實現它，在建立類別實例時它都會被呼叫到。
-Angular啟動時的二個主要階段：
-建構元件樹(component tree) 執行變更檢測(change detection) constructor 是在第一個階段被呼叫的，這就是為什麼我們不能將任何依賴於 DOM、元素、輸入數據、綁定等的初始化邏輯放在constructor— 因為它們尚不可使用。 而 ngOnInit 則在第二階段，實際上所有的生命週期鉤子都是“變更檢測”階段的一部份。
-當 Angular 開始變更檢測時，組件樹已被構建，樹中所有組件的構造函數都被調用。它已經完成了組件 DOM 的創建，通過構造函數注入了所有必需的依賴項並處理了輸入綁定。每個組件的模板節點都被添加到 DOM 中。 也可以取得初始化組件可能需要的所有資料，如：DI Provider、DOM 和輸入綁定(input bindings)。
-在實際的使用案例上 constructor 最常被使用的是用來“注入依賴項目”(當然不僅限於此)
-ngOnInit 是否為必須 在之前使用 angular cli(如：14....</p>
-</section>
-<footer class=entry-footer><span title="2023-01-02 00:00:00 +0000 UTC">January 2, 2023</span>&nbsp;·&nbsp;4 min&nbsp;·&nbsp;Theme PaperMod</footer>
-<a class=entry-link aria-label="post link to 關於 Angular中的 constructor 與 ngOnInit" href=https://calvinegs.github.io/posts/angular-ngoninit/></a>
 </article>
 <footer class=page-footer>
 <nav class=pagination>

@@ -77,6 +77,22 @@
 </header>
 <article class=post-entry>
 <header class=entry-header>
+<h2>在 Angular 中實現 CAPTCHA 驗證碼功能
+</h2>
+</header>
+<section class=entry-content>
+<p>在 Angular 中實現 CAPTCHA 驗證碼功能 先來看看完成後的效果：
+關於 reCAPTCHA 目前 reCAPTCHA 共有 v2、v3、Enterprise 三種版本。在此我們將採用 v2。使用 reCAPTCHA 需先申在 google 網站上申請 API Key，申請完成後會有二個 API Key，一個是被用來放在前端 App 中，另一個是使用在呼叫 Google API 取得驗證結果時要用的。申請網站在 https://www.google.com/recaptcha/admin，使用 Gmail 帳號登入，若從未申請過會跳到註冊新網站頁面：
+識別這組 Key 用的標籤文字 reCAPTCHA 類型 (使用 v2) 應用網域 (本機測試可加 localhost) 登入 Gmail 是預設擁有者，可加入其他管理者 接受服務條款 傳送通知給擁有者（發生問題或流量異常時發送通知） 使用 Gmail 帳號進行登入 輸入好資料後按下提交
+完成後會産生二個 api key:
+按下“複製網站金鑰”備用。（將放至 angular login component 中）
+設置專案環境 這個專案不會從頭從無到有紀錄每一個建置的步驟，而是採取套用 “使用 Angular 14 建立 Reactive Form 表單驗證範例” 這篇筆記所完成的程式碼來擴充 reCAPTCHA 功能。...</p>
+</section>
+<footer class=entry-footer><span title="2023-03-21 00:00:00 +0000 UTC">March 21, 2023</span>&nbsp;·&nbsp;5 min&nbsp;·&nbsp;Theme PaperMod</footer>
+<a class=entry-link aria-label="post link to 在 Angular 中實現 CAPTCHA 驗證碼功能" href=https://calvinegs.github.io/posts/angular-recaptcha/></a>
+</article>
+<article class=post-entry>
+<header class=entry-header>
 <h2>使用 .NET 7.0 建立使用 以 JWT 身份驗證機制的 ASP.NET Web Api（並使用 Microsoft Identity 框架來存儲使用者和角色等資料）
 </h2>
 </header>
@@ -133,22 +149,6 @@ Angular Intercoptor 使用案例二：搭配 Jason Web Token + Session Storage �
 </section>
 <footer class=entry-footer><span title="2023-02-23 00:00:00 +0000 UTC">February 23, 2023</span>&nbsp;·&nbsp;13 min&nbsp;·&nbsp;Theme PaperMod</footer>
 <a class=entry-link aria-label="post link to 使用 Angular Material 建立一個簡易的 Admin Template II" href=https://calvinegs.github.io/posts/angular-material-adminui-ii/></a>
-</article>
-<article class=post-entry>
-<header class=entry-header>
-<h2>使用 Angular Material 建立一個簡易的 Admin Template
-</h2>
-</header>
-<section class=entry-content>
-<p>github Source code
-使用 Angular Material 建立一個簡易的 Admin Template Angular 是一個標準的 SPA App framework，今天要記錄的是使用 angular material 來建立一個 SPA App 的範本，除了介紹 Material 相關的功能外，完成的這個簡易型 admin template 剛好可以用來引申後續 angular 筆記範例中的㮒準介面(UI).
-想要得到的結果：
-檢視環境 在開發環境中必須有 NodeJs
-$ node -v v18.12.1 angular cli 則只需安裝在 Local 目錄中即可 ng version
-$ ng version Command 'ng' not found, but can be installed with: sudo apt install ng-common 建立 Angular 專案 透過 npm init @angular 語法即可在不必安裝 angular cli 前題下來建立一個 angular project。...</p>
-</section>
-<footer class=entry-footer><span title="2023-02-12 00:00:00 +0000 UTC">February 12, 2023</span>&nbsp;·&nbsp;10 min&nbsp;·&nbsp;Theme PaperMod</footer>
-<a class=entry-link aria-label="post link to 使用 Angular Material 建立一個簡易的 Admin Template" href=https://calvinegs.github.io/posts/angular-material-adminui/></a>
 </article>
 <footer class=page-footer>
 <nav class=pagination>

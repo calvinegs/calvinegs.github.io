@@ -10,7 +10,16 @@
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 06 Mar 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://calvinegs.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 21 Mar 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://calvinegs.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>在 Angular 中實現 CAPTCHA 驗證碼功能</title>
+      <link>https://calvinegs.github.io/posts/angular-recaptcha/</link>
+      <pubDate>Tue, 21 Mar 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://calvinegs.github.io/posts/angular-recaptcha/</guid>
+      <description>本篇將要紀錄如何在 Angular 14 使用者驗證功能中加入 reCAPTCHA 驗證碼功能來幫你的 App 安全升級，免除機器人的暴力破解</description>
+    </item>
+    
     <item>
       <title>使用 .NET 7.0 建立使用 以 JWT 身份驗證機制的 ASP.NET Web Api（並使用 Microsoft Identity 框架來存儲使用者和角色等資料）</title>
       <link>https://calvinegs.github.io/posts/dotnet7-webapi-jwt/</link>
