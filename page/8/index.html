@@ -74,6 +74,25 @@
 <main class=main>
 <article class=post-entry>
 <header class=entry-header>
+<h2>透過範例學習 Emmet 語法
+</h2>
+</header>
+<section class=entry-content>
+<p>網頁製作時，手刻 HTML/CSS 即傷神又容易出錯，讓我們來看看 Emmet 如何快速又便捷的協助我們進行 HTML/CSS 的輸入。
+Elements 輸入 div 按下 Enter 或 Tab 鍵，輸入 innerHtml - abc 再按下 Ctrl+Enter 鍵
+&lt;div>abc&lt;/div> 輸入 p 按下 Enter 或 Tab 鍵，輸入 innerHtml -abc 再按下 Ctrl+Enter 鍵
+&lt;p>abc&lt;/p> Nesting operators Child: > div>ul>li
+&lt;div> &lt;ul> &lt;li>&lt;/li> &lt;/ul> &lt;/div> Sibling: + div+p+bq
+&lt;div>&lt;/div> &lt;p>&lt;/p> &lt;blockquote>&lt;/blockquote> Climb-up: ^ div+div>p>span+em
+div+div>p>span+em^bq
+div+div>p>span+em^^^bq
+&lt;!-- div+div>p>span+em --> &lt;div>&lt;/div> &lt;div> &lt;p>&lt;span>&lt;/span>&lt;em>&lt;/em>&lt;/p> &lt;/div> &lt;!-- div+div>p>span+em^bq --> &lt;div>&lt;/div> &lt;div> &lt;p>&lt;span>&lt;/span>&lt;em>&lt;/em>&lt;/p> &lt;blockquote>&lt;/blockquote> &lt;/div> &lt;!...</p>
+</section>
+<footer class=entry-footer><span title="2022-02-21 00:00:00 +0000 UTC">February 21, 2022</span>&nbsp;·&nbsp;4 min&nbsp;·&nbsp;Theme PaperMod</footer>
+<a class=entry-link aria-label="post link to 透過範例學習 Emmet 語法" href=https://calvinegs.github.io/posts/emmet-syntax/></a>
+</article>
+<article class=post-entry>
+<header class=entry-header>
 <h2>使用 Parcel.js + Typescript 來建置一個 Web App
 </h2>
 </header>
@@ -122,20 +141,6 @@ github Source code #tag: identity_jwt
 </section>
 <footer class=entry-footer><span title="2022-01-20 00:00:00 +0000 UTC">January 20, 2022</span>&nbsp;·&nbsp;7 min&nbsp;·&nbsp;Theme PaperMod</footer>
 <a class=entry-link aria-label="post link to ASP.NET Core 5 Web API 加入權限管理 (Dotnet Core Identity Framework + JWT)" href=https://calvinegs.github.io/posts/dotnet5-webapi-ii/></a>
-</article>
-<article class=post-entry>
-<header class=entry-header>
-<h2>型別推論(type inference) 與 型別註記(type annotation)
-</h2>
-</header>
-<section class=entry-content>
-<p>在此要討論的是有關 TypeScript 的 型別推論(type inference) 與 型別註記(type annotation)
-關於 Javascript 的型別 Javascript 是個動態型別的語言，也就是說擁有 ‘型別’ 的是 ‘值’ 而不是變數。
-let myVar; console.log(`${myVar}: ${typeof myVar}`); // undefined : undefined myVar = 20; console.log(`${myVar}: ${typeof myVar}`); // 20 : number myVar = "Hi"; console.log(`${myVar}: ${typeof myVar}`); // Hi : string myVar = true; console.log(`${myVar}: ${typeof myVar}`); // true : boolean Type Annotation (型別註記) TypeScript 提供靜型別功能，讓我們可以明確指定變數的型別。編譯器在轉譯過程即可偵測到使用不同型別時主動抛出錯誤訊息。下面的例子就是使用型別註記來定義靜態型別:
-function calculateTax(amount: number): number { return amount * 1.2; } console....</p>
-</section>
-<footer class=entry-footer><span title="2022-01-17 00:00:00 +0000 UTC">January 17, 2022</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;Theme PaperMod</footer>
-<a class=entry-link aria-label="post link to 型別推論(type inference) 與 型別註記(type annotation)" href=https://calvinegs.github.io/posts/ts-type-inferenc-annotation/></a>
 </article>
 <footer class=page-footer>
 <nav class=pagination>
