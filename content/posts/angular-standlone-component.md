@@ -5,7 +5,7 @@ description: "本篇筆記將要紀錄如何使 Angular 15 Standlone component"
 tags: ["angular", "Standalone"]
 categories: ["angular"]
 ---
-*[github Source code](https://github.com/calvinegs/angular-standalone.git)*
+*[github Source code](https://github.com/calvinegs/angular-standalong.git)*
 
 
 
