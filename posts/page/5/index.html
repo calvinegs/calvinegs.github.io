@@ -77,6 +77,19 @@
 </header>
 <article class=post-entry>
 <header class=entry-header>
+<h2>使用 Docker 執行 Mariadb
+</h2>
+</header>
+<section class=entry-content>
+<p>使用 Docker 執行 Mariadb 對開發人員而言，使用各式的資料庫管理系統來當應用程式的後端資料存取層是家常便飯。若再考慮上每種資料庫管理系統有不同的版本，肯定會讓你的開發環境負擔過重、過於複雜。使用 Docker 來於適當的時機開啟適用的資料庫管理系統會是一個不錯的選擇。
+本篇筆記紀錄使用 docker (docker compose) 來快速的設置 Mariadb。
+檢查是否已安裝了 Docker (docker version) $ docker version Client: Docker Engine - Community Version: 20.10.17 API version: 1.41 Go version: go1.17.11 Git commit: 100c701 Built: Mon Jun 6 23:02:57 2022 OS/Arch: linux/amd64 Context: default Experimental: true Server: Docker Engine - Community Engine: Version: 20.10.17 API version: 1.41 (minimum version 1.12) Go version: go1.17.11 Git commit: a89b842 Built: Mon Jun 6 23:01:03 2022 OS/Arch: linux/amd64 Experimental: false containerd: Version: 1....</p>
+</section>
+<footer class=entry-footer><span title="2022-07-07 00:00:00 +0000 UTC">July 7, 2022</span>&nbsp;·&nbsp;5 min&nbsp;·&nbsp;Theme PaperMod</footer>
+<a class=entry-link aria-label="post link to 使用 Docker 執行 Mariadb" href=https://calvinegs.github.io/posts/docker-mariadb/></a>
+</article>
+<article class=post-entry>
+<header class=entry-header>
 <h2>使用 Node.js + express + MySQL 建立一個後端服務 REST API
 </h2>
 </header>
@@ -127,20 +140,6 @@ NodeJs 17.6.0 Express 4.17.1 cors 2.8.5 crypto-js 4.1.1 # 加解密套件 jsonwe
 </section>
 <footer class=entry-footer><span title="2022-06-07 00:00:00 +0000 UTC">June 7, 2022</span>&nbsp;·&nbsp;13 min&nbsp;·&nbsp;Theme PaperMod</footer>
 <a class=entry-link aria-label="post link to 使用 Node.js + express + postgres 建立一個後端服務 REST API" href=https://calvinegs.github.io/posts/nodejs-restapi-postgres/></a>
-</article>
-<article class=post-entry>
-<header class=entry-header>
-<h2>使用 .NET 6.0 進行 JWT 身份驗證的 ASP.NET Web Api。並使用 Microsoft Identity 框架來存儲使用者和角色等資料（使用 PostgresSQL）
-</h2>
-</header>
-<section class=entry-content>
-<p>github Source code
-在之前的筆記中 使用 .NET 6.0 進行 JWT 身份驗證的 ASP.NET Web Api 已仔細的紀錄如何使用 .Net 6.0 來建置一個支援 JWT ＆ Identity framework 的 WebApi 網站應用程式，在該篇筆記中所使用的資料庫是 MS SQL 2019，而這篇筆記裡將紀錄如何將它改成支援 PostgresSQL。
-若你還沒有安裝 PostgresSQL 可以參考這筆記先將資料庫管理系統備妥 使用 Docker 執行 PostgresSQL 與 pgAdmin
-專案完成後的檔案結構 ./專案目錄 ├── .config/ │ └── dotnet-tools.json ├── .vscode/ │ ├── launch.js │ └── tasks.json ├── Controller/ │ ├── AuthenticateController.cs │ ├── TodoController.cs │ └── WeatherForecast.cs ├── Data/ │ └── ApiDbContext.cs ├── Migrations/ ├── Models/ │ ├── AuthenticateData....</p>
-</section>
-<footer class=entry-footer><span title="2022-06-02 00:00:00 +0000 UTC">June 2, 2022</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;Theme PaperMod</footer>
-<a class=entry-link aria-label="post link to 使用 .NET 6.0 進行 JWT 身份驗證的 ASP.NET Web Api。並使用 Microsoft Identity 框架來存儲使用者和角色等資料（使用 PostgresSQL）" href=https://calvinegs.github.io/posts/dotnet6-webapi-jwt-postgres/></a>
 </article>
 <footer class=page-footer>
 <nav class=pagination>

@@ -77,6 +77,21 @@
 </header>
 <article class=post-entry>
 <header class=entry-header>
+<h2>Typed Form in angular 15
+</h2>
+</header>
+<section class=entry-content>
+<p>Typed Form in angular 從 Angular 14 開始，Angular 為 Reactive Forms 添加了完整的內建類型安全功能，FormGroup、FormControl、FormArray、FormBuilder 皆預設具備有型別，好處當然就是在開發階段就可以避免一些因為型別而産生的問題錯誤。
+而原有在 Angular 13 中的 FormGroup、FormControl、FormArray、FormBuilder被改名成 UntypedFormGroup、UntypedFormControl、UnTypedFormArray、UnTypedFormBuilder，若有需要使用到跨型別表單的用法，可以透過這些原有的功能來完成。
+使用這些內建 Typeed form 功能除了獲得額外的型別安全好處，更令人高興的是無需對原程式進行任何代碼更改，就來看看要如何取得這些優點。
+以下面的 login Compoenet 為例，和舊版的程式相同，使用 FormBuilder API 來宣告 email 和 password 兩個表單欄位
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 @Component({ selector: 'login', templateUrl: './login.component.html', styleUrls: ['./login.component.css'] }) export class LoginComponent { loginForm = this....</p>
+</section>
+<footer class=entry-footer><span title="2023-04-09 00:00:00 +0000 UTC">April 9, 2023</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;Theme PaperMod</footer>
+<a class=entry-link aria-label="post link to Typed Form in angular 15" href=https://calvinegs.github.io/posts/angular-typedform/></a>
+</article>
+<article class=post-entry>
+<header class=entry-header>
 <h2>在 Angular 中實現 CAPTCHA 驗證碼功能
 </h2>
 </header>
@@ -132,21 +147,6 @@ Dotnet CLI Entity Framework 7.0 Json Web Token PostgreSQL DB (Docker Version) AS
 </section>
 <footer class=entry-footer><span title="2023-02-26 00:00:00 +0000 UTC">February 26, 2023</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;Theme PaperMod</footer>
 <a class=entry-link aria-label="post link to 使用 Docker Compose 執行 MSSQL Server 2022" href=https://calvinegs.github.io/posts/docker-compose-mssql/></a>
-</article>
-<article class=post-entry>
-<header class=entry-header>
-<h2>Angular Intercoptor 使用案例二：搭配 Jason Web Token + Session Storage 來實現使用者身份驗證功能
-</h2>
-</header>
-<section class=entry-content>
-<p>github Source code
-Angular Intercoptor 使用案例二：搭配 Jason Web Token + Session Storage 來實現使用者身份驗證功能 使用者驗證在所有的應用程式中都是很重要的一個環節。本篇筆記中將使用 Angular Interceptor + Jason Web Token 以及 Session Storage 來實現這個重點功能。
-本篇這個“前端登入功能”所搭配的後端程式可詳見 “使用 .NET 6.0 進行 JWT 身份驗證的 ASP.NET Web Api”
-執行步驟如下：
-取得預備的程式碼 建立 appSettings 來存放程式參數值 建立 auth.service.ts 建立 token-storage.service.ts 完成 login page component 中的程式碼 執行測試 建立 interceptor 程式 建立 Guard 程式 取得預備的程式碼 在 “使用 Angular Material 建立一個簡易的 Admin Template II” 已經使用 Material UI Component 設計好登入畫面，接下來就直接捉取這個版本的程式碼來接續完成使用者登入功能的所有程式。...</p>
-</section>
-<footer class=entry-footer><span title="2023-02-25 00:00:00 +0000 UTC">February 25, 2023</span>&nbsp;·&nbsp;7 min&nbsp;·&nbsp;Theme PaperMod</footer>
-<a class=entry-link aria-label="post link to Angular Intercoptor 使用案例二：搭配 Jason Web Token + Session Storage 來實現使用者身份驗證功能" href=https://calvinegs.github.io/posts/angular-interceptor-jwt/></a>
 </article>
 <footer class=page-footer>
 <nav class=pagination>

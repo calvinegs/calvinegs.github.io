@@ -10,7 +10,16 @@
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 21 Mar 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://calvinegs.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 09 Apr 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://calvinegs.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Typed Form in angular 15</title>
+      <link>https://calvinegs.github.io/posts/angular-typedform/</link>
+      <pubDate>Sun, 09 Apr 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://calvinegs.github.io/posts/angular-typedform/</guid>
+      <description>本篇筆記將要紀錄如何使 Angular 15 Typed Form</description>
+    </item>
+    
     <item>
       <title>在 Angular 中實現 CAPTCHA 驗證碼功能</title>
       <link>https://calvinegs.github.io/posts/angular-recaptcha/</link>
