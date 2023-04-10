@@ -10,7 +10,16 @@
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 09 Apr 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://calvinegs.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 10 Apr 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://calvinegs.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Context API in ReactJS</title>
+      <link>https://calvinegs.github.io/posts/react-context/</link>
+      <pubDate>Mon, 10 Apr 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://calvinegs.github.io/posts/react-context/</guid>
+      <description>使用 context api 來傳遞資料給子元件</description>
+    </item>
+    
     <item>
       <title>Typed Form in angular 15</title>
       <link>https://calvinegs.github.io/posts/angular-typedform/</link>

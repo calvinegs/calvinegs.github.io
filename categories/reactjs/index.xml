@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>reactjs on 永誌不忘 • 筆記簿</title>
+    <link>https://calvinegs.github.io/categories/reactjs/</link>
+    <description>Recent content in reactjs on 永誌不忘 • 筆記簿</description>
+    <image>
+      <url>https://calvinegs.github.io/papermod-cover.png</url>
+      <link>https://calvinegs.github.io/papermod-cover.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 10 Apr 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://calvinegs.github.io/categories/reactjs/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Context API in ReactJS</title>
+      <link>https://calvinegs.github.io/posts/react-context/</link>
+      <pubDate>Mon, 10 Apr 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://calvinegs.github.io/posts/react-context/</guid>
+      <description>使用 context api 來傳遞資料給子元件</description>
+    </item>
+    
+  </channel>
+</rss>
