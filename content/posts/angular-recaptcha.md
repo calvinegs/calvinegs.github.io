@@ -48,7 +48,7 @@ categories: ["angular"]
 
 
 ### 複製即有專案
-首先 git clone 即有的 MySQL 專案
+首先 git clone 即有的 Angular 專案
 
 ```bash
 $ git clone https://github.com/calvinegs/angular14-auth-jwt.git angular-recaptcha
