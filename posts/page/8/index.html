@@ -77,6 +77,18 @@
 </header>
 <article class=post-entry>
 <header class=entry-header>
+<h2>透過範例了解 Javascript Rest ＆ Spread 運算符有何不同
+</h2>
+</header>
+<section class=entry-content>
+<p>rest 和 spread 之間的主要區別在於，rest 運算符將使用者提供的特定的值的“其餘”部分放入 JavaScript 陣列中。但是擴展語法將可疊代物件擴展為各別的元素。
+rest 的範例 // 將使用者提供的某些值放入陣列中 function myBio(firstName, lastName, ...otherInfo) { return otherInfo; } // 呼叫 myBio 功能時傳入五個參數值: myBio("Oluwatobi", "Sofela", "CodeSweetly", "Web Developer", "Male"); // 回傳以下陣列: ["CodeSweetly", "Web Developer", "Male"] // 宣告二個一般變數及一個 rest 變數，再使用 destructruing 方式給值: const [firstName, lastName, ...otherInfo] = [ "Oluwatobi", "Sofela", "CodeSweetly", "Web Developer", "Male" ]; console.log(otherInfo); // 結果: ["CodeSweetly", "Web Developer", "Male"] // ES7+的物件屬性其餘運算符 const {a, b, ...rest} = {a:1, b:2, c:3, d:4} //a=1, b=2, rest={c:3, d:4} let options = { title: "Menu", height: 200, width: 100 }; // title = property named title // rest = object with the rest of properties let {title, ....</p>
+</section>
+<footer class=entry-footer><span title="2022-04-12 00:00:00 +0000 UTC">April 12, 2022</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;Theme PaperMod</footer>
+<a class=entry-link aria-label="post link to 透過範例了解 Javascript Rest ＆ Spread 運算符有何不同" href=https://calvinegs.github.io/posts/rest-spread-js/></a>
+</article>
+<article class=post-entry>
+<header class=entry-header>
 <h2>透過範例了解 Javascript Destructuring (解構指定值)
 </h2>
 </header>
@@ -151,19 +163,6 @@ div+div>p>span+em^^^bq
 </section>
 <footer class=entry-footer><span title="2022-02-20 00:00:00 +0000 UTC">February 20, 2022</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;Theme PaperMod</footer>
 <a class=entry-link aria-label="post link to 使用 Parcel.js + Typescript 來建置一個 Web App" href=https://calvinegs.github.io/posts/parcel-typescript/></a>
-</article>
-<article class=post-entry>
-<header class=entry-header>
-<h2>ASP.NET Core 6 Web API 使用 Dapper ORM 連結 Oracle
-</h2>
-</header>
-<section class=entry-content>
-<p>github Source code #tag: dapper_oracle
-當已有現存的資料庫(此以 Oracle 為例)並且存在有歷史資料，或與其他系統共用資料庫，在這前題下，通常無法隨意的去更改資料庫結構，這時若要採用 Entity Framework 架構就容易遇到資料庫結構正規化的問題。另一種情境是，舊系統使用了非常的SQL語法，要將這些邏輯"翻譯"成合理的 Entity Framework 架構有技術上或時間上的限制時，就會考慮使用 Dapper 這個輕量的 ORM 搭配上 SQL 語法。
-使用 dotnet cli 建立專案 $ dotnet new webapi -o OracleDapperRepository && cd OracleDapperRepository $ dotnet build $ dotnet run $ dotnet new gitignore $ git init && git add . && git commit -m "Initial commit" 安裝相依套件 $ dotnet add package Dapper --2.0.123 # 加入 Dapper package $ dotnet add package Oracle....</p>
-</section>
-<footer class=entry-footer><span title="2022-01-28 00:00:00 +0000 UTC">January 28, 2022</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;Theme PaperMod</footer>
-<a class=entry-link aria-label="post link to ASP.NET Core 6 Web API 使用 Dapper ORM 連結 Oracle" href=https://calvinegs.github.io/posts/dotnet6-webapi-oracle-dapper/></a>
 </article>
 <footer class=page-footer>
 <nav class=pagination>

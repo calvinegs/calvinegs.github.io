@@ -10,7 +10,25 @@
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 10 Apr 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://calvinegs.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 01 Jul 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://calvinegs.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>rust</title>
+      <link>https://calvinegs.github.io/tags/rust/</link>
+      <pubDate>Sat, 01 Jul 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://calvinegs.github.io/tags/rust/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>rustup</title>
+      <link>https://calvinegs.github.io/tags/rustup/</link>
+      <pubDate>Sat, 01 Jul 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://calvinegs.github.io/tags/rustup/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>context api</title>
       <link>https://calvinegs.github.io/tags/context-api/</link>
