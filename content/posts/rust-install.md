@@ -1,24 +1,24 @@
 ---
-title: "Install rust on ubuntu 20.04"
+title: "Install Rust on ubuntu 20.04"
 date: 2023-07-01
 draft: false
-description: "透過 rustup 來安裝 rust"
+description: "透過 rustup 來安裝 Rust"
 tags: ["rust", "rustup"]
 categories: ["rust"]
 ---
 
-# Install rust on ubuntu 20.04
+# Install Rust on ubuntu 20.04
 
-## 透過 rustup 來安裝 rust
+## 透過 rustup 來安裝 Rust
 
 此安裝方式是官方所推薦。rustup 是負責安裝及管理 Rust 的工具。在 Rust 開發環境中，所有工具都安裝在 ~/.cargo/bin 目錄中。您也可以在這裡找到 Rust 工具鏈，包括 rustc、cargo 以及 rustup。
 
-進行安裝前可以透過以下指令來確認是否已經安裝了 rust:
+進行安裝前可以透過以下指令來確認是否已經安裝了 Rust:
 ```bash
 $ rustc --version
 ```
 
-如果顯示出 rustc 版本，則表是在你的環境中已安裝好了 rust:
+如果顯示出 rustc 版本，則表是在你的環境中已安裝好了 Rust:
 ```bash
 rustc 1.70.0 (90c541806 2023-05-31)
 ```
@@ -155,7 +155,7 @@ $ rustup update
 
 ### 解除安裝 Rust
 
-要解決 rust，直接移除 rustup 即可。
+要移除 Rust，直接移除 rustup 即可。
 
 ```bash
 $ rustup self uninstall
@@ -164,7 +164,7 @@ $ rustup self uninstall
 
 ### 安裝編譯器
 
-Rust 需要一個鏈接器程序將編譯後的輸出連接到一個檔案中。在 build-essential pacakge 中的 GNU Compiler Collection(gcc) 編譯器集合中有內含了一個 linker，所以先確認你的環境中是否已安裝了 gcc。
+Rust 需要一個鏈接器程序(Linker)將編譯後的輸出連接到一個檔案中。在 build-essential pacakge 中的 GNU Compiler Collection(gcc) 編譯器集合中有內含了一個 linker，所以先確認你的環境中是否已安裝了 gcc。
 
 ```bash
 $ gcc --version
@@ -270,7 +270,7 @@ Hello, world!
 
 ### 用Cargo建立Rust程式專案
 
-使用Cargo建立Rust程式專案的方式非常簡單，指令如下：
+使用 Cargo 建立 Rust 程式專案的方式非常簡單，指令如下：
 
 ```bash
 $ cargo new <專案名稱>
@@ -290,7 +290,7 @@ $ cargo new --bin <專案名稱>
 $ cargo new --lib <專案名稱>
 ```
 
-所以，要使用Cargo建立出名為hello_world的可執行應用程式專案。
+所以，要使用 Cargo 建立出名為 hello_world 的可執行應用程式專案。
 指令如下：
 
 ```bash
@@ -309,7 +309,7 @@ $ tree .
 
 用文字編輯器打開　main.rs，更可以發現檔案中已經內建了我們在上一節寫好的　Hello World　程式碼！這是　Cargo　建立可執行應用程式專案會預先填寫的程式，如此一來新建出來的程式專案也可以直接被編譯執行了。我們先來看看Cargo.toml這個設定檔吧！
 
-TOML(Tom's Obvious, Minimal Language)是一種設定檔的格式，比YAML(YAML Ain't Markup Language)還要更簡潔優雅，Cargo選用了TOML作為其設定檔的格式。預設產生出來的Cargo.toml長成底下這個樣子：
+TOML(Tom's Obvious, Minimal Language)是一種設定檔的格式，比 YAML(YAML Ain't Markup Language)還要更簡潔優雅，Cargo 選用了 TOML 作為其設定檔的格式。預設產生出來的 Cargo.toml 長成底下這個樣子：
 
 ``` Cargo.toml
 [package]                                                                       
@@ -322,16 +322,16 @@ edition = "2021"
 [dependencies]
 ```
 
-第一行的 [package] 代表其和底下的敘述所組成的區域是用來撰寫專案的設定。最後一行的 [dependencies] 則是代表其和底下的敘述所組成的區域為這個專案需要使用到哪些「crate」(板條箱)，「crate」是Rust對於套件的特別稱呼。將crate加進 Cargo.toml 檔案中的的 [dependencies] 區域，Cargo在建置專案的時候就會自動把相依的套件下載下來編譯。這個 Hello World 程式專案並不需要用到任何相依套件，因此我們不用動到這個區域的設定，讓它繼續維持什麼都沒有的狀態即可。
+第一行的 [package] 代表其和底下的敘述所組成的區域是用來撰寫專案的設定。最後一行的 [dependencies] 則是代表其和底下的敘述所組成的區域為這個專案需要使用到哪些「crate」(板條箱)，「crate」是 Rust 對於套件的特別稱呼。將 crate 加進 Cargo.toml 檔案中的的 [dependencies] 區域，Cargo在建置專案的時候就會自動把相依的套件下載下來編譯。這個 Hello World 程式專案並不需要用到任何相依套件，因此我們不用動到這個區域的設定，讓它繼續維持什麼都沒有的狀態即可。
 
-用 Cargo 建立出的程式專案來開發Rust程式，專案的檔案目錄結構需要依循 Cargo 訂定規則。Rust 的程式碼，也就是那些 *.rs 檔案，通通都是放在 src 目錄中。至於其它跟 Rust 的程式碼無直接關係的檔案，例如Cargo.toml、README、LICENSE 等等的設定檔和文件，則是放在專案根目錄下，與 Rust 程式碼放置的位置區分開來。
+用 Cargo 建立出的程式專案來開發 Rust 程式，專案的檔案目錄結構需要依循 Cargo 訂定規則。Rust 的程式碼，也就是那些 *.rs 檔案，通通都是放在 src 目錄中。至於其它跟 Rust 的程式碼無直接關係的檔案，例如Cargo.toml、README、LICENSE 等等的設定檔和文件，則是放在專案根目錄下，與 Rust 程式碼放置的位置區分開來。
 
 
 ## 用 Cargo 來編譯和執行專案
 
 ### 用 Cargo 編譯專案
 
-將終端機的工作目錄移動到Cargo專案根目錄，執行以下指令：
+將終端機的工作目錄移動到 Cargo 專案根目錄，執行以下指令：
 
 ```terminal
 $ cargo build
@@ -375,7 +375,7 @@ $ tree .
 9 directories, 18 files
 ```
 
-### 用Cargo執行專案
+### 用 Cargo 執行專案
 
 執行以下指令：
 
@@ -395,7 +395,7 @@ Hello, world!
 如果專案沒有事先使用cargo build進行編譯的話，直接使用cargo run也會先幫您進行編譯。
 
 
-### 用Cargo檢查專案有沒有問題
+### 用 Cargo 檢查專案有沒有問題
 
 執行以下指令：
 
@@ -405,7 +405,7 @@ $ cargo check
 
 這個指令會編譯專案，但不會產生出最終的目的檔(執行檔)，可以快速驗證Rust的程式碼是否能通過編譯。
 
-### 用Cargo發佈程式
+### 用 Cargo 發佈程式
 
 在程式專案完結的時候，會需要進行最終的程式編譯輸出。與開發階段不同的是，作為產品輸出的程式應該要透過編譯器進行一些優化，並且移除掉開發階段時用來偵錯(debug)的功能和訊息，確保正式版本的程式能在最佳狀態下運作(高效能、小體積)。
 
@@ -417,7 +417,7 @@ $ cargo build --release
 
 加上 --release 參數編譯出來的程式會放置在專案根目錄的 target/release 目錄中，提交給客戶或是部署到正式環境的程式就是在這邊！
 
-### 用Cargo測試程式
+### 用 Cargo 測試程式
 
 開發程式時，除了要想辦法把功能完成之外，也要另外有個方式去驗證寫出來的程式是不是能正確執行。Cargo 有提供測試專案的指令：
 
@@ -425,7 +425,7 @@ $ cargo build --release
 $  cargo test
 ```
 
-### 清理Cargo程式專案
+### 清理 Cargo 程式專案
 
 刪除 Cargo 在檢查、編譯或是測試程式專案時所產生出來的暫存檔案和執行檔案。
 
