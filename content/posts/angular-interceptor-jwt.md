@@ -1,5 +1,5 @@
 ---
-title: "Angular Intercoptor 使用案例二：搭配 Jason Web Token + Session Storage 來實現使用者身份驗證功能"
+title: "Angular Interceptor 使用案例二：搭配 Jason Web Token + Session Storage 來實現使用者身份驗證功能"
 date: 2023-02-25
 draft: false
 description: "使用 Interceptor 來完成當程式讀取後端資料時於畫面上顯示 “讀取中...“ 動畫效果的等待畫面，讓使用者有良好的使用體驗"
@@ -8,7 +8,7 @@ categories: ["angular"]
 ---
 *[github Source code](https://github.com/calvinegs/angular-interceptor-jwt.git)*
 
-# Angular Intercoptor 使用案例二：搭配 Jason Web Token + Session Storage 來實現使用者身份驗證功能
+# Angular Interceptor 使用案例二：搭配 Jason Web Token + Session Storage 來實現使用者身份驗證功能
 
 使用者驗證在所有的應用程式中都是很重要的一個環節。本篇筆記中將使用 Angular Interceptor + Jason Web Token 以及 Session Storage 來實現這個重點功能。
 

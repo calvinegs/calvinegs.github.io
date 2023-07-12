@@ -1,5 +1,5 @@
 ---
-title: "Angular Intercoptor 使用案例一：Loading Spinner"
+title: "Angular Interceptor 使用案例一：Loading Spinner"
 date: 2023-01-31
 draft: false
 description: "使用 Interceptor 來完成當程式讀取後端資料時於畫面上顯示 “讀取中...“ 動畫效果的等待畫面，讓使用者有良好的使用體驗"

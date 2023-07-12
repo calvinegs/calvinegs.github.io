@@ -13,7 +13,7 @@ categories: ["angular"]
 
 除此之外也會建置一個 Login Page，身份驗證是一個應用程式中不可缺少的功能，有了這個登入畫面，將會被應用到另一篇 angular Interceptor - JWT 的應用中（待續）。
 
-有關 Admin Template 第一個版本的介紹請見 *[Loding Spinner](https://calvinegs.github.io/posts/angular-intercoptor-loadingspinner)*
+有關 Admin Template 第一個版本的介紹請見 *[Loding Spinner](https://calvinegs.github.io/posts/angular-interceptor-loadingspinner)*
 
 # 加強 Admin Template 功能
 
