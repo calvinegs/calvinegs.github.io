@@ -288,6 +288,10 @@ setuptools     65.5.0
 ![image](https://user-images.githubusercontent.com/21993717/270088198-1f26f13a-44bd-45b3-9da8-091360f6ef69.png)
 
 
+我們可以直接查看虛擬環境中的 site-packages 子目錄，發現所有新安裝的第三方套件都被存放在了“ C:\projects\venv-demo\Lib\site-packages”目錄中。
+
+![image](https://user-images.githubusercontent.com/21993717/270098074-478eb2de-73b0-41e3-9fed-13dcfc32fbda.png)
+
 ### 停用虛擬環境
 
 要停用虛擬環境時，直接在 cmd 中輸入 deactivate 再按 enter 鍵即可。會發現提示字元已恢復成原來的樣子。
@@ -302,3 +306,18 @@ C:\projects\venv-demo>
 停用虛擬環境後我們可以再使用 pip list & python -m rich 等指令來測試，結果發現 rich 套件並不存在 Global Python 執行環境中。
 
 ![image](https://user-images.githubusercontent.com/21993717/270088327-01728335-a0bf-456e-a847-5da3156bf3bc.png)
+
+
+停用虛擬環境後再使用 pip list 來查看套件清單，會發現與虛擬環境中安裝套件清單不同，因為此刻顯示的是 system site-packages 中的套件，不是虛擬環境中的 site-packages。
+
+```dos
+C:\projects\venv-demo>pip list
+Package    Version
+---------- -------
+pip        23.2.1
+setuptools 65.5.0
+```
+
+我們可以直接查看 system site-packages 子目錄，發現system site-packages 中的第三方套件與虛擬環境　site-packages　目錄中第三方套件有所不同。
+
+![image](https://user-images.githubusercontent.com/21993717/270098278-ceb168fd-f7db-4052-ab12-dd56e52a0843.png)
