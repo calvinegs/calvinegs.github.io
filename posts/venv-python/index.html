@@ -1,0 +1,400 @@
+<!doctype html><html lang=en dir=auto>
+<head><meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no">
+<meta name=robots content="index, follow">
+<title>使用 Python 上的虛擬環境(一) venv | 永誌不忘 • 筆記簿</title>
+<meta name=keywords content="python,virtual Environment,venv">
+<meta name=description content="Python 的虛擬環境是用來管理使用套件版本問題的解決方案，實務上有許多不同的方案，本編筆記先來介紹 Python 內建的 venv">
+<meta name=author content="Theme PaperMod">
+<link rel=canonical href=https://calvinegs.github.io/posts/venv-python/>
+<link crossorigin=anonymous href=/assets/css/stylesheet.min.c88963fe2d79462000fd0fb1b3737783c32855d340583e4523343f8735c787f0.css integrity="sha256-yIlj/i15RiAA/Q+xs3N3g8MoVdNAWD5FIzQ/hzXHh/A=" rel="preload stylesheet" as=style>
+<script defer crossorigin=anonymous src=/assets/js/highlight.min.7680afc38aa6b15ddf158a4f3780b7b1f7dde7e91d26f073e6229bb7a0793c92.js integrity="sha256-doCvw4qmsV3fFYpPN4C3sffd5+kdJvBz5iKbt6B5PJI=" onload=hljs.initHighlightingOnLoad()></script>
+<link rel=icon href=https://calvinegs.github.io/img/favicon.png>
+<link rel=icon type=image/png sizes=16x16 href=https://calvinegs.github.io/favicon-16x16.png>
+<link rel=icon type=image/png sizes=32x32 href=https://calvinegs.github.io/favicon-32x32.png>
+<link rel=apple-touch-icon href=https://calvinegs.github.io/apple-touch-icon.png>
+<link rel=mask-icon href=https://calvinegs.github.io/safari-pinned-tab.svg>
+<meta name=theme-color content="#2e2e33">
+<meta name=msapplication-TileColor content="#2e2e33">
+<meta name=generator content="Hugo 0.91.2">
+<noscript>
+<style>#theme-toggle,.top-link{display:none}</style>
+<style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--hljs-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style>
+</noscript><meta property="og:title" content="使用 Python 上的虛擬環境(一) venv">
+<meta property="og:description" content="Python 的虛擬環境是用來管理使用套件版本問題的解決方案，實務上有許多不同的方案，本編筆記先來介紹 Python 內建的 venv">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://calvinegs.github.io/posts/venv-python/"><meta property="og:image" content="https://calvinegs.github.io/papermod-cover.png"><meta property="article:section" content="posts">
+<meta property="article:published_time" content="2023-09-22T00:00:00+00:00">
+<meta property="article:modified_time" content="2023-09-22T00:00:00+00:00">
+<meta name=twitter:card content="summary_large_image">
+<meta name=twitter:image content="https://calvinegs.github.io/papermod-cover.png">
+<meta name=twitter:title content="使用 Python 上的虛擬環境(一) venv">
+<meta name=twitter:description content="Python 的虛擬環境是用來管理使用套件版本問題的解決方案，實務上有許多不同的方案，本編筆記先來介紹 Python 內建的 venv">
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Posts","item":"https://calvinegs.github.io/posts/"},{"@type":"ListItem","position":2,"name":"使用 Python 上的虛擬環境(一) venv","item":"https://calvinegs.github.io/posts/venv-python/"}]}</script>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"使用 Python 上的虛擬環境(一) venv","name":"使用 Python 上的虛擬環境(一) venv","description":"Python 的虛擬環境是用來管理使用套件版本問題的解決方案，實務上有許多不同的方案，本編筆記先來介紹 Python 內建的 venv","keywords":["python","virtual Environment","venv"],"articleBody":"Python 安裝程式除了會在本機安裝進執行檔外，也會連帶安裝一些標準函式庫的套件，但Python 應用程式通常還會用到不在標準函式庫的套件和模組。由於某些特殊的臭蟲修正應用程式有時候會需要某個特定版本的函式庫，或是不同應用程式是根據某函式庫特定版本的介面所撰寫。\n這意味著不太可能安裝一套 Python 就可以滿足所有應用程式的要求。如果應用程式 A 需要一個特定的模組的 1.0 版，但另外一個應用程式 B 需要 2.0 版，那麼這整個需求不管安裝 1.0 或是 2.0 都會衝突，以致於應用程式無法使用。\nPython 的虛擬環境是用來管理使用套件版本問題的解決方案，實務上有許多不同的方案，包含有：venv、virtualenv、pipenv、conda…等。\n本編筆記先來介紹 Python 內建的 venv 這個虛擬環境管理工具。“venv” 是 Python 的預設內建的模組，自 Python 3.3 版本以來就存在，因此不需要額外安裝任何其他套件即可使用，方便就是它的最大好處，但相對於其他解決方案，它也就陽春了許多。\n在介紹 venv 前讓我們先從安裝 Python 說起。\n在 windows 系統中安裝 Python 在 windows 作業系統上安裝 Python 有許多不同的方式，這裡只展示最典型、最簡易的方式 - 使用安裝執行檔。\n先確認你的作業系統上是否已經安裝了 Python 及其版本  在 cmd 程式中輸入 python –version，如果執行本指令後顯示空白則表示尚未安裝任何版本的 python   開啟 cmd.exe，在 windows 桌面上按下快速鍵 Window + R (組合鍵)叫出 “執行視窗”，輸入 “cmd” 後按下“確定”按鈕來啟動 cmd 程式 (註：若你要以administrator身份開啟 cmd 程式的話，請使用 “ctrl+shift+enter\"組合鍵來取代按下“確定”按鈕的動作)\n c:\\python --version Python 3.8.10 # 表示已安裝有 python 3.8.10 版本  可在 cmd 程式中使用 where 指令來查看已安裝的 python 是存放在那個目錄下  c:\\where python 下載 windows 版的 Python 安裝程式 下載的 URL: https://www.python.org/downloads/windows/\n在這個網頁中可以看到：\n 最新的版本是 3.11.5 3.11.5 版本是屬“穩定版” 3.11.5 版的發行日期是 9/24/2023 在 windows 10 中建議下載 “Windows installer (64-bit)” 這個 65 位元版安裝程式  下載成功後，在下載目錄中會看到 python-3.11.5-amd64.exe\n先檢視安裝前時的 windows 環境變數  開啟 “系統” 中的 “進階系統設定”   在 “系統內容” - “進階” - “環境變數”　中可以看到目前在作業系統中所有的\"環境變數”：\n  編輯 PATH 這個環境變數：\n  顯示目前 PATH環境變數 的設定值：  進行 Python 的安裝 在 cmd 中直接執行已下載成功的安裝執行檔 python-3.11.5-amd64.exe，在安裝的畫面中，首先先勾選畫面下方的“Add python.exe to PATH\" 的選項，在按下\"Install Now\"\n註：在此處可以看到python 預設安裝的路徑，同時也說明會一併安裝 IDLE(簡易編輯器)及pip(套件安裝管理工具)和相關說明文件\n進行安裝中 安裝成功：見下圖表示安裝成功，為使相關設定值生效，請登出後再登入（或重新開機）\n檢視安裝好的相關設定 使用前面介紹過的幾種方式來查看安裝完成後的結果和安裝前有何不同。\n python3 –version 使用 where 指令 查看系統環境變數 - PATH  還可以在 Windows 的 “應用程式與功能” 中，看到新安裝好的 python 3.11.5 應用程式:\n註：要移除 Python 可以使用“解除安裝”按鈕來進行。\n使用 venv 模組來管理虛擬環境 了解 Python 執行環境 在安裝 Python 的說明中知道我們安裝的 pytho 3.11.5 版的安裝目錄是在 “C:\\Users\\calvi\\AppData\\Local\\Programs\\Python\\Python311” (其中 calvi 是登入 windows 時的 User Name)。\npython 哪裡來？主要是歸功於 windows 中配置的系統環境變數: PATH，Python 安裝程式執行完安裝動作後，會在 PATH 中加入了一條安裝路徑的設定值。當你在 cmd 程式中輸入了 python 指令時，windows 系統會依此一設定值去找尋 python.exe 的位置，找到後再執行它。\n來看看這個Python安裝目錄下的檔案結構：\n.\\Python311 (主目錄) ├── DLLs ├── Doc ├── include ├── Lib ＝》(Python標準套件的存放目錄) │ └── site-packages ＝》(第三方套件存放的子目錄)(即 system site-packages) ├── libs ├── Scripts │ ├── pip.exe │ ├── pip3.11.exe │ └── pip3.exe ├── tcl ├── Tools ├── ... ├── python.exe　＝》直譯器（主要執行檔） └── ... Python 執行環境主要由執行 Python 直譯器(即 python.exe)的位置所決定。\nvenv 虛擬環境管理工具 在 Python 3.3 版中新加入一個用來建立與管理虛擬環境的模組叫做 venv。\n“venv” 基於你當前的 Python 安裝創建虛擬環境，它會複製你正在使用的 Python 版本到\"虛擬環境\"中。\n“venv” 提供了基本的虛擬環境功能，包括建立、啟用和停用虛擬環境。\n建立虛擬環境 C:\\projectspython -m venv venv-demo C:\\projects C:\\projectsdir 磁碟區 C 中的磁碟沒有標籤。 磁碟區序號: 960E-5612 C:\\projects 的目錄 2023/09/23 上午 11:41  . 2023/09/23 上午 11:41  .. 2023/09/23 上午 11:41  venv-demo 0 個檔案 0 位元組 3 個目錄 17,456,541,696 位元組可用 C:\\projects 執行了上述建立虛擬環境的指令後，系統會建立一個名為 venv-demo 的子目錄，來看看這個子目錄的結構\n.\\venv-demo (虛擬環境的目錄) ├── include ├── Lib │ └── site-packages ＝》(虛擬環境中存放第三方套件的子目錄) ├── pyven.cfg └── Scripts ├── activate ├── activate.bat (在 cmd 中要啟動虛擬環境的指令) ├── Activate.ps1 (在 power shell 中要啟動虛擬環境的指令) ├── deactivate.bat (停用虛擬環境的指令) ├── pip.exe ├── pip3.11.exe ├── pip3.exe ├── python.exe └── pythonw.exe 來查看一下 pyvenv.cfg 這個組態檔的內容\nC:\\projects\\venv-demotype pyvenv.cfg home = C:\\Users\\calvi\\AppData\\Local\\Programs\\Python\\Python311 include-system-site-packages = false version = 3.11.5 executable = C:\\Users\\calvi\\AppData\\Local\\Programs\\Python\\Python311\\python.exe command = C:\\Users\\calvi\\AppData\\Local\\Programs\\Python\\Python311\\python.exe -m venv C:\\projects\\venv-demo C:\\projects\\venv-demo 可以發現系統是使用：當前版本的 Python 來創建虛擬環境，它會複製正在使用的 Python 版本到\"虛擬環境\"中（複製至 Scripts 子目錄中），以本例而言當前的Python版本是3.11.5，因此當你啟用這個虛擬環境時所使用的Python就是這個版本。\n啟用虛擬環境 啟用虛擬環境是直接呼叫 Script\\activate.bat 即可。 在啟用之前先來看看目前的環境變數 PATH 的狀態。在 cmd 中直接輸入 path 再按下 enter 鍵就會顯示目前環境變數 PATH 現有的設定值。\nC:\\projects\\venv-demopath PATH=C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\System32\\Wbem;C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\;C:\\WINDOWS\\System32\\OpenSSH\\;C:\\Program Files\\Microsoft SQL Server\\130\\Tools\\Binn\\;C:\\ProgramData\\chocolatey\\bin;C:\\Program Files\\dotnet\\;C:\\Program Files\\Git\\cmd;C:\\Program Files (x86)\\Pulse Secure\\VC142.CRT\\X64\\;C:\\Program Files (x86)\\Pulse Secure\\VC142.CRT\\X86\\;C:\\Program Files (x86)\\Common Files\\Pulse Secure\\TNC Client Plugin\\;C:\\Users\\calvi\\AppData\\Local\\Programs\\Python\\Python311\\Scripts\\;C:\\Users\\calvi\\AppData\\Local\\Programs\\Python\\Python311\\;C:\\Users\\calvi\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Users\\calvi\\AppData\\Local\\Programs\\Microsoft VS Code\\bin;C:\\Users\\calvi\\AppData\\Local\\nvs\\default;C:\\Users\\calvi\\AppData\\Local\\nvs\\;C:\\Users\\calvi\\.dotnet\\tools; 接著在 cmd 中輸入　C:\\projects\\venv-democ:\\projects\\venv-demo\\Scripts\\activate.bat，用來啟用先前我們建立虛擬環境 venv-demo。\nC:\\projects\\venv-democ:\\projects\\venv-demo\\Scripts\\activate.bat 啟動成功後，cmd 中的提示字元會成 (venv-demo) C:\\projects\\venv-demo，其中括弧內的就是虛擬環境的名稱\n這時我們再來觀查一下環境變數 PATH 目前的狀態\n由於 “C:\\projects\\venv-demo\\Scripts”　這個設定值位於 PATH 環境變數的最前面，在 cmd 中執行指令時，這個目錄被搜尋的優先權最高。以 pip3 指令為例，當此刻在 cmd 中輸入 pip3 並執行時，優先權的關係被執行的 pip3 程式是位在虛擬環境中的 pip3，而非系統安裝 python 時預設目錄(“C:\\Users\\calvi\\AppData\\Local\\Programs\\Python\\Python311\\Scripts”)中的 pip3，也正因這個緣故，此時用 pip3 安裝的套件是會存放在“虛擬環境”所對應的　site-packages 目錄(即C:\\projects\\venv-demo\\Lib\\site-packages)中而非 C:\\Users\\calvi\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages 目錄(即 system site-packages)裡。\n在 cmd 中使用 where 指令來查看一下 python \u0026 pip，會發現執行的優先順序都指到了虛擬環境的 Scripts 目錄中了。\n在虛擬環境中安裝第三方套件 在啟用虛擬環境的狀態下，使用 pip3 install rich 來安裝 rich 這個第三方套件。\n(venv-demo) C:\\projects\\venv-demopip install rich Collecting rich Obtaining dependency information for rich from https://files.pythonhosted.org/packages/c1/d1/23ba6235ed82883bb416f57179d1db2c05f3fb8e5d83c18660f9ab6f09c9/rich-13.5.3-py3-none-any.whl.metadata Downloading rich-13.5.3-py3-none-any.whl.metadata (18 kB) Collecting markdown-it-py=2.2.0 (from rich) Obtaining dependency information for markdown-it-py=2.2.0 from https://files.pythonhosted.org/packages/42/d7/1ec15b46af6af88f19b8e5ffea08fa375d433c998b8a7639e76935c14f1f/markdown_it_py-3.0.0-py3-none-any.whl.metadata Downloading markdown_it_py-3.0.0-py3-none-any.whl.metadata (6.9 kB) Collecting pygments=2.13.0 (from rich) Obtaining dependency information for pygments=2.13.0 from https://files.pythonhosted.org/packages/43/88/29adf0b44ba6ac85045e63734ae0997d3c58d8b1a91c914d240828d0d73d/Pygments-2.16.1-py3-none-any.whl.metadata Downloading Pygments-2.16.1-py3-none-any.whl.metadata (2.5 kB) Collecting mdurl~=0.1 (from markdown-it-py=2.2.0-rich) Using cached mdurl-0.1.2-py3-none-any.whl (10.0 kB) Downloading rich-13.5.3-py3-none-any.whl (239 kB) ---------------------------------------- 239.8/239.8 kB 1.8 MB/s eta 0:00:00 Downloading markdown_it_py-3.0.0-py3-none-any.whl (87 kB) ---------------------------------------- 87.5/87.5 kB 4.8 MB/s eta 0:00:00 Downloading Pygments-2.16.1-py3-none-any.whl (1.2 MB) ---------------------------------------- 1.2/1.2 MB 2.3 MB/s eta 0:00:00 Installing collected packages: pygments, mdurl, markdown-it-py, rich Successfully installed markdown-it-py-3.0.0 mdurl-0.1.2 pygments-2.16.1 rich-13.5.3 安裝完成後再使用 pip list 來查看目前環境下所有的套件清單，會發現與安裝套件前的清單已有不同。\n(venv-demo) C:\\projects\\venv-demopip list Package Version -------------- ------- markdown-it-py 3.0.0 mdurl 0.1.2 pip 23.2.1 Pygments 2.16.1 rich 13.5.3 setuptools 65.5.0 使用 rich 測試指令　python -m rich　來查看 rich 套件是否已安裝程式\n停用虛擬環境 要停用虛擬環境時，直接在 cmd 中輸入 deactivate 再按 enter 鍵即可。會發現提示字元已恢復成原來的樣子。\n(venv-demo) C:\\projects\\venv-demodeactivate C:\\projects\\venv-demo 註：不必指定目錄名稱的原因也是因為 PATH 環境變數已有“C:\\projects\\venv-demo\\Scripts”　這個設定值的闗係。\n停用虛擬環境後我們可以再使用 pip list \u0026 python -m rich 等指令來測試，結果發現 rich 套件並不存在 Global Python 執行環境中。\n","wordCount":"642","inLanguage":"en","datePublished":"2023-09-22T00:00:00Z","dateModified":"2023-09-22T00:00:00Z","author":{"@type":"Person","name":"Theme PaperMod"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://calvinegs.github.io/posts/venv-python/"},"publisher":{"@type":"Organization","name":"永誌不忘 • 筆記簿","logo":{"@type":"ImageObject","url":"https://calvinegs.github.io/img/favicon.png"}}}</script>
+</head>
+<body id=top>
+<script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
+<header class=header>
+<nav class=nav>
+<div class=logo>
+<a href=https://calvinegs.github.io/ accesskey=h title="永誌不忘 • 筆記簿 (Alt + H)">永誌不忘 • 筆記簿</a>
+<span class=logo-switches>
+<button id=theme-toggle accesskey=t title="(Alt + T)"><svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+</button>
+</span>
+</div>
+<ul id=menu>
+<li>
+<a href=https://calvinegs.github.io/posts/ title=Posts>
+<span>Posts</span>
+</a>
+</li>
+<li>
+<a href=https://calvinegs.github.io/archives/ title=Archive>
+<span>Archive</span>
+</a>
+</li>
+<li>
+<a href=https://calvinegs.github.io/categories/ title=Categories>
+<span>Categories</span>
+</a>
+</li>
+<li>
+<a href=https://calvinegs.github.io/tags/ title=Tags>
+<span>Tags</span>
+</a>
+</li>
+<li>
+<a href=https://calvinegs.github.io/search/ title="Search (Alt + /)" accesskey=/>
+<span>Search</span>
+</a>
+</li>
+</ul>
+</nav>
+</header>
+<main class=main>
+<article class=post-single>
+<header class=post-header>
+<div class=breadcrumbs><a href=https://calvinegs.github.io/>Home</a>&nbsp;»&nbsp;<a href=https://calvinegs.github.io/posts/>Posts</a></div>
+<h1 class=post-title>
+使用 Python 上的虛擬環境(一) venv
+</h1>
+<div class=post-description>
+Python 的虛擬環境是用來管理使用套件版本問題的解決方案，實務上有許多不同的方案，本編筆記先來介紹 Python 內建的 venv
+</div>
+<div class=post-meta><span title="2023-09-22 00:00:00 +0000 UTC">September 22, 2023</span>&nbsp;·&nbsp;4 min&nbsp;·&nbsp;Theme PaperMod&nbsp;|&nbsp;<a href=https://github.com/adityatelange/hugo-PaperMod/tree/exampleSite/content/posts/venv-python.md rel="noopener noreferrer" target=_blank>Suggest Changes</a>
+</div>
+</header> <div class=toc>
+<details>
+<summary accesskey=c title="(Alt + C)">
+<span class=details>Table of Contents</span>
+</summary>
+<div class=inner><ul>
+<li>
+<a href=#%e5%9c%a8-windows-%e7%b3%bb%e7%b5%b1%e4%b8%ad%e5%ae%89%e8%a3%9d-python aria-label="在 windows 系統中安裝 Python">在 windows 系統中安裝 Python</a><ul>
+<li>
+<a href=#%e5%85%88%e7%a2%ba%e8%aa%8d%e4%bd%a0%e7%9a%84%e4%bd%9c%e6%a5%ad%e7%b3%bb%e7%b5%b1%e4%b8%8a%e6%98%af%e5%90%a6%e5%b7%b2%e7%b6%93%e5%ae%89%e8%a3%9d%e4%ba%86-python-%e5%8f%8a%e5%85%b6%e7%89%88%e6%9c%ac aria-label="先確認你的作業系統上是否已經安裝了 Python 及其版本">先確認你的作業系統上是否已經安裝了 Python 及其版本</a></li>
+<li>
+<a href=#%e4%b8%8b%e8%bc%89-windows-%e7%89%88%e7%9a%84-python-%e5%ae%89%e8%a3%9d%e7%a8%8b%e5%bc%8f aria-label="下載 windows 版的 Python 安裝程式">下載 windows 版的 Python 安裝程式</a></li>
+<li>
+<a href=#%e5%85%88%e6%aa%a2%e8%a6%96%e5%ae%89%e8%a3%9d%e5%89%8d%e6%99%82%e7%9a%84-windows-%e7%92%b0%e5%a2%83%e8%ae%8a%e6%95%b8 aria-label="先檢視安裝前時的 windows 環境變數">先檢視安裝前時的 windows 環境變數</a></li>
+<li>
+<a href=#%e9%80%b2%e8%a1%8c-python-%e7%9a%84%e5%ae%89%e8%a3%9d aria-label="進行 Python 的安裝">進行 Python 的安裝</a></li>
+<li>
+<a href=#%e6%aa%a2%e8%a6%96%e5%ae%89%e8%a3%9d%e5%a5%bd%e7%9a%84%e7%9b%b8%e9%97%9c%e8%a8%ad%e5%ae%9a aria-label=檢視安裝好的相關設定>檢視安裝好的相關設定</a></li></ul>
+</li>
+<li>
+<a href=#%e4%bd%bf%e7%94%a8-venv-%e6%a8%a1%e7%b5%84%e4%be%86%e7%ae%a1%e7%90%86%e8%99%9b%e6%93%ac%e7%92%b0%e5%a2%83 aria-label="使用 venv 模組來管理虛擬環境">使用 venv 模組來管理虛擬環境</a><ul>
+<li>
+<a href=#%e4%ba%86%e8%a7%a3-python-%e5%9f%b7%e8%a1%8c%e7%92%b0%e5%a2%83 aria-label="了解 Python 執行環境">了解 Python 執行環境</a></li>
+<li>
+<a href=#venv-%e8%99%9b%e6%93%ac%e7%92%b0%e5%a2%83%e7%ae%a1%e7%90%86%e5%b7%a5%e5%85%b7 aria-label="venv 虛擬環境管理工具">venv 虛擬環境管理工具</a><ul>
+<li>
+<a href=#%e5%bb%ba%e7%ab%8b%e8%99%9b%e6%93%ac%e7%92%b0%e5%a2%83 aria-label=建立虛擬環境>建立虛擬環境</a></li>
+<li>
+<a href=#%e5%95%9f%e7%94%a8%e8%99%9b%e6%93%ac%e7%92%b0%e5%a2%83 aria-label=啟用虛擬環境>啟用虛擬環境</a></li>
+<li>
+<a href=#%e5%9c%a8%e8%99%9b%e6%93%ac%e7%92%b0%e5%a2%83%e4%b8%ad%e5%ae%89%e8%a3%9d%e7%ac%ac%e4%b8%89%e6%96%b9%e5%a5%97%e4%bb%b6 aria-label=在虛擬環境中安裝第三方套件>在虛擬環境中安裝第三方套件</a></li>
+<li>
+<a href=#%e5%81%9c%e7%94%a8%e8%99%9b%e6%93%ac%e7%92%b0%e5%a2%83 aria-label=停用虛擬環境>停用虛擬環境</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</details>
+</div>
+<div class=post-content><p>Python 安裝程式除了會在本機安裝進執行檔外，也會連帶安裝一些標準函式庫的套件，但Python 應用程式通常還會用到不在標準函式庫的套件和模組。由於某些特殊的臭蟲修正應用程式有時候會需要某個特定版本的函式庫，或是不同應用程式是根據某函式庫特定版本的介面所撰寫。</p>
+<p>這意味著不太可能安裝一套 Python 就可以滿足所有應用程式的要求。如果應用程式 A 需要一個特定的模組的 1.0 版，但另外一個應用程式 B 需要 2.0 版，那麼這整個需求不管安裝 1.0 或是 2.0 都會衝突，以致於應用程式無法使用。</p>
+<p>Python 的虛擬環境是用來管理使用套件版本問題的解決方案，實務上有許多不同的方案，包含有：venv、virtualenv、pipenv、conda&mldr;等。</p>
+<p>本編筆記先來介紹 Python 內建的 venv 這個虛擬環境管理工具。&ldquo;venv&rdquo; 是 Python 的預設內建的模組，自 Python 3.3 版本以來就存在，因此不需要額外安裝任何其他套件即可使用，方便就是它的最大好處，但相對於其他解決方案，它也就陽春了許多。</p>
+<p>在介紹 venv 前讓我們先從安裝 Python 說起。</p>
+<h1 id=在-windows-系統中安裝-python>在 windows 系統中安裝 Python<a hidden class=anchor aria-hidden=true href=#在-windows-系統中安裝-python>#</a></h1>
+<p>在 windows 作業系統上安裝 Python 有許多不同的方式，這裡只展示最典型、最簡易的方式 - 使用安裝執行檔。</p>
+<h2 id=先確認你的作業系統上是否已經安裝了-python-及其版本>先確認你的作業系統上是否已經安裝了 Python 及其版本<a hidden class=anchor aria-hidden=true href=#先確認你的作業系統上是否已經安裝了-python-及其版本>#</a></h2>
+<ul>
+<li>在 cmd 程式中輸入 python &ndash;version，如果執行本指令後顯示空白則表示尚未安裝任何版本的 python</li>
+</ul>
+<blockquote>
+<p>開啟 cmd.exe，在 windows 桌面上按下快速鍵 Window + R (組合鍵)叫出 &ldquo;執行視窗&rdquo;，輸入 &ldquo;cmd&rdquo; 後按下“確定”按鈕來啟動 cmd 程式 (註：若你要以administrator身份開啟 cmd 程式的話，請使用 &ldquo;ctrl+shift+enter"組合鍵來取代按下“確定”按鈕的動作)</p>
+</blockquote>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/269820085-db610614-634c-4855-91b4-e9da4ddf20dc.png alt=image>
+</p>
+<pre tabindex=0><code class=language-dos data-lang=dos>c:\&gt;python --version
+Python 3.8.10   # 表示已安裝有 python 3.8.10 版本
+</code></pre><ul>
+<li>可在 cmd 程式中使用 where 指令來查看已安裝的 python 是存放在那個目錄下</li>
+</ul>
+<pre tabindex=0><code class=language-dos data-lang=dos>c:\&gt;where python
+</code></pre><h2 id=下載-windows-版的-python-安裝程式>下載 windows 版的 Python 安裝程式<a hidden class=anchor aria-hidden=true href=#下載-windows-版的-python-安裝程式>#</a></h2>
+<p>下載的 URL: <a href=https://www.python.org/downloads/windows/>https://www.python.org/downloads/windows/</a></p>
+<p>在這個網頁中可以看到：</p>
+<ul>
+<li>最新的版本是 3.11.5</li>
+<li>3.11.5 版本是屬“穩定版”</li>
+<li>3.11.5 版的發行日期是 9/24/2023</li>
+<li>在 windows 10 中建議下載 &ldquo;Windows installer (64-bit)&rdquo; 這個 65 位元版安裝程式</li>
+</ul>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/269828095-6ab7402e-db12-4abd-9b27-19c43da521b0.png alt=image>
+</p>
+<p>下載成功後，在下載目錄中會看到 python-3.11.5-amd64.exe</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/269827495-11dc0f72-ce6e-49ab-b2a4-58db16fad758.png alt=image>
+</p>
+<h2 id=先檢視安裝前時的-windows-環境變數>先檢視安裝前時的 windows 環境變數<a hidden class=anchor aria-hidden=true href=#先檢視安裝前時的-windows-環境變數>#</a></h2>
+<ul>
+<li>開啟 &ldquo;系統&rdquo; 中的 &ldquo;進階系統設定&rdquo;</li>
+</ul>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/269828186-b3282260-84f6-4ab0-8498-34491e121db0.png alt=image>
+</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/269828271-bdc55d5a-2fca-421f-a8a8-909636fcd72e.png alt=image>
+</p>
+<blockquote>
+<p>在 &ldquo;系統內容&rdquo; - &ldquo;進階&rdquo; - &ldquo;環境變數&rdquo;　中可以看到目前在作業系統中所有的"環境變數&rdquo;：</p>
+</blockquote>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/269828361-214d5737-9be4-41eb-923a-f59368548ba6.png alt=image>
+</p>
+<blockquote>
+<p>編輯 PATH 這個環境變數：</p>
+</blockquote>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/269828472-766eb195-d18f-4f9e-a774-70c46959a7dd.png alt=image>
+</p>
+<blockquote>
+<p>顯示目前 PATH環境變數 的設定值：
+<img loading=lazy src=https://user-images.githubusercontent.com/21993717/269828558-a50a0936-0f18-4e1f-b9a7-74a68a644dbf.png alt=image>
+</p>
+</blockquote>
+<h2 id=進行-python-的安裝>進行 Python 的安裝<a hidden class=anchor aria-hidden=true href=#進行-python-的安裝>#</a></h2>
+<p>在 cmd 中直接執行已下載成功的安裝執行檔 python-3.11.5-amd64.exe，在安裝的畫面中，首先先勾選畫面下方的“Add python.exe to PATH" 的選項，在按下"Install Now"</p>
+<p>註：在此處可以看到python 預設安裝的路徑，同時也說明會一併安裝 IDLE(簡易編輯器)及pip(套件安裝管理工具)和相關說明文件</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/269827981-991954da-c405-4f34-9c3d-a28c631809ae.png alt=image>
+</p>
+<p>進行安裝中
+<img loading=lazy src=https://user-images.githubusercontent.com/21993717/269829890-be7d47e8-5d60-48cb-83fc-c28732087e18.png alt=image>
+</p>
+<p>安裝成功：見下圖表示安裝成功，為使相關設定值生效，請登出後再登入（或重新開機）</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/269830453-9f8d961f-45c0-4569-a8b4-593570f0a36c.png alt=image>
+</p>
+<h2 id=檢視安裝好的相關設定>檢視安裝好的相關設定<a hidden class=anchor aria-hidden=true href=#檢視安裝好的相關設定>#</a></h2>
+<p>使用前面介紹過的幾種方式來查看安裝完成後的結果和安裝前有何不同。</p>
+<ul>
+<li>python3 &ndash;version</li>
+<li>使用 where 指令</li>
+<li>查看系統環境變數 - PATH</li>
+</ul>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/269832098-a2015d86-cb80-4d94-a5cd-b197088271e9.png alt=image>
+</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/269832340-61108375-50a8-4cae-8435-be8a5f91fcb5.png alt=image>
+</p>
+<p>還可以在 Windows 的 “應用程式與功能” 中，看到新安裝好的 python 3.11.5 應用程式:</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/269832824-6dec0e36-c3c4-484e-ba86-908a8588174f.png alt=image>
+</p>
+<p>註：要移除 Python 可以使用“解除安裝”按鈕來進行。</p>
+<h1 id=使用-venv-模組來管理虛擬環境>使用 venv 模組來管理虛擬環境<a hidden class=anchor aria-hidden=true href=#使用-venv-模組來管理虛擬環境>#</a></h1>
+<h2 id=了解-python-執行環境>了解 Python 執行環境<a hidden class=anchor aria-hidden=true href=#了解-python-執行環境>#</a></h2>
+<p>在安裝 Python 的說明中知道我們安裝的 pytho 3.11.5 版的安裝目錄是在 &ldquo;C:\Users\calvi\AppData\Local\Programs\Python\Python311&rdquo; (其中 calvi 是登入 windows 時的 User Name)。</p>
+<p>python 哪裡來？主要是歸功於 windows 中配置的系統環境變數: PATH，Python 安裝程式執行完安裝動作後，會在 PATH 中加入了一條安裝路徑的設定值。當你在 cmd 程式中輸入了 python 指令時，windows 系統會依此一設定值去找尋 python.exe 的位置，找到後再執行它。</p>
+<p>來看看這個Python安裝目錄下的檔案結構：</p>
+<pre tabindex=0><code>.\Python311 (主目錄)
+├── DLLs 
+├── Doc 
+├── include 
+├── Lib   ＝》(Python標準套件的存放目錄)
+│   └── site-packages ＝》(第三方套件存放的子目錄)(即 system site-packages)
+├── libs 
+├── Scripts 
+│   ├── pip.exe
+│   ├── pip3.11.exe
+│   └── pip3.exe
+├── tcl 
+├── Tools 
+├── ...
+├── python.exe　＝》直譯器（主要執行檔）
+└── ...
+</code></pre><p>Python 執行環境主要由執行 Python 直譯器(即 python.exe)的位置所決定。</p>
+<h2 id=venv-虛擬環境管理工具>venv 虛擬環境管理工具<a hidden class=anchor aria-hidden=true href=#venv-虛擬環境管理工具>#</a></h2>
+<p>在 Python 3.3 版中新加入一個用來建立與管理虛擬環境的模組叫做 venv。</p>
+<p>&ldquo;venv&rdquo; 基於你當前的 Python 安裝創建虛擬環境，它會複製你正在使用的 Python 版本到"虛擬環境"中。</p>
+<p>&ldquo;venv&rdquo; 提供了基本的虛擬環境功能，包括建立、啟用和停用虛擬環境。</p>
+<h3 id=建立虛擬環境>建立虛擬環境<a hidden class=anchor aria-hidden=true href=#建立虛擬環境>#</a></h3>
+<pre tabindex=0><code class=language-dos data-lang=dos>C:\projects&gt;python -m venv venv-demo
+
+C:\projects&gt;
+C:\projects&gt;dir
+ 磁碟區 C 中的磁碟沒有標籤。
+ 磁碟區序號:  960E-5612
+
+ C:\projects 的目錄
+
+2023/09/23  上午 11:41    &lt;DIR&gt;          .
+2023/09/23  上午 11:41    &lt;DIR&gt;          ..
+2023/09/23  上午 11:41    &lt;DIR&gt;          venv-demo
+               0 個檔案               0 位元組
+               3 個目錄  17,456,541,696 位元組可用
+
+C:\projects&gt;
+</code></pre><p>執行了上述建立虛擬環境的指令後，系統會建立一個名為 venv-demo 的子目錄，來看看這個子目錄的結構</p>
+<pre tabindex=0><code>.\venv-demo (虛擬環境的目錄)
+
+├── include 
+├── Lib   
+│   └── site-packages ＝》(虛擬環境中存放第三方套件的子目錄)
+├── pyven.cfg
+└── Scripts 
+    ├── activate
+    ├── activate.bat (在 cmd 中要啟動虛擬環境的指令)
+    ├── Activate.ps1 (在 power shell 中要啟動虛擬環境的指令)
+    ├── deactivate.bat (停用虛擬環境的指令)
+    ├── pip.exe
+    ├── pip3.11.exe
+    ├── pip3.exe
+    ├── python.exe
+    └── pythonw.exe
+</code></pre><p>來查看一下 pyvenv.cfg 這個組態檔的內容</p>
+<pre tabindex=0><code class=language-dos data-lang=dos>C:\projects\venv-demo&gt;type pyvenv.cfg
+home = C:\Users\calvi\AppData\Local\Programs\Python\Python311
+include-system-site-packages = false
+version = 3.11.5
+executable = C:\Users\calvi\AppData\Local\Programs\Python\Python311\python.exe
+command = C:\Users\calvi\AppData\Local\Programs\Python\Python311\python.exe -m venv C:\projects\venv-demo
+
+C:\projects\venv-demo&gt;
+</code></pre><p>可以發現系統是使用：<b>當前版本</b>的 Python 來創建虛擬環境，它會複製正在使用的 Python 版本到"虛擬環境"中（複製至 Scripts 子目錄中），以本例而言當前的Python版本是3.11.5，因此當你啟用這個虛擬環境時所使用的Python就是這個版本。</p>
+<h3 id=啟用虛擬環境>啟用虛擬環境<a hidden class=anchor aria-hidden=true href=#啟用虛擬環境>#</a></h3>
+<p>啟用虛擬環境是直接呼叫 Script\activate.bat 即可。
+在啟用之前先來看看目前的環境變數 PATH 的狀態。在 cmd 中直接輸入 path 再按下 enter 鍵就會顯示目前環境變數 PATH 現有的設定值。</p>
+<pre tabindex=0><code class=language-dos data-lang=dos>C:\projects\venv-demo&gt;path
+PATH=C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\Microsoft SQL Server\130\Tools\Binn\;C:\ProgramData\chocolatey\bin;C:\Program Files\dotnet\;C:\Program Files\Git\cmd;C:\Program Files (x86)\Pulse Secure\VC142.CRT\X64\;C:\Program Files (x86)\Pulse Secure\VC142.CRT\X86\;C:\Program Files (x86)\Common Files\Pulse Secure\TNC Client Plugin\;C:\Users\calvi\AppData\Local\Programs\Python\Python311\Scripts\;C:\Users\calvi\AppData\Local\Programs\Python\Python311\;C:\Users\calvi\AppData\Local\Microsoft\WindowsApps;C:\Users\calvi\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\calvi\AppData\Local\nvs\default;C:\Users\calvi\AppData\Local\nvs\;C:\Users\calvi\.dotnet\tools;
+</code></pre><p>接著在 cmd 中輸入　C:\projects\venv-demo>c:\projects\venv-demo\Scripts\activate.bat，用來啟用先前我們建立虛擬環境 venv-demo。</p>
+<pre tabindex=0><code class=language-dos data-lang=dos>C:\projects\venv-demo&gt;c:\projects\venv-demo\Scripts\activate.bat
+</code></pre><p>啟動成功後，cmd 中的提示字元會成 (venv-demo) C:\projects\venv-demo>，其中括弧內的就是虛擬環境的名稱</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/270086876-095fe30e-b1d1-475c-8628-4b8bf493d64a.png alt=image>
+</p>
+<p>這時我們再來觀查一下環境變數 PATH 目前的狀態</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/270086958-e0b4f881-b8a7-4fd4-a60b-38803931314f.png alt=image>
+</p>
+<p>由於 “C:\projects\venv-demo\Scripts”　這個設定值位於 PATH 環境變數的最前面，在 cmd 中執行指令時，這個目錄被搜尋的優先權最高。以 pip3 指令為例，當此刻在 cmd 中輸入 pip3 並執行時，優先權的關係被執行的 pip3 程式是位在虛擬環境中的 pip3，而非系統安裝 python 時預設目錄(&ldquo;C:\Users\calvi\AppData\Local\Programs\Python\Python311\Scripts&rdquo;)中的 pip3，也正因這個緣故，此時用 pip3 安裝的套件是會存放在“虛擬環境”所對應的　site-packages 目錄(即C:\projects\venv-demo\Lib\site-packages)中而非 C:\Users\calvi\AppData\Local\Programs\Python\Python311\Lib\site-packages 目錄(即 system site-packages)裡。</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/270087170-a1f721c8-00db-49c2-be20-9cbd906916fd.png alt=image>
+</p>
+<p>在 cmd 中使用 where 指令來查看一下 python & pip，會發現執行的優先順序都指到了虛擬環境的 Scripts 目錄中了。</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/270097115-a8b33723-796f-43dd-8499-e2a052885ddc.png alt=image>
+</p>
+<h3 id=在虛擬環境中安裝第三方套件>在虛擬環境中安裝第三方套件<a hidden class=anchor aria-hidden=true href=#在虛擬環境中安裝第三方套件>#</a></h3>
+<p>在啟用虛擬環境的狀態下，使用 pip3 install rich 來安裝 rich 這個第三方套件。</p>
+<pre tabindex=0><code class=language-dos data-lang=dos>(venv-demo) C:\projects\venv-demo&gt;pip install rich
+Collecting rich
+  Obtaining dependency information for rich from https://files.pythonhosted.org/packages/c1/d1/23ba6235ed82883bb416f57179d1db2c05f3fb8e5d83c18660f9ab6f09c9/rich-13.5.3-py3-none-any.whl.metadata
+  Downloading rich-13.5.3-py3-none-any.whl.metadata (18 kB)
+Collecting markdown-it-py&gt;=2.2.0 (from rich)
+  Obtaining dependency information for markdown-it-py&gt;=2.2.0 from https://files.pythonhosted.org/packages/42/d7/1ec15b46af6af88f19b8e5ffea08fa375d433c998b8a7639e76935c14f1f/markdown_it_py-3.0.0-py3-none-any.whl.metadata
+  Downloading markdown_it_py-3.0.0-py3-none-any.whl.metadata (6.9 kB)
+Collecting pygments&lt;3.0.0,&gt;=2.13.0 (from rich)
+  Obtaining dependency information for pygments&lt;3.0.0,&gt;=2.13.0 from https://files.pythonhosted.org/packages/43/88/29adf0b44ba6ac85045e63734ae0997d3c58d8b1a91c914d240828d0d73d/Pygments-2.16.1-py3-none-any.whl.metadata
+  Downloading Pygments-2.16.1-py3-none-any.whl.metadata (2.5 kB)
+Collecting mdurl~=0.1 (from markdown-it-py&gt;=2.2.0-&gt;rich)
+  Using cached mdurl-0.1.2-py3-none-any.whl (10.0 kB)
+Downloading rich-13.5.3-py3-none-any.whl (239 kB)
+   ---------------------------------------- 239.8/239.8 kB 1.8 MB/s eta 0:00:00
+Downloading markdown_it_py-3.0.0-py3-none-any.whl (87 kB)
+   ---------------------------------------- 87.5/87.5 kB 4.8 MB/s eta 0:00:00
+Downloading Pygments-2.16.1-py3-none-any.whl (1.2 MB)
+   ---------------------------------------- 1.2/1.2 MB 2.3 MB/s eta 0:00:00
+Installing collected packages: pygments, mdurl, markdown-it-py, rich
+Successfully installed markdown-it-py-3.0.0 mdurl-0.1.2 pygments-2.16.1 rich-13.5.3
+</code></pre><p>安裝完成後再使用 pip list 來查看目前環境下所有的套件清單，會發現與安裝套件前的清單已有不同。</p>
+<pre tabindex=0><code class=language-dos data-lang=dos>(venv-demo) C:\projects\venv-demo&gt;pip list
+Package        Version
+-------------- -------
+markdown-it-py 3.0.0
+mdurl          0.1.2
+pip            23.2.1
+Pygments       2.16.1
+rich           13.5.3
+setuptools     65.5.0
+</code></pre><p>使用 rich 測試指令　python -m rich　來查看 rich 套件是否已安裝程式</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/270088198-1f26f13a-44bd-45b3-9da8-091360f6ef69.png alt=image>
+</p>
+<h3 id=停用虛擬環境>停用虛擬環境<a hidden class=anchor aria-hidden=true href=#停用虛擬環境>#</a></h3>
+<p>要停用虛擬環境時，直接在 cmd 中輸入 deactivate 再按 enter 鍵即可。會發現提示字元已恢復成原來的樣子。</p>
+<pre tabindex=0><code class=language-dos data-lang=dos>(venv-demo) C:\projects\venv-demo&gt;deactivate
+C:\projects\venv-demo&gt;
+</code></pre><p>註：不必指定目錄名稱的原因也是因為 PATH 環境變數已有“C:\projects\venv-demo\Scripts”　這個設定值的闗係。</p>
+<p>停用虛擬環境後我們可以再使用 pip list & python -m rich 等指令來測試，結果發現 rich 套件並不存在 Global Python 執行環境中。</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/270088327-01728335-a0bf-456e-a847-5da3156bf3bc.png alt=image>
+</p>
+</div>
+<footer class=post-footer>
+<ul class=post-tags>
+<li><a href=https://calvinegs.github.io/tags/python/>python</a></li>
+<li><a href=https://calvinegs.github.io/tags/virtual-environment/>virtual Environment</a></li>
+<li><a href=https://calvinegs.github.io/tags/venv/>venv</a></li>
+</ul>
+<nav class=paginav>
+<a class=next href=https://calvinegs.github.io/posts/rust-install/>
+<span class=title>Next Page »</span>
+<br>
+<span>Install Rust on ubuntu 20.04</span>
+</a>
+</nav>
+<div class=share-buttons>
+<a target=_blank rel="noopener noreferrer" aria-label="share 使用 Python 上的虛擬環境(一) venv on twitter" href="https://twitter.com/intent/tweet/?text=%e4%bd%bf%e7%94%a8%20Python%20%e4%b8%8a%e7%9a%84%e8%99%9b%e6%93%ac%e7%92%b0%e5%a2%83%28%e4%b8%80%29%20venv&url=https%3a%2f%2fcalvinegs.github.io%2fposts%2fvenv-python%2f&hashtags=python%2cvirtualEnvironment%2cvenv"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zM195.519 424.544c135.939.0 210.268-112.643 210.268-210.268.0-3.218.0-6.437-.153-9.502 14.406-10.421 26.973-23.448 36.935-38.314-13.18 5.824-27.433 9.809-42.452 11.648 15.326-9.196 26.973-23.602 32.49-40.92-14.252 8.429-30.038 14.56-46.896 17.931-13.487-14.406-32.644-23.295-53.946-23.295-40.767.0-73.87 33.104-73.87 73.87.0 5.824.613 11.494 1.992 16.858-61.456-3.065-115.862-32.49-152.337-77.241-6.284 10.881-9.962 23.601-9.962 37.088.0 25.594 13.027 48.276 32.95 61.456-12.107-.307-23.448-3.678-33.41-9.196v.92c0 35.862 25.441 65.594 59.311 72.49-6.13 1.686-12.72 2.606-19.464 2.606-4.751.0-9.348-.46-13.946-1.38 9.349 29.426 36.628 50.728 68.965 51.341-25.287 19.771-57.164 31.571-91.8 31.571-5.977.0-11.801-.306-17.625-1.073 32.337 21.15 71.264 33.41 112.95 33.41z"/></svg>
+</a>
+<a target=_blank rel="noopener noreferrer" aria-label="share 使用 Python 上的虛擬環境(一) venv on linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2fcalvinegs.github.io%2fposts%2fvenv-python%2f&title=%e4%bd%bf%e7%94%a8%20Python%20%e4%b8%8a%e7%9a%84%e8%99%9b%e6%93%ac%e7%92%b0%e5%a2%83%28%e4%b8%80%29%20venv&summary=%e4%bd%bf%e7%94%a8%20Python%20%e4%b8%8a%e7%9a%84%e8%99%9b%e6%93%ac%e7%92%b0%e5%a2%83%28%e4%b8%80%29%20venv&source=https%3a%2f%2fcalvinegs.github.io%2fposts%2fvenv-python%2f"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zM160.461 423.278V197.561h-75.04v225.717h75.04zm270.539.0V293.839c0-69.333-37.018-101.586-86.381-101.586-39.804.0-57.634 21.891-67.617 37.266v-31.958h-75.021c.995 21.181.0 225.717.0 225.717h75.02V297.222c0-6.748.486-13.492 2.474-18.315 5.414-13.475 17.767-27.434 38.494-27.434 27.135.0 38.007 20.707 38.007 51.037v120.768H431zM123.448 88.722C97.774 88.722 81 105.601 81 127.724c0 21.658 16.264 39.002 41.455 39.002h.484c26.165.0 42.452-17.344 42.452-39.002-.485-22.092-16.241-38.954-41.943-39.002z"/></svg>
+</a>
+<a target=_blank rel="noopener noreferrer" aria-label="share 使用 Python 上的虛擬環境(一) venv on reddit" href="https://reddit.com/submit?url=https%3a%2f%2fcalvinegs.github.io%2fposts%2fvenv-python%2f&title=%e4%bd%bf%e7%94%a8%20Python%20%e4%b8%8a%e7%9a%84%e8%99%9b%e6%93%ac%e7%92%b0%e5%a2%83%28%e4%b8%80%29%20venv"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zM446 265.638c0-22.964-18.616-41.58-41.58-41.58-11.211.0-21.361 4.457-28.841 11.666-28.424-20.508-67.586-33.757-111.204-35.278l18.941-89.121 61.884 13.157c.756 15.734 13.642 28.29 29.56 28.29 16.407.0 29.706-13.299 29.706-29.701.0-16.403-13.299-29.702-29.706-29.702-11.666.0-21.657 6.792-26.515 16.578l-69.105-14.69c-1.922-.418-3.939-.042-5.585 1.036-1.658 1.073-2.811 2.761-3.224 4.686l-21.152 99.438c-44.258 1.228-84.046 14.494-112.837 35.232-7.468-7.164-17.589-11.591-28.757-11.591-22.965.0-41.585 18.616-41.585 41.58.0 16.896 10.095 31.41 24.568 37.918-.639 4.135-.99 8.328-.99 12.576.0 63.977 74.469 115.836 166.33 115.836s166.334-51.859 166.334-115.836c0-4.218-.347-8.387-.977-12.493 14.564-6.47 24.735-21.034 24.735-38.001zM326.526 373.831c-20.27 20.241-59.115 21.816-70.534 21.816-11.428.0-50.277-1.575-70.522-21.82-3.007-3.008-3.007-7.882.0-10.889 3.003-2.999 7.882-3.003 10.885.0 12.777 12.781 40.11 17.317 59.637 17.317 19.522.0 46.86-4.536 59.657-17.321 3.016-2.999 7.886-2.995 10.885.008 3.008 3.011 3.003 7.882-.008 10.889zm-5.23-48.781c-16.373.0-29.701-13.324-29.701-29.698.0-16.381 13.328-29.714 29.701-29.714 16.378.0 29.706 13.333 29.706 29.714.0 16.374-13.328 29.698-29.706 29.698zM160.91 295.348c0-16.381 13.328-29.71 29.714-29.71 16.369.0 29.689 13.329 29.689 29.71.0 16.373-13.32 29.693-29.689 29.693-16.386.0-29.714-13.32-29.714-29.693z"/></svg>
+</a>
+<a target=_blank rel="noopener noreferrer" aria-label="share 使用 Python 上的虛擬環境(一) venv on facebook" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fcalvinegs.github.io%2fposts%2fvenv-python%2f"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H342.978V319.085h66.6l12.672-82.621h-79.272v-53.617c0-22.603 11.073-44.636 46.58-44.636H425.6v-70.34s-32.71-5.582-63.982-5.582c-65.288.0-107.96 39.569-107.96 111.204v62.971h-72.573v82.621h72.573V512h-191.104c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892z"/></svg>
+</a>
+<a target=_blank rel="noopener noreferrer" aria-label="share 使用 Python 上的虛擬環境(一) venv on whatsapp" href="https://api.whatsapp.com/send?text=%e4%bd%bf%e7%94%a8%20Python%20%e4%b8%8a%e7%9a%84%e8%99%9b%e6%93%ac%e7%92%b0%e5%a2%83%28%e4%b8%80%29%20venv%20-%20https%3a%2f%2fcalvinegs.github.io%2fposts%2fvenv-python%2f"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zm-58.673 127.703c-33.842-33.881-78.847-52.548-126.798-52.568-98.799.0-179.21 80.405-179.249 179.234-.013 31.593 8.241 62.428 23.927 89.612l-25.429 92.884 95.021-24.925c26.181 14.28 55.659 21.807 85.658 21.816h.074c98.789.0 179.206-80.413 179.247-179.243.018-47.895-18.61-92.93-52.451-126.81zM263.976 403.485h-.06c-26.734-.01-52.954-7.193-75.828-20.767l-5.441-3.229-56.386 14.792 15.05-54.977-3.542-5.637c-14.913-23.72-22.791-51.136-22.779-79.287.033-82.142 66.867-148.971 149.046-148.971 39.793.014 77.199 15.531 105.329 43.692 28.128 28.16 43.609 65.592 43.594 105.4-.034 82.149-66.866 148.983-148.983 148.984zm81.721-111.581c-4.479-2.242-26.499-13.075-30.604-14.571-4.105-1.495-7.091-2.241-10.077 2.241-2.986 4.483-11.569 14.572-14.182 17.562-2.612 2.988-5.225 3.364-9.703 1.12-4.479-2.241-18.91-6.97-36.017-22.23C231.8 264.15 222.81 249.484 220.198 245s-.279-6.908 1.963-9.14c2.016-2.007 4.48-5.232 6.719-7.847 2.24-2.615 2.986-4.484 4.479-7.472 1.493-2.99.747-5.604-.374-7.846-1.119-2.241-10.077-24.288-13.809-33.256-3.635-8.733-7.327-7.55-10.077-7.688-2.609-.13-5.598-.158-8.583-.158-2.986.0-7.839 1.121-11.944 5.604-4.105 4.484-15.675 15.32-15.675 37.364.0 22.046 16.048 43.342 18.287 46.332 2.24 2.99 31.582 48.227 76.511 67.627 10.685 4.615 19.028 7.371 25.533 9.434 10.728 3.41 20.492 2.929 28.209 1.775 8.605-1.285 26.499-10.833 30.231-21.295 3.732-10.464 3.732-19.431 2.612-21.298-1.119-1.869-4.105-2.99-8.583-5.232z"/></svg>
+</a>
+<a target=_blank rel="noopener noreferrer" aria-label="share 使用 Python 上的虛擬環境(一) venv on telegram" href="https://telegram.me/share/url?text=%e4%bd%bf%e7%94%a8%20Python%20%e4%b8%8a%e7%9a%84%e8%99%9b%e6%93%ac%e7%92%b0%e5%a2%83%28%e4%b8%80%29%20venv&url=https%3a%2f%2fcalvinegs.github.io%2fposts%2fvenv-python%2f"><svg viewBox="2 2 28 28"><path d="M26.49 29.86H5.5a3.37 3.37.0 01-2.47-1 3.35 3.35.0 01-1-2.47V5.48A3.36 3.36.0 013 3 3.37 3.37.0 015.5 2h21A3.38 3.38.0 0129 3a3.36 3.36.0 011 2.46V26.37a3.35 3.35.0 01-1 2.47 3.38 3.38.0 01-2.51 1.02zm-5.38-6.71a.79.79.0 00.85-.66L24.73 9.24a.55.55.0 00-.18-.46.62.62.0 00-.41-.17q-.08.0-16.53 6.11a.59.59.0 00-.41.59.57.57.0 00.43.52l4 1.24 1.61 4.83a.62.62.0 00.63.43.56.56.0 00.4-.17L16.54 20l4.09 3A.9.9.0 0021.11 23.15zM13.8 20.71l-1.21-4q8.72-5.55 8.78-5.55c.15.0.23.0.23.16a.18.18.0 010 .06s-2.51 2.3-7.52 6.8z"/></svg>
+</a>
+</div>
+</footer>
+<div>
+<div id=disqus_thread></div>
+<script type=text/javascript>(function(){var a,b;if(window.location.hostname=="localhost")return;a=document.createElement('script'),a.type='text/javascript',a.async=!0,b='calvinegs-github-io',a.src='//'+b+'.disqus.com/embed.js',(document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild(a)})()</script>
+<noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript>
+<a href=https://disqus.com/ class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a>
+</div>
+</article>
+</main>
+<footer class=footer>
+<span>&copy; 2023 <a href=https://calvinegs.github.io/>永誌不忘 • 筆記簿</a></span>
+<span>
+Powered by
+<a href=https://gohugo.io/ rel="noopener noreferrer" target=_blank>Hugo</a> &
+        <a href=https://git.io/hugopapermod rel=noopener target=_blank>PaperMod</a>
+</span>
+</footer>
+<a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentcolor"><path d="M12 6H0l6-6z"/></svg>
+</a>
+<script>let menu=document.getElementById('menu');menu&&(menu.scrollLeft=localStorage.getItem("menu-scroll-position"),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}),document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener("click",function(b){b.preventDefault();var a=this.getAttribute("href").substr(1);window.matchMedia('(prefers-reduced-motion: reduce)').matches?document.querySelector(`[id='${decodeURIComponent(a)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(a)}']`).scrollIntoView({behavior:"smooth"}),a==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${a}`)})})</script>
+<script>var mybutton=document.getElementById("top-link");window.onscroll=function(){document.body.scrollTop>800||document.documentElement.scrollTop>800?(mybutton.style.visibility="visible",mybutton.style.opacity="1"):(mybutton.style.visibility="hidden",mybutton.style.opacity="0")}</script>
+<script>document.getElementById("theme-toggle").addEventListener("click",()=>{document.body.className.includes("dark")?(document.body.classList.remove('dark'),localStorage.setItem("pref-theme",'light')):(document.body.classList.add('dark'),localStorage.setItem("pref-theme",'dark'))})</script>
+<script>document.querySelectorAll('pre > code').forEach(b=>{const c=b.parentNode.parentNode,a=document.createElement('button');a.classList.add('copy-code'),a.innerText='copy';function d(){a.innerText='copied!',setTimeout(()=>{a.innerText='copy'},2e3)}a.addEventListener('click',e=>{if('clipboard'in navigator){navigator.clipboard.writeText(b.textContent),d();return}const a=document.createRange();a.selectNodeContents(b);const c=window.getSelection();c.removeAllRanges(),c.addRange(a);try{document.execCommand('copy'),d()}catch(a){}c.removeRange(a)}),c.classList.contains("highlight")?c.appendChild(a):c.parentNode.firstChild==c||(b.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName=="TABLE"?b.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(a):b.parentNode.appendChild(a))})</script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>virtual Environment on 永誌不忘 • 筆記簿</title>
+    <link>https://calvinegs.github.io/tags/virtual-environment/</link>
+    <description>Recent content in virtual Environment on 永誌不忘 • 筆記簿</description>
+    <image>
+      <url>https://calvinegs.github.io/papermod-cover.png</url>
+      <link>https://calvinegs.github.io/papermod-cover.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 22 Sep 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://calvinegs.github.io/tags/virtual-environment/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>使用 Python 上的虛擬環境(一) venv</title>
+      <link>https://calvinegs.github.io/posts/venv-python/</link>
+      <pubDate>Fri, 22 Sep 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://calvinegs.github.io/posts/venv-python/</guid>
+      <description>Python 的虛擬環境是用來管理使用套件版本問題的解決方案，實務上有許多不同的方案，本編筆記先來介紹 Python 內建的 venv</description>
+    </item>
+    
+  </channel>
+</rss>

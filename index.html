@@ -91,6 +91,23 @@
 </article>
 <article class=post-entry>
 <header class=entry-header>
+<h2>使用 Python 上的虛擬環境(一) venv
+</h2>
+</header>
+<section class=entry-content>
+<p>Python 安裝程式除了會在本機安裝進執行檔外，也會連帶安裝一些標準函式庫的套件，但Python 應用程式通常還會用到不在標準函式庫的套件和模組。由於某些特殊的臭蟲修正應用程式有時候會需要某個特定版本的函式庫，或是不同應用程式是根據某函式庫特定版本的介面所撰寫。
+這意味著不太可能安裝一套 Python 就可以滿足所有應用程式的要求。如果應用程式 A 需要一個特定的模組的 1.0 版，但另外一個應用程式 B 需要 2.0 版，那麼這整個需求不管安裝 1.0 或是 2.0 都會衝突，以致於應用程式無法使用。
+Python 的虛擬環境是用來管理使用套件版本問題的解決方案，實務上有許多不同的方案，包含有：venv、virtualenv、pipenv、conda…等。
+本編筆記先來介紹 Python 內建的 venv 這個虛擬環境管理工具。“venv” 是 Python 的預設內建的模組，自 Python 3.3 版本以來就存在，因此不需要額外安裝任何其他套件即可使用，方便就是它的最大好處，但相對於其他解決方案，它也就陽春了許多。
+在介紹 venv 前讓我們先從安裝 Python 說起。
+在 windows 系統中安裝 Python 在 windows 作業系統上安裝 Python 有許多不同的方式，這裡只展示最典型、最簡易的方式 - 使用安裝執行檔。
+先確認你的作業系統上是否已經安裝了 Python 及其版本 在 cmd 程式中輸入 python –version，如果執行本指令後顯示空白則表示尚未安裝任何版本的 python 開啟 cmd.exe，在 windows 桌面上按下快速鍵 Window + R (組合鍵)叫出 “執行視窗”，輸入 “cmd” 後按下“確定”按鈕來啟動 cmd 程式 (註：若你要以administrator身份開啟 cmd 程式的話，請使用 “ctrl+shift+enter"組合鍵來取代按下“確定”按鈕的動作)...</p>
+</section>
+<footer class=entry-footer><span title="2023-09-22 00:00:00 +0000 UTC">September 22, 2023</span>&nbsp;·&nbsp;4 min&nbsp;·&nbsp;Theme PaperMod</footer>
+<a class=entry-link aria-label="post link to 使用 Python 上的虛擬環境(一) venv" href=https://calvinegs.github.io/posts/venv-python/></a>
+</article>
+<article class=post-entry>
+<header class=entry-header>
 <h2>Install Rust on ubuntu 20.04
 </h2>
 </header>
@@ -149,22 +166,6 @@ $ npm create vite react-context -- --template react && cd react-context $ npm i 
 </section>
 <footer class=entry-footer><span title="2023-03-21 00:00:00 +0000 UTC">March 21, 2023</span>&nbsp;·&nbsp;5 min&nbsp;·&nbsp;Theme PaperMod</footer>
 <a class=entry-link aria-label="post link to 在 Angular 中實現 CAPTCHA 驗證碼功能" href=https://calvinegs.github.io/posts/angular-recaptcha/></a>
-</article>
-<article class=post-entry>
-<header class=entry-header>
-<h2>How to using Angular Standalone Component
-</h2>
-</header>
-<section class=entry-content>
-<p>github Source code
-如何在 Angular 中使用 Standalone Components 本篇將要紀錄如何使 Angular 15 環境中使用 Standalone component。從版本 14 起就開始支援 Standalone component，Angular 15則正式的引入了獨立組件作為構建無模塊應用程序的簡單方法。獨立組件的好處之一是它們使新開發人員更容易學習和使用 Angular，因為它們可以不用使用到 NgModule。
-Angular 從第二個版本起，@NgModule就已是一個重要的核心功能，透過 @NgModule 為一個個單位來組織我們的應用程式，包含整個應用程式的啟動，所以每個 angular 應用程式都至少要有一個模組（也稱為根模組），由此可見它的重要性。說它是 Angular 的特色之一一點也不為過。但近年來這個特色功能卻也成為其他類似架構的攻擊目標，為了使系統支援更多樣化，Angular 15 正式引入了 Standalone 的各式運用。
-在本篇筆記中會提及如何建立及使用一個 Standalone component、如何在一個 Standalone component中去使用另一個 Standalone 子元件、如何在原有模式中(有 @NgModule)中載入 Standalone component，到最後如何在一個專案中完全不使用到 @NgModule 功能。
-建立新專案 透過 npm init @angular 語法來建立一個 angular project。
-$ npm init @angular stanaloneComponent -- --routing --style=scss && cd standaloneComponent 建立 Standalone Component $ npx ng g c components/containerLayout --standalone --inline-style --inline-template --flat 在由 cli 産生的程式碼架構中(container-layout....</p>
-</section>
-<footer class=entry-footer><span title="2023-03-13 00:00:00 +0000 UTC">March 13, 2023</span>&nbsp;·&nbsp;9 min&nbsp;·&nbsp;Theme PaperMod</footer>
-<a class=entry-link aria-label="post link to How to using Angular Standalone Component" href=https://calvinegs.github.io/posts/angular-standalone-component/></a>
 </article>
 <footer class=page-footer>
 <nav class=pagination>

@@ -74,6 +74,22 @@
 <main class=main>
 <article class=post-entry>
 <header class=entry-header>
+<h2>How to using Angular Standalone Component
+</h2>
+</header>
+<section class=entry-content>
+<p>github Source code
+如何在 Angular 中使用 Standalone Components 本篇將要紀錄如何使 Angular 15 環境中使用 Standalone component。從版本 14 起就開始支援 Standalone component，Angular 15則正式的引入了獨立組件作為構建無模塊應用程序的簡單方法。獨立組件的好處之一是它們使新開發人員更容易學習和使用 Angular，因為它們可以不用使用到 NgModule。
+Angular 從第二個版本起，@NgModule就已是一個重要的核心功能，透過 @NgModule 為一個個單位來組織我們的應用程式，包含整個應用程式的啟動，所以每個 angular 應用程式都至少要有一個模組（也稱為根模組），由此可見它的重要性。說它是 Angular 的特色之一一點也不為過。但近年來這個特色功能卻也成為其他類似架構的攻擊目標，為了使系統支援更多樣化，Angular 15 正式引入了 Standalone 的各式運用。
+在本篇筆記中會提及如何建立及使用一個 Standalone component、如何在一個 Standalone component中去使用另一個 Standalone 子元件、如何在原有模式中(有 @NgModule)中載入 Standalone component，到最後如何在一個專案中完全不使用到 @NgModule 功能。
+建立新專案 透過 npm init @angular 語法來建立一個 angular project。
+$ npm init @angular stanaloneComponent -- --routing --style=scss && cd standaloneComponent 建立 Standalone Component $ npx ng g c components/containerLayout --standalone --inline-style --inline-template --flat 在由 cli 産生的程式碼架構中(container-layout....</p>
+</section>
+<footer class=entry-footer><span title="2023-03-13 00:00:00 +0000 UTC">March 13, 2023</span>&nbsp;·&nbsp;9 min&nbsp;·&nbsp;Theme PaperMod</footer>
+<a class=entry-link aria-label="post link to How to using Angular Standalone Component" href=https://calvinegs.github.io/posts/angular-standalone-component/></a>
+</article>
+<article class=post-entry>
+<header class=entry-header>
 <h2>使用 .NET 7.0 建立使用 以 JWT 身份驗證機制的 ASP.NET Web Api（並使用 Microsoft Identity 框架來存儲使用者和角色等資料）
 </h2>
 </header>
@@ -130,22 +146,6 @@ Angular Interceptor 使用案例二：搭配 Jason Web Token + Session Storage �
 </section>
 <footer class=entry-footer><span title="2023-02-23 00:00:00 +0000 UTC">February 23, 2023</span>&nbsp;·&nbsp;13 min&nbsp;·&nbsp;Theme PaperMod</footer>
 <a class=entry-link aria-label="post link to 使用 Angular Material 建立一個簡易的 Admin Template II" href=https://calvinegs.github.io/posts/angular-material-adminui-ii/></a>
-</article>
-<article class=post-entry>
-<header class=entry-header>
-<h2>使用 Angular Material 建立一個簡易的 Admin Template
-</h2>
-</header>
-<section class=entry-content>
-<p>github Source code
-使用 Angular Material 建立一個簡易的 Admin Template Angular 是一個標準的 SPA App framework，今天要記錄的是使用 angular material 來建立一個 SPA App 的範本，除了介紹 Material 相關的功能外，完成的這個簡易型 admin template 剛好可以用來引申後續 angular 筆記範例中的㮒準介面(UI).
-想要得到的結果：
-檢視環境 在開發環境中必須有 NodeJs
-$ node -v v18.12.1 angular cli 則只需安裝在 Local 目錄中即可 ng version
-$ ng version Command 'ng' not found, but can be installed with: sudo apt install ng-common 建立 Angular 專案 透過 npm init @angular 語法即可在不必安裝 angular cli 前題下來建立一個 angular project。...</p>
-</section>
-<footer class=entry-footer><span title="2023-02-12 00:00:00 +0000 UTC">February 12, 2023</span>&nbsp;·&nbsp;10 min&nbsp;·&nbsp;Theme PaperMod</footer>
-<a class=entry-link aria-label="post link to 使用 Angular Material 建立一個簡易的 Admin Template" href=https://calvinegs.github.io/posts/angular-material-adminui/></a>
 </article>
 <footer class=page-footer>
 <nav class=pagination>
