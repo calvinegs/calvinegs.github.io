@@ -77,6 +77,24 @@
 </header>
 <article class=post-entry>
 <header class=entry-header>
+<h2>在 Angular 使用 Material CDK 來實作拖曳功能的使用者介面
+</h2>
+</header>
+<section class=entry-content>
+<p>github Source code
+在網頁上實作可拖曳的使用者介面可大符增加應用程式使用操作的友善性。
+透過拖放，使用者可以使用滑鼠或觸控板點擊檔案並將其拖曳到可放置元素（放置區域），然後透過釋放滑鼠按鈕來「放置」檔案。這使您可以相對輕鬆地建立非常直觀的用戶體驗。
+要在 angular app 上實現這樣的功能除了可以透過第三方的 UI Component (如：igniteui、ngx-drag-drop)的支援外，最方便的解決方案是使用 Angular 內建的功能 Material CDK 來實作。
+Angular Drag and Drop CDK（元件開發套件）提供自由拖曳、清單內排序、清單之間移動項目、動畫、觸摸裝置、自訂拖曳手把(handle)等的支援。
+在下面的實作過程將會使用到下列技術:
+Angular cli 16 Bootstrap 5 (UI Framework) Angular 16 Router Standalone component Angular Material CDK CdkDrag CdkDragHandle CdkDropList CdkDropListGroup moveItemInArray 建立一個 Angular 應用程式 使用 angular cli 建立應用程式 將採 standalone 架構來建置這個應用程式，使用以下指令如下
+$ npm init @angular dragDropApp -- --routing --style scss --standalone && cd dragDropApp Need to install the following packages: @angular/create@16....</p>
+</section>
+<footer class=entry-footer><span title="2023-10-02 00:00:00 +0000 UTC">October 2, 2023</span>&nbsp;·&nbsp;8 min&nbsp;·&nbsp;Theme PaperMod</footer>
+<a class=entry-link aria-label="post link to 在 Angular 使用 Material CDK 來實作拖曳功能的使用者介面" href=https://calvinegs.github.io/posts/dragdrop-material-cdk/></a>
+</article>
+<article class=post-entry>
+<header class=entry-header>
 <h2>使用 Python 上的虛擬環境(一) venv
 </h2>
 </header>
@@ -136,22 +154,6 @@ $ npm create vite react-context -- --template react && cd react-context $ npm i 
 </section>
 <footer class=entry-footer><span title="2023-04-09 00:00:00 +0000 UTC">April 9, 2023</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;Theme PaperMod</footer>
 <a class=entry-link aria-label="post link to Typed Form in angular 15" href=https://calvinegs.github.io/posts/angular-typedform/></a>
-</article>
-<article class=post-entry>
-<header class=entry-header>
-<h2>在 Angular 中實現 CAPTCHA 驗證碼功能
-</h2>
-</header>
-<section class=entry-content>
-<p>在 Angular 中實現 CAPTCHA 驗證碼功能 先來看看完成後的效果：
-關於 reCAPTCHA 目前 reCAPTCHA 共有 v2、v3、Enterprise 三種版本。在此我們將採用 v2。使用 reCAPTCHA 需先申在 google 網站上申請 API Key，申請完成後會有二個 API Key，一個是被用來放在前端 App 中，另一個是使用在呼叫 Google API 取得驗證結果時要用的。申請網站在 https://www.google.com/recaptcha/admin，使用 Gmail 帳號登入，若從未申請過會跳到註冊新網站頁面：
-識別這組 Key 用的標籤文字 reCAPTCHA 類型 (使用 v2) 應用網域 (本機測試可加 localhost) 登入 Gmail 是預設擁有者，可加入其他管理者 接受服務條款 傳送通知給擁有者（發生問題或流量異常時發送通知） 使用 Gmail 帳號進行登入 輸入好資料後按下提交
-完成後會産生二個 api key:
-按下“複製網站金鑰”備用。（將放至 angular login component 中）
-設置專案環境 這個專案不會從頭從無到有紀錄每一個建置的步驟，而是採取套用 “使用 Angular 14 建立 Reactive Form 表單驗證範例” 這篇筆記所完成的程式碼來擴充 reCAPTCHA 功能。...</p>
-</section>
-<footer class=entry-footer><span title="2023-03-21 00:00:00 +0000 UTC">March 21, 2023</span>&nbsp;·&nbsp;5 min&nbsp;·&nbsp;Theme PaperMod</footer>
-<a class=entry-link aria-label="post link to 在 Angular 中實現 CAPTCHA 驗證碼功能" href=https://calvinegs.github.io/posts/angular-recaptcha/></a>
 </article>
 <footer class=page-footer>
 <nav class=pagination>

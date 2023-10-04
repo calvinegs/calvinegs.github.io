@@ -10,7 +10,34 @@
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 22 Sep 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://calvinegs.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 02 Oct 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://calvinegs.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>angular</title>
+      <link>https://calvinegs.github.io/tags/angular/</link>
+      <pubDate>Mon, 02 Oct 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://calvinegs.github.io/tags/angular/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>drag and drop</title>
+      <link>https://calvinegs.github.io/tags/drag-and-drop/</link>
+      <pubDate>Mon, 02 Oct 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://calvinegs.github.io/tags/drag-and-drop/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Material CDK</title>
+      <link>https://calvinegs.github.io/tags/material-cdk/</link>
+      <pubDate>Mon, 02 Oct 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://calvinegs.github.io/tags/material-cdk/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>python</title>
       <link>https://calvinegs.github.io/tags/python/</link>
@@ -71,15 +98,6 @@
       <pubDate>Mon, 10 Apr 2023 00:00:00 +0000</pubDate>
       
       <guid>https://calvinegs.github.io/tags/reactjs/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>angular</title>
-      <link>https://calvinegs.github.io/tags/angular/</link>
-      <pubDate>Sun, 09 Apr 2023 00:00:00 +0000</pubDate>
-      
-      <guid>https://calvinegs.github.io/tags/angular/</guid>
       <description></description>
     </item>
     

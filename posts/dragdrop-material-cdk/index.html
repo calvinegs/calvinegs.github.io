@@ -1,0 +1,847 @@
+<!doctype html><html lang=en dir=auto>
+<head><meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no">
+<meta name=robots content="index, follow">
+<title>在 Angular 使用 Material CDK 來實作拖曳功能的使用者介面 | 永誌不忘 • 筆記簿</title>
+<meta name=keywords content="angular,Material CDK,drag and drop">
+<meta name=description content="本篇筆記是來記錄如何使用 Material CDK 來實現拖曳功能">
+<meta name=author content="Theme PaperMod">
+<link rel=canonical href=https://calvinegs.github.io/posts/dragdrop-material-cdk/>
+<link crossorigin=anonymous href=/assets/css/stylesheet.min.c88963fe2d79462000fd0fb1b3737783c32855d340583e4523343f8735c787f0.css integrity="sha256-yIlj/i15RiAA/Q+xs3N3g8MoVdNAWD5FIzQ/hzXHh/A=" rel="preload stylesheet" as=style>
+<script defer crossorigin=anonymous src=/assets/js/highlight.min.7680afc38aa6b15ddf158a4f3780b7b1f7dde7e91d26f073e6229bb7a0793c92.js integrity="sha256-doCvw4qmsV3fFYpPN4C3sffd5+kdJvBz5iKbt6B5PJI=" onload=hljs.initHighlightingOnLoad()></script>
+<link rel=icon href=https://calvinegs.github.io/img/favicon.png>
+<link rel=icon type=image/png sizes=16x16 href=https://calvinegs.github.io/favicon-16x16.png>
+<link rel=icon type=image/png sizes=32x32 href=https://calvinegs.github.io/favicon-32x32.png>
+<link rel=apple-touch-icon href=https://calvinegs.github.io/apple-touch-icon.png>
+<link rel=mask-icon href=https://calvinegs.github.io/safari-pinned-tab.svg>
+<meta name=theme-color content="#2e2e33">
+<meta name=msapplication-TileColor content="#2e2e33">
+<meta name=generator content="Hugo 0.91.2">
+<noscript>
+<style>#theme-toggle,.top-link{display:none}</style>
+<style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--hljs-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style>
+</noscript><meta property="og:title" content="在 Angular 使用 Material CDK 來實作拖曳功能的使用者介面">
+<meta property="og:description" content="本篇筆記是來記錄如何使用 Material CDK 來實現拖曳功能">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://calvinegs.github.io/posts/dragdrop-material-cdk/"><meta property="og:image" content="https://calvinegs.github.io/papermod-cover.png"><meta property="article:section" content="posts">
+<meta property="article:published_time" content="2023-10-02T00:00:00+00:00">
+<meta property="article:modified_time" content="2023-10-02T00:00:00+00:00">
+<meta name=twitter:card content="summary_large_image">
+<meta name=twitter:image content="https://calvinegs.github.io/papermod-cover.png">
+<meta name=twitter:title content="在 Angular 使用 Material CDK 來實作拖曳功能的使用者介面">
+<meta name=twitter:description content="本篇筆記是來記錄如何使用 Material CDK 來實現拖曳功能">
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Posts","item":"https://calvinegs.github.io/posts/"},{"@type":"ListItem","position":2,"name":"在 Angular 使用 Material CDK 來實作拖曳功能的使用者介面","item":"https://calvinegs.github.io/posts/dragdrop-material-cdk/"}]}</script>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"在 Angular 使用 Material CDK 來實作拖曳功能的使用者介面","name":"在 Angular 使用 Material CDK 來實作拖曳功能的使用者介面","description":"本篇筆記是來記錄如何使用 Material CDK 來實現拖曳功能","keywords":["angular","Material CDK","drag and drop"],"articleBody":"github Source code\n在網頁上實作可拖曳的使用者介面可大符增加應用程式使用操作的友善性。\n透過拖放，使用者可以使用滑鼠或觸控板點擊檔案並將其拖曳到可放置元素（放置區域），然後透過釋放滑鼠按鈕來「放置」檔案。這使您可以相對輕鬆地建立非常直觀的用戶體驗。\n要在 angular app 上實現這樣的功能除了可以透過第三方的 UI Component (如：igniteui、ngx-drag-drop)的支援外，最方便的解決方案是使用 Angular 內建的功能 Material CDK 來實作。\nAngular Drag and Drop CDK（元件開發套件）提供自由拖曳、清單內排序、清單之間移動項目、動畫、觸摸裝置、自訂拖曳手把(handle)等的支援。\n在下面的實作過程將會使用到下列技術:\n Angular cli 16 Bootstrap 5 (UI Framework) Angular 16  Router Standalone component   Angular Material CDK  CdkDrag CdkDragHandle CdkDropList CdkDropListGroup moveItemInArray    建立一個 Angular 應用程式 使用 angular cli 建立應用程式 將採 standalone 架構來建置這個應用程式，使用以下指令如下\n$ npm init @angular dragDropApp -- --routing --style scss --standalone \u0026\u0026 cd dragDropApp Need to install the following packages: @angular/create@16.2.4 Ok to proceed? (y) Standalone application structure is new and not yet supported by many existing 'ng add' and 'ng update' integrations with community libraries. CREATE dragDropApp/README.md (1065 bytes) CREATE dragDropApp/.editorconfig (274 bytes) CREATE dragDropApp/.gitignore (548 bytes) CREATE dragDropApp/angular.json (3136 bytes) CREATE dragDropApp/package.json (1044 bytes) CREATE dragDropApp/tsconfig.json (901 bytes) CREATE dragDropApp/tsconfig.app.json (263 bytes) CREATE dragDropApp/tsconfig.spec.json (273 bytes) CREATE dragDropApp/.vscode/extensions.json (130 bytes) CREATE dragDropApp/.vscode/launch.json (470 bytes) CREATE dragDropApp/.vscode/tasks.json (938 bytes) CREATE dragDropApp/src/main.ts (250 bytes) CREATE dragDropApp/src/favicon.ico (948 bytes) CREATE dragDropApp/src/index.html (297 bytes) CREATE dragDropApp/src/styles.scss (80 bytes) CREATE dragDropApp/src/app/app.component.scss (0 bytes) CREATE dragDropApp/src/app/app.component.html (23115 bytes) CREATE dragDropApp/src/app/app.component.spec.ts (903 bytes) CREATE dragDropApp/src/app/app.component.ts (373 bytes) CREATE dragDropApp/src/app/app.config.ts (227 bytes) CREATE dragDropApp/src/app/app.routes.ts (77 bytes) CREATE dragDropApp/src/assets/.gitkeep (0 bytes) ✔ Packages installed successfully. Successfully initialized git. 測試新産生的 angular app $ npm start  drag-drop-app@0.0.0 start  ng serve ✔ Browser application bundle generation complete. Initial Chunk Files | Names | Raw Size vendor.js | vendor | 2.35 MB | polyfills.js | polyfills | 333.17 kB | styles.css, styles.js | styles | 230.91 kB | main.js | main | 46.88 kB | runtime.js | runtime | 6.52 kB | | Initial Total | 2.95 MB Build at: 2023-10-02T02:25:15.897Z - Hash: 077008d4030a80bf - Time: 7817ms ** Angular Live Development Server is listening on localhost:4200, open your browser on http://localhost:4200/ ** ✔ Compiled successfully. 開啟瀏覽器，連到 http://localhost:4200\n檢視 angular 版本 $ npx ng version _ _ ____ _ ___ / \\  _ __ __ _ _ _| | __ _ _ __ / ___| | |_ _| / △ \\ | '_ \\ / _` | | | | |/ _` | '__| | | | | | | / ___ \\| | | | (_| | |_| | | (_| | | | |___| |___ | | /_/ \\_\\_| |_|\\__, |\\__,_|_|\\__,_|_| \\____|_____|___| |___/ Angular CLI: 16.2.4 Node: 18.17.1 Package Manager: npm 9.6.7 OS: linux x64 Angular: 16.2.7 ... animations, common, compiler, compiler-cli, core, forms ... platform-browser, platform-browser-dynamic, router Package Version --------------------------------------------------------- @angular-devkit/architect 0.1602.4 @angular-devkit/build-angular 16.2.4 @angular-devkit/core 16.2.4 @angular-devkit/schematics 16.2.4 @angular/cli 16.2.4 @schematics/angular 16.2.4 rxjs 7.8.1 typescript 5.1.6 zone.js 0.13.3 安裝 Bootstrap 5 應程程式 UI 會使用到 bootstrap，所以先安裝 Bootstrap 5，使用方式有二種\n使用 Bootstrap 方法一　 在 index.html 中引入 bootstrap link\nlink rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css\" integrity=\"sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3\" crossorigin=\"anonymous\" 使用 bootstrap 方法二 透過 npm 安裝方式將 bootstrap 安置在 local 中\ninstall bootstrap 到 local $ npm install bootstrap --save added 2 packages, and audited 965 packages in 3s 115 packages are looking for funding run `npm fund` for details found 0 vulnerabilities 安裝程式後可查看 package.json 套件設定檔　dependencies 區段中會已記錄有 “bootstrap”: “^5.3.2” 這個設定值\n修改 src/styles.scss 使用 vscode 開啟此專案目錄，並打開 styles.scss，加入以下程式碼 (即引入 bootstrap.css到本專案中)\n@import \"~bootstrap/dist/css/bootstrap.css\"; 開始建置應用程式 修改 App Component 先將 App Component 修改成擁有一個 Toolbar，由這個 Toolbar 可以持呼叫每一個功能元件。\n修改 app.component.html 在這個 view 中使用到了 bootstrap 的功能來裝飾整個 UI。同時也用到了 Rout 相關的 directives。主要的用意是透過 routerLink 提供的功能可以用來切換不同的功能(元件)頁面，同時透過 routerLinkActive=“active” 來強調被觸發的 route path。\ndiv class=\"app\" nav class=\"navbar navbar-expand navbar-dark bg-dark\" div class=\"container-fluid\" a href=\"#\" class=\"navbar-brand\"drag and drop 使用範例a ul class=\"nav nav-pills\" li class=\"nav-item\" a class=\"nav-link\" routerLinkActive=\"active\" [routerLink]=\"['home']\"首頁a li li class=\"nav-item\" a class=\"nav-link\" routerLinkActive=\"active\" [routerLink]=\"['dragable']\"Dragablea li li class=\"nav-item\" a class=\"nav-link\" routerLinkActive=\"active\" routerLink=\"reordable\"Reorderable Lista li li class=\"nav-item\" routerLinkActive=\"active\" a class=\"nav-link\" routerLinkActive=\"active\" routerLink=\"transferData\" Transferringa li ul ul class=\"navbar-nav ms-auto\" ul div nav div class=\"container\" router-outletrouter-outlet div div 修改 app.component.ts 由於在 html 中使用到 Router 的相關 directive 所以在 class 中記得要 import 相關模組。\n1 2 3 4 5 6 7 8 9 10 11 12 13  import { Component } from '@angular/core'; import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';  @Component({ selector: 'app-root', standalone: true, imports: [RouterOutlet, RouterLinkActive, RouterLink],  templateUrl: './app.component.html', styleUrls: ['./app.component.scss'] }) export class AppComponent { title = 'dragDropApp'; }   查看修改後的結果：\n建立各具特別功能的元件雛型 透過 angular cli 來新增以下功能的元件：\n home 元件 (預設) 基本拖曳功能的元件 支援拖曳排序功能的元件 支援拖曳功能來交換資料的元件  $ npx ng g c pages/home --standalone $ npx ng g c pages/dragable --standalone $ npx ng g c pages/reordering-list --standalone $ npx ng g c pages/transfer-data-lists --standalone 完成新增雛型後，整個專案目前的檔案結構如下：\n完成 Router 相關的配置 開啟 app.router.ts，並完成相關 router 的設定\nimport { Routes } from '@angular/router'; import { HomeComponent } from './pages/home/home.component'; import { DragableComponent } from './pages/dragable/dragable.component'; import { ReorderingListComponent } from './pages/reordering-list/reordering-list.component'; import { TransferDataListsComponent } from './pages/transfer-data-lists/transfer-data-lists.component'; export const routes: Routes = [ { path: 'home', component: HomeComponent }, { path: 'dragable', component: DragableComponent }, { path: 'reordable', component: ReorderingListComponent }, { path: 'transferData', component: TransferDataListsComponent }, { path: '', redirectTo: 'home', pathMatch: 'full' } ]; 在完成 router 配置後，使用 npm start 來啟動程式，查看目前程式執行結果：\n接著完成各式拖曳功能展示的元件中的相關程式內容：\n安裝　Material CDK 所有的拖曳功能是由 Material CDK 所支援，所以我們要先安裝它\n$ npm install --save @angular/cdk added 2 packages, and audited 967 packages in 6s 115 packages are looking for funding run `npm fund` for details found 0 vulnerabilities 完成 新增一個基本拖曳功能的元件的功能 dragable.component.ts 1 2 3 4 5 6 7 8 9 10 11 12 13  import { Component } from '@angular/core'; import { CdkDrag } from '@angular/cdk/drag-drop';  @Component({ selector: 'app-dragable', standalone: true, imports: [CdkDrag],  templateUrl: './dragable.component.html', styleUrls: ['./dragable.component.scss'] }) export class DragableComponent { }   dragable.component.html 只要在 div tag 中加入 cdkDrag directive 就可以\ndiv class=\"example-box\" cdkDrag Drag me around div dragable.component.scss 幫 div tag 加上長寬與邊線。並於 div 拖曳時顯示陰影。\n.example-box { width: 200px; height: 200px; border: solid 1px #ccc; color: rgba(0, 0, 0, 0.87); cursor: move; display: flex; justify-content: center; align-items: center; text-align: center; background: #fff; border-radius: 4px; position: relative; z-index: 1; transition: box-shadow 200ms cubic-bezier(0, 0, 0.2, 1); box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12); } .example-box:active { box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2), 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12); } 新增一個支援拖曳排序功能的元件的功能 reordering-list.component.ts import { Component } from '@angular/core'; import { CdkDragDrop, CdkDropList, CdkDrag, moveItemInArray } from '@angular/cdk/drag-drop'; import { NgFor } from '@angular/common'; @Component({ selector: 'app-reordering-list', standalone: true, imports: [CdkDropList, NgFor, CdkDrag], templateUrl: './reordering-list.component.html', styleUrls: ['./reordering-list.component.scss'] }) export class ReorderingListComponent { movies = [ 'Episode I - The Phantom Menace', 'Episode II - Attack of the Clones', 'Episode III - Revenge of the Sith', 'Episode IV - A New Hope', 'Episode V - The Empire Strikes Back', 'Episode VI - Return of the Jedi', 'Episode VII - The Force Awakens', 'Episode VIII - The Last Jedi', 'Episode IX – The Rise of Skywalker', ]; drop(event: CdkDragDropstring[]) { moveItemInArray(this.movies, event.previousIndex, event.currentIndex); } } reordering-list.component.html div cdkDropList class=\"example-list\" (cdkDropListDropped)=\"drop($event)\" div class=\"example-box\" *ngFor=\"let movie of movies\" cdkDrag{{movie}}div div reordering-list.component.scss .example-list { width: 500px; max-width: 100%; border: solid 1px #ccc; min-height: 60px; display: block; background: white; border-radius: 4px; overflow: hidden; } .example-box { padding: 20px 10px; border-bottom: solid 1px #ccc; color: rgba(0, 0, 0, 0.87); display: flex; flex-direction: row; align-items: center; justify-content: space-between; box-sizing: border-box; cursor: move; background: white; font-size: 14px; } .cdk-drag-preview { box-sizing: border-box; border-radius: 4px; box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2), 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12); } .cdk-drag-placeholder { opacity: 0; } .cdk-drag-animating { transition: transform 250ms cubic-bezier(0, 0, 0.2, 1); } .example-box:last-child { border: none; } .example-list.cdk-drop-list-dragging .example-box:not(.cdk-drag-placeholder) { transition: transform 250ms cubic-bezier(0, 0, 0.2, 1); } 註：若要實作“自定的 Place holder“，可以使用 CdkDragPlaceholder 指令來達成：\n 先 import CdkDragPlaceholder 在 template 中加入　 在 css 中加入 custom-placeholder 這個 class 的相關設定。  新增一個支援拖曳功能來交換資料的元件的功能 transfer-data-lists.component.ts import { Component } from '@angular/core'; import {NgFor} from '@angular/common'; import { CdkDragDrop, CdkDrag, CdkDropList, CdkDropListGroup, moveItemInArray, transferArrayItem, } from '@angular/cdk/drag-drop'; @Component({ selector: 'app-transfer-data-lists', standalone: true, imports: [CdkDropListGroup, CdkDropList, NgFor, CdkDrag], templateUrl: './transfer-data-lists.component.html', styleUrls: ['./transfer-data-lists.component.scss'] }) export class TransferDataListsComponent { todo = ['Get to work', 'Pick up groceries', 'Go home', 'Fall asleep']; done = ['Get up', 'Brush teeth', 'Take a shower', 'Check e-mail', 'Walk dog']; drop(event: CdkDragDropstring[]) { if (event.previousContainer === event.container) { moveItemInArray(event.container.data, event.previousIndex, event.currentIndex); } else { transferArrayItem( event.previousContainer.data, event.container.data, event.previousIndex, event.currentIndex, ); } } } 註1.:若需要支援“可拖放重複項目”可參考以下程式碼：\ndrop(event: CdkDragDropstring[]) { // if (event.previousContainer === event.container) {  // moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);  // } else {  // transferArrayItem(  // event.previousContainer.data,  // event.container.data,  // event.previousIndex,  // event.currentIndex,  // );  // }  if (event.previousContainer === event.container) { moveItemInArray(event.container.data, event.previousIndex, event.currentIndex); } else { let idx=event.container.data.indexOf(event.previousContainer.data[event.previousIndex]); if(idx != -1){ return; } copyArrayItem(event.previousContainer.data, event.container.data, event.previousIndex, event.currentIndex); } } transfer-data-lists.component.html div cdkDropListGroup div class=\"example-container\" h2To doh2 div cdkDropList [cdkDropListData]=\"todo\" class=\"example-list\" (cdkDropListDropped)=\"drop($event)\" div class=\"example-box\" *ngFor=\"let item of todo\" cdkDrag{{item}}div div div div class=\"example-container\" h2Doneh2 div cdkDropList [cdkDropListData]=\"done\" class=\"example-list\" (cdkDropListDropped)=\"drop($event)\" div class=\"example-box\" *ngFor=\"let item of done\" cdkDrag{{item}}div div div div 註2.：若要使得某一個 List 中的 Item 無法支援拖曳自身來重新排序可加入 cdkDropListSortingDisabled directive。一旦加入了這個指令，那麼這個 List 中的 Item 只支援被拖曳到其他 List 中。\ntransfer-data-lists.component.scss .example-container { width: 400px; max-width: 100%; margin: 0 25px 25px 0; display: inline-block; vertical-align: top; } .example-list { border: solid 1px #ccc; min-height: 60px; background: white; border-radius: 4px; overflow: hidden; display: block; } .example-box { padding: 20px 10px; border-bottom: solid 1px #ccc; color: rgba(0, 0, 0, 0.87); display: flex; flex-direction: row; align-items: center; justify-content: space-between; box-sizing: border-box; cursor: move; background: white; font-size: 14px; } .cdk-drag-preview { box-sizing: border-box; border-radius: 4px; box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2), 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12); } .cdk-drag-placeholder { opacity: 0; } .cdk-drag-animating { transition: transform 250ms cubic-bezier(0, 0, 0.2, 1); } .example-box:last-child { border: none; } .example-list.cdk-drop-list-dragging .example-box:not(.cdk-drag-placeholder) { transition: transform 250ms cubic-bezier(0, 0, 0.2, 1); } 註3.：若要拖曳過程想使用被拖曳項目內容來決定是否可以到加入到目標清單中，可使用 Predicate 功能：\n 在被拖曳項目中加入 cdkDragData property，用來將被拖曳項目值被㩦出到目標清單中 目標清單中加入　cdkDropListEnterPredicate 並指定判斷的 function 在 class 中實現 function 的判斷邏輯  1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27  div cdkDropListGroup div class=\"example-container\" h2To doh2 div cdkDropList [cdkDropListData]=\"todo\" class=\"example-list\" (cdkDropListDropped)=\"drop($event)\" div class=\"example-box\" *ngFor=\"let item of todo\" [cdkDragData]=\"item\" cdkDrag{{item}}div  div div div class=\"example-container\" h2Doneh2 div cdkDropList [cdkDropListData]=\"done\" class=\"example-list\" (cdkDropListDropped)=\"drop($event)\" [cdkDropListEnterPredicate]=\"conditionPredicate\"  div class=\"example-box\" *ngFor=\"let item of done\" cdkDrag{{item}}div div div div   ... conditionPredicate(item: CdkDragstring) { return item.data === 'Get to work'; } ... ","wordCount":"1648","inLanguage":"en","datePublished":"2023-10-02T00:00:00Z","dateModified":"2023-10-02T00:00:00Z","author":{"@type":"Person","name":"Theme PaperMod"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://calvinegs.github.io/posts/dragdrop-material-cdk/"},"publisher":{"@type":"Organization","name":"永誌不忘 • 筆記簿","logo":{"@type":"ImageObject","url":"https://calvinegs.github.io/img/favicon.png"}}}</script>
+</head>
+<body id=top>
+<script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
+<header class=header>
+<nav class=nav>
+<div class=logo>
+<a href=https://calvinegs.github.io/ accesskey=h title="永誌不忘 • 筆記簿 (Alt + H)">永誌不忘 • 筆記簿</a>
+<span class=logo-switches>
+<button id=theme-toggle accesskey=t title="(Alt + T)"><svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+</button>
+</span>
+</div>
+<ul id=menu>
+<li>
+<a href=https://calvinegs.github.io/posts/ title=Posts>
+<span>Posts</span>
+</a>
+</li>
+<li>
+<a href=https://calvinegs.github.io/archives/ title=Archive>
+<span>Archive</span>
+</a>
+</li>
+<li>
+<a href=https://calvinegs.github.io/categories/ title=Categories>
+<span>Categories</span>
+</a>
+</li>
+<li>
+<a href=https://calvinegs.github.io/tags/ title=Tags>
+<span>Tags</span>
+</a>
+</li>
+<li>
+<a href=https://calvinegs.github.io/search/ title="Search (Alt + /)" accesskey=/>
+<span>Search</span>
+</a>
+</li>
+</ul>
+</nav>
+</header>
+<main class=main>
+<article class=post-single>
+<header class=post-header>
+<div class=breadcrumbs><a href=https://calvinegs.github.io/>Home</a>&nbsp;»&nbsp;<a href=https://calvinegs.github.io/posts/>Posts</a></div>
+<h1 class=post-title>
+在 Angular 使用 Material CDK 來實作拖曳功能的使用者介面
+</h1>
+<div class=post-description>
+本篇筆記是來記錄如何使用 Material CDK 來實現拖曳功能
+</div>
+<div class=post-meta><span title="2023-10-02 00:00:00 +0000 UTC">October 2, 2023</span>&nbsp;·&nbsp;8 min&nbsp;·&nbsp;Theme PaperMod&nbsp;|&nbsp;<a href=https://github.com/adityatelange/hugo-PaperMod/tree/exampleSite/content/posts/dragDrop-material-cdk.md rel="noopener noreferrer" target=_blank>Suggest Changes</a>
+</div>
+</header> <div class=toc>
+<details>
+<summary accesskey=c title="(Alt + C)">
+<span class=details>Table of Contents</span>
+</summary>
+<div class=inner><ul>
+<li>
+<a href=#%e5%bb%ba%e7%ab%8b%e4%b8%80%e5%80%8b-angular-%e6%87%89%e7%94%a8%e7%a8%8b%e5%bc%8f aria-label="建立一個 Angular 應用程式">建立一個 Angular 應用程式</a><ul>
+<li>
+<a href=#%e4%bd%bf%e7%94%a8-angular-cli-%e5%bb%ba%e7%ab%8b%e6%87%89%e7%94%a8%e7%a8%8b%e5%bc%8f aria-label="使用 angular cli 建立應用程式">使用 angular cli 建立應用程式</a></li>
+<li>
+<a href=#%e6%b8%ac%e8%a9%a6%e6%96%b0%e7%94%a3%e7%94%9f%e7%9a%84-angular-app aria-label="測試新産生的 angular app">測試新産生的 angular app</a></li>
+<li>
+<a href=#%e6%aa%a2%e8%a6%96-angular-%e7%89%88%e6%9c%ac aria-label="檢視 angular 版本">檢視 angular 版本</a></li></ul>
+</li>
+<li>
+<a href=#%e5%ae%89%e8%a3%9d-bootstrap-5 aria-label="安裝 Bootstrap 5">安裝 Bootstrap 5</a><ul>
+<li>
+<a href=#%e4%bd%bf%e7%94%a8-bootstrap-%e6%96%b9%e6%b3%95%e4%b8%80 aria-label="使用 Bootstrap 方法一　">使用 Bootstrap 方法一　</a></li>
+<li>
+<a href=#%e4%bd%bf%e7%94%a8-bootstrap-%e6%96%b9%e6%b3%95%e4%ba%8c aria-label="使用 bootstrap 方法二">使用 bootstrap 方法二</a><ul>
+<li>
+<a href=#install-bootstrap-%e5%88%b0-local aria-label="install bootstrap 到 local">install bootstrap 到 local</a></li>
+<li>
+<a href=#%e4%bf%ae%e6%94%b9-srcstylesscss aria-label="修改 src/styles.scss">修改 src/styles.scss</a></li></ul>
+</li></ul>
+</li>
+<li>
+<a href=#%e9%96%8b%e5%a7%8b%e5%bb%ba%e7%bd%ae%e6%87%89%e7%94%a8%e7%a8%8b%e5%bc%8f aria-label=開始建置應用程式>開始建置應用程式</a><ul>
+<li>
+<a href=#%e4%bf%ae%e6%94%b9-app-component aria-label="修改 App Component">修改 App Component</a><ul>
+<li>
+<a href=#%e4%bf%ae%e6%94%b9-appcomponenthtml aria-label="修改 app.component.html">修改 app.component.html</a></li>
+<li>
+<a href=#%e4%bf%ae%e6%94%b9-appcomponentts aria-label="修改 app.component.ts">修改 app.component.ts</a></li></ul>
+</li>
+<li>
+<a href=#%e5%bb%ba%e7%ab%8b%e5%90%84%e5%85%b7%e7%89%b9%e5%88%a5%e5%8a%9f%e8%83%bd%e7%9a%84%e5%85%83%e4%bb%b6%e9%9b%9b%e5%9e%8b aria-label=建立各具特別功能的元件雛型>建立各具特別功能的元件雛型</a></li>
+<li>
+<a href=#%e5%ae%8c%e6%88%90-router-%e7%9b%b8%e9%97%9c%e7%9a%84%e9%85%8d%e7%bd%ae aria-label="完成 Router 相關的配置">完成 Router 相關的配置</a></li>
+<li>
+<a href=#%e5%ae%89%e8%a3%9dmaterial-cdk aria-label="安裝　Material CDK">安裝　Material CDK</a></li>
+<li>
+<a href=#%e5%ae%8c%e6%88%90-%e6%96%b0%e5%a2%9e%e4%b8%80%e5%80%8b%e5%9f%ba%e6%9c%ac%e6%8b%96%e6%9b%b3%e5%8a%9f%e8%83%bd%e7%9a%84%e5%85%83%e4%bb%b6%e7%9a%84%e5%8a%9f%e8%83%bd aria-label="完成 新增一個基本拖曳功能的元件的功能">完成 新增一個基本拖曳功能的元件的功能</a><ul>
+<li>
+<a href=#dragablecomponentts aria-label=dragable.component.ts>dragable.component.ts</a></li>
+<li>
+<a href=#dragablecomponenthtml aria-label=dragable.component.html>dragable.component.html</a></li>
+<li>
+<a href=#dragablecomponentscss aria-label=dragable.component.scss>dragable.component.scss</a></li></ul>
+</li>
+<li>
+<a href=#%e6%96%b0%e5%a2%9e%e4%b8%80%e5%80%8b%e6%94%af%e6%8f%b4%e6%8b%96%e6%9b%b3%e6%8e%92%e5%ba%8f%e5%8a%9f%e8%83%bd%e7%9a%84%e5%85%83%e4%bb%b6%e7%9a%84%e5%8a%9f%e8%83%bd aria-label=新增一個支援拖曳排序功能的元件的功能>新增一個支援拖曳排序功能的元件的功能</a><ul>
+<li>
+<a href=#reordering-listcomponentts aria-label=reordering-list.component.ts>reordering-list.component.ts</a></li>
+<li>
+<a href=#reordering-listcomponenthtml aria-label=reordering-list.component.html>reordering-list.component.html</a></li>
+<li>
+<a href=#reordering-listcomponentscss aria-label=reordering-list.component.scss>reordering-list.component.scss</a></li></ul>
+</li>
+<li>
+<a href=#%e6%96%b0%e5%a2%9e%e4%b8%80%e5%80%8b%e6%94%af%e6%8f%b4%e6%8b%96%e6%9b%b3%e5%8a%9f%e8%83%bd%e4%be%86%e4%ba%a4%e6%8f%9b%e8%b3%87%e6%96%99%e7%9a%84%e5%85%83%e4%bb%b6%e7%9a%84%e5%8a%9f%e8%83%bd aria-label=新增一個支援拖曳功能來交換資料的元件的功能>新增一個支援拖曳功能來交換資料的元件的功能</a><ul>
+<li>
+<a href=#transfer-data-listscomponentts aria-label=transfer-data-lists.component.ts>transfer-data-lists.component.ts</a></li>
+<li>
+<a href=#transfer-data-listscomponenthtml aria-label=transfer-data-lists.component.html>transfer-data-lists.component.html</a></li>
+<li>
+<a href=#transfer-data-listscomponentscss aria-label=transfer-data-lists.component.scss>transfer-data-lists.component.scss</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</details>
+</div>
+<div class=post-content><p><em><a href=https://github.com/calvinegs/angular-dragdrop.git>github Source code</a></em></p>
+<p>在網頁上實作可拖曳的使用者介面可大符增加應用程式使用操作的友善性。</p>
+<p>透過拖放，使用者可以使用滑鼠或觸控板點擊檔案並將其拖曳到可放置元素（放置區域），然後透過釋放滑鼠按鈕來「放置」檔案。這使您可以相對輕鬆地建立非常直觀的用戶體驗。</p>
+<p>要在 angular app 上實現這樣的功能除了可以透過第三方的 UI Component (如：igniteui、ngx-drag-drop)的支援外，最方便的解決方案是使用 Angular 內建的功能 Material CDK 來實作。</p>
+<p>Angular Drag and Drop CDK（元件開發套件）提供自由拖曳、清單內排序、清單之間移動項目、動畫、觸摸裝置、自訂拖曳手把(handle)等的支援。</p>
+<p>在下面的實作過程將會使用到下列技術:</p>
+<ul>
+<li>Angular cli 16</li>
+<li>Bootstrap 5 (UI Framework)</li>
+<li>Angular 16
+<ul>
+<li>Router</li>
+<li>Standalone component</li>
+</ul>
+</li>
+<li>Angular Material CDK
+<ul>
+<li>CdkDrag</li>
+<li>CdkDragHandle</li>
+<li>CdkDropList</li>
+<li>CdkDropListGroup</li>
+<li>moveItemInArray</li>
+</ul>
+</li>
+</ul>
+<h1 id=建立一個-angular-應用程式>建立一個 Angular 應用程式<a hidden class=anchor aria-hidden=true href=#建立一個-angular-應用程式>#</a></h1>
+<h2 id=使用-angular-cli-建立應用程式>使用 angular cli 建立應用程式<a hidden class=anchor aria-hidden=true href=#使用-angular-cli-建立應用程式>#</a></h2>
+<p>將採 standalone 架構來建置這個應用程式，使用以下指令如下</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$ npm init @angular dragDropApp -- --routing --style scss --standalone <span style=color:#f92672>&amp;&amp;</span> cd dragDropApp
+Need to install the following packages:
+  @angular/create@16.2.4
+Ok to proceed? <span style=color:#f92672>(</span>y<span style=color:#f92672>)</span> 
+Standalone application structure is new and not yet supported by many existing <span style=color:#e6db74>&#39;ng add&#39;</span> and <span style=color:#e6db74>&#39;ng update&#39;</span> integrations with community libraries.
+CREATE dragDropApp/README.md <span style=color:#f92672>(</span><span style=color:#ae81ff>1065</span> bytes<span style=color:#f92672>)</span>
+CREATE dragDropApp/.editorconfig <span style=color:#f92672>(</span><span style=color:#ae81ff>274</span> bytes<span style=color:#f92672>)</span>
+CREATE dragDropApp/.gitignore <span style=color:#f92672>(</span><span style=color:#ae81ff>548</span> bytes<span style=color:#f92672>)</span>
+CREATE dragDropApp/angular.json <span style=color:#f92672>(</span><span style=color:#ae81ff>3136</span> bytes<span style=color:#f92672>)</span>
+CREATE dragDropApp/package.json <span style=color:#f92672>(</span><span style=color:#ae81ff>1044</span> bytes<span style=color:#f92672>)</span>
+CREATE dragDropApp/tsconfig.json <span style=color:#f92672>(</span><span style=color:#ae81ff>901</span> bytes<span style=color:#f92672>)</span>
+CREATE dragDropApp/tsconfig.app.json <span style=color:#f92672>(</span><span style=color:#ae81ff>263</span> bytes<span style=color:#f92672>)</span>
+CREATE dragDropApp/tsconfig.spec.json <span style=color:#f92672>(</span><span style=color:#ae81ff>273</span> bytes<span style=color:#f92672>)</span>
+CREATE dragDropApp/.vscode/extensions.json <span style=color:#f92672>(</span><span style=color:#ae81ff>130</span> bytes<span style=color:#f92672>)</span>
+CREATE dragDropApp/.vscode/launch.json <span style=color:#f92672>(</span><span style=color:#ae81ff>470</span> bytes<span style=color:#f92672>)</span>
+CREATE dragDropApp/.vscode/tasks.json <span style=color:#f92672>(</span><span style=color:#ae81ff>938</span> bytes<span style=color:#f92672>)</span>
+CREATE dragDropApp/src/main.ts <span style=color:#f92672>(</span><span style=color:#ae81ff>250</span> bytes<span style=color:#f92672>)</span>
+CREATE dragDropApp/src/favicon.ico <span style=color:#f92672>(</span><span style=color:#ae81ff>948</span> bytes<span style=color:#f92672>)</span>
+CREATE dragDropApp/src/index.html <span style=color:#f92672>(</span><span style=color:#ae81ff>297</span> bytes<span style=color:#f92672>)</span>
+CREATE dragDropApp/src/styles.scss <span style=color:#f92672>(</span><span style=color:#ae81ff>80</span> bytes<span style=color:#f92672>)</span>
+CREATE dragDropApp/src/app/app.component.scss <span style=color:#f92672>(</span><span style=color:#ae81ff>0</span> bytes<span style=color:#f92672>)</span>
+CREATE dragDropApp/src/app/app.component.html <span style=color:#f92672>(</span><span style=color:#ae81ff>23115</span> bytes<span style=color:#f92672>)</span>
+CREATE dragDropApp/src/app/app.component.spec.ts <span style=color:#f92672>(</span><span style=color:#ae81ff>903</span> bytes<span style=color:#f92672>)</span>
+CREATE dragDropApp/src/app/app.component.ts <span style=color:#f92672>(</span><span style=color:#ae81ff>373</span> bytes<span style=color:#f92672>)</span>
+CREATE dragDropApp/src/app/app.config.ts <span style=color:#f92672>(</span><span style=color:#ae81ff>227</span> bytes<span style=color:#f92672>)</span>
+CREATE dragDropApp/src/app/app.routes.ts <span style=color:#f92672>(</span><span style=color:#ae81ff>77</span> bytes<span style=color:#f92672>)</span>
+CREATE dragDropApp/src/assets/.gitkeep <span style=color:#f92672>(</span><span style=color:#ae81ff>0</span> bytes<span style=color:#f92672>)</span>
+✔ Packages installed successfully.
+    Successfully initialized git.
+</code></pre></div><h2 id=測試新産生的-angular-app>測試新産生的 angular app<a hidden class=anchor aria-hidden=true href=#測試新産生的-angular-app>#</a></h2>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$ npm start
+
+&gt; drag-drop-app@0.0.0 start
+&gt; ng serve
+
+✔ Browser application bundle generation complete.
+
+Initial Chunk Files   | Names         |  Raw Size
+vendor.js             | vendor        |   2.35 MB | 
+polyfills.js          | polyfills     | 333.17 kB | 
+styles.css, styles.js | styles        | 230.91 kB | 
+main.js               | main          |  46.88 kB | 
+runtime.js            | runtime       |   6.52 kB | 
+
+                      | Initial Total |   2.95 MB
+
+Build at: 2023-10-02T02:25:15.897Z - Hash: 077008d4030a80bf - Time: 7817ms
+
+** Angular Live Development Server is listening on localhost:4200, open your browser on http://localhost:4200/ **
+
+
+✔ Compiled successfully.
+</code></pre></div><p>開啟瀏覽器，連到 http://localhost:4200</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/271870963-7bdaf703-75d7-416b-8a3a-75599d1ab9b9.png alt="2023-10-02 10-29-40">
+</p>
+<h2 id=檢視-angular-版本>檢視 angular 版本<a hidden class=anchor aria-hidden=true href=#檢視-angular-版本>#</a></h2>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$ npx ng version
+
+
+     _                      _                 ____ _     ___
+    / <span style=color:#ae81ff>\ </span>  _ __   __ _ _   _| | __ _ _ __     / ___| |   |_ _|
+   / △ <span style=color:#ae81ff>\ </span>| <span style=color:#e6db74>&#39;_ \ / _` | | | | |/ _` | &#39;</span>__|   | |   | |    | |
+  / ___ <span style=color:#ae81ff>\|</span> | | | <span style=color:#f92672>(</span>_| | |_| | | <span style=color:#f92672>(</span>_| | |      | |___| |___ | |
+ /_/   <span style=color:#ae81ff>\_\_</span>| |_|<span style=color:#ae81ff>\_</span>_, |<span style=color:#ae81ff>\_</span>_,_|_|<span style=color:#ae81ff>\_</span>_,_|_|       <span style=color:#ae81ff>\_</span>___|_____|___|
+                |___/
+    
+
+Angular CLI: 16.2.4
+Node: 18.17.1
+Package Manager: npm 9.6.7
+OS: linux x64
+
+Angular: 16.2.7
+... animations, common, compiler, compiler-cli, core, forms
+... platform-browser, platform-browser-dynamic, router
+
+Package                         Version
+---------------------------------------------------------
+@angular-devkit/architect       0.1602.4
+@angular-devkit/build-angular   16.2.4
+@angular-devkit/core            16.2.4
+@angular-devkit/schematics      16.2.4
+@angular/cli                    16.2.4
+@schematics/angular             16.2.4
+rxjs                            7.8.1
+typescript                      5.1.6
+zone.js                         0.13.3
+</code></pre></div><h1 id=安裝-bootstrap-5>安裝 Bootstrap 5<a hidden class=anchor aria-hidden=true href=#安裝-bootstrap-5>#</a></h1>
+<p>應程程式 UI 會使用到 bootstrap，所以先安裝 Bootstrap 5，使用方式有二種</p>
+<h2 id=使用-bootstrap-方法一>使用 Bootstrap 方法一　<a hidden class=anchor aria-hidden=true href=#使用-bootstrap-方法一>#</a></h2>
+<p>在 index.html 中引入 bootstrap link</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html>
+ &lt;<span style=color:#f92672>link</span> <span style=color:#a6e22e>rel</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;stylesheet&#34;</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css&#34;</span> <span style=color:#a6e22e>integrity</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3&#34;</span> <span style=color:#a6e22e>crossorigin</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;anonymous&#34;</span>&gt;
+</code></pre></div><h2 id=使用-bootstrap-方法二>使用 bootstrap 方法二<a hidden class=anchor aria-hidden=true href=#使用-bootstrap-方法二>#</a></h2>
+<p>透過 npm 安裝方式將 bootstrap 安置在 local 中</p>
+<h3 id=install-bootstrap-到-local>install bootstrap 到 local<a hidden class=anchor aria-hidden=true href=#install-bootstrap-到-local>#</a></h3>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$ npm install bootstrap --save
+
+added <span style=color:#ae81ff>2</span> packages, and audited <span style=color:#ae81ff>965</span> packages in 3s
+
+<span style=color:#ae81ff>115</span> packages are looking <span style=color:#66d9ef>for</span> funding
+  run <span style=color:#e6db74>`</span>npm fund<span style=color:#e6db74>`</span> <span style=color:#66d9ef>for</span> details
+
+found <span style=color:#ae81ff>0</span> vulnerabilities
+</code></pre></div><p>安裝程式後可查看 package.json 套件設定檔　dependencies 區段中會已記錄有 &ldquo;bootstrap&rdquo;: &ldquo;^5.3.2&rdquo; 這個設定值</p>
+<h3 id=修改-srcstylesscss>修改 src/styles.scss<a hidden class=anchor aria-hidden=true href=#修改-srcstylesscss>#</a></h3>
+<p>使用 vscode 開啟此專案目錄，並打開 styles.scss，加入以下程式碼 (即引入 bootstrap.css到本專案中)</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-css data-lang=css>@<span style=color:#66d9ef>import</span> <span style=color:#e6db74>&#34;~bootstrap/dist/css/bootstrap.css&#34;</span>;
+</code></pre></div><h1 id=開始建置應用程式>開始建置應用程式<a hidden class=anchor aria-hidden=true href=#開始建置應用程式>#</a></h1>
+<h2 id=修改-app-component>修改 App Component<a hidden class=anchor aria-hidden=true href=#修改-app-component>#</a></h2>
+<p>先將 App Component 修改成擁有一個 Toolbar，由這個 Toolbar 可以持呼叫每一個功能元件。</p>
+<h3 id=修改-appcomponenthtml>修改 app.component.html<a hidden class=anchor aria-hidden=true href=#修改-appcomponenthtml>#</a></h3>
+<p>在這個 view 中使用到了 bootstrap 的功能來裝飾整個 UI。同時也用到了 Rout 相關的 directives。主要的用意是透過 routerLink 提供的功能可以用來切換不同的功能(元件)頁面，同時透過 routerLinkActive=&ldquo;active&rdquo; 來強調被觸發的 route path。</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html>&lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;app&#34;</span>&gt;
+  &lt;<span style=color:#f92672>nav</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;navbar navbar-expand navbar-dark bg-dark&#34;</span>&gt;
+    &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;container-fluid&#34;</span>&gt;
+      &lt;<span style=color:#f92672>a</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;#&#34;</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;navbar-brand&#34;</span>&gt;drag and drop 使用範例&lt;/<span style=color:#f92672>a</span>&gt;
+      &lt;<span style=color:#f92672>ul</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;nav nav-pills&#34;</span>&gt;
+        &lt;<span style=color:#f92672>li</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;nav-item&#34;</span>&gt;
+          &lt;<span style=color:#f92672>a</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;nav-link&#34;</span> <span style=color:#a6e22e>routerLinkActive</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;active&#34;</span> <span style=color:#960050;background-color:#1e0010>[</span><span style=color:#a6e22e>routerLink</span><span style=color:#960050;background-color:#1e0010>]=&#34;[&#39;</span><span style=color:#a6e22e>home</span><span style=color:#960050;background-color:#1e0010>&#39;]&#34;</span>&gt;首頁&lt;/<span style=color:#f92672>a</span>&gt;
+        &lt;/<span style=color:#f92672>li</span>&gt;
+        &lt;<span style=color:#f92672>li</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;nav-item&#34;</span>&gt;
+          &lt;<span style=color:#f92672>a</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;nav-link&#34;</span> <span style=color:#a6e22e>routerLinkActive</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;active&#34;</span> <span style=color:#960050;background-color:#1e0010>[</span><span style=color:#a6e22e>routerLink</span><span style=color:#960050;background-color:#1e0010>]=&#34;[&#39;</span><span style=color:#a6e22e>dragable</span><span style=color:#960050;background-color:#1e0010>&#39;]&#34;</span>&gt;Dragable&lt;/<span style=color:#f92672>a</span>&gt;
+        &lt;/<span style=color:#f92672>li</span>&gt;
+        &lt;<span style=color:#f92672>li</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;nav-item&#34;</span>&gt;
+          &lt;<span style=color:#f92672>a</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;nav-link&#34;</span> <span style=color:#a6e22e>routerLinkActive</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;active&#34;</span> <span style=color:#a6e22e>routerLink</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;reordable&#34;</span>&gt;Reorderable List&lt;/<span style=color:#f92672>a</span>&gt;
+        &lt;/<span style=color:#f92672>li</span>&gt;
+        &lt;<span style=color:#f92672>li</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;nav-item&#34;</span> <span style=color:#a6e22e>routerLinkActive</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;active&#34;</span>&gt;
+          &lt;<span style=color:#f92672>a</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;nav-link&#34;</span> <span style=color:#a6e22e>routerLinkActive</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;active&#34;</span> <span style=color:#a6e22e>routerLink</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;transferData&#34;</span> &gt;Transferring&lt;/<span style=color:#f92672>a</span>&gt;
+        &lt;/<span style=color:#f92672>li</span>&gt;
+      &lt;/<span style=color:#f92672>ul</span>&gt;
+      &lt;<span style=color:#f92672>ul</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;navbar-nav ms-auto&#34;</span>&gt;
+      &lt;/<span style=color:#f92672>ul</span>&gt;
+    &lt;/<span style=color:#f92672>div</span>&gt;
+  &lt;/<span style=color:#f92672>nav</span>&gt;
+  &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;container&#34;</span>&gt;
+      &lt;<span style=color:#f92672>router-outlet</span>&gt;&lt;/<span style=color:#f92672>router-outlet</span>&gt;
+  &lt;/<span style=color:#f92672>div</span>&gt;
+&lt;/<span style=color:#f92672>div</span>&gt;
+</code></pre></div><h3 id=修改-appcomponentts>修改 app.component.ts<a hidden class=anchor aria-hidden=true href=#修改-appcomponentts>#</a></h3>
+<p>由於在 html 中使用到 Router 的相關 directive 所以在 class 中記得要 import 相關模組。</p>
+<div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4>
+<table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0>
+<pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style=display:block;width:100%;background-color:#3c3d38><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span></span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style=display:block;width:100%;background-color:#3c3d38><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span></span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span></code></pre></td>
+<td style=vertical-align:top;padding:0;margin:0;border:0;width:100%>
+<pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-ts data-lang=ts><span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>Component</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;@angular/core&#39;</span>;
+<span style=display:block;width:100%;background-color:#3c3d38><span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>RouterLink</span>, <span style=color:#a6e22e>RouterLinkActive</span>, <span style=color:#a6e22e>RouterOutlet</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;@angular/router&#39;</span>;
+</span>
+<span style=color:#66d9ef>@Component</span>({
+  <span style=color:#a6e22e>selector</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;app-root&#39;</span>,
+  <span style=color:#a6e22e>standalone</span>: <span style=color:#66d9ef>true</span>,
+<span style=display:block;width:100%;background-color:#3c3d38>  <span style=color:#a6e22e>imports</span><span style=color:#f92672>:</span> [<span style=color:#a6e22e>RouterOutlet</span>, <span style=color:#a6e22e>RouterLinkActive</span>, <span style=color:#a6e22e>RouterLink</span>],
+</span>  <span style=color:#a6e22e>templateUrl</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;./app.component.html&#39;</span>,
+  <span style=color:#a6e22e>styleUrls</span><span style=color:#f92672>:</span> [<span style=color:#e6db74>&#39;./app.component.scss&#39;</span>]
+})
+<span style=color:#66d9ef>export</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>AppComponent</span> {
+  <span style=color:#a6e22e>title</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;dragDropApp&#39;</span>;
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>查看修改後的結果：</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/271882896-ec00a156-7ef2-47bb-a013-4ad54d7a3ffb.png alt=image>
+</p>
+<h2 id=建立各具特別功能的元件雛型>建立各具特別功能的元件雛型<a hidden class=anchor aria-hidden=true href=#建立各具特別功能的元件雛型>#</a></h2>
+<p>透過 angular cli 來新增以下功能的元件：</p>
+<ul>
+<li>home 元件 (預設)</li>
+<li>基本拖曳功能的元件</li>
+<li>支援拖曳排序功能的元件</li>
+<li>支援拖曳功能來交換資料的元件</li>
+</ul>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$ npx ng g c pages/home --standalone
+$ npx ng g c pages/dragable --standalone
+$ npx ng g c pages/reordering-list --standalone
+$ npx ng g c pages/transfer-data-lists --standalone
+</code></pre></div><p>完成新增雛型後，整個專案目前的檔案結構如下：</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/271884877-e401f737-c3b1-4f42-a1ef-5b001ffa5654.png alt=image>
+</p>
+<h2 id=完成-router-相關的配置>完成 Router 相關的配置<a hidden class=anchor aria-hidden=true href=#完成-router-相關的配置>#</a></h2>
+<p>開啟 app.router.ts，並完成相關 router 的設定</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-ts data-lang=ts><span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>Routes</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;@angular/router&#39;</span>;
+<span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>HomeComponent</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;./pages/home/home.component&#39;</span>;
+<span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>DragableComponent</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;./pages/dragable/dragable.component&#39;</span>;
+<span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>ReorderingListComponent</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;./pages/reordering-list/reordering-list.component&#39;</span>;
+<span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>TransferDataListsComponent</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;./pages/transfer-data-lists/transfer-data-lists.component&#39;</span>;
+
+<span style=color:#66d9ef>export</span> <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>routes</span>: <span style=color:#66d9ef>Routes</span> <span style=color:#f92672>=</span> [
+  { <span style=color:#a6e22e>path</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;home&#39;</span>, <span style=color:#a6e22e>component</span>: <span style=color:#66d9ef>HomeComponent</span> },
+  { <span style=color:#a6e22e>path</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;dragable&#39;</span>, <span style=color:#a6e22e>component</span>: <span style=color:#66d9ef>DragableComponent</span> },
+  { <span style=color:#a6e22e>path</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;reordable&#39;</span>, <span style=color:#a6e22e>component</span>: <span style=color:#66d9ef>ReorderingListComponent</span> },
+  { <span style=color:#a6e22e>path</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;transferData&#39;</span>, <span style=color:#a6e22e>component</span>: <span style=color:#66d9ef>TransferDataListsComponent</span> },
+  { <span style=color:#a6e22e>path</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;&#39;</span>, <span style=color:#a6e22e>redirectTo</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;home&#39;</span>, <span style=color:#a6e22e>pathMatch</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;full&#39;</span> }
+];
+</code></pre></div><p>在完成 router 配置後，使用 npm start 來啟動程式，查看目前程式執行結果：</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/271885292-c45104ac-e23c-4429-a675-f3918251d463.png alt=image>
+</p>
+<p>接著完成各式拖曳功能展示的元件中的相關程式內容：</p>
+<h2 id=安裝material-cdk>安裝　Material CDK<a hidden class=anchor aria-hidden=true href=#安裝material-cdk>#</a></h2>
+<p>所有的拖曳功能是由 Material CDK 所支援，所以我們要先安裝它</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$ npm install --save @angular/cdk
+
+added <span style=color:#ae81ff>2</span> packages, and audited <span style=color:#ae81ff>967</span> packages in 6s
+
+<span style=color:#ae81ff>115</span> packages are looking <span style=color:#66d9ef>for</span> funding
+  run <span style=color:#e6db74>`</span>npm fund<span style=color:#e6db74>`</span> <span style=color:#66d9ef>for</span> details
+
+found <span style=color:#ae81ff>0</span> vulnerabilities
+</code></pre></div><p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/272223730-8dc52c93-9f71-4546-aae8-ff2a0ce3098f.png alt=image>
+</p>
+<h2 id=完成-新增一個基本拖曳功能的元件的功能>完成 新增一個基本拖曳功能的元件的功能<a hidden class=anchor aria-hidden=true href=#完成-新增一個基本拖曳功能的元件的功能>#</a></h2>
+<h3 id=dragablecomponentts>dragable.component.ts<a hidden class=anchor aria-hidden=true href=#dragablecomponentts>#</a></h3>
+<div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4>
+<table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0>
+<pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style=display:block;width:100%;background-color:#3c3d38><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span></span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style=display:block;width:100%;background-color:#3c3d38><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span></span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span></code></pre></td>
+<td style=vertical-align:top;padding:0;margin:0;border:0;width:100%>
+<pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-ts data-lang=ts><span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>Component</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;@angular/core&#39;</span>;
+<span style=display:block;width:100%;background-color:#3c3d38><span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>CdkDrag</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;@angular/cdk/drag-drop&#39;</span>;
+</span>
+<span style=color:#66d9ef>@Component</span>({
+  <span style=color:#a6e22e>selector</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;app-dragable&#39;</span>,
+  <span style=color:#a6e22e>standalone</span>: <span style=color:#66d9ef>true</span>,
+<span style=display:block;width:100%;background-color:#3c3d38>  <span style=color:#a6e22e>imports</span><span style=color:#f92672>:</span> [<span style=color:#a6e22e>CdkDrag</span>],
+</span>  <span style=color:#a6e22e>templateUrl</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;./dragable.component.html&#39;</span>,
+  <span style=color:#a6e22e>styleUrls</span><span style=color:#f92672>:</span> [<span style=color:#e6db74>&#39;./dragable.component.scss&#39;</span>]
+})
+<span style=color:#66d9ef>export</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>DragableComponent</span> {
+
+}
+</code></pre></td></tr></table>
+</div>
+</div><h3 id=dragablecomponenthtml>dragable.component.html<a hidden class=anchor aria-hidden=true href=#dragablecomponenthtml>#</a></h3>
+<p>只要在 div tag 中加入 cdkDrag directive 就可以</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html>&lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;example-box&#34;</span> <span style=color:#a6e22e>cdkDrag</span>&gt;
+  Drag me around
+&lt;/<span style=color:#f92672>div</span>&gt;
+</code></pre></div><h3 id=dragablecomponentscss>dragable.component.scss<a hidden class=anchor aria-hidden=true href=#dragablecomponentscss>#</a></h3>
+<p>幫 div tag 加上長寬與邊線。並於 div 拖曳時顯示陰影。</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-scss data-lang=scss><span style=color:#a6e22e>.example-box</span> {
+  <span style=color:#a6e22e>width</span><span style=color:#f92672>:</span> <span style=color:#ae81ff>200</span><span style=color:#66d9ef>px</span>;
+  <span style=color:#a6e22e>height</span><span style=color:#f92672>:</span> <span style=color:#ae81ff>200</span><span style=color:#66d9ef>px</span>;
+  <span style=color:#a6e22e>border</span><span style=color:#f92672>:</span> solid <span style=color:#ae81ff>1</span><span style=color:#66d9ef>px</span> <span style=color:#ae81ff>#ccc</span>;
+  <span style=color:#a6e22e>color</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>rgba</span>(<span style=color:#ae81ff>0</span><span style=color:#f92672>,</span> <span style=color:#ae81ff>0</span><span style=color:#f92672>,</span> <span style=color:#ae81ff>0</span><span style=color:#f92672>,</span> <span style=color:#ae81ff>0</span><span style=color:#ae81ff>.87</span>);
+  <span style=color:#a6e22e>cursor</span><span style=color:#f92672>:</span> move;
+  <span style=color:#a6e22e>display</span><span style=color:#f92672>:</span> flex;
+  <span style=color:#a6e22e>justify-content</span><span style=color:#f92672>:</span> center;
+  <span style=color:#a6e22e>align-items</span><span style=color:#f92672>:</span> center;
+  <span style=color:#a6e22e>text-align</span><span style=color:#f92672>:</span> center;
+  <span style=color:#a6e22e>background</span><span style=color:#f92672>:</span> <span style=color:#ae81ff>#fff</span>;
+  <span style=color:#a6e22e>border-radius</span><span style=color:#f92672>:</span> <span style=color:#ae81ff>4</span><span style=color:#66d9ef>px</span>;
+  <span style=color:#a6e22e>position</span><span style=color:#f92672>:</span> relative;
+  <span style=color:#a6e22e>z-index</span><span style=color:#f92672>:</span> <span style=color:#ae81ff>1</span>;
+  <span style=color:#a6e22e>transition</span><span style=color:#f92672>:</span> box-shadow <span style=color:#ae81ff>200</span><span style=color:#66d9ef>ms</span> <span style=color:#a6e22e>cubic-bezier</span>(<span style=color:#ae81ff>0</span><span style=color:#f92672>,</span> <span style=color:#ae81ff>0</span><span style=color:#f92672>,</span> <span style=color:#ae81ff>0</span><span style=color:#ae81ff>.2</span><span style=color:#f92672>,</span> <span style=color:#ae81ff>1</span>);
+  <span style=color:#a6e22e>box-shadow</span><span style=color:#f92672>:</span> <span style=color:#ae81ff>0</span> <span style=color:#ae81ff>3</span><span style=color:#66d9ef>px</span> <span style=color:#ae81ff>1</span><span style=color:#66d9ef>px</span> <span style=color:#f92672>-</span><span style=color:#ae81ff>2</span><span style=color:#66d9ef>px</span> <span style=color:#a6e22e>rgba</span>(<span style=color:#ae81ff>0</span><span style=color:#f92672>,</span> <span style=color:#ae81ff>0</span><span style=color:#f92672>,</span> <span style=color:#ae81ff>0</span><span style=color:#f92672>,</span> <span style=color:#ae81ff>0</span><span style=color:#ae81ff>.2</span>)<span style=color:#f92672>,</span>
+              <span style=color:#ae81ff>0</span> <span style=color:#ae81ff>2</span><span style=color:#66d9ef>px</span> <span style=color:#ae81ff>2</span><span style=color:#66d9ef>px</span> <span style=color:#ae81ff>0</span> <span style=color:#a6e22e>rgba</span>(<span style=color:#ae81ff>0</span><span style=color:#f92672>,</span> <span style=color:#ae81ff>0</span><span style=color:#f92672>,</span> <span style=color:#ae81ff>0</span><span style=color:#f92672>,</span> <span style=color:#ae81ff>0</span><span style=color:#ae81ff>.14</span>)<span style=color:#f92672>,</span>
+              <span style=color:#ae81ff>0</span> <span style=color:#ae81ff>1</span><span style=color:#66d9ef>px</span> <span style=color:#ae81ff>5</span><span style=color:#66d9ef>px</span> <span style=color:#ae81ff>0</span> <span style=color:#a6e22e>rgba</span>(<span style=color:#ae81ff>0</span><span style=color:#f92672>,</span> <span style=color:#ae81ff>0</span><span style=color:#f92672>,</span> <span style=color:#ae81ff>0</span><span style=color:#f92672>,</span> <span style=color:#ae81ff>0</span><span style=color:#ae81ff>.12</span>);
+}
+
+<span style=color:#a6e22e>.example-box</span><span style=color:#a6e22e>:active</span> {
+  <span style=color:#a6e22e>box-shadow</span><span style=color:#f92672>:</span> <span style=color:#ae81ff>0</span> <span style=color:#ae81ff>5</span><span style=color:#66d9ef>px</span> <span style=color:#ae81ff>5</span><span style=color:#66d9ef>px</span> <span style=color:#f92672>-</span><span style=color:#ae81ff>3</span><span style=color:#66d9ef>px</span> <span style=color:#a6e22e>rgba</span>(<span style=color:#ae81ff>0</span><span style=color:#f92672>,</span> <span style=color:#ae81ff>0</span><span style=color:#f92672>,</span> <span style=color:#ae81ff>0</span><span style=color:#f92672>,</span> <span style=color:#ae81ff>0</span><span style=color:#ae81ff>.2</span>)<span style=color:#f92672>,</span>
+              <span style=color:#ae81ff>0</span> <span style=color:#ae81ff>8</span><span style=color:#66d9ef>px</span> <span style=color:#ae81ff>10</span><span style=color:#66d9ef>px</span> <span style=color:#ae81ff>1</span><span style=color:#66d9ef>px</span> <span style=color:#a6e22e>rgba</span>(<span style=color:#ae81ff>0</span><span style=color:#f92672>,</span> <span style=color:#ae81ff>0</span><span style=color:#f92672>,</span> <span style=color:#ae81ff>0</span><span style=color:#f92672>,</span> <span style=color:#ae81ff>0</span><span style=color:#ae81ff>.14</span>)<span style=color:#f92672>,</span>
+              <span style=color:#ae81ff>0</span> <span style=color:#ae81ff>3</span><span style=color:#66d9ef>px</span> <span style=color:#ae81ff>14</span><span style=color:#66d9ef>px</span> <span style=color:#ae81ff>2</span><span style=color:#66d9ef>px</span> <span style=color:#a6e22e>rgba</span>(<span style=color:#ae81ff>0</span><span style=color:#f92672>,</span> <span style=color:#ae81ff>0</span><span style=color:#f92672>,</span> <span style=color:#ae81ff>0</span><span style=color:#f92672>,</span> <span style=color:#ae81ff>0</span><span style=color:#ae81ff>.12</span>);
+}
+</code></pre></div><p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/272230918-a3fd4d83-b804-434a-8823-bb9224d473cd.png alt=image>
+</p>
+<h2 id=新增一個支援拖曳排序功能的元件的功能>新增一個支援拖曳排序功能的元件的功能<a hidden class=anchor aria-hidden=true href=#新增一個支援拖曳排序功能的元件的功能>#</a></h2>
+<h3 id=reordering-listcomponentts>reordering-list.component.ts<a hidden class=anchor aria-hidden=true href=#reordering-listcomponentts>#</a></h3>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-ts data-lang=ts><span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>Component</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;@angular/core&#39;</span>;
+<span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>CdkDragDrop</span>, <span style=color:#a6e22e>CdkDropList</span>, <span style=color:#a6e22e>CdkDrag</span>, <span style=color:#a6e22e>moveItemInArray</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;@angular/cdk/drag-drop&#39;</span>;
+<span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>NgFor</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;@angular/common&#39;</span>;
+
+<span style=color:#66d9ef>@Component</span>({
+  <span style=color:#a6e22e>selector</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;app-reordering-list&#39;</span>,
+  <span style=color:#a6e22e>standalone</span>: <span style=color:#66d9ef>true</span>,
+  <span style=color:#a6e22e>imports</span><span style=color:#f92672>:</span> [<span style=color:#a6e22e>CdkDropList</span>, <span style=color:#a6e22e>NgFor</span>, <span style=color:#a6e22e>CdkDrag</span>],
+  <span style=color:#a6e22e>templateUrl</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;./reordering-list.component.html&#39;</span>,
+  <span style=color:#a6e22e>styleUrls</span><span style=color:#f92672>:</span> [<span style=color:#e6db74>&#39;./reordering-list.component.scss&#39;</span>]
+})
+<span style=color:#66d9ef>export</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>ReorderingListComponent</span> {
+  <span style=color:#a6e22e>movies</span> <span style=color:#f92672>=</span> [
+    <span style=color:#e6db74>&#39;Episode I - The Phantom Menace&#39;</span>,
+    <span style=color:#e6db74>&#39;Episode II - Attack of the Clones&#39;</span>,
+    <span style=color:#e6db74>&#39;Episode III - Revenge of the Sith&#39;</span>,
+    <span style=color:#e6db74>&#39;Episode IV - A New Hope&#39;</span>,
+    <span style=color:#e6db74>&#39;Episode V - The Empire Strikes Back&#39;</span>,
+    <span style=color:#e6db74>&#39;Episode VI - Return of the Jedi&#39;</span>,
+    <span style=color:#e6db74>&#39;Episode VII - The Force Awakens&#39;</span>,
+    <span style=color:#e6db74>&#39;Episode VIII - The Last Jedi&#39;</span>,
+    <span style=color:#e6db74>&#39;Episode IX – The Rise of Skywalker&#39;</span>,
+  ];
+
+  <span style=color:#a6e22e>drop</span>(<span style=color:#a6e22e>event</span>: <span style=color:#66d9ef>CdkDragDrop</span>&lt;<span style=color:#f92672>string</span><span style=color:#960050;background-color:#1e0010>[]</span>&gt;) {
+    <span style=color:#a6e22e>moveItemInArray</span>(<span style=color:#66d9ef>this</span>.<span style=color:#a6e22e>movies</span>, <span style=color:#a6e22e>event</span>.<span style=color:#a6e22e>previousIndex</span>, <span style=color:#a6e22e>event</span>.<span style=color:#a6e22e>currentIndex</span>);
+  }
+}
+
+</code></pre></div><h3 id=reordering-listcomponenthtml>reordering-list.component.html<a hidden class=anchor aria-hidden=true href=#reordering-listcomponenthtml>#</a></h3>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html>&lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>cdkDropList</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;example-list&#34;</span> <span style=color:#960050;background-color:#1e0010>(</span><span style=color:#a6e22e>cdkDropListDropped</span><span style=color:#960050;background-color:#1e0010>)=&#34;</span><span style=color:#a6e22e>drop</span><span style=color:#960050;background-color:#1e0010>($</span><span style=color:#a6e22e>event</span><span style=color:#960050;background-color:#1e0010>)&#34;</span>&gt;
+  &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;example-box&#34;</span> <span style=color:#960050;background-color:#1e0010>*</span><span style=color:#a6e22e>ngFor</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;let movie of movies&#34;</span> <span style=color:#a6e22e>cdkDrag</span>&gt;{{movie}}&lt;/<span style=color:#f92672>div</span>&gt;
+&lt;/<span style=color:#f92672>div</span>&gt;
+</code></pre></div><h3 id=reordering-listcomponentscss>reordering-list.component.scss<a hidden class=anchor aria-hidden=true href=#reordering-listcomponentscss>#</a></h3>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-scss data-lang=scss><span style=color:#a6e22e>.example-list</span> {
+  <span style=color:#a6e22e>width</span><span style=color:#f92672>:</span> <span style=color:#ae81ff>500</span><span style=color:#66d9ef>px</span>;
+  <span style=color:#a6e22e>max-width</span><span style=color:#f92672>:</span> <span style=color:#ae81ff>100</span><span style=color:#66d9ef>%</span>;
+  <span style=color:#a6e22e>border</span><span style=color:#f92672>:</span> solid <span style=color:#ae81ff>1</span><span style=color:#66d9ef>px</span> <span style=color:#ae81ff>#ccc</span>;
+  <span style=color:#a6e22e>min-height</span><span style=color:#f92672>:</span> <span style=color:#ae81ff>60</span><span style=color:#66d9ef>px</span>;
+  <span style=color:#a6e22e>display</span><span style=color:#f92672>:</span> block;
+  <span style=color:#a6e22e>background</span><span style=color:#f92672>:</span> white;
+  <span style=color:#a6e22e>border-radius</span><span style=color:#f92672>:</span> <span style=color:#ae81ff>4</span><span style=color:#66d9ef>px</span>;
+  <span style=color:#a6e22e>overflow</span><span style=color:#f92672>:</span> hidden;
+}
+
+<span style=color:#a6e22e>.example-box</span> {
+  <span style=color:#a6e22e>padding</span><span style=color:#f92672>:</span> <span style=color:#ae81ff>20</span><span style=color:#66d9ef>px</span> <span style=color:#ae81ff>10</span><span style=color:#66d9ef>px</span>;
+  <span style=color:#a6e22e>border-bottom</span><span style=color:#f92672>:</span> solid <span style=color:#ae81ff>1</span><span style=color:#66d9ef>px</span> <span style=color:#ae81ff>#ccc</span>;
+  <span style=color:#a6e22e>color</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>rgba</span>(<span style=color:#ae81ff>0</span><span style=color:#f92672>,</span> <span style=color:#ae81ff>0</span><span style=color:#f92672>,</span> <span style=color:#ae81ff>0</span><span style=color:#f92672>,</span> <span style=color:#ae81ff>0</span><span style=color:#ae81ff>.87</span>);
+  <span style=color:#a6e22e>display</span><span style=color:#f92672>:</span> flex;
+  <span style=color:#a6e22e>flex-direction</span><span style=color:#f92672>:</span> row;
+  <span style=color:#a6e22e>align-items</span><span style=color:#f92672>:</span> center;
+  <span style=color:#a6e22e>justify-content</span><span style=color:#f92672>:</span> space-between;
+  <span style=color:#a6e22e>box-sizing</span><span style=color:#f92672>:</span> border-box;
+  <span style=color:#a6e22e>cursor</span><span style=color:#f92672>:</span> move;
+  <span style=color:#a6e22e>background</span><span style=color:#f92672>:</span> white;
+  <span style=color:#a6e22e>font-size</span><span style=color:#f92672>:</span> <span style=color:#ae81ff>14</span><span style=color:#66d9ef>px</span>;
+}
+
+<span style=color:#a6e22e>.cdk-drag-preview</span> {
+  <span style=color:#a6e22e>box-sizing</span><span style=color:#f92672>:</span> border-box;
+  <span style=color:#a6e22e>border-radius</span><span style=color:#f92672>:</span> <span style=color:#ae81ff>4</span><span style=color:#66d9ef>px</span>;
+  <span style=color:#a6e22e>box-shadow</span><span style=color:#f92672>:</span> <span style=color:#ae81ff>0</span> <span style=color:#ae81ff>5</span><span style=color:#66d9ef>px</span> <span style=color:#ae81ff>5</span><span style=color:#66d9ef>px</span> <span style=color:#f92672>-</span><span style=color:#ae81ff>3</span><span style=color:#66d9ef>px</span> <span style=color:#a6e22e>rgba</span>(<span style=color:#ae81ff>0</span><span style=color:#f92672>,</span> <span style=color:#ae81ff>0</span><span style=color:#f92672>,</span> <span style=color:#ae81ff>0</span><span style=color:#f92672>,</span> <span style=color:#ae81ff>0</span><span style=color:#ae81ff>.2</span>)<span style=color:#f92672>,</span>
+              <span style=color:#ae81ff>0</span> <span style=color:#ae81ff>8</span><span style=color:#66d9ef>px</span> <span style=color:#ae81ff>10</span><span style=color:#66d9ef>px</span> <span style=color:#ae81ff>1</span><span style=color:#66d9ef>px</span> <span style=color:#a6e22e>rgba</span>(<span style=color:#ae81ff>0</span><span style=color:#f92672>,</span> <span style=color:#ae81ff>0</span><span style=color:#f92672>,</span> <span style=color:#ae81ff>0</span><span style=color:#f92672>,</span> <span style=color:#ae81ff>0</span><span style=color:#ae81ff>.14</span>)<span style=color:#f92672>,</span>
+              <span style=color:#ae81ff>0</span> <span style=color:#ae81ff>3</span><span style=color:#66d9ef>px</span> <span style=color:#ae81ff>14</span><span style=color:#66d9ef>px</span> <span style=color:#ae81ff>2</span><span style=color:#66d9ef>px</span> <span style=color:#a6e22e>rgba</span>(<span style=color:#ae81ff>0</span><span style=color:#f92672>,</span> <span style=color:#ae81ff>0</span><span style=color:#f92672>,</span> <span style=color:#ae81ff>0</span><span style=color:#f92672>,</span> <span style=color:#ae81ff>0</span><span style=color:#ae81ff>.12</span>);
+}
+
+<span style=color:#a6e22e>.cdk-drag-placeholder</span> {
+  <span style=color:#a6e22e>opacity</span><span style=color:#f92672>:</span> <span style=color:#ae81ff>0</span>;
+}
+
+<span style=color:#a6e22e>.cdk-drag-animating</span> {
+  <span style=color:#a6e22e>transition</span><span style=color:#f92672>:</span> transform <span style=color:#ae81ff>250</span><span style=color:#66d9ef>ms</span> <span style=color:#a6e22e>cubic-bezier</span>(<span style=color:#ae81ff>0</span><span style=color:#f92672>,</span> <span style=color:#ae81ff>0</span><span style=color:#f92672>,</span> <span style=color:#ae81ff>0</span><span style=color:#ae81ff>.2</span><span style=color:#f92672>,</span> <span style=color:#ae81ff>1</span>);
+}
+
+<span style=color:#a6e22e>.example-box</span><span style=color:#a6e22e>:last-child</span> {
+  <span style=color:#a6e22e>border</span><span style=color:#f92672>:</span> none;
+}
+
+<span style=color:#a6e22e>.example-list.cdk-drop-list-dragging</span> <span style=color:#a6e22e>.example-box</span><span style=color:#a6e22e>:not</span><span style=color:#f92672>(</span><span style=color:#a6e22e>.cdk-drag-placeholder</span><span style=color:#f92672>)</span> {
+  <span style=color:#a6e22e>transition</span><span style=color:#f92672>:</span> transform <span style=color:#ae81ff>250</span><span style=color:#66d9ef>ms</span> <span style=color:#a6e22e>cubic-bezier</span>(<span style=color:#ae81ff>0</span><span style=color:#f92672>,</span> <span style=color:#ae81ff>0</span><span style=color:#f92672>,</span> <span style=color:#ae81ff>0</span><span style=color:#ae81ff>.2</span><span style=color:#f92672>,</span> <span style=color:#ae81ff>1</span>);
+}
+</code></pre></div><p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/272280733-aaba7510-2c0c-40f0-8739-2032915ced30.png alt=image>
+</p>
+<p>註：若要實作“自定的 Place holder“，可以使用 CdkDragPlaceholder 指令來達成：</p>
+<ul>
+<li>先 import CdkDragPlaceholder</li>
+<li>在 template 中加入　<code>&lt;div class="custom-placeholder" *cdkDragPlaceholder>&lt;/div></code></li>
+<li>在 css 中加入 custom-placeholder 這個 class 的相關設定。</li>
+</ul>
+<h2 id=新增一個支援拖曳功能來交換資料的元件的功能>新增一個支援拖曳功能來交換資料的元件的功能<a hidden class=anchor aria-hidden=true href=#新增一個支援拖曳功能來交換資料的元件的功能>#</a></h2>
+<h3 id=transfer-data-listscomponentts>transfer-data-lists.component.ts<a hidden class=anchor aria-hidden=true href=#transfer-data-listscomponentts>#</a></h3>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-ts data-lang=ts><span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>Component</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;@angular/core&#39;</span>;
+<span style=color:#66d9ef>import</span> {<span style=color:#a6e22e>NgFor</span>} <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;@angular/common&#39;</span>;
+<span style=color:#66d9ef>import</span> {
+  <span style=color:#a6e22e>CdkDragDrop</span>,
+  <span style=color:#a6e22e>CdkDrag</span>,
+  <span style=color:#a6e22e>CdkDropList</span>,
+  <span style=color:#a6e22e>CdkDropListGroup</span>,
+  <span style=color:#a6e22e>moveItemInArray</span>,
+  <span style=color:#a6e22e>transferArrayItem</span>,
+} <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;@angular/cdk/drag-drop&#39;</span>;
+
+<span style=color:#66d9ef>@Component</span>({
+  <span style=color:#a6e22e>selector</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;app-transfer-data-lists&#39;</span>,
+  <span style=color:#a6e22e>standalone</span>: <span style=color:#66d9ef>true</span>,
+  <span style=color:#a6e22e>imports</span><span style=color:#f92672>:</span> [<span style=color:#a6e22e>CdkDropListGroup</span>, <span style=color:#a6e22e>CdkDropList</span>, <span style=color:#a6e22e>NgFor</span>, <span style=color:#a6e22e>CdkDrag</span>],
+  <span style=color:#a6e22e>templateUrl</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;./transfer-data-lists.component.html&#39;</span>,
+  <span style=color:#a6e22e>styleUrls</span><span style=color:#f92672>:</span> [<span style=color:#e6db74>&#39;./transfer-data-lists.component.scss&#39;</span>]
+})
+<span style=color:#66d9ef>export</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>TransferDataListsComponent</span> {
+  <span style=color:#a6e22e>todo</span> <span style=color:#f92672>=</span> [<span style=color:#e6db74>&#39;Get to work&#39;</span>, <span style=color:#e6db74>&#39;Pick up groceries&#39;</span>, <span style=color:#e6db74>&#39;Go home&#39;</span>, <span style=color:#e6db74>&#39;Fall asleep&#39;</span>];
+
+  <span style=color:#a6e22e>done</span> <span style=color:#f92672>=</span> [<span style=color:#e6db74>&#39;Get up&#39;</span>, <span style=color:#e6db74>&#39;Brush teeth&#39;</span>, <span style=color:#e6db74>&#39;Take a shower&#39;</span>, <span style=color:#e6db74>&#39;Check e-mail&#39;</span>, <span style=color:#e6db74>&#39;Walk dog&#39;</span>];
+
+  <span style=color:#a6e22e>drop</span>(<span style=color:#a6e22e>event</span>: <span style=color:#66d9ef>CdkDragDrop</span>&lt;<span style=color:#f92672>string</span><span style=color:#960050;background-color:#1e0010>[]</span>&gt;) {
+    <span style=color:#66d9ef>if</span> (<span style=color:#a6e22e>event</span>.<span style=color:#a6e22e>previousContainer</span> <span style=color:#f92672>===</span> <span style=color:#a6e22e>event</span>.<span style=color:#a6e22e>container</span>) {
+      <span style=color:#a6e22e>moveItemInArray</span>(<span style=color:#a6e22e>event</span>.<span style=color:#a6e22e>container</span>.<span style=color:#a6e22e>data</span>, <span style=color:#a6e22e>event</span>.<span style=color:#a6e22e>previousIndex</span>, <span style=color:#a6e22e>event</span>.<span style=color:#a6e22e>currentIndex</span>);
+    } <span style=color:#66d9ef>else</span> {
+      <span style=color:#a6e22e>transferArrayItem</span>(
+        <span style=color:#a6e22e>event</span>.<span style=color:#a6e22e>previousContainer</span>.<span style=color:#a6e22e>data</span>,
+        <span style=color:#a6e22e>event</span>.<span style=color:#a6e22e>container</span>.<span style=color:#a6e22e>data</span>,
+        <span style=color:#a6e22e>event</span>.<span style=color:#a6e22e>previousIndex</span>,
+        <span style=color:#a6e22e>event</span>.<span style=color:#a6e22e>currentIndex</span>,
+      );
+    }
+  }
+}
+</code></pre></div><p>註1.:若需要支援“可拖放重複項目”可參考以下程式碼：</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-ts data-lang=ts><span style=color:#a6e22e>drop</span>(<span style=color:#a6e22e>event</span>: <span style=color:#66d9ef>CdkDragDrop</span>&lt;<span style=color:#f92672>string</span><span style=color:#960050;background-color:#1e0010>[]</span>&gt;) {
+    <span style=color:#75715e>// if (event.previousContainer === event.container) {
+</span><span style=color:#75715e></span>    <span style=color:#75715e>//   moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+</span><span style=color:#75715e></span>    <span style=color:#75715e>// } else {
+</span><span style=color:#75715e></span>    <span style=color:#75715e>//   transferArrayItem(
+</span><span style=color:#75715e></span>    <span style=color:#75715e>//     event.previousContainer.data,
+</span><span style=color:#75715e></span>    <span style=color:#75715e>//     event.container.data,
+</span><span style=color:#75715e></span>    <span style=color:#75715e>//     event.previousIndex,
+</span><span style=color:#75715e></span>    <span style=color:#75715e>//     event.currentIndex,
+</span><span style=color:#75715e></span>    <span style=color:#75715e>//   );
+</span><span style=color:#75715e></span>    <span style=color:#75715e>// }
+</span><span style=color:#75715e></span>    <span style=color:#66d9ef>if</span> (<span style=color:#a6e22e>event</span>.<span style=color:#a6e22e>previousContainer</span> <span style=color:#f92672>===</span> <span style=color:#a6e22e>event</span>.<span style=color:#a6e22e>container</span>) {
+      <span style=color:#a6e22e>moveItemInArray</span>(<span style=color:#a6e22e>event</span>.<span style=color:#a6e22e>container</span>.<span style=color:#a6e22e>data</span>, <span style=color:#a6e22e>event</span>.<span style=color:#a6e22e>previousIndex</span>, <span style=color:#a6e22e>event</span>.<span style=color:#a6e22e>currentIndex</span>);
+    } <span style=color:#66d9ef>else</span> {
+        <span style=color:#66d9ef>let</span> <span style=color:#a6e22e>idx</span><span style=color:#f92672>=</span><span style=color:#a6e22e>event</span>.<span style=color:#a6e22e>container</span>.<span style=color:#a6e22e>data</span>.<span style=color:#a6e22e>indexOf</span>(<span style=color:#a6e22e>event</span>.<span style=color:#a6e22e>previousContainer</span>.<span style=color:#a6e22e>data</span>[<span style=color:#a6e22e>event</span>.<span style=color:#a6e22e>previousIndex</span>]);
+        <span style=color:#66d9ef>if</span>(<span style=color:#a6e22e>idx</span> <span style=color:#f92672>!=</span> <span style=color:#f92672>-</span><span style=color:#ae81ff>1</span>){
+          <span style=color:#66d9ef>return</span>;
+      }
+        <span style=color:#a6e22e>copyArrayItem</span>(<span style=color:#a6e22e>event</span>.<span style=color:#a6e22e>previousContainer</span>.<span style=color:#a6e22e>data</span>,
+                        <span style=color:#a6e22e>event</span>.<span style=color:#a6e22e>container</span>.<span style=color:#a6e22e>data</span>,
+                        <span style=color:#a6e22e>event</span>.<span style=color:#a6e22e>previousIndex</span>,
+                        <span style=color:#a6e22e>event</span>.<span style=color:#a6e22e>currentIndex</span>);
+    }
+  }
+</code></pre></div><h3 id=transfer-data-listscomponenthtml>transfer-data-lists.component.html<a hidden class=anchor aria-hidden=true href=#transfer-data-listscomponenthtml>#</a></h3>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html>&lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>cdkDropListGroup</span>&gt;
+  &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;example-container&#34;</span>&gt;
+    &lt;<span style=color:#f92672>h2</span>&gt;To do&lt;/<span style=color:#f92672>h2</span>&gt;
+
+    &lt;<span style=color:#f92672>div</span>
+      <span style=color:#a6e22e>cdkDropList</span>
+      <span style=color:#960050;background-color:#1e0010>[</span><span style=color:#a6e22e>cdkDropListData</span><span style=color:#960050;background-color:#1e0010>]=&#34;</span><span style=color:#a6e22e>todo</span><span style=color:#960050;background-color:#1e0010>&#34;</span>
+      <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;example-list&#34;</span>
+      <span style=color:#960050;background-color:#1e0010>(</span><span style=color:#a6e22e>cdkDropListDropped</span><span style=color:#960050;background-color:#1e0010>)=&#34;</span><span style=color:#a6e22e>drop</span><span style=color:#960050;background-color:#1e0010>($</span><span style=color:#a6e22e>event</span><span style=color:#960050;background-color:#1e0010>)&#34;</span>&gt;
+      &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;example-box&#34;</span> <span style=color:#960050;background-color:#1e0010>*</span><span style=color:#a6e22e>ngFor</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;let item of todo&#34;</span> <span style=color:#a6e22e>cdkDrag</span>&gt;{{item}}&lt;/<span style=color:#f92672>div</span>&gt;
+    &lt;/<span style=color:#f92672>div</span>&gt;
+  &lt;/<span style=color:#f92672>div</span>&gt;
+
+  &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;example-container&#34;</span>&gt;
+    &lt;<span style=color:#f92672>h2</span>&gt;Done&lt;/<span style=color:#f92672>h2</span>&gt;
+
+    &lt;<span style=color:#f92672>div</span>
+      <span style=color:#a6e22e>cdkDropList</span>
+      <span style=color:#960050;background-color:#1e0010>[</span><span style=color:#a6e22e>cdkDropListData</span><span style=color:#960050;background-color:#1e0010>]=&#34;</span><span style=color:#a6e22e>done</span><span style=color:#960050;background-color:#1e0010>&#34;</span>
+      <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;example-list&#34;</span>
+      <span style=color:#960050;background-color:#1e0010>(</span><span style=color:#a6e22e>cdkDropListDropped</span><span style=color:#960050;background-color:#1e0010>)=&#34;</span><span style=color:#a6e22e>drop</span><span style=color:#960050;background-color:#1e0010>($</span><span style=color:#a6e22e>event</span><span style=color:#960050;background-color:#1e0010>)&#34;</span>&gt;
+      &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;example-box&#34;</span> <span style=color:#960050;background-color:#1e0010>*</span><span style=color:#a6e22e>ngFor</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;let item of done&#34;</span> <span style=color:#a6e22e>cdkDrag</span>&gt;{{item}}&lt;/<span style=color:#f92672>div</span>&gt;
+    &lt;/<span style=color:#f92672>div</span>&gt;
+  &lt;/<span style=color:#f92672>div</span>&gt;
+&lt;/<span style=color:#f92672>div</span>&gt;
+</code></pre></div><p>註2.：若要使得某一個 List 中的 Item 無法支援拖曳自身來重新排序可加入 cdkDropListSortingDisabled directive。一旦加入了這個指令，那麼這個 List 中的 Item 只支援被拖曳到其他 List 中。</p>
+<h3 id=transfer-data-listscomponentscss>transfer-data-lists.component.scss<a hidden class=anchor aria-hidden=true href=#transfer-data-listscomponentscss>#</a></h3>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-scss data-lang=scss><span style=color:#a6e22e>.example-container</span> {
+  <span style=color:#a6e22e>width</span><span style=color:#f92672>:</span> <span style=color:#ae81ff>400</span><span style=color:#66d9ef>px</span>;
+  <span style=color:#a6e22e>max-width</span><span style=color:#f92672>:</span> <span style=color:#ae81ff>100</span><span style=color:#66d9ef>%</span>;
+  <span style=color:#a6e22e>margin</span><span style=color:#f92672>:</span> <span style=color:#ae81ff>0</span> <span style=color:#ae81ff>25</span><span style=color:#66d9ef>px</span> <span style=color:#ae81ff>25</span><span style=color:#66d9ef>px</span> <span style=color:#ae81ff>0</span>;
+  <span style=color:#a6e22e>display</span><span style=color:#f92672>:</span> inline-block;
+  <span style=color:#a6e22e>vertical-align</span><span style=color:#f92672>:</span> top;
+}
+
+<span style=color:#a6e22e>.example-list</span> {
+  <span style=color:#a6e22e>border</span><span style=color:#f92672>:</span> solid <span style=color:#ae81ff>1</span><span style=color:#66d9ef>px</span> <span style=color:#ae81ff>#ccc</span>;
+  <span style=color:#a6e22e>min-height</span><span style=color:#f92672>:</span> <span style=color:#ae81ff>60</span><span style=color:#66d9ef>px</span>;
+  <span style=color:#a6e22e>background</span><span style=color:#f92672>:</span> white;
+  <span style=color:#a6e22e>border-radius</span><span style=color:#f92672>:</span> <span style=color:#ae81ff>4</span><span style=color:#66d9ef>px</span>;
+  <span style=color:#a6e22e>overflow</span><span style=color:#f92672>:</span> hidden;
+  <span style=color:#a6e22e>display</span><span style=color:#f92672>:</span> block;
+}
+
+<span style=color:#a6e22e>.example-box</span> {
+  <span style=color:#a6e22e>padding</span><span style=color:#f92672>:</span> <span style=color:#ae81ff>20</span><span style=color:#66d9ef>px</span> <span style=color:#ae81ff>10</span><span style=color:#66d9ef>px</span>;
+  <span style=color:#a6e22e>border-bottom</span><span style=color:#f92672>:</span> solid <span style=color:#ae81ff>1</span><span style=color:#66d9ef>px</span> <span style=color:#ae81ff>#ccc</span>;
+  <span style=color:#a6e22e>color</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>rgba</span>(<span style=color:#ae81ff>0</span><span style=color:#f92672>,</span> <span style=color:#ae81ff>0</span><span style=color:#f92672>,</span> <span style=color:#ae81ff>0</span><span style=color:#f92672>,</span> <span style=color:#ae81ff>0</span><span style=color:#ae81ff>.87</span>);
+  <span style=color:#a6e22e>display</span><span style=color:#f92672>:</span> flex;
+  <span style=color:#a6e22e>flex-direction</span><span style=color:#f92672>:</span> row;
+  <span style=color:#a6e22e>align-items</span><span style=color:#f92672>:</span> center;
+  <span style=color:#a6e22e>justify-content</span><span style=color:#f92672>:</span> space-between;
+  <span style=color:#a6e22e>box-sizing</span><span style=color:#f92672>:</span> border-box;
+  <span style=color:#a6e22e>cursor</span><span style=color:#f92672>:</span> move;
+  <span style=color:#a6e22e>background</span><span style=color:#f92672>:</span> white;
+  <span style=color:#a6e22e>font-size</span><span style=color:#f92672>:</span> <span style=color:#ae81ff>14</span><span style=color:#66d9ef>px</span>;
+}
+
+<span style=color:#a6e22e>.cdk-drag-preview</span> {
+  <span style=color:#a6e22e>box-sizing</span><span style=color:#f92672>:</span> border-box;
+  <span style=color:#a6e22e>border-radius</span><span style=color:#f92672>:</span> <span style=color:#ae81ff>4</span><span style=color:#66d9ef>px</span>;
+  <span style=color:#a6e22e>box-shadow</span><span style=color:#f92672>:</span> <span style=color:#ae81ff>0</span> <span style=color:#ae81ff>5</span><span style=color:#66d9ef>px</span> <span style=color:#ae81ff>5</span><span style=color:#66d9ef>px</span> <span style=color:#f92672>-</span><span style=color:#ae81ff>3</span><span style=color:#66d9ef>px</span> <span style=color:#a6e22e>rgba</span>(<span style=color:#ae81ff>0</span><span style=color:#f92672>,</span> <span style=color:#ae81ff>0</span><span style=color:#f92672>,</span> <span style=color:#ae81ff>0</span><span style=color:#f92672>,</span> <span style=color:#ae81ff>0</span><span style=color:#ae81ff>.2</span>)<span style=color:#f92672>,</span>
+              <span style=color:#ae81ff>0</span> <span style=color:#ae81ff>8</span><span style=color:#66d9ef>px</span> <span style=color:#ae81ff>10</span><span style=color:#66d9ef>px</span> <span style=color:#ae81ff>1</span><span style=color:#66d9ef>px</span> <span style=color:#a6e22e>rgba</span>(<span style=color:#ae81ff>0</span><span style=color:#f92672>,</span> <span style=color:#ae81ff>0</span><span style=color:#f92672>,</span> <span style=color:#ae81ff>0</span><span style=color:#f92672>,</span> <span style=color:#ae81ff>0</span><span style=color:#ae81ff>.14</span>)<span style=color:#f92672>,</span>
+              <span style=color:#ae81ff>0</span> <span style=color:#ae81ff>3</span><span style=color:#66d9ef>px</span> <span style=color:#ae81ff>14</span><span style=color:#66d9ef>px</span> <span style=color:#ae81ff>2</span><span style=color:#66d9ef>px</span> <span style=color:#a6e22e>rgba</span>(<span style=color:#ae81ff>0</span><span style=color:#f92672>,</span> <span style=color:#ae81ff>0</span><span style=color:#f92672>,</span> <span style=color:#ae81ff>0</span><span style=color:#f92672>,</span> <span style=color:#ae81ff>0</span><span style=color:#ae81ff>.12</span>);
+}
+
+<span style=color:#a6e22e>.cdk-drag-placeholder</span> {
+  <span style=color:#a6e22e>opacity</span><span style=color:#f92672>:</span> <span style=color:#ae81ff>0</span>;
+}
+
+<span style=color:#a6e22e>.cdk-drag-animating</span> {
+  <span style=color:#a6e22e>transition</span><span style=color:#f92672>:</span> transform <span style=color:#ae81ff>250</span><span style=color:#66d9ef>ms</span> <span style=color:#a6e22e>cubic-bezier</span>(<span style=color:#ae81ff>0</span><span style=color:#f92672>,</span> <span style=color:#ae81ff>0</span><span style=color:#f92672>,</span> <span style=color:#ae81ff>0</span><span style=color:#ae81ff>.2</span><span style=color:#f92672>,</span> <span style=color:#ae81ff>1</span>);
+}
+
+<span style=color:#a6e22e>.example-box</span><span style=color:#a6e22e>:last-child</span> {
+  <span style=color:#a6e22e>border</span><span style=color:#f92672>:</span> none;
+}
+
+<span style=color:#a6e22e>.example-list.cdk-drop-list-dragging</span> <span style=color:#a6e22e>.example-box</span><span style=color:#a6e22e>:not</span><span style=color:#f92672>(</span><span style=color:#a6e22e>.cdk-drag-placeholder</span><span style=color:#f92672>)</span> {
+  <span style=color:#a6e22e>transition</span><span style=color:#f92672>:</span> transform <span style=color:#ae81ff>250</span><span style=color:#66d9ef>ms</span> <span style=color:#a6e22e>cubic-bezier</span>(<span style=color:#ae81ff>0</span><span style=color:#f92672>,</span> <span style=color:#ae81ff>0</span><span style=color:#f92672>,</span> <span style=color:#ae81ff>0</span><span style=color:#ae81ff>.2</span><span style=color:#f92672>,</span> <span style=color:#ae81ff>1</span>);
+}
+</code></pre></div><p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/272281103-1c33d608-e8c1-4839-897f-2f708d403741.png alt=image>
+</p>
+<p>註3.：若要拖曳過程想使用被拖曳項目內容來決定是否可以到加入到目標清單中，可使用 Predicate 功能：</p>
+<ul>
+<li>在被拖曳項目中加入 cdkDragData property，用來將被拖曳項目值被㩦出到目標清單中</li>
+<li>目標清單中加入　cdkDropListEnterPredicate 並指定判斷的 function</li>
+<li>在 class 中實現 function 的判斷邏輯</li>
+</ul>
+<div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4>
+<table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0>
+<pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style=display:block;width:100%;background-color:#3c3d38><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span></span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">18
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">19
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">20
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">21
+</span><span style=display:block;width:100%;background-color:#3c3d38><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">22
+</span></span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">23
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">24
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">25
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">26
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">27
+</span></code></pre></td>
+<td style=vertical-align:top;padding:0;margin:0;border:0;width:100%>
+<pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html>&lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>cdkDropListGroup</span>&gt;
+  &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;example-container&#34;</span>&gt;
+    &lt;<span style=color:#f92672>h2</span>&gt;To do&lt;/<span style=color:#f92672>h2</span>&gt;
+
+    &lt;<span style=color:#f92672>div</span>
+      <span style=color:#a6e22e>cdkDropList</span>
+      <span style=color:#960050;background-color:#1e0010>[</span><span style=color:#a6e22e>cdkDropListData</span><span style=color:#960050;background-color:#1e0010>]=&#34;</span><span style=color:#a6e22e>todo</span><span style=color:#960050;background-color:#1e0010>&#34;</span>
+      <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;example-list&#34;</span>
+      <span style=color:#960050;background-color:#1e0010>(</span><span style=color:#a6e22e>cdkDropListDropped</span><span style=color:#960050;background-color:#1e0010>)=&#34;</span><span style=color:#a6e22e>drop</span><span style=color:#960050;background-color:#1e0010>($</span><span style=color:#a6e22e>event</span><span style=color:#960050;background-color:#1e0010>)&#34;</span>&gt;
+<span style=display:block;width:100%;background-color:#3c3d38>      &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;example-box&#34;</span> <span style=color:#960050;background-color:#1e0010>*</span><span style=color:#a6e22e>ngFor</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;let item of todo&#34;</span> <span style=color:#960050;background-color:#1e0010>[</span><span style=color:#a6e22e>cdkDragData</span><span style=color:#960050;background-color:#1e0010>]=&#34;</span><span style=color:#a6e22e>item</span><span style=color:#960050;background-color:#1e0010>&#34;</span> <span style=color:#a6e22e>cdkDrag</span>&gt;{{item}}&lt;/<span style=color:#f92672>div</span>&gt;
+</span>    &lt;/<span style=color:#f92672>div</span>&gt;
+  &lt;/<span style=color:#f92672>div</span>&gt;
+
+  &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;example-container&#34;</span>&gt;
+    &lt;<span style=color:#f92672>h2</span>&gt;Done&lt;/<span style=color:#f92672>h2</span>&gt;
+
+    &lt;<span style=color:#f92672>div</span>
+      <span style=color:#a6e22e>cdkDropList</span>
+      <span style=color:#960050;background-color:#1e0010>[</span><span style=color:#a6e22e>cdkDropListData</span><span style=color:#960050;background-color:#1e0010>]=&#34;</span><span style=color:#a6e22e>done</span><span style=color:#960050;background-color:#1e0010>&#34;</span>
+      <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;example-list&#34;</span>
+      <span style=color:#960050;background-color:#1e0010>(</span><span style=color:#a6e22e>cdkDropListDropped</span><span style=color:#960050;background-color:#1e0010>)=&#34;</span><span style=color:#a6e22e>drop</span><span style=color:#960050;background-color:#1e0010>($</span><span style=color:#a6e22e>event</span><span style=color:#960050;background-color:#1e0010>)&#34;</span>
+<span style=display:block;width:100%;background-color:#3c3d38>      <span style=color:#960050;background-color:#1e0010>[</span><span style=color:#a6e22e>cdkDropListEnterPredicate</span><span style=color:#960050;background-color:#1e0010>]=&#34;</span><span style=color:#a6e22e>conditionPredicate</span><span style=color:#960050;background-color:#1e0010>&#34;</span>&gt;
+</span>
+      &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;example-box&#34;</span> <span style=color:#960050;background-color:#1e0010>*</span><span style=color:#a6e22e>ngFor</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;let item of done&#34;</span> <span style=color:#a6e22e>cdkDrag</span>&gt;{{item}}&lt;/<span style=color:#f92672>div</span>&gt;
+    &lt;/<span style=color:#f92672>div</span>&gt;
+  &lt;/<span style=color:#f92672>div</span>&gt;
+&lt;/<span style=color:#f92672>div</span>&gt;
+</code></pre></td></tr></table>
+</div>
+</div><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-ts data-lang=ts>...
+  <span style=color:#a6e22e>conditionPredicate</span>(<span style=color:#a6e22e>item</span>: <span style=color:#66d9ef>CdkDrag</span>&lt;<span style=color:#f92672>string</span>&gt;) {
+    <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>item</span>.<span style=color:#a6e22e>data</span>  <span style=color:#f92672>===</span> <span style=color:#e6db74>&#39;Get to work&#39;</span>;
+  }
+...
+</code></pre></div>
+</div>
+<footer class=post-footer>
+<ul class=post-tags>
+<li><a href=https://calvinegs.github.io/tags/angular/>angular</a></li>
+<li><a href=https://calvinegs.github.io/tags/material-cdk/>Material CDK</a></li>
+<li><a href=https://calvinegs.github.io/tags/drag-and-drop/>drag and drop</a></li>
+</ul>
+<nav class=paginav>
+<a class=next href=https://calvinegs.github.io/posts/venv-python/>
+<span class=title>Next Page »</span>
+<br>
+<span>使用 Python 上的虛擬環境(一) venv</span>
+</a>
+</nav>
+<div class=share-buttons>
+<a target=_blank rel="noopener noreferrer" aria-label="share 在 Angular 使用 Material CDK 來實作拖曳功能的使用者介面 on twitter" href="https://twitter.com/intent/tweet/?text=%e5%9c%a8%20Angular%20%e4%bd%bf%e7%94%a8%20Material%20CDK%20%e4%be%86%e5%af%a6%e4%bd%9c%e6%8b%96%e6%9b%b3%e5%8a%9f%e8%83%bd%e7%9a%84%e4%bd%bf%e7%94%a8%e8%80%85%e4%bb%8b%e9%9d%a2&url=https%3a%2f%2fcalvinegs.github.io%2fposts%2fdragdrop-material-cdk%2f&hashtags=angular%2cMaterialCDK%2cdraganddrop"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zM195.519 424.544c135.939.0 210.268-112.643 210.268-210.268.0-3.218.0-6.437-.153-9.502 14.406-10.421 26.973-23.448 36.935-38.314-13.18 5.824-27.433 9.809-42.452 11.648 15.326-9.196 26.973-23.602 32.49-40.92-14.252 8.429-30.038 14.56-46.896 17.931-13.487-14.406-32.644-23.295-53.946-23.295-40.767.0-73.87 33.104-73.87 73.87.0 5.824.613 11.494 1.992 16.858-61.456-3.065-115.862-32.49-152.337-77.241-6.284 10.881-9.962 23.601-9.962 37.088.0 25.594 13.027 48.276 32.95 61.456-12.107-.307-23.448-3.678-33.41-9.196v.92c0 35.862 25.441 65.594 59.311 72.49-6.13 1.686-12.72 2.606-19.464 2.606-4.751.0-9.348-.46-13.946-1.38 9.349 29.426 36.628 50.728 68.965 51.341-25.287 19.771-57.164 31.571-91.8 31.571-5.977.0-11.801-.306-17.625-1.073 32.337 21.15 71.264 33.41 112.95 33.41z"/></svg>
+</a>
+<a target=_blank rel="noopener noreferrer" aria-label="share 在 Angular 使用 Material CDK 來實作拖曳功能的使用者介面 on linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2fcalvinegs.github.io%2fposts%2fdragdrop-material-cdk%2f&title=%e5%9c%a8%20Angular%20%e4%bd%bf%e7%94%a8%20Material%20CDK%20%e4%be%86%e5%af%a6%e4%bd%9c%e6%8b%96%e6%9b%b3%e5%8a%9f%e8%83%bd%e7%9a%84%e4%bd%bf%e7%94%a8%e8%80%85%e4%bb%8b%e9%9d%a2&summary=%e5%9c%a8%20Angular%20%e4%bd%bf%e7%94%a8%20Material%20CDK%20%e4%be%86%e5%af%a6%e4%bd%9c%e6%8b%96%e6%9b%b3%e5%8a%9f%e8%83%bd%e7%9a%84%e4%bd%bf%e7%94%a8%e8%80%85%e4%bb%8b%e9%9d%a2&source=https%3a%2f%2fcalvinegs.github.io%2fposts%2fdragdrop-material-cdk%2f"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zM160.461 423.278V197.561h-75.04v225.717h75.04zm270.539.0V293.839c0-69.333-37.018-101.586-86.381-101.586-39.804.0-57.634 21.891-67.617 37.266v-31.958h-75.021c.995 21.181.0 225.717.0 225.717h75.02V297.222c0-6.748.486-13.492 2.474-18.315 5.414-13.475 17.767-27.434 38.494-27.434 27.135.0 38.007 20.707 38.007 51.037v120.768H431zM123.448 88.722C97.774 88.722 81 105.601 81 127.724c0 21.658 16.264 39.002 41.455 39.002h.484c26.165.0 42.452-17.344 42.452-39.002-.485-22.092-16.241-38.954-41.943-39.002z"/></svg>
+</a>
+<a target=_blank rel="noopener noreferrer" aria-label="share 在 Angular 使用 Material CDK 來實作拖曳功能的使用者介面 on reddit" href="https://reddit.com/submit?url=https%3a%2f%2fcalvinegs.github.io%2fposts%2fdragdrop-material-cdk%2f&title=%e5%9c%a8%20Angular%20%e4%bd%bf%e7%94%a8%20Material%20CDK%20%e4%be%86%e5%af%a6%e4%bd%9c%e6%8b%96%e6%9b%b3%e5%8a%9f%e8%83%bd%e7%9a%84%e4%bd%bf%e7%94%a8%e8%80%85%e4%bb%8b%e9%9d%a2"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zM446 265.638c0-22.964-18.616-41.58-41.58-41.58-11.211.0-21.361 4.457-28.841 11.666-28.424-20.508-67.586-33.757-111.204-35.278l18.941-89.121 61.884 13.157c.756 15.734 13.642 28.29 29.56 28.29 16.407.0 29.706-13.299 29.706-29.701.0-16.403-13.299-29.702-29.706-29.702-11.666.0-21.657 6.792-26.515 16.578l-69.105-14.69c-1.922-.418-3.939-.042-5.585 1.036-1.658 1.073-2.811 2.761-3.224 4.686l-21.152 99.438c-44.258 1.228-84.046 14.494-112.837 35.232-7.468-7.164-17.589-11.591-28.757-11.591-22.965.0-41.585 18.616-41.585 41.58.0 16.896 10.095 31.41 24.568 37.918-.639 4.135-.99 8.328-.99 12.576.0 63.977 74.469 115.836 166.33 115.836s166.334-51.859 166.334-115.836c0-4.218-.347-8.387-.977-12.493 14.564-6.47 24.735-21.034 24.735-38.001zM326.526 373.831c-20.27 20.241-59.115 21.816-70.534 21.816-11.428.0-50.277-1.575-70.522-21.82-3.007-3.008-3.007-7.882.0-10.889 3.003-2.999 7.882-3.003 10.885.0 12.777 12.781 40.11 17.317 59.637 17.317 19.522.0 46.86-4.536 59.657-17.321 3.016-2.999 7.886-2.995 10.885.008 3.008 3.011 3.003 7.882-.008 10.889zm-5.23-48.781c-16.373.0-29.701-13.324-29.701-29.698.0-16.381 13.328-29.714 29.701-29.714 16.378.0 29.706 13.333 29.706 29.714.0 16.374-13.328 29.698-29.706 29.698zM160.91 295.348c0-16.381 13.328-29.71 29.714-29.71 16.369.0 29.689 13.329 29.689 29.71.0 16.373-13.32 29.693-29.689 29.693-16.386.0-29.714-13.32-29.714-29.693z"/></svg>
+</a>
+<a target=_blank rel="noopener noreferrer" aria-label="share 在 Angular 使用 Material CDK 來實作拖曳功能的使用者介面 on facebook" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fcalvinegs.github.io%2fposts%2fdragdrop-material-cdk%2f"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H342.978V319.085h66.6l12.672-82.621h-79.272v-53.617c0-22.603 11.073-44.636 46.58-44.636H425.6v-70.34s-32.71-5.582-63.982-5.582c-65.288.0-107.96 39.569-107.96 111.204v62.971h-72.573v82.621h72.573V512h-191.104c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892z"/></svg>
+</a>
+<a target=_blank rel="noopener noreferrer" aria-label="share 在 Angular 使用 Material CDK 來實作拖曳功能的使用者介面 on whatsapp" href="https://api.whatsapp.com/send?text=%e5%9c%a8%20Angular%20%e4%bd%bf%e7%94%a8%20Material%20CDK%20%e4%be%86%e5%af%a6%e4%bd%9c%e6%8b%96%e6%9b%b3%e5%8a%9f%e8%83%bd%e7%9a%84%e4%bd%bf%e7%94%a8%e8%80%85%e4%bb%8b%e9%9d%a2%20-%20https%3a%2f%2fcalvinegs.github.io%2fposts%2fdragdrop-material-cdk%2f"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zm-58.673 127.703c-33.842-33.881-78.847-52.548-126.798-52.568-98.799.0-179.21 80.405-179.249 179.234-.013 31.593 8.241 62.428 23.927 89.612l-25.429 92.884 95.021-24.925c26.181 14.28 55.659 21.807 85.658 21.816h.074c98.789.0 179.206-80.413 179.247-179.243.018-47.895-18.61-92.93-52.451-126.81zM263.976 403.485h-.06c-26.734-.01-52.954-7.193-75.828-20.767l-5.441-3.229-56.386 14.792 15.05-54.977-3.542-5.637c-14.913-23.72-22.791-51.136-22.779-79.287.033-82.142 66.867-148.971 149.046-148.971 39.793.014 77.199 15.531 105.329 43.692 28.128 28.16 43.609 65.592 43.594 105.4-.034 82.149-66.866 148.983-148.983 148.984zm81.721-111.581c-4.479-2.242-26.499-13.075-30.604-14.571-4.105-1.495-7.091-2.241-10.077 2.241-2.986 4.483-11.569 14.572-14.182 17.562-2.612 2.988-5.225 3.364-9.703 1.12-4.479-2.241-18.91-6.97-36.017-22.23C231.8 264.15 222.81 249.484 220.198 245s-.279-6.908 1.963-9.14c2.016-2.007 4.48-5.232 6.719-7.847 2.24-2.615 2.986-4.484 4.479-7.472 1.493-2.99.747-5.604-.374-7.846-1.119-2.241-10.077-24.288-13.809-33.256-3.635-8.733-7.327-7.55-10.077-7.688-2.609-.13-5.598-.158-8.583-.158-2.986.0-7.839 1.121-11.944 5.604-4.105 4.484-15.675 15.32-15.675 37.364.0 22.046 16.048 43.342 18.287 46.332 2.24 2.99 31.582 48.227 76.511 67.627 10.685 4.615 19.028 7.371 25.533 9.434 10.728 3.41 20.492 2.929 28.209 1.775 8.605-1.285 26.499-10.833 30.231-21.295 3.732-10.464 3.732-19.431 2.612-21.298-1.119-1.869-4.105-2.99-8.583-5.232z"/></svg>
+</a>
+<a target=_blank rel="noopener noreferrer" aria-label="share 在 Angular 使用 Material CDK 來實作拖曳功能的使用者介面 on telegram" href="https://telegram.me/share/url?text=%e5%9c%a8%20Angular%20%e4%bd%bf%e7%94%a8%20Material%20CDK%20%e4%be%86%e5%af%a6%e4%bd%9c%e6%8b%96%e6%9b%b3%e5%8a%9f%e8%83%bd%e7%9a%84%e4%bd%bf%e7%94%a8%e8%80%85%e4%bb%8b%e9%9d%a2&url=https%3a%2f%2fcalvinegs.github.io%2fposts%2fdragdrop-material-cdk%2f"><svg viewBox="2 2 28 28"><path d="M26.49 29.86H5.5a3.37 3.37.0 01-2.47-1 3.35 3.35.0 01-1-2.47V5.48A3.36 3.36.0 013 3 3.37 3.37.0 015.5 2h21A3.38 3.38.0 0129 3a3.36 3.36.0 011 2.46V26.37a3.35 3.35.0 01-1 2.47 3.38 3.38.0 01-2.51 1.02zm-5.38-6.71a.79.79.0 00.85-.66L24.73 9.24a.55.55.0 00-.18-.46.62.62.0 00-.41-.17q-.08.0-16.53 6.11a.59.59.0 00-.41.59.57.57.0 00.43.52l4 1.24 1.61 4.83a.62.62.0 00.63.43.56.56.0 00.4-.17L16.54 20l4.09 3A.9.9.0 0021.11 23.15zM13.8 20.71l-1.21-4q8.72-5.55 8.78-5.55c.15.0.23.0.23.16a.18.18.0 010 .06s-2.51 2.3-7.52 6.8z"/></svg>
+</a>
+</div>
+</footer>
+<div>
+<div id=disqus_thread></div>
+<script type=text/javascript>(function(){var a,b;if(window.location.hostname=="localhost")return;a=document.createElement('script'),a.type='text/javascript',a.async=!0,b='calvinegs-github-io',a.src='//'+b+'.disqus.com/embed.js',(document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild(a)})()</script>
+<noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript>
+<a href=https://disqus.com/ class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a>
+</div>
+</article>
+</main>
+<footer class=footer>
+<span>&copy; 2023 <a href=https://calvinegs.github.io/>永誌不忘 • 筆記簿</a></span>
+<span>
+Powered by
+<a href=https://gohugo.io/ rel="noopener noreferrer" target=_blank>Hugo</a> &
+        <a href=https://git.io/hugopapermod rel=noopener target=_blank>PaperMod</a>
+</span>
+</footer>
+<a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentcolor"><path d="M12 6H0l6-6z"/></svg>
+</a>
+<script>let menu=document.getElementById('menu');menu&&(menu.scrollLeft=localStorage.getItem("menu-scroll-position"),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}),document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener("click",function(b){b.preventDefault();var a=this.getAttribute("href").substr(1);window.matchMedia('(prefers-reduced-motion: reduce)').matches?document.querySelector(`[id='${decodeURIComponent(a)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(a)}']`).scrollIntoView({behavior:"smooth"}),a==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${a}`)})})</script>
+<script>var mybutton=document.getElementById("top-link");window.onscroll=function(){document.body.scrollTop>800||document.documentElement.scrollTop>800?(mybutton.style.visibility="visible",mybutton.style.opacity="1"):(mybutton.style.visibility="hidden",mybutton.style.opacity="0")}</script>
+<script>document.getElementById("theme-toggle").addEventListener("click",()=>{document.body.className.includes("dark")?(document.body.classList.remove('dark'),localStorage.setItem("pref-theme",'light')):(document.body.classList.add('dark'),localStorage.setItem("pref-theme",'dark'))})</script>
+<script>document.querySelectorAll('pre > code').forEach(b=>{const c=b.parentNode.parentNode,a=document.createElement('button');a.classList.add('copy-code'),a.innerText='copy';function d(){a.innerText='copied!',setTimeout(()=>{a.innerText='copy'},2e3)}a.addEventListener('click',e=>{if('clipboard'in navigator){navigator.clipboard.writeText(b.textContent),d();return}const a=document.createRange();a.selectNodeContents(b);const c=window.getSelection();c.removeAllRanges(),c.addRange(a);try{document.execCommand('copy'),d()}catch(a){}c.removeRange(a)}),c.classList.contains("highlight")?c.appendChild(a):c.parentNode.firstChild==c||(b.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName=="TABLE"?b.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(a):b.parentNode.appendChild(a))})</script>
+</body>
+</html>

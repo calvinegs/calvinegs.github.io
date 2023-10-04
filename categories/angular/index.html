@@ -76,6 +76,24 @@
 </header>
 <article class="post-entry tag-entry">
 <header class=entry-header>
+<h2>在 Angular 使用 Material CDK 來實作拖曳功能的使用者介面
+</h2>
+</header>
+<section class=entry-content>
+<p>github Source code
+在網頁上實作可拖曳的使用者介面可大符增加應用程式使用操作的友善性。
+透過拖放，使用者可以使用滑鼠或觸控板點擊檔案並將其拖曳到可放置元素（放置區域），然後透過釋放滑鼠按鈕來「放置」檔案。這使您可以相對輕鬆地建立非常直觀的用戶體驗。
+要在 angular app 上實現這樣的功能除了可以透過第三方的 UI Component (如：igniteui、ngx-drag-drop)的支援外，最方便的解決方案是使用 Angular 內建的功能 Material CDK 來實作。
+Angular Drag and Drop CDK（元件開發套件）提供自由拖曳、清單內排序、清單之間移動項目、動畫、觸摸裝置、自訂拖曳手把(handle)等的支援。
+在下面的實作過程將會使用到下列技術:
+Angular cli 16 Bootstrap 5 (UI Framework) Angular 16 Router Standalone component Angular Material CDK CdkDrag CdkDragHandle CdkDropList CdkDropListGroup moveItemInArray 建立一個 Angular 應用程式 使用 angular cli 建立應用程式 將採 standalone 架構來建置這個應用程式，使用以下指令如下
+$ npm init @angular dragDropApp -- --routing --style scss --standalone && cd dragDropApp Need to install the following packages: @angular/create@16....</p>
+</section>
+<footer class=entry-footer><span title="2023-10-02 00:00:00 +0000 UTC">October 2, 2023</span>&nbsp;·&nbsp;8 min&nbsp;·&nbsp;Theme PaperMod</footer>
+<a class=entry-link aria-label="post link to 在 Angular 使用 Material CDK 來實作拖曳功能的使用者介面" href=https://calvinegs.github.io/posts/dragdrop-material-cdk/></a>
+</article>
+<article class="post-entry tag-entry">
+<header class=entry-header>
 <h2>Typed Form in angular 15
 </h2>
 </header>
@@ -135,24 +153,6 @@ Angular Interceptor 使用案例二：搭配 Jason Web Token + Session Storage �
 </section>
 <footer class=entry-footer><span title="2023-02-25 00:00:00 +0000 UTC">February 25, 2023</span>&nbsp;·&nbsp;7 min&nbsp;·&nbsp;Theme PaperMod</footer>
 <a class=entry-link aria-label="post link to Angular Interceptor 使用案例二：搭配 Jason Web Token + Session Storage 來實現使用者身份驗證功能" href=https://calvinegs.github.io/posts/angular-interceptor-jwt/></a>
-</article>
-<article class="post-entry tag-entry">
-<header class=entry-header>
-<h2>使用 Angular Material 建立一個簡易的 Admin Template II
-</h2>
-</header>
-<section class=entry-content>
-<p>github Source code
-註: 若只要取得本篇筆記所介紹的內容可使用以下指令: “git clone --branch v2.0 https://github.com/calvinegs/Angular_Material_Admin_Template.git”
-在本篇筆記中將繼續使用 Angular Material 中的其他 components 來加強 Admin Template。在此文中除了會使用 SnackBar component 來實做一個 Notifier ，同時也把之前介紹過的 Loading Spnner 功能也一併加入。
-除此之外也會建置一個 Login Page，身份驗證是一個應用程式中不可缺少的功能，有了這個登入畫面，將會被應用到另一篇 angular Interceptor - JWT 的應用中（待續）。
-有關 Admin Template 第一個版本的介紹請見 Loding Spinner
-加強 Admin Template 功能 預計實現的功能：
-使用 Angular Material SnackBar 為 Admin Template 加入 Notifier 功能。 使用以下步驟：
-取得 Admin Template 第一個版本程式碼 實現基本版本 Notifier 實現客制化 Notifier 功能 使用 material 實現一個 Login Page 取得 Admin Template 第一個版本程式碼 首先要為 Admin Template 第一個版本加入 Notifier 功能，可以使用 ｀git clone｀指令取得特定版程式碼。以下指令是取得 Tag為 ver-1....</p>
-</section>
-<footer class=entry-footer><span title="2023-02-23 00:00:00 +0000 UTC">February 23, 2023</span>&nbsp;·&nbsp;13 min&nbsp;·&nbsp;Theme PaperMod</footer>
-<a class=entry-link aria-label="post link to 使用 Angular Material 建立一個簡易的 Admin Template II" href=https://calvinegs.github.io/posts/angular-material-adminui-ii/></a>
 </article>
 <footer class=page-footer>
 <nav class=pagination>
