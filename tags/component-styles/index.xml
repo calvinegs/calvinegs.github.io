@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>component styles on 永誌不忘 • 筆記簿</title>
+    <link>https://calvinegs.github.io/tags/component-styles/</link>
+    <description>Recent content in component styles on 永誌不忘 • 筆記簿</description>
+    <image>
+      <url>https://calvinegs.github.io/papermod-cover.png</url>
+      <link>https://calvinegs.github.io/papermod-cover.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 12 Oct 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://calvinegs.github.io/tags/component-styles/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Angular 元件樣式 及一些特殊的選擇器</title>
+      <link>https://calvinegs.github.io/posts/angular-component-styles/</link>
+      <pubDate>Thu, 12 Oct 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://calvinegs.github.io/posts/angular-component-styles/</guid>
+      <description>本篇筆記是來記錄 Angular 元件樣式及其原理和 探討　Angular 提供的一些特殊選擇器的用法</description>
+    </item>
+    
+  </channel>
+</rss>

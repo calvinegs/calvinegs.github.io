@@ -1,0 +1,554 @@
+<!doctype html><html lang=en dir=auto>
+<head><meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no">
+<meta name=robots content="index, follow">
+<title>Angular 元件樣式 及一些特殊的選擇器 | 永誌不忘 • 筆記簿</title>
+<meta name=keywords content="angular,component styles,selector">
+<meta name=description content="本篇筆記是來記錄 Angular 元件樣式及其原理和 探討　Angular 提供的一些特殊選擇器的用法">
+<meta name=author content="Theme PaperMod">
+<link rel=canonical href=https://calvinegs.github.io/posts/angular-component-styles/>
+<link crossorigin=anonymous href=/assets/css/stylesheet.min.c88963fe2d79462000fd0fb1b3737783c32855d340583e4523343f8735c787f0.css integrity="sha256-yIlj/i15RiAA/Q+xs3N3g8MoVdNAWD5FIzQ/hzXHh/A=" rel="preload stylesheet" as=style>
+<script defer crossorigin=anonymous src=/assets/js/highlight.min.7680afc38aa6b15ddf158a4f3780b7b1f7dde7e91d26f073e6229bb7a0793c92.js integrity="sha256-doCvw4qmsV3fFYpPN4C3sffd5+kdJvBz5iKbt6B5PJI=" onload=hljs.initHighlightingOnLoad()></script>
+<link rel=icon href=https://calvinegs.github.io/img/favicon.png>
+<link rel=icon type=image/png sizes=16x16 href=https://calvinegs.github.io/favicon-16x16.png>
+<link rel=icon type=image/png sizes=32x32 href=https://calvinegs.github.io/favicon-32x32.png>
+<link rel=apple-touch-icon href=https://calvinegs.github.io/apple-touch-icon.png>
+<link rel=mask-icon href=https://calvinegs.github.io/safari-pinned-tab.svg>
+<meta name=theme-color content="#2e2e33">
+<meta name=msapplication-TileColor content="#2e2e33">
+<meta name=generator content="Hugo 0.91.2">
+<noscript>
+<style>#theme-toggle,.top-link{display:none}</style>
+<style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--hljs-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style>
+</noscript><meta property="og:title" content="Angular 元件樣式 及一些特殊的選擇器">
+<meta property="og:description" content="本篇筆記是來記錄 Angular 元件樣式及其原理和 探討　Angular 提供的一些特殊選擇器的用法">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://calvinegs.github.io/posts/angular-component-styles/"><meta property="og:image" content="https://calvinegs.github.io/papermod-cover.png"><meta property="article:section" content="posts">
+<meta property="article:published_time" content="2023-10-12T00:00:00+00:00">
+<meta property="article:modified_time" content="2023-10-12T00:00:00+00:00">
+<meta name=twitter:card content="summary_large_image">
+<meta name=twitter:image content="https://calvinegs.github.io/papermod-cover.png">
+<meta name=twitter:title content="Angular 元件樣式 及一些特殊的選擇器">
+<meta name=twitter:description content="本篇筆記是來記錄 Angular 元件樣式及其原理和 探討　Angular 提供的一些特殊選擇器的用法">
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Posts","item":"https://calvinegs.github.io/posts/"},{"@type":"ListItem","position":2,"name":"Angular 元件樣式 及一些特殊的選擇器","item":"https://calvinegs.github.io/posts/angular-component-styles/"}]}</script>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"Angular 元件樣式 及一些特殊的選擇器","name":"Angular 元件樣式 及一些特殊的選擇器","description":"本篇筆記是來記錄 Angular 元件樣式及其原理和 探討　Angular 提供的一些特殊選擇器的用法","keywords":["angular","component styles","selector"],"articleBody":"github Source code\n希望透過了解預設的 Angular 樣式機制（模擬封裝）在底層的工作原理來幫助我們更清楚的如何使用　Angular 所提供的一些特殊選擇器(如： :host、:host-context、::ng-deep等)的用法。\n在下面的實作過程將會使用到下列技術:\n Angular cli 16 Angular 16  Router Standalone component   CSS \u0026 SCSS 瀏覧器的開發者工具  CSS 的樣式污染 css 沒有作用域的概念，這就導致 css 在書寫的時候都是全局作用域。造成開發者在撰寫過程中會造成因 classname 相同而產生樣式污染及　css　規則層疊(CSS Cascade)。 隨著 SPA 應用的興起，全部的 css 會在同一個環境中同時進行加載，相互影響的問題更加嚴峻。\nAngular 元件樣式原理 Angular 以元件組合為基本原理來建構一支 web application，在 Angular 元件中預設採用的“檢視封裝”(View encapsulation)是“ViewEncapsulation.Emulated” (模擬封裝)。在這個設定值下 Angular 會修改元件的 CSS 選擇器，使它們只應用於元件的檢視，不影響應用程式中的其他元素(模擬 Shadow DOM 行為)。\n建立 Angular Web Application 使用 npm init 指令建立一支 web application:\n$ npm init @angular styles -- --routing --style scss 修改 app.component.html，將預設內容全數刪除，加入以下 button tag:\nbutton class=\"red-button\"按鈕button 在 app.compnent.scss 中加入以下內容：\n.red-button{ background-color: red; } 在終端機中使用 npm start 啟動程式，打啟 chrome，並在 url 輸入 http://localhost:4200 開啟網頁。\n了解 Angular 如何實作視圖封裝(view encapsulation) 在瀏覽器中按下 F12 快速鍵開啟 chrome 開發者工具\n在開發工具的 “Elements” tab 中可以查看到整個網頁的內容，包含 HTML \u0026 CSS 。\n在 HTML source code 中，可發現經由 Angular “處理後”的內容有不同。 在對應的 element 上都額外産生了一個“屬性“，在這個屬性名稱上是一個以自動産生的唯一值(數字)為結尾。\n如：\n _nghost-ng-c1763460945 (app-root element) _ngcontent-ng-c1763460945 (button element)  app-root _nghost-ng-c1763460945=\"\" ng-version=\"16.2.9\" button _ngcontent-ng-c1763460945=\"\" class=\"red-button\"按鈕button app-root 比對原始的 index.html 內容：\n原始的 app.component.html 內容：\n相同的原理也出現在 css 檔案中。\n在原始的 app.component.scss 中，css 的內容是：\n.red-button{ background-color: red; } 但在瀏覽器中的 css:\n.red-button[_ngcontent-ng-c1763460945] { background-color: red; } 這兩個特殊屬性實現某種樣式的隔離作法。\n這個_ngcontent-ng-c1763460945屬性對於red-button模板的元素是唯一的，因此樣式的範圍僅限於這些元素。\n這就是 Angular 預設視圖封裝機制的工作原理！\n這種機制非常有用，因為它使我們能夠編寫不易破壞的簡單樣式，但我們可能有時會想選擇性地打破這種隔離。\n視圖封裝的設定 在 Angular 元件中可透過 ＠Component 指令中的 metadata 值設定來改變支援不同元件樣式封裝方式。encapsulation 這個 metadata有三個選項值，分別是：\n ViewEncapsulation.Emulated: 這是預設值，採用的封裝策略是 Angular 所提供的方式(即前面章節所描述的方式) ViewEncapsulation.None: 沒有提供樣式封裝。 ViewEncapsulation.ShadowDom: 使用瀏覽器原生的 Shadow DOM API 來封裝樣式。  在 app.components.ts 的 @Component matadata 中加入 encapsulation 的設定，值為”ViewEncapsulation.None“\n1 2 3 4 5 6 7 8 9 10 11  import { Component, ViewEncapsulation } from '@angular/core'; @Component({ selector: 'app-root', templateUrl: './app.component.html', styleUrls: ['./app.component.scss'], encapsulation: ViewEncapsulation.None }) export class AppComponent { title = 'styles'; }   重新執行程式後，再來查視産生的 html 及 css 代碼：\n可以看到上述章節中提到的由 Angular 所提供的 CSS 隔離的方案都不見了。在這個策略中所有的 CSS 樣式設定值都是“全局有效”(global available)的。\n特殊的選擇器及其功能 建立另一支 Angular Web application 在探討 Angular 特殊的選擇器功能之前，先再建立一支新 Application。\n$ npm init @angular component-styles -- --style scss --routing=no $ npx ng g c pages/child-first $ npx ng g c pages/child-second 將 app.component.html 內容修改成：\np我是應用程式根元件中的 P 標籤。p app-child-firstapp-child-first 將 child-first.component.html 內容修改成：\ndiv class=\"childFirstContainer\" span我是第一子元件中的 Span 標籤。span app-child-secondapp-child-second div child-first.component.scss 內容如下：\n.childFirstContainer{ border: 2px solid blue; padding: 10px; } :host { border: 2px solid green; color:chocolate; display: block; padding: 10px; } :host h2 { font-style: italic; } :host .iAmH4 { border: 2px dotted blue; } :host [id='1stH6'] { border: 2px dotted violet; } 將 child-second.component.html 內容修改成：\ndiv class=\"childSecondContainer\" span我是第二子元件中的 Span 標籤。span h2第二子元件中的 H2 標籤。h2 h4 class=\"iAmH4\"第二子元件中帶有 class 的 H4 標籤。h4 h6 id=\"1stH6\"第二子元件中帶有 id 的 H6 標籤。h6 div 暫時假設 child-second.component.scss 沒有內容。\n執行的結果： 實際執行的程式碼 開啟瀏覽器的開發者工具\n 正如您所看到的，每個元件都有一個以 _nghost 開頭的唯一屬性。 每個元件中的每個元素都套用了一個以 _ngcontent 開頭的屬性。 同一個元件下的所有元素都有相同的 _ngcontent 屬性，因此因此元件的 css 檔案中定義的所有樣式將僅限於該元件的元素或範圍。  這就是 Angular 如何使用這兩個屬性來實作元件中的樣式封裝。\n宿主元素 對 child first component 而言， \" app-child-first\" 這個 tag 就是宿主元素。\n:host 選擇器 在 Angular 中 :host 這個特殊的選擇器就是用來選定“宿主元素”的，搭配在 child-first.component.scss 中的樣式設定：\n呈現出來的效果如下：\n透過“_nghost-ng-c2623725029”這個特別的屬性，我們在 scss 中設定的 :host{…} 樣式設定，就能精準的套用在宿主元素(即 app-child-first 這個 selector 上)及其後代元素上，這樣可避免大部份的樣式污染問題。\n番外篇 - css 的繼承問題探討 css 樣式的繼承基本原理，套用在父元素上的樣式會被繼承其後代元素上。\napp-child-first 套用的樣式如下：\n查看它的子元套發現也因繼承關係也套用了相同的樣式：\n不過，有個值得注意的地方，繼承下來的樣式，確只有 color 這有樣式是有作用的，其因原是某些樣式屬性是可繼承的，而有些則不可繼承。即使元件被封裝，可繼承屬性也可以從父元件傳遞到子元件。\n父元件下的後代元素也都是相同的情況：\n要了解可繼承和不可繼承的屬性清單，可檢視以下鏈接，。Full Property table\n:host h2 的作用對象 在　child-first.component.scss 內容如下，先把關注點放在 :host 還額外搭配其他選擇器的這些設定值上。首先來看看 :host h2 這個組合。在這個範例中，我們在 :host 之後加入了標籤名稱 h2 以選擇宿主元素 app-child-first 下的所有 h2 元素。\n1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19  .childFirstContainer{ border: 2px solid blue; padding: 10px; } :host { border: 2px solid green; color:chocolate; display: block; padding: 10px; } :host h2 {  font-style: italic; } :host .iAmH4 { border: 2px dotted blue; } :host [id='1stH6'] { border: 2px dotted violet; }   在執行的結果中並沒有發現有任何斜體字出現，儘管在第二子元件中有一個 h2 的標籤存在，但它依舊沒有套用到該樣式。\n修改一下第一子元件的 html，加入一個 h2 標籤:\n1 2 3 4 5  div class=\"childFirstContainer\" h2我是第一子元件中的 H2 標籤。h2  span我是第一子元件中的 Span 標籤。span app-child-secondapp-child-second div   再看看執行結果：\n我們看到新加到第一子元件的 H2 Tag 已呈現出套用斜體字樣式的內容了。\n在 :host 之後新增了標籤名稱 h2 以選擇宿主元素 第一子元件 下的所有 h2 元素。\n但只有 “第一子元件“ 的 h2 標記使用 font-style:italic 進行樣式設定。這是由於 Angular 為元件提供了預設的模擬封裝，所以”第二子元件中的 h2 標記不會受到影響。\n一樣的道理，第二子元件 中有一個類別為 iAmH4 的 h4 標籤和 ID 為 1stH6 的 h6 標籤也因為相同原因:host .iAmH4 與 :host [id=‘1stH6’] 兩種樣子的設定根本沒有任何影響，這都是由於上述已討論過的預設“模擬封裝”造成的。\n:host .iAmH4 { border: 2px dotted blue; } :host [id='1stH6'] { border: 2px dotted violet; } ::ng-deep 選擇器 如果你因為某些因素要繞過上述這種封裝， 那麼 ::ng-deep 選擇器就很有用。假設將上面的兩種樣式修改如下: (在 :host 選擇器後加入了 ::ng-deep 選擇器)\n:host ::ng-deep .iAmH4 { border: 2px dotted blue; } :host ::ng-deep [id=’1stH6'] { border: 2px dotted violet; } 你會發現現在這二個樣子設定可以穿透“模擬封裝”的保護了。::ng-deep 非常強大，能夠將其下定義的樣式渲染為全域樣式。這裡要注意的是　::ng-deep 必須在 :host 選擇器之後使用，以確保定義的樣式僅適用於第一子元件及其後代元件。\n:host-context 選擇器 修改一下“第一子元件”的範本，在範本中新增另一個帶有邊框類別(即 .box)的第二子元件。\n1 2 3 4 5 6  div class=\"childFirstContainer\" h2我是第一子元件中的 H2 標籤。h2 span我是第一子元件中的 Span 標籤。span app-child-secondapp-child-second app-child-second class=\"box\"app-child-second div   這麼做的目的是為了示範如何對多次使用的相同宿主元素卻可以設定不同的樣式。除了上述修改“第一子元件”的範本外，同時在第二子元件的 scss 檔案添加一些樣式。為“第二子元件”的宿主元素添加紫色背景色，並為第二子元件的類別添加橙色背景色。\n1 2 3 4 5 6 7 8 9 10 11 12  :host { border: 2px solid violet; display: block; padding: 10px; margin: 10px; } :host(.box) { border: 2px solid orange; } .childSecondContainer { border: 2px solid tomato; }   在:host() 選擇器中，括號內給出的條件決定要設定哪個宿主元素的樣式。如您所見，:host(.box) 幫助我向app-child-second class=”box” 添加不同的背景顏色。同時，我們還添加了帶有 childSecondContainer 類別的 div 標籤， div標籤包著了 app-child-second 的所有內容，我們為它的邊框加入番茄色顏色。 目的是區分套用於 app-child-second 宿主元素的邊框和應用於 app-child-second 元件內容的邊框。\n結果如下：\n最後讓我們來看看 :host-context() 選擇器。宿主上下文(背景)的概念是根據 CSS 類別是否應用於宿主元素的任何祖先來設定宿主元素的樣式。\n簡單的說這個選擇器：用於設置元件內部元素的樣式，但卻具體取決於元件外部設置的某些條件。\n這有點不太好理解，讓我們來看例子吧。\n使用 Angular cli 新加入一個元件：\n$ npx ng g c pages/child-third 將這個\"第三子元件“ ChildComponentThird 加入到 ChildComponentSecond 裡。\n在 ChildComponentSecond 的樣本中加入 ChildComponentThird：\ndiv class=\"childSecondContainer\" p我是第二子元件中的 P 標籤。p h2第二子元件中的 H2 標籤。h2 h4 class=\"iAmH4\"第二子元件中帶有 class 的 H4 標籤。h4 h6 id=\"1stH6\"第二子元件中帶有 id 的 H6 標籤。h6 app-child-thirdapp-child-third div ChildComponentThird的樣本內容：\np我是第三子元件中的 p 標籤。p ChildComponentThird CSS內容：\n:host-context(app-child-third.box){ color: red; border: 2px solid green; display: block; margin: 10px; } 這表示如果 app-child-second 元素具有邊框類別(.box)，則 color:red 等樣式將套用至宿主元素 app-child-third 上。\n如預期的那樣，邊框、邊距和顯示屬性僅套用在 app-child-third 宿主元素上。\n沒有帶有\"邊框類別(.box)\" 的 app-child-second 元素:\n帶有\"邊框類別(.box)\" 的 app-child-second 元素:\n如前所示，由於繼承關係，只有 color 屬性套用於 app-child-third 下的 p 標記，因為 color 屬性是可繼承的。其他屬性均不可繼承。\n","wordCount":"797","inLanguage":"en","datePublished":"2023-10-12T00:00:00Z","dateModified":"2023-10-12T00:00:00Z","author":{"@type":"Person","name":"Theme PaperMod"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://calvinegs.github.io/posts/angular-component-styles/"},"publisher":{"@type":"Organization","name":"永誌不忘 • 筆記簿","logo":{"@type":"ImageObject","url":"https://calvinegs.github.io/img/favicon.png"}}}</script>
+</head>
+<body id=top>
+<script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
+<header class=header>
+<nav class=nav>
+<div class=logo>
+<a href=https://calvinegs.github.io/ accesskey=h title="永誌不忘 • 筆記簿 (Alt + H)">永誌不忘 • 筆記簿</a>
+<span class=logo-switches>
+<button id=theme-toggle accesskey=t title="(Alt + T)"><svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+</button>
+</span>
+</div>
+<ul id=menu>
+<li>
+<a href=https://calvinegs.github.io/posts/ title=Posts>
+<span>Posts</span>
+</a>
+</li>
+<li>
+<a href=https://calvinegs.github.io/archives/ title=Archive>
+<span>Archive</span>
+</a>
+</li>
+<li>
+<a href=https://calvinegs.github.io/categories/ title=Categories>
+<span>Categories</span>
+</a>
+</li>
+<li>
+<a href=https://calvinegs.github.io/tags/ title=Tags>
+<span>Tags</span>
+</a>
+</li>
+<li>
+<a href=https://calvinegs.github.io/search/ title="Search (Alt + /)" accesskey=/>
+<span>Search</span>
+</a>
+</li>
+</ul>
+</nav>
+</header>
+<main class=main>
+<article class=post-single>
+<header class=post-header>
+<div class=breadcrumbs><a href=https://calvinegs.github.io/>Home</a>&nbsp;»&nbsp;<a href=https://calvinegs.github.io/posts/>Posts</a></div>
+<h1 class=post-title>
+Angular 元件樣式 及一些特殊的選擇器
+</h1>
+<div class=post-description>
+本篇筆記是來記錄 Angular 元件樣式及其原理和 探討　Angular 提供的一些特殊選擇器的用法
+</div>
+<div class=post-meta><span title="2023-10-12 00:00:00 +0000 UTC">October 12, 2023</span>&nbsp;·&nbsp;4 min&nbsp;·&nbsp;Theme PaperMod&nbsp;|&nbsp;<a href=https://github.com/adityatelange/hugo-PaperMod/tree/exampleSite/content/posts/angular-component-styles.md rel="noopener noreferrer" target=_blank>Suggest Changes</a>
+</div>
+</header> <div class=toc>
+<details>
+<summary accesskey=c title="(Alt + C)">
+<span class=details>Table of Contents</span>
+</summary>
+<div class=inner><ul>
+<li>
+<a href=#css-%e7%9a%84%e6%a8%a3%e5%bc%8f%e6%b1%a1%e6%9f%93 aria-label="CSS 的樣式污染">CSS 的樣式污染</a></li>
+<li>
+<a href=#angular-%e5%85%83%e4%bb%b6%e6%a8%a3%e5%bc%8f%e5%8e%9f%e7%90%86 aria-label="Angular 元件樣式原理">Angular 元件樣式原理</a><ul>
+<li>
+<a href=#%e5%bb%ba%e7%ab%8b-angular-web-application aria-label="建立 Angular Web Application">建立 Angular Web Application</a></li>
+<li>
+<a href=#%e4%ba%86%e8%a7%a3-angular-%e5%a6%82%e4%bd%95%e5%af%a6%e4%bd%9c%e8%a6%96%e5%9c%96%e5%b0%81%e8%a3%9dview-encapsulation aria-label="了解 Angular 如何實作視圖封裝(view encapsulation)">了解 Angular 如何實作視圖封裝(view encapsulation)</a></li>
+<li>
+<a href=#%e8%a6%96%e5%9c%96%e5%b0%81%e8%a3%9d%e7%9a%84%e8%a8%ad%e5%ae%9a aria-label=視圖封裝的設定>視圖封裝的設定</a></li></ul>
+</li>
+<li>
+<a href=#%e7%89%b9%e6%ae%8a%e7%9a%84%e9%81%b8%e6%93%87%e5%99%a8%e5%8f%8a%e5%85%b6%e5%8a%9f%e8%83%bd aria-label=特殊的選擇器及其功能>特殊的選擇器及其功能</a><ul>
+<li>
+<a href=#%e5%bb%ba%e7%ab%8b%e5%8f%a6%e4%b8%80%e6%94%af-angular-web-application aria-label="建立另一支 Angular Web application">建立另一支 Angular Web application</a><ul>
+<li>
+<a href=#%e5%af%a6%e9%9a%9b%e5%9f%b7%e8%a1%8c%e7%9a%84%e7%a8%8b%e5%bc%8f%e7%a2%bc aria-label=實際執行的程式碼>實際執行的程式碼</a></li></ul>
+</li>
+<li>
+<a href=#%e5%ae%bf%e4%b8%bb%e5%85%83%e7%b4%a0 aria-label=宿主元素>宿主元素</a></li>
+<li>
+<a href=#host-%e9%81%b8%e6%93%87%e5%99%a8 aria-label=":host 選擇器">:host 選擇器</a><ul>
+<li>
+<a href=#%e7%95%aa%e5%a4%96%e7%af%87---css-%e7%9a%84%e7%b9%bc%e6%89%bf%e5%95%8f%e9%a1%8c%e6%8e%a2%e8%a8%8e aria-label="番外篇 - css 的繼承問題探討">番外篇 - css 的繼承問題探討</a></li>
+<li>
+<a href=#host-h2-%e7%9a%84%e4%bd%9c%e7%94%a8%e5%b0%8d%e8%b1%a1 aria-label=":host h2 的作用對象">:host h2 的作用對象</a></li></ul>
+</li>
+<li>
+<a href=#ng-deep-%e9%81%b8%e6%93%87%e5%99%a8 aria-label="::ng-deep 選擇器">::ng-deep 選擇器</a></li>
+<li>
+<a href=#host-context-%e9%81%b8%e6%93%87%e5%99%a8 aria-label=":host-context 選擇器">:host-context 選擇器</a>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</details>
+</div>
+<div class=post-content><p><em><a href=https://github.com/calvinegs/angular-component-styles.git>github Source code</a></em></p>
+<p>希望透過了解預設的 Angular 樣式機制（模擬封裝）在底層的工作原理來幫助我們更清楚的如何使用　Angular 所提供的一些特殊選擇器(如： :host、:host-context、::ng-deep等)的用法。</p>
+<p>在下面的實作過程將會使用到下列技術:</p>
+<ul>
+<li>Angular cli 16</li>
+<li>Angular 16
+<ul>
+<li>Router</li>
+<li>Standalone component</li>
+</ul>
+</li>
+<li>CSS & SCSS</li>
+<li>瀏覧器的開發者工具</li>
+</ul>
+<h1 id=css-的樣式污染>CSS 的樣式污染<a hidden class=anchor aria-hidden=true href=#css-的樣式污染>#</a></h1>
+<p>css 沒有作用域的概念，這就導致 css 在書寫的時候都是全局作用域。造成開發者在撰寫過程中會造成因 classname 相同而產生樣式污染及　css　規則層疊(CSS Cascade)。 隨著 SPA 應用的興起，全部的 css 會在同一個環境中同時進行加載，相互影響的問題更加嚴峻。</p>
+<h1 id=angular-元件樣式原理>Angular 元件樣式原理<a hidden class=anchor aria-hidden=true href=#angular-元件樣式原理>#</a></h1>
+<p>Angular 以元件組合為基本原理來建構一支 web application，在 Angular 元件中預設採用的“檢視封裝”(View encapsulation)是“ViewEncapsulation.Emulated” (模擬封裝)。在這個設定值下 Angular 會修改元件的 CSS 選擇器，使它們只應用於元件的檢視，不影響應用程式中的其他元素(模擬 Shadow DOM 行為)。</p>
+<h2 id=建立-angular-web-application>建立 Angular Web Application<a hidden class=anchor aria-hidden=true href=#建立-angular-web-application>#</a></h2>
+<p>使用 npm init 指令建立一支 web application:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$ npm init @angular styles -- --routing --style scss
+</code></pre></div><p>修改 app.component.html，將預設內容全數刪除，加入以下 button tag:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html>&lt;<span style=color:#f92672>button</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;red-button&#34;</span>&gt;按鈕&lt;/<span style=color:#f92672>button</span>&gt;
+</code></pre></div><p>在 app.compnent.scss 中加入以下內容：</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-scss data-lang=scss><span style=color:#a6e22e>.red-button</span>{
+  <span style=color:#a6e22e>background-color</span><span style=color:#f92672>:</span> <span style=color:#66d9ef>red</span>;
+}
+</code></pre></div><p>在終端機中使用 <code>npm start</code> 啟動程式，打啟 chrome，並在 url 輸入 http://localhost:4200 開啟網頁。</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/274478987-0413ae18-1dce-478e-bda8-fce431c1de03.png alt=image>
+</p>
+<h2 id=了解-angular-如何實作視圖封裝view-encapsulation>了解 Angular 如何實作視圖封裝(view encapsulation)<a hidden class=anchor aria-hidden=true href=#了解-angular-如何實作視圖封裝view-encapsulation>#</a></h2>
+<p>在瀏覽器中按下 F12 快速鍵開啟 chrome 開發者工具</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/274479799-27fade0d-8db7-4edf-88d0-58480dacca80.png alt=image>
+</p>
+<p>在開發工具的 &ldquo;Elements&rdquo; tab 中可以查看到整個網頁的內容，包含 HTML & CSS 。</p>
+<p>在 HTML source code 中，可發現經由 Angular “處理後”的內容有不同。
+在對應的 element 上都額外産生了一個“屬性“，在這個屬性名稱上是一個以自動産生的唯一值(數字)為結尾。</p>
+<p>如：</p>
+<ul>
+<li>_nghost-ng-c1763460945 (app-root element)</li>
+<li>_ngcontent-ng-c1763460945 (button element)</li>
+</ul>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html>&lt;<span style=color:#f92672>app-root</span> <span style=color:#a6e22e>_nghost-ng-c1763460945</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;&#34;</span> <span style=color:#a6e22e>ng-version</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;16.2.9&#34;</span>&gt;
+    &lt;<span style=color:#f92672>button</span> <span style=color:#a6e22e>_ngcontent-ng-c1763460945</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;&#34;</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;red-button&#34;</span>&gt;按鈕&lt;/<span style=color:#f92672>button</span>&gt;
+&lt;/<span style=color:#f92672>app-root</span>&gt;
+</code></pre></div><p>比對原始的 index.html 內容：</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/274480846-e902e7c0-75e8-4834-8152-3acfc1a66f4d.png alt=image>
+</p>
+<p>原始的 app.component.html 內容：</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/274481272-458323df-15fc-4f3e-8feb-dc22646520e7.png alt=image>
+</p>
+<p>相同的原理也出現在 css 檔案中。</p>
+<p>在原始的 app.component.scss 中，css 的內容是：</p>
+<pre tabindex=0><code>.red-button{
+  background-color: red;
+}
+</code></pre><p>但在瀏覽器中的 css:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-css data-lang=css>.<span style=color:#a6e22e>red-button</span><span style=color:#f92672>[</span><span style=color:#f92672>_ngcontent-ng-c1763460945</span><span style=color:#f92672>]</span> {
+    <span style=color:#66d9ef>background-color</span>: <span style=color:#66d9ef>red</span>;
+}
+</code></pre></div><p>這兩個特殊屬性實現某種樣式的隔離作法。</p>
+<p>這個_ngcontent-ng-c1763460945屬性對於red-button模板的元素是唯一的，因此樣式的範圍僅限於這些元素。</p>
+<p>這就是 Angular 預設視圖封裝機制的工作原理！</p>
+<p>這種機制非常有用，因為它使我們能夠編寫不易破壞的簡單樣式，但我們可能有時會想選擇性地打破這種隔離。</p>
+<h2 id=視圖封裝的設定>視圖封裝的設定<a hidden class=anchor aria-hidden=true href=#視圖封裝的設定>#</a></h2>
+<p>在 Angular 元件中可透過 ＠Component 指令中的 metadata 值設定來改變支援不同元件樣式封裝方式。encapsulation 這個 metadata有三個選項值，分別是：</p>
+<ul>
+<li>ViewEncapsulation.Emulated: 這是預設值，採用的封裝策略是 Angular 所提供的方式(即前面章節所描述的方式)</li>
+<li>ViewEncapsulation.None: 沒有提供樣式封裝。</li>
+<li>ViewEncapsulation.ShadowDom: 使用瀏覽器原生的 Shadow DOM API 來封裝樣式。</li>
+</ul>
+<p>在 app.components.ts 的 @Component matadata 中加入 encapsulation 的設定，值為”ViewEncapsulation.None“</p>
+<div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4>
+<table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0>
+<pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style=display:block;width:100%;background-color:#3c3d38><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span></span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span></code></pre></td>
+<td style=vertical-align:top;padding:0;margin:0;border:0;width:100%>
+<pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-ts data-lang=ts><span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>Component</span>, <span style=color:#a6e22e>ViewEncapsulation</span> } <span style=color:#66d9ef>from</span> <span style=color:#e6db74>&#39;@angular/core&#39;</span>;
+
+<span style=color:#66d9ef>@Component</span>({
+  <span style=color:#a6e22e>selector</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;app-root&#39;</span>,
+  <span style=color:#a6e22e>templateUrl</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;./app.component.html&#39;</span>,
+  <span style=color:#a6e22e>styleUrls</span><span style=color:#f92672>:</span> [<span style=color:#e6db74>&#39;./app.component.scss&#39;</span>],
+<span style=display:block;width:100%;background-color:#3c3d38>  <span style=color:#a6e22e>encapsulation</span>: <span style=color:#66d9ef>ViewEncapsulation.None</span>
+</span>})
+<span style=color:#66d9ef>export</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>AppComponent</span> {
+  <span style=color:#a6e22e>title</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;styles&#39;</span>;
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>重新執行程式後，再來查視産生的 html 及 css 代碼：</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/274788426-68f4b0d5-1cba-40bd-8d88-a07b2be36c20.png alt=image>
+</p>
+<p>可以看到上述章節中提到的由 Angular 所提供的 CSS 隔離的方案都不見了。在這個策略中所有的 CSS 樣式設定值都是“全局有效”(global available)的。</p>
+<h1 id=特殊的選擇器及其功能>特殊的選擇器及其功能<a hidden class=anchor aria-hidden=true href=#特殊的選擇器及其功能>#</a></h1>
+<h2 id=建立另一支-angular-web-application>建立另一支 Angular Web application<a hidden class=anchor aria-hidden=true href=#建立另一支-angular-web-application>#</a></h2>
+<p>在探討 Angular 特殊的選擇器功能之前，先再建立一支新 Application。</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$ npm init @angular component-styles -- --style scss --routing<span style=color:#f92672>=</span>no
+
+$ npx ng g c pages/child-first
+$ npx ng g c pages/child-second
+</code></pre></div><p>將 app.component.html 內容修改成：</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html>&lt;<span style=color:#f92672>p</span>&gt;我是應用程式根元件中的 P 標籤。&lt;/<span style=color:#f92672>p</span>&gt;
+&lt;<span style=color:#f92672>app-child-first</span>&gt;&lt;/<span style=color:#f92672>app-child-first</span>&gt;
+</code></pre></div><p>將 child-first.component.html 內容修改成：</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html>&lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;childFirstContainer&#34;</span>&gt;
+  &lt;<span style=color:#f92672>span</span>&gt;我是第一子元件中的 Span 標籤。&lt;/<span style=color:#f92672>span</span>&gt;
+  &lt;<span style=color:#f92672>app-child-second</span>&gt;&lt;/<span style=color:#f92672>app-child-second</span>&gt;
+&lt;/<span style=color:#f92672>div</span>&gt;
+</code></pre></div><p>child-first.component.scss 內容如下：</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-scss data-lang=scss><span style=color:#a6e22e>.childFirstContainer</span>{
+  <span style=color:#a6e22e>border</span><span style=color:#f92672>:</span> <span style=color:#ae81ff>2</span><span style=color:#66d9ef>px</span> solid <span style=color:#66d9ef>blue</span>;
+  <span style=color:#a6e22e>padding</span><span style=color:#f92672>:</span> <span style=color:#ae81ff>10</span><span style=color:#66d9ef>px</span>;
+}
+<span style=color:#a6e22e>:host</span> {
+  <span style=color:#a6e22e>border</span><span style=color:#f92672>:</span> <span style=color:#ae81ff>2</span><span style=color:#66d9ef>px</span> solid <span style=color:#66d9ef>green</span>;
+  <span style=color:#a6e22e>color</span><span style=color:#f92672>:</span><span style=color:#66d9ef>chocolate</span>;
+  <span style=color:#a6e22e>display</span><span style=color:#f92672>:</span> block;
+  <span style=color:#a6e22e>padding</span><span style=color:#f92672>:</span> <span style=color:#ae81ff>10</span><span style=color:#66d9ef>px</span>;
+}
+<span style=color:#a6e22e>:host</span> <span style=color:#f92672>h2</span> {
+  <span style=color:#a6e22e>font-style</span><span style=color:#f92672>:</span> italic;
+}
+<span style=color:#a6e22e>:host</span> <span style=color:#a6e22e>.iAmH4</span> {
+  <span style=color:#a6e22e>border</span><span style=color:#f92672>:</span> <span style=color:#ae81ff>2</span><span style=color:#66d9ef>px</span> dotted <span style=color:#66d9ef>blue</span>;
+}
+<span style=color:#a6e22e>:host</span> <span style=color:#f92672>[</span><span style=color:#f92672>id</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#39;1stH6&#39;</span><span style=color:#f92672>]</span> {
+  <span style=color:#a6e22e>border</span><span style=color:#f92672>:</span> <span style=color:#ae81ff>2</span><span style=color:#66d9ef>px</span> dotted <span style=color:#66d9ef>violet</span>;
+}
+
+</code></pre></div><p>將 child-second.component.html 內容修改成：</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html>&lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;childSecondContainer&#34;</span>&gt;
+  &lt;<span style=color:#f92672>span</span>&gt;我是第二子元件中的 Span 標籤。&lt;/<span style=color:#f92672>span</span>&gt;
+  &lt;<span style=color:#f92672>h2</span>&gt;第二子元件中的 H2 標籤。&lt;/<span style=color:#f92672>h2</span>&gt;
+  &lt;<span style=color:#f92672>h4</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;iAmH4&#34;</span>&gt;第二子元件中帶有 class 的 H4 標籤。&lt;/<span style=color:#f92672>h4</span>&gt;
+  &lt;<span style=color:#f92672>h6</span> <span style=color:#a6e22e>id</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;1stH6&#34;</span>&gt;第二子元件中帶有 id 的 H6 標籤。&lt;/<span style=color:#f92672>h6</span>&gt;
+&lt;/<span style=color:#f92672>div</span>&gt;
+</code></pre></div><p>暫時假設 child-second.component.scss 沒有內容。</p>
+<p>執行的結果：
+<img loading=lazy src=https://user-images.githubusercontent.com/21993717/274757995-88513348-ceae-4e03-8dcc-7deaa2ea78fb.png alt=image>
+</p>
+<h3 id=實際執行的程式碼>實際執行的程式碼<a hidden class=anchor aria-hidden=true href=#實際執行的程式碼>#</a></h3>
+<p>開啟瀏覽器的開發者工具</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/275296776-b2b9f940-89e3-4193-8b4c-9772d104e19d.png alt=image>
+</p>
+<ul>
+<li>正如您所看到的，每個元件都有一個以 _nghost 開頭的唯一屬性。</li>
+<li>每個元件中的每個元素都套用了一個以 _ngcontent 開頭的屬性。</li>
+<li>同一個元件下的所有元素都有相同的 _ngcontent 屬性，因此因此元件的 css 檔案中定義的所有樣式將僅限於該元件的元素或範圍。</li>
+</ul>
+<p>這就是 Angular 如何使用這兩個屬性來實作元件中的樣式封裝。</p>
+<h2 id=宿主元素>宿主元素<a hidden class=anchor aria-hidden=true href=#宿主元素>#</a></h2>
+<p>對 child first component 而言， " app-child-first" 這個 tag 就是宿主元素。</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/274756384-11f76c2e-3ff8-4905-8c60-1bf5ca5bc707.png alt=image>
+</p>
+<h2 id=host-選擇器>:host 選擇器<a hidden class=anchor aria-hidden=true href=#host-選擇器>#</a></h2>
+<p>在 Angular 中 :host 這個特殊的選擇器就是用來選定“宿主元素”的，搭配在 child-first.component.scss 中的樣式設定：</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/274758656-16c26da3-6d5f-48ff-b671-2bbac9565a16.png alt=image>
+</p>
+<p>呈現出來的效果如下：</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/274756712-e5025ed2-1307-45a5-8bbd-420fb064cda7.png alt=image>
+</p>
+<p>透過“_nghost-ng-c2623725029”這個特別的屬性，我們在 scss 中設定的 :host{&mldr;} 樣式設定，就能精準的套用在宿主元素(即 app-child-first 這個 selector 上)及其後代元素上，這樣可避免大部份的樣式污染問題。</p>
+<h3 id=番外篇---css-的繼承問題探討>番外篇 - css 的繼承問題探討<a hidden class=anchor aria-hidden=true href=#番外篇---css-的繼承問題探討>#</a></h3>
+<p>css 樣式的繼承基本原理，套用在父元素上的樣式會被繼承其後代元素上。</p>
+<p>app-child-first 套用的樣式如下：</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/274814764-f9652525-5654-40d8-8e9b-d8ffb0a73e5c.png alt=image>
+</p>
+<p>查看它的子元套發現也因繼承關係也套用了相同的樣式：</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/274815270-94584791-91f3-4aa2-92b5-673de8f74ed4.png alt=image>
+</p>
+<p>不過，有個值得注意的地方，繼承下來的樣式，確只有 color 這有樣式是有作用的，其因原是某些樣式屬性是可繼承的，而有些則不可繼承。即使元件被封裝，可繼承屬性也可以從父元件傳遞到子元件。</p>
+<p>父元件下的後代元素也都是相同的情況：</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/274837022-2f8a98ff-b5f5-4e59-a7e5-9422459a3db1.png alt=image>
+</p>
+<p>要了解可繼承和不可繼承的屬性清單，可檢視以下鏈接，。<em><a href="https://www.w3.org/TR/CSS21/propidx.html?source=post_page-----c829098cf194--------------------------------">Full Property table</a></em></p>
+<h3 id=host-h2-的作用對象>:host h2 的作用對象<a hidden class=anchor aria-hidden=true href=#host-h2-的作用對象>#</a></h3>
+<p>在　child-first.component.scss 內容如下，先把關注點放在 :host 還額外搭配其他選擇器的這些設定值上。首先來看看 :host h2 這個組合。在這個範例中，我們在 :host 之後加入了標籤名稱 h2 以選擇宿主元素 app-child-first 下的所有 h2 元素。</p>
+<div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4>
+<table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0>
+<pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style=display:block;width:100%;background-color:#3c3d38><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span></span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">14
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">15
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">16
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">17
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">18
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">19
+</span></code></pre></td>
+<td style=vertical-align:top;padding:0;margin:0;border:0;width:100%>
+<pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-scss data-lang=scss><span style=color:#a6e22e>.childFirstContainer</span>{
+  <span style=color:#a6e22e>border</span><span style=color:#f92672>:</span> <span style=color:#ae81ff>2</span><span style=color:#66d9ef>px</span> solid <span style=color:#66d9ef>blue</span>;
+  <span style=color:#a6e22e>padding</span><span style=color:#f92672>:</span> <span style=color:#ae81ff>10</span><span style=color:#66d9ef>px</span>;
+}
+<span style=color:#a6e22e>:host</span> {
+  <span style=color:#a6e22e>border</span><span style=color:#f92672>:</span> <span style=color:#ae81ff>2</span><span style=color:#66d9ef>px</span> solid <span style=color:#66d9ef>green</span>;
+  <span style=color:#a6e22e>color</span><span style=color:#f92672>:</span><span style=color:#66d9ef>chocolate</span>;
+  <span style=color:#a6e22e>display</span><span style=color:#f92672>:</span> block;
+  <span style=color:#a6e22e>padding</span><span style=color:#f92672>:</span> <span style=color:#ae81ff>10</span><span style=color:#66d9ef>px</span>;
+}
+<span style=display:block;width:100%;background-color:#3c3d38><span style=color:#a6e22e>:host</span> <span style=color:#f92672>h2</span> {
+</span>  <span style=color:#a6e22e>font-style</span><span style=color:#f92672>:</span> italic;
+}
+<span style=color:#a6e22e>:host</span> <span style=color:#a6e22e>.iAmH4</span> {
+  <span style=color:#a6e22e>border</span><span style=color:#f92672>:</span> <span style=color:#ae81ff>2</span><span style=color:#66d9ef>px</span> dotted <span style=color:#66d9ef>blue</span>;
+}
+<span style=color:#a6e22e>:host</span> <span style=color:#f92672>[</span><span style=color:#f92672>id</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#39;1stH6&#39;</span><span style=color:#f92672>]</span> {
+  <span style=color:#a6e22e>border</span><span style=color:#f92672>:</span> <span style=color:#ae81ff>2</span><span style=color:#66d9ef>px</span> dotted <span style=color:#66d9ef>violet</span>;
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>在執行的結果中並沒有發現有任何斜體字出現，儘管在第二子元件中有一個 h2 的標籤存在，但它依舊沒有套用到該樣式。</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/274757995-88513348-ceae-4e03-8dcc-7deaa2ea78fb.png alt=image>
+</p>
+<p>修改一下第一子元件的 html，加入一個 h2 標籤:</p>
+<div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4>
+<table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0>
+<pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style=display:block;width:100%;background-color:#3c3d38><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span></span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">5
+</span></code></pre></td>
+<td style=vertical-align:top;padding:0;margin:0;border:0;width:100%>
+<pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html>&lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;childFirstContainer&#34;</span>&gt;
+<span style=display:block;width:100%;background-color:#3c3d38>  &lt;<span style=color:#f92672>h2</span>&gt;我是第一子元件中的 H2 標籤。&lt;/<span style=color:#f92672>h2</span>&gt;
+</span>  &lt;<span style=color:#f92672>span</span>&gt;我是第一子元件中的 Span 標籤。&lt;/<span style=color:#f92672>span</span>&gt;
+  &lt;<span style=color:#f92672>app-child-second</span>&gt;&lt;/<span style=color:#f92672>app-child-second</span>&gt;
+&lt;/<span style=color:#f92672>div</span>&gt;
+</code></pre></td></tr></table>
+</div>
+</div><p>再看看執行結果：</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/274859170-a611bfb5-cc54-4e9c-bd95-b4e053222f97.png alt=image>
+</p>
+<p>我們看到新加到第一子元件的 H2 Tag 已呈現出套用斜體字樣式的內容了。</p>
+<p>在 :host 之後新增了標籤名稱 h2 以選擇宿主元素 第一子元件 下的所有 h2 元素。</p>
+<p>但只有 “第一子元件“ 的 h2 標記使用 font-style:italic 進行樣式設定。這是由於 Angular 為元件提供了預設的模擬封裝，所以”第二子元件中的 h2 標記不會受到影響。</p>
+<p>一樣的道理，第二子元件 中有一個類別為 iAmH4 的 h4 標籤和 ID 為 1stH6 的 h6 標籤也因為相同原因:host .iAmH4 與 :host [id=&lsquo;1stH6&rsquo;] 兩種樣子的設定根本沒有任何影響，這都是由於上述已討論過的預設“模擬封裝”造成的。</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-css data-lang=css>:<span style=color:#a6e22e>host</span> .<span style=color:#a6e22e>iAmH4</span> {
+  <span style=color:#66d9ef>border</span>: <span style=color:#ae81ff>2</span><span style=color:#66d9ef>px</span> <span style=color:#66d9ef>dotted</span> <span style=color:#66d9ef>blue</span>;
+}
+:<span style=color:#a6e22e>host</span> <span style=color:#f92672>[</span><span style=color:#f92672>id</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#39;1stH6&#39;</span><span style=color:#f92672>]</span> {
+  <span style=color:#66d9ef>border</span>: <span style=color:#ae81ff>2</span><span style=color:#66d9ef>px</span> <span style=color:#66d9ef>dotted</span> <span style=color:#66d9ef>violet</span>;
+}
+</code></pre></div><h2 id=ng-deep-選擇器>::ng-deep 選擇器<a hidden class=anchor aria-hidden=true href=#ng-deep-選擇器>#</a></h2>
+<p>如果你因為某些因素要繞過上述這種封裝， 那麼 ::ng-deep 選擇器就很有用。假設將上面的兩種樣式修改如下: (在 :host 選擇器後加入了 ::ng-deep 選擇器)</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-css data-lang=css>:<span style=color:#a6e22e>host</span> ::<span style=color:#a6e22e>ng-deep</span> .<span style=color:#a6e22e>iAmH4</span> {
+  <span style=color:#66d9ef>border</span>: <span style=color:#ae81ff>2</span><span style=color:#66d9ef>px</span> <span style=color:#66d9ef>dotted</span> <span style=color:#66d9ef>blue</span>;
+}
+:<span style=color:#a6e22e>host</span> ::<span style=color:#a6e22e>ng-deep</span> <span style=color:#f92672>[</span><span style=color:#f92672>id</span><span style=color:#f92672>=</span><span style=color:#960050;background-color:#1e0010>’</span><span style=color:#f92672>1stH6</span><span style=color:#960050;background-color:#1e0010>&#39;</span><span style=color:#f92672>]</span> {
+  <span style=color:#66d9ef>border</span>: <span style=color:#ae81ff>2</span><span style=color:#66d9ef>px</span> <span style=color:#66d9ef>dotted</span> <span style=color:#66d9ef>violet</span>;
+}
+</code></pre></div><p>你會發現現在這二個樣子設定可以穿透“模擬封裝”的保護了。::ng-deep 非常強大，能夠將其下定義的樣式渲染為全域樣式。這裡要注意的是　::ng-deep 必須在 :host 選擇器之後使用，以確保定義的樣式僅適用於第一子元件及其後代元件。</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/274881888-4ddb705f-8a1b-42c7-a879-5753ee6301b7.png alt=image>
+</p>
+<h2 id=host-context-選擇器>:host-context 選擇器<a hidden class=anchor aria-hidden=true href=#host-context-選擇器>#</a></h2>
+<p>修改一下“第一子元件”的範本，在範本中新增另一個帶有邊框類別(即 .box)的第二子元件。</p>
+<div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4>
+<table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0>
+<pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">3
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">4
+</span><span style=display:block;width:100%;background-color:#3c3d38><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">5
+</span></span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">6
+</span></code></pre></td>
+<td style=vertical-align:top;padding:0;margin:0;border:0;width:100%>
+<pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html>&lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;childFirstContainer&#34;</span>&gt;
+  &lt;<span style=color:#f92672>h2</span>&gt;我是第一子元件中的 H2 標籤。&lt;/<span style=color:#f92672>h2</span>&gt;
+  &lt;<span style=color:#f92672>span</span>&gt;我是第一子元件中的 Span 標籤。&lt;/<span style=color:#f92672>span</span>&gt;
+  &lt;<span style=color:#f92672>app-child-second</span>&gt;&lt;/<span style=color:#f92672>app-child-second</span>&gt;
+<span style=display:block;width:100%;background-color:#3c3d38>  &lt;<span style=color:#f92672>app-child-second</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;box&#34;</span>&gt;&lt;/<span style=color:#f92672>app-child-second</span>&gt;
+</span>&lt;/<span style=color:#f92672>div</span>&gt;
+</code></pre></td></tr></table>
+</div>
+</div><p>這麼做的目的是為了示範如何對多次使用的相同宿主元素卻可以設定不同的樣式。除了上述修改“第一子元件”的範本外，同時在第二子元件的 scss 檔案添加一些樣式。為“第二子元件”的宿主元素添加紫色背景色，並為第二子元件的類別添加橙色背景色。</p>
+<div class=highlight><div style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4>
+<table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0>
+<pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4
+</span><span style=display:block;width:100%;background-color:#3c3d38><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5
+</span></span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">10
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">11
+</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">12
+</span></code></pre></td>
+<td style=vertical-align:top;padding:0;margin:0;border:0;width:100%>
+<pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-css data-lang=css>:<span style=color:#a6e22e>host</span> {
+  <span style=color:#66d9ef>border</span>: <span style=color:#ae81ff>2</span><span style=color:#66d9ef>px</span> <span style=color:#66d9ef>solid</span> <span style=color:#66d9ef>violet</span>;
+  <span style=color:#66d9ef>display</span>: <span style=color:#66d9ef>block</span>;
+  <span style=color:#66d9ef>padding</span>: <span style=color:#ae81ff>10</span><span style=color:#66d9ef>px</span>;
+<span style=display:block;width:100%;background-color:#3c3d38>  <span style=color:#66d9ef>margin</span>: <span style=color:#ae81ff>10</span><span style=color:#66d9ef>px</span>;
+</span>}
+:<span style=color:#a6e22e>host</span><span style=color:#f92672>(</span>.<span style=color:#a6e22e>box</span><span style=color:#f92672>)</span> {
+  <span style=color:#66d9ef>border</span>: <span style=color:#ae81ff>2</span><span style=color:#66d9ef>px</span> <span style=color:#66d9ef>solid</span> <span style=color:#66d9ef>orange</span>;
+}
+.<span style=color:#a6e22e>childSecondContainer</span> {
+  <span style=color:#66d9ef>border</span>: <span style=color:#ae81ff>2</span><span style=color:#66d9ef>px</span> <span style=color:#66d9ef>solid</span> <span style=color:#66d9ef>tomato</span>;
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>在:host() 選擇器中，括號內給出的條件決定要設定哪個宿主元素的樣式。如您所見，:host(.box) 幫助我向app-child-second class=”box” 添加不同的背景顏色。同時，我們還添加了帶有 childSecondContainer 類別的 div 標籤， div標籤包著了 app-child-second 的所有內容，我們為它的邊框加入番茄色顏色。 目的是區分套用於 app-child-second 宿主元素的邊框和應用於 app-child-second 元件內容的邊框。</p>
+<p>結果如下：</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/275297708-3e681ecf-2108-47be-b103-234cd4893fa1.png alt=image>
+</p>
+<p>最後讓我們來看看 :host-context() 選擇器。宿主上下文(背景)的概念是根據 CSS 類別是否應用於宿主元素的任何祖先來設定宿主元素的樣式。</p>
+<p>簡單的說這個選擇器：用於設置元件內部元素的樣式，但卻具體取決於元件外部設置的某些條件。</p>
+<p>這有點不太好理解，讓我們來看例子吧。</p>
+<p>使用 Angular cli 新加入一個元件：</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$ npx ng g c pages/child-third
+</code></pre></div><p>將這個"第三子元件“ ChildComponentThird 加入到 ChildComponentSecond 裡。</p>
+<p>在 ChildComponentSecond 的樣本中加入 ChildComponentThird：</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html>&lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;childSecondContainer&#34;</span>&gt;
+  &lt;<span style=color:#f92672>p</span>&gt;我是第二子元件中的 P 標籤。&lt;/<span style=color:#f92672>p</span>&gt;
+  &lt;<span style=color:#f92672>h2</span>&gt;第二子元件中的 H2 標籤。&lt;/<span style=color:#f92672>h2</span>&gt;
+  &lt;<span style=color:#f92672>h4</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;iAmH4&#34;</span>&gt;第二子元件中帶有 class 的 H4 標籤。&lt;/<span style=color:#f92672>h4</span>&gt;
+  &lt;<span style=color:#f92672>h6</span> <span style=color:#a6e22e>id</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;1stH6&#34;</span>&gt;第二子元件中帶有 id 的 H6 標籤。&lt;/<span style=color:#f92672>h6</span>&gt;
+  &lt;<span style=color:#f92672>app-child-third</span>&gt;&lt;/<span style=color:#f92672>app-child-third</span>&gt;
+&lt;/<span style=color:#f92672>div</span>&gt;
+</code></pre></div><p>ChildComponentThird的樣本內容：</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html>&lt;<span style=color:#f92672>p</span>&gt;我是第三子元件中的 p 標籤。&lt;/<span style=color:#f92672>p</span>&gt;
+</code></pre></div><p>ChildComponentThird CSS內容：</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-scss data-lang=scss><span style=color:#a6e22e>:host-context</span><span style=color:#f92672>(</span><span style=color:#f92672>app-child-third</span><span style=color:#a6e22e>.box</span><span style=color:#f92672>)</span>{
+  <span style=color:#a6e22e>color</span><span style=color:#f92672>:</span> <span style=color:#66d9ef>red</span>;
+  <span style=color:#a6e22e>border</span><span style=color:#f92672>:</span> <span style=color:#ae81ff>2</span><span style=color:#66d9ef>px</span> solid <span style=color:#66d9ef>green</span>;
+  <span style=color:#a6e22e>display</span><span style=color:#f92672>:</span> block;
+  <span style=color:#a6e22e>margin</span><span style=color:#f92672>:</span> <span style=color:#ae81ff>10</span><span style=color:#66d9ef>px</span>;
+}
+</code></pre></div><p>這表示如果 app-child-second 元素具有邊框類別(.box)，則 color:red 等樣式將套用至宿主元素 app-child-third 上。</p>
+<p>如預期的那樣，邊框、邊距和顯示屬性僅套用在 app-child-third 宿主元素上。</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/275299101-fc30635d-49d7-4fbe-af5b-bf84d6fbed37.png alt=image>
+</p>
+<p>沒有帶有"邊框類別(.box)" 的 app-child-second 元素:</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/275299205-780fd0b9-1f4f-4e68-b59d-ccd9c3a2b77f.png alt=image>
+</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/275299494-9dc0b154-386e-4448-872e-38b3cbd4659d.png alt=image>
+</p>
+<p>帶有"邊框類別(.box)" 的 app-child-second 元素:</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/275299312-6ee9cedf-6c34-480e-bc70-9eab63dafa8e.png alt=image>
+</p>
+<p><img loading=lazy src=https://user-images.githubusercontent.com/21993717/275299399-9f960504-ed41-4d51-8d1b-3ea505c9f7cd.png alt=image>
+</p>
+<p>如前所示，由於繼承關係，只有 color 屬性套用於 app-child-third 下的 p 標記，因為 color 屬性是可繼承的。其他屬性均不可繼承。</p>
+</div>
+<footer class=post-footer>
+<ul class=post-tags>
+<li><a href=https://calvinegs.github.io/tags/angular/>angular</a></li>
+<li><a href=https://calvinegs.github.io/tags/component-styles/>component styles</a></li>
+<li><a href=https://calvinegs.github.io/tags/selector/>selector</a></li>
+</ul>
+<nav class=paginav>
+<a class=next href=https://calvinegs.github.io/posts/dragdrop-material-cdk/>
+<span class=title>Next Page »</span>
+<br>
+<span>在 Angular 使用 Material CDK 來實作拖曳功能的使用者介面</span>
+</a>
+</nav>
+<div class=share-buttons>
+<a target=_blank rel="noopener noreferrer" aria-label="share Angular 元件樣式 及一些特殊的選擇器 on twitter" href="https://twitter.com/intent/tweet/?text=Angular%20%e5%85%83%e4%bb%b6%e6%a8%a3%e5%bc%8f%20%e5%8f%8a%e4%b8%80%e4%ba%9b%e7%89%b9%e6%ae%8a%e7%9a%84%e9%81%b8%e6%93%87%e5%99%a8&url=https%3a%2f%2fcalvinegs.github.io%2fposts%2fangular-component-styles%2f&hashtags=angular%2ccomponentstyles%2cselector"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zM195.519 424.544c135.939.0 210.268-112.643 210.268-210.268.0-3.218.0-6.437-.153-9.502 14.406-10.421 26.973-23.448 36.935-38.314-13.18 5.824-27.433 9.809-42.452 11.648 15.326-9.196 26.973-23.602 32.49-40.92-14.252 8.429-30.038 14.56-46.896 17.931-13.487-14.406-32.644-23.295-53.946-23.295-40.767.0-73.87 33.104-73.87 73.87.0 5.824.613 11.494 1.992 16.858-61.456-3.065-115.862-32.49-152.337-77.241-6.284 10.881-9.962 23.601-9.962 37.088.0 25.594 13.027 48.276 32.95 61.456-12.107-.307-23.448-3.678-33.41-9.196v.92c0 35.862 25.441 65.594 59.311 72.49-6.13 1.686-12.72 2.606-19.464 2.606-4.751.0-9.348-.46-13.946-1.38 9.349 29.426 36.628 50.728 68.965 51.341-25.287 19.771-57.164 31.571-91.8 31.571-5.977.0-11.801-.306-17.625-1.073 32.337 21.15 71.264 33.41 112.95 33.41z"/></svg>
+</a>
+<a target=_blank rel="noopener noreferrer" aria-label="share Angular 元件樣式 及一些特殊的選擇器 on linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2fcalvinegs.github.io%2fposts%2fangular-component-styles%2f&title=Angular%20%e5%85%83%e4%bb%b6%e6%a8%a3%e5%bc%8f%20%e5%8f%8a%e4%b8%80%e4%ba%9b%e7%89%b9%e6%ae%8a%e7%9a%84%e9%81%b8%e6%93%87%e5%99%a8&summary=Angular%20%e5%85%83%e4%bb%b6%e6%a8%a3%e5%bc%8f%20%e5%8f%8a%e4%b8%80%e4%ba%9b%e7%89%b9%e6%ae%8a%e7%9a%84%e9%81%b8%e6%93%87%e5%99%a8&source=https%3a%2f%2fcalvinegs.github.io%2fposts%2fangular-component-styles%2f"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zM160.461 423.278V197.561h-75.04v225.717h75.04zm270.539.0V293.839c0-69.333-37.018-101.586-86.381-101.586-39.804.0-57.634 21.891-67.617 37.266v-31.958h-75.021c.995 21.181.0 225.717.0 225.717h75.02V297.222c0-6.748.486-13.492 2.474-18.315 5.414-13.475 17.767-27.434 38.494-27.434 27.135.0 38.007 20.707 38.007 51.037v120.768H431zM123.448 88.722C97.774 88.722 81 105.601 81 127.724c0 21.658 16.264 39.002 41.455 39.002h.484c26.165.0 42.452-17.344 42.452-39.002-.485-22.092-16.241-38.954-41.943-39.002z"/></svg>
+</a>
+<a target=_blank rel="noopener noreferrer" aria-label="share Angular 元件樣式 及一些特殊的選擇器 on reddit" href="https://reddit.com/submit?url=https%3a%2f%2fcalvinegs.github.io%2fposts%2fangular-component-styles%2f&title=Angular%20%e5%85%83%e4%bb%b6%e6%a8%a3%e5%bc%8f%20%e5%8f%8a%e4%b8%80%e4%ba%9b%e7%89%b9%e6%ae%8a%e7%9a%84%e9%81%b8%e6%93%87%e5%99%a8"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zM446 265.638c0-22.964-18.616-41.58-41.58-41.58-11.211.0-21.361 4.457-28.841 11.666-28.424-20.508-67.586-33.757-111.204-35.278l18.941-89.121 61.884 13.157c.756 15.734 13.642 28.29 29.56 28.29 16.407.0 29.706-13.299 29.706-29.701.0-16.403-13.299-29.702-29.706-29.702-11.666.0-21.657 6.792-26.515 16.578l-69.105-14.69c-1.922-.418-3.939-.042-5.585 1.036-1.658 1.073-2.811 2.761-3.224 4.686l-21.152 99.438c-44.258 1.228-84.046 14.494-112.837 35.232-7.468-7.164-17.589-11.591-28.757-11.591-22.965.0-41.585 18.616-41.585 41.58.0 16.896 10.095 31.41 24.568 37.918-.639 4.135-.99 8.328-.99 12.576.0 63.977 74.469 115.836 166.33 115.836s166.334-51.859 166.334-115.836c0-4.218-.347-8.387-.977-12.493 14.564-6.47 24.735-21.034 24.735-38.001zM326.526 373.831c-20.27 20.241-59.115 21.816-70.534 21.816-11.428.0-50.277-1.575-70.522-21.82-3.007-3.008-3.007-7.882.0-10.889 3.003-2.999 7.882-3.003 10.885.0 12.777 12.781 40.11 17.317 59.637 17.317 19.522.0 46.86-4.536 59.657-17.321 3.016-2.999 7.886-2.995 10.885.008 3.008 3.011 3.003 7.882-.008 10.889zm-5.23-48.781c-16.373.0-29.701-13.324-29.701-29.698.0-16.381 13.328-29.714 29.701-29.714 16.378.0 29.706 13.333 29.706 29.714.0 16.374-13.328 29.698-29.706 29.698zM160.91 295.348c0-16.381 13.328-29.71 29.714-29.71 16.369.0 29.689 13.329 29.689 29.71.0 16.373-13.32 29.693-29.689 29.693-16.386.0-29.714-13.32-29.714-29.693z"/></svg>
+</a>
+<a target=_blank rel="noopener noreferrer" aria-label="share Angular 元件樣式 及一些特殊的選擇器 on facebook" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fcalvinegs.github.io%2fposts%2fangular-component-styles%2f"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H342.978V319.085h66.6l12.672-82.621h-79.272v-53.617c0-22.603 11.073-44.636 46.58-44.636H425.6v-70.34s-32.71-5.582-63.982-5.582c-65.288.0-107.96 39.569-107.96 111.204v62.971h-72.573v82.621h72.573V512h-191.104c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892z"/></svg>
+</a>
+<a target=_blank rel="noopener noreferrer" aria-label="share Angular 元件樣式 及一些特殊的選擇器 on whatsapp" href="https://api.whatsapp.com/send?text=Angular%20%e5%85%83%e4%bb%b6%e6%a8%a3%e5%bc%8f%20%e5%8f%8a%e4%b8%80%e4%ba%9b%e7%89%b9%e6%ae%8a%e7%9a%84%e9%81%b8%e6%93%87%e5%99%a8%20-%20https%3a%2f%2fcalvinegs.github.io%2fposts%2fangular-component-styles%2f"><svg viewBox="0 0 512 512"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zm-58.673 127.703c-33.842-33.881-78.847-52.548-126.798-52.568-98.799.0-179.21 80.405-179.249 179.234-.013 31.593 8.241 62.428 23.927 89.612l-25.429 92.884 95.021-24.925c26.181 14.28 55.659 21.807 85.658 21.816h.074c98.789.0 179.206-80.413 179.247-179.243.018-47.895-18.61-92.93-52.451-126.81zM263.976 403.485h-.06c-26.734-.01-52.954-7.193-75.828-20.767l-5.441-3.229-56.386 14.792 15.05-54.977-3.542-5.637c-14.913-23.72-22.791-51.136-22.779-79.287.033-82.142 66.867-148.971 149.046-148.971 39.793.014 77.199 15.531 105.329 43.692 28.128 28.16 43.609 65.592 43.594 105.4-.034 82.149-66.866 148.983-148.983 148.984zm81.721-111.581c-4.479-2.242-26.499-13.075-30.604-14.571-4.105-1.495-7.091-2.241-10.077 2.241-2.986 4.483-11.569 14.572-14.182 17.562-2.612 2.988-5.225 3.364-9.703 1.12-4.479-2.241-18.91-6.97-36.017-22.23C231.8 264.15 222.81 249.484 220.198 245s-.279-6.908 1.963-9.14c2.016-2.007 4.48-5.232 6.719-7.847 2.24-2.615 2.986-4.484 4.479-7.472 1.493-2.99.747-5.604-.374-7.846-1.119-2.241-10.077-24.288-13.809-33.256-3.635-8.733-7.327-7.55-10.077-7.688-2.609-.13-5.598-.158-8.583-.158-2.986.0-7.839 1.121-11.944 5.604-4.105 4.484-15.675 15.32-15.675 37.364.0 22.046 16.048 43.342 18.287 46.332 2.24 2.99 31.582 48.227 76.511 67.627 10.685 4.615 19.028 7.371 25.533 9.434 10.728 3.41 20.492 2.929 28.209 1.775 8.605-1.285 26.499-10.833 30.231-21.295 3.732-10.464 3.732-19.431 2.612-21.298-1.119-1.869-4.105-2.99-8.583-5.232z"/></svg>
+</a>
+<a target=_blank rel="noopener noreferrer" aria-label="share Angular 元件樣式 及一些特殊的選擇器 on telegram" href="https://telegram.me/share/url?text=Angular%20%e5%85%83%e4%bb%b6%e6%a8%a3%e5%bc%8f%20%e5%8f%8a%e4%b8%80%e4%ba%9b%e7%89%b9%e6%ae%8a%e7%9a%84%e9%81%b8%e6%93%87%e5%99%a8&url=https%3a%2f%2fcalvinegs.github.io%2fposts%2fangular-component-styles%2f"><svg viewBox="2 2 28 28"><path d="M26.49 29.86H5.5a3.37 3.37.0 01-2.47-1 3.35 3.35.0 01-1-2.47V5.48A3.36 3.36.0 013 3 3.37 3.37.0 015.5 2h21A3.38 3.38.0 0129 3a3.36 3.36.0 011 2.46V26.37a3.35 3.35.0 01-1 2.47 3.38 3.38.0 01-2.51 1.02zm-5.38-6.71a.79.79.0 00.85-.66L24.73 9.24a.55.55.0 00-.18-.46.62.62.0 00-.41-.17q-.08.0-16.53 6.11a.59.59.0 00-.41.59.57.57.0 00.43.52l4 1.24 1.61 4.83a.62.62.0 00.63.43.56.56.0 00.4-.17L16.54 20l4.09 3A.9.9.0 0021.11 23.15zM13.8 20.71l-1.21-4q8.72-5.55 8.78-5.55c.15.0.23.0.23.16a.18.18.0 010 .06s-2.51 2.3-7.52 6.8z"/></svg>
+</a>
+</div>
+</footer>
+<div>
+<div id=disqus_thread></div>
+<script type=text/javascript>(function(){var a,b;if(window.location.hostname=="localhost")return;a=document.createElement('script'),a.type='text/javascript',a.async=!0,b='calvinegs-github-io',a.src='//'+b+'.disqus.com/embed.js',(document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild(a)})()</script>
+<noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript>
+<a href=https://disqus.com/ class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a>
+</div>
+</article>
+</main>
+<footer class=footer>
+<span>&copy; 2023 <a href=https://calvinegs.github.io/>永誌不忘 • 筆記簿</a></span>
+<span>
+Powered by
+<a href=https://gohugo.io/ rel="noopener noreferrer" target=_blank>Hugo</a> &
+        <a href=https://git.io/hugopapermod rel=noopener target=_blank>PaperMod</a>
+</span>
+</footer>
+<a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentcolor"><path d="M12 6H0l6-6z"/></svg>
+</a>
+<script>let menu=document.getElementById('menu');menu&&(menu.scrollLeft=localStorage.getItem("menu-scroll-position"),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}),document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener("click",function(b){b.preventDefault();var a=this.getAttribute("href").substr(1);window.matchMedia('(prefers-reduced-motion: reduce)').matches?document.querySelector(`[id='${decodeURIComponent(a)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(a)}']`).scrollIntoView({behavior:"smooth"}),a==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${a}`)})})</script>
+<script>var mybutton=document.getElementById("top-link");window.onscroll=function(){document.body.scrollTop>800||document.documentElement.scrollTop>800?(mybutton.style.visibility="visible",mybutton.style.opacity="1"):(mybutton.style.visibility="hidden",mybutton.style.opacity="0")}</script>
+<script>document.getElementById("theme-toggle").addEventListener("click",()=>{document.body.className.includes("dark")?(document.body.classList.remove('dark'),localStorage.setItem("pref-theme",'light')):(document.body.classList.add('dark'),localStorage.setItem("pref-theme",'dark'))})</script>
+<script>document.querySelectorAll('pre > code').forEach(b=>{const c=b.parentNode.parentNode,a=document.createElement('button');a.classList.add('copy-code'),a.innerText='copy';function d(){a.innerText='copied!',setTimeout(()=>{a.innerText='copy'},2e3)}a.addEventListener('click',e=>{if('clipboard'in navigator){navigator.clipboard.writeText(b.textContent),d();return}const a=document.createRange();a.selectNodeContents(b);const c=window.getSelection();c.removeAllRanges(),c.addRange(a);try{document.execCommand('copy'),d()}catch(a){}c.removeRange(a)}),c.classList.contains("highlight")?c.appendChild(a):c.parentNode.firstChild==c||(b.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName=="TABLE"?b.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(a):b.parentNode.appendChild(a))})</script>
+</body>
+</html>

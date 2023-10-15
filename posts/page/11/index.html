@@ -77,6 +77,23 @@
 </header>
 <article class=post-entry>
 <header class=entry-header>
+<h2>設置 TypeScript 開發環境 (Node.js)
+</h2>
+</header>
+<section class=entry-content>
+<p>TypeScript 不僅已可使用在主機端來進行 Node.js 程式的開發，也支援前端開發的眾多架構，使用 TypeScript 有許多額外的好處，因此學習 TypeScript 是現在軟體開發工程師不可缺的一項技能。本文是用來記錄如何設置一個簡易的 TypeScript 開發環境，用來學習 TypeScript。
+開始設置 建立一個目錄
+$ mkdir typescript-starter $ cd typescript-starter 透過 npm 產生 package.json 檔案
+$ npm init -y 在 Local 端安裝 TypeScript
+$ npm install typescript --save-dev #or -D 為 Node.js 安裝類型檔
+$ npm install @types/node --save-dev # 在 node.js 中使用 typescript 時，此套件用來加載所有類型定義 透過 tsc 建立 TypeScript 的設定檔 (tsconfig.json)
+$ npx tsc --init P.S. 由於 typescript 是安裝在 local，執行時要透過 npx 指令(由 npm 所提供)...</p>
+</section>
+<footer class=entry-footer><span title="2021-12-07 00:00:00 +0000 UTC">December 7, 2021</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;Theme PaperMod</footer>
+<a class=entry-link aria-label="post link to 設置 TypeScript 開發環境 (Node.js)" href=https://calvinegs.github.io/posts/setup-typescript-env/></a>
+</article>
+<article class=post-entry>
+<header class=entry-header>
 <h2>Hugo 中使用的 Markdown 語法介紹
 </h2>
 </header>

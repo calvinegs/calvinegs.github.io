@@ -76,6 +76,22 @@
 </header>
 <article class="post-entry tag-entry">
 <header class=entry-header>
+<h2>Angular 元件樣式 及一些特殊的選擇器
+</h2>
+</header>
+<section class=entry-content>
+<p>github Source code
+希望透過了解預設的 Angular 樣式機制（模擬封裝）在底層的工作原理來幫助我們更清楚的如何使用　Angular 所提供的一些特殊選擇器(如： :host、:host-context、::ng-deep等)的用法。
+在下面的實作過程將會使用到下列技術:
+Angular cli 16 Angular 16 Router Standalone component CSS & SCSS 瀏覧器的開發者工具 CSS 的樣式污染 css 沒有作用域的概念，這就導致 css 在書寫的時候都是全局作用域。造成開發者在撰寫過程中會造成因 classname 相同而產生樣式污染及　css　規則層疊(CSS Cascade)。 隨著 SPA 應用的興起，全部的 css 會在同一個環境中同時進行加載，相互影響的問題更加嚴峻。
+Angular 元件樣式原理 Angular 以元件組合為基本原理來建構一支 web application，在 Angular 元件中預設採用的“檢視封裝”(View encapsulation)是“ViewEncapsulation.Emulated” (模擬封裝)。在這個設定值下 Angular 會修改元件的 CSS 選擇器，使它們只應用於元件的檢視，不影響應用程式中的其他元素(模擬 Shadow DOM 行為)。
+建立 Angular Web Application 使用 npm init 指令建立一支 web application:...</p>
+</section>
+<footer class=entry-footer><span title="2023-10-12 00:00:00 +0000 UTC">October 12, 2023</span>&nbsp;·&nbsp;4 min&nbsp;·&nbsp;Theme PaperMod</footer>
+<a class=entry-link aria-label="post link to Angular 元件樣式 及一些特殊的選擇器" href=https://calvinegs.github.io/posts/angular-component-styles/></a>
+</article>
+<article class="post-entry tag-entry">
+<header class=entry-header>
 <h2>在 Angular 使用 Material CDK 來實作拖曳功能的使用者介面
 </h2>
 </header>
@@ -138,21 +154,6 @@ $ npm init @angular stanaloneComponent -- --routing --style=scss && cd standalon
 </section>
 <footer class=entry-footer><span title="2023-03-13 00:00:00 +0000 UTC">March 13, 2023</span>&nbsp;·&nbsp;9 min&nbsp;·&nbsp;Theme PaperMod</footer>
 <a class=entry-link aria-label="post link to How to using Angular Standalone Component" href=https://calvinegs.github.io/posts/angular-standalone-component/></a>
-</article>
-<article class="post-entry tag-entry">
-<header class=entry-header>
-<h2>Angular Interceptor 使用案例二：搭配 Jason Web Token + Session Storage 來實現使用者身份驗證功能
-</h2>
-</header>
-<section class=entry-content>
-<p>github Source code
-Angular Interceptor 使用案例二：搭配 Jason Web Token + Session Storage 來實現使用者身份驗證功能 使用者驗證在所有的應用程式中都是很重要的一個環節。本篇筆記中將使用 Angular Interceptor + Jason Web Token 以及 Session Storage 來實現這個重點功能。
-本篇這個“前端登入功能”所搭配的後端程式可詳見 “使用 .NET 6.0 進行 JWT 身份驗證的 ASP.NET Web Api”
-執行步驟如下：
-取得預備的程式碼 建立 appSettings 來存放程式參數值 建立 auth.service.ts 建立 token-storage.service.ts 完成 login page component 中的程式碼 執行測試 建立 interceptor 程式 建立 Guard 程式 取得預備的程式碼 在 “使用 Angular Material 建立一個簡易的 Admin Template II” 已經使用 Material UI Component 設計好登入畫面，接下來就直接捉取這個版本的程式碼來接續完成使用者登入功能的所有程式。...</p>
-</section>
-<footer class=entry-footer><span title="2023-02-25 00:00:00 +0000 UTC">February 25, 2023</span>&nbsp;·&nbsp;7 min&nbsp;·&nbsp;Theme PaperMod</footer>
-<a class=entry-link aria-label="post link to Angular Interceptor 使用案例二：搭配 Jason Web Token + Session Storage 來實現使用者身份驗證功能" href=https://calvinegs.github.io/posts/angular-interceptor-jwt/></a>
 </article>
 <footer class=page-footer>
 <nav class=pagination>

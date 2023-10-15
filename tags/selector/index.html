@@ -3,11 +3,11 @@
 <meta http-equiv=x-ua-compatible content="IE=edge">
 <meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no">
 <meta name=robots content="index, follow">
-<title>angular | 永誌不忘 • 筆記簿</title>
+<title>selector | 永誌不忘 • 筆記簿</title>
 <meta name=keywords content>
 <meta name=description content="Theme PaperMod - https://github.com/adityatelange/hugo-PaperMod">
 <meta name=author content="Theme PaperMod">
-<link rel=canonical href=https://calvinegs.github.io/tags/angular/>
+<link rel=canonical href=https://calvinegs.github.io/tags/selector/>
 <link crossorigin=anonymous href=/assets/css/stylesheet.min.c88963fe2d79462000fd0fb1b3737783c32855d340583e4523343f8735c787f0.css integrity="sha256-yIlj/i15RiAA/Q+xs3N3g8MoVdNAWD5FIzQ/hzXHh/A=" rel="preload stylesheet" as=style>
 <link rel=icon href=https://calvinegs.github.io/img/favicon.png>
 <link rel=icon type=image/png sizes=16x16 href=https://calvinegs.github.io/favicon-16x16.png>
@@ -17,17 +17,17 @@
 <meta name=theme-color content="#2e2e33">
 <meta name=msapplication-TileColor content="#2e2e33">
 <meta name=generator content="Hugo 0.91.2">
-<link rel=alternate type=application/rss+xml href=https://calvinegs.github.io/tags/angular/index.xml>
+<link rel=alternate type=application/rss+xml href=https://calvinegs.github.io/tags/selector/index.xml>
 <noscript>
 <style>#theme-toggle,.top-link{display:none}</style>
 <style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--hljs-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style>
-</noscript><meta property="og:title" content="angular">
+</noscript><meta property="og:title" content="selector">
 <meta property="og:description" content="Theme PaperMod - https://github.com/adityatelange/hugo-PaperMod">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://calvinegs.github.io/tags/angular/"><meta property="og:image" content="https://calvinegs.github.io/papermod-cover.png">
+<meta property="og:url" content="https://calvinegs.github.io/tags/selector/"><meta property="og:image" content="https://calvinegs.github.io/papermod-cover.png">
 <meta name=twitter:card content="summary_large_image">
 <meta name=twitter:image content="https://calvinegs.github.io/papermod-cover.png">
-<meta name=twitter:title content="angular">
+<meta name=twitter:title content="selector">
 <meta name=twitter:description content="Theme PaperMod - https://github.com/adityatelange/hugo-PaperMod">
 </head>
 <body class=list id=top>
@@ -72,52 +72,24 @@
 </header>
 <main class=main>
 <header class=page-header><div class=breadcrumbs><a href=https://calvinegs.github.io/>Home</a>&nbsp;»&nbsp;<a href=https://calvinegs.github.io/tags/>Tags</a></div>
-<h1>angular</h1>
+<h1>selector</h1>
 </header>
 <article class="post-entry tag-entry">
 <header class=entry-header>
-<h2>使用 Angular 13 建立 Reactive Form 表單驗證範例
+<h2>Angular 元件樣式 及一些特殊的選擇器
 </h2>
 </header>
 <section class=entry-content>
 <p>github Source code
-本文將記錄如何一步步從無到有使用 Angular 13 Reactive Form 表單驗證 與 Bootstrap 建立 一個使用者資料註冊的表單　功能，在這個表單中當按下送出時會自動檢核使用者所輸入的資料是否合乎程式中所設定的檢核邏輯，並顯示合適的訊息反應給使用者。其中將會使用到下列技術:
-Angular CLI Bootstrap 4 & 5 (UI Framework) Angular Reactive Form Custome Validator 建立新專案 $ ng version Angular CLI: 13.3.6 Node: 16.14.0 Package Manager: npm 8.3.1 OS: linux x64 Angular: 13.3.9 ... animations, common, compiler, compiler-cli, core, forms ... platform-browser, platform-browser-dynamic, router Package Version --------------------------------------------------------- @angular-devkit/architect 0.1303.6 @angular-devkit/build-angular 13.3.6 @angular-devkit/core 13.3.6 @angular-devkit/schematics 13.3.6 @angular/cli 13....</p>
+希望透過了解預設的 Angular 樣式機制（模擬封裝）在底層的工作原理來幫助我們更清楚的如何使用　Angular 所提供的一些特殊選擇器(如： :host、:host-context、::ng-deep等)的用法。
+在下面的實作過程將會使用到下列技術:
+Angular cli 16 Angular 16 Router Standalone component CSS & SCSS 瀏覧器的開發者工具 CSS 的樣式污染 css 沒有作用域的概念，這就導致 css 在書寫的時候都是全局作用域。造成開發者在撰寫過程中會造成因 classname 相同而產生樣式污染及　css　規則層疊(CSS Cascade)。 隨著 SPA 應用的興起，全部的 css 會在同一個環境中同時進行加載，相互影響的問題更加嚴峻。
+Angular 元件樣式原理 Angular 以元件組合為基本原理來建構一支 web application，在 Angular 元件中預設採用的“檢視封裝”(View encapsulation)是“ViewEncapsulation.Emulated” (模擬封裝)。在這個設定值下 Angular 會修改元件的 CSS 選擇器，使它們只應用於元件的檢視，不影響應用程式中的其他元素(模擬 Shadow DOM 行為)。
+建立 Angular Web Application 使用 npm init 指令建立一支 web application:...</p>
 </section>
-<footer class=entry-footer><span title="2022-05-28 00:00:00 +0000 UTC">May 28, 2022</span>&nbsp;·&nbsp;8 min&nbsp;·&nbsp;Theme PaperMod</footer>
-<a class=entry-link aria-label="post link to 使用 Angular 13 建立 Reactive Form 表單驗證範例" href=https://calvinegs.github.io/posts/angular-formvalidate/></a>
+<footer class=entry-footer><span title="2023-10-12 00:00:00 +0000 UTC">October 12, 2023</span>&nbsp;·&nbsp;4 min&nbsp;·&nbsp;Theme PaperMod</footer>
+<a class=entry-link aria-label="post link to Angular 元件樣式 及一些特殊的選擇器" href=https://calvinegs.github.io/posts/angular-component-styles/></a>
 </article>
-<article class="post-entry tag-entry">
-<header class=entry-header>
-<h2>使用 nvs 來管理不同版本 Node.js 執行環境
-</h2>
-</header>
-<section class=entry-content>
-<p>Angular 的版本更新迭代的相當快 (所有的前端開於工具都有相同的情形)，安裝及使用 Angular Cli 時必須在有 Node.js 的環境下才能進行。
-當你在同一台電腦中使用不同版本的 Angular 時就容易在安裝相關套件時遇到警語，原因常是因為 Angular 與 Node.js 版本搭配的關係。
-至於為何有同時使用不同版本的 Angular 呢? 除了開發的專案沒有全部都一起升級至統一版本(這是一件複雜的事)的因素外，個人最常遇到的狀況是: 當在網上(github)找到很棒的 Demo / Sample 程式，在 git clone 回電腦後發現它的版本是舊版本 Angular 所撰寫，使用 npm install 安裝相關套件時，出現警告訊息，甚至無法安裝成功。
-為了要管理同一台電腦中存在著有不同版 Node.js，讓你很容易在各版本中自由的進行切換 (甚至在進入不同目錄時自動切換對應的 Node.js 版本)，你需要 Node.js 版本管理工具，如: NVM 或 NVS，在這個筆記中要記錄的是 NVS。
-安裝 nvs F:\> choco list nvs #先查看是否已安裝了 nvs F:\> choco install nvs #安裝 nvs F:\> nvs --version #查看是否安裝成功，並顯示 nvs 版本 註：安裝完成後若遇到在 cmd 中可正常執行，但在Windows PowerShell 無法使用時，可使用‘系統管理員’身份開啟 Posershell，並執行 PS>Set-ExecutionPolicy RemoteSigned 應可解決這個問題。...</p>
-</section>
-<footer class=entry-footer><span title="2021-12-12 00:00:00 +0000 UTC">December 12, 2021</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;Theme PaperMod</footer>
-<a class=entry-link aria-label="post link to 使用 nvs 來管理不同版本 Node.js 執行環境" href=https://calvinegs.github.io/posts/nvs-using/></a>
-</article>
-<article class="post-entry tag-entry">
-<header class=entry-header>
-<h2>Angular cli 與 Node.js 版本對照
-</h2>
-</header>
-<section class=entry-content>
-<p> </p>
-</section>
-<footer class=entry-footer><span title="2021-12-08 00:00:00 +0000 UTC">December 8, 2021</span>&nbsp;·&nbsp;0 min&nbsp;·&nbsp;Theme PaperMod</footer>
-<a class=entry-link aria-label="post link to Angular cli 與 Node.js 版本對照" href=https://calvinegs.github.io/posts/ngcli-nodejs-verion/></a>
-</article>
-<footer class=page-footer>
-<nav class=pagination>
-<a class=prev href=https://calvinegs.github.io/tags/angular/page/3/>« Prev Page</a>
-</nav>
-</footer>
 </main>
 <footer class=footer>
 <span>&copy; 2023 <a href=https://calvinegs.github.io/>永誌不忘 • 筆記簿</a></span>
