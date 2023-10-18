@@ -343,7 +343,7 @@ app-child-first 套用的樣式如下：
 
 ## :host-context 選擇器
 
-修改一下“第一子元件”的範本，在範本中新增另一個帶有邊框類別(即 .box)的第二子元件。
+修改一下“第一子元件”的範本(child-first.component.html)，在範本中新增另一個帶有邊框類別(即 .box)的第二子元件。
 
 ```html {linenos=table,hl_lines=[5]}
 <div class="childFirstContainer">
@@ -356,7 +356,7 @@ app-child-first 套用的樣式如下：
 
 這麼做的目的是為了示範如何對多次使用的相同宿主元素卻可以設定不同的樣式。除了上述修改“第一子元件”的範本外，同時在第二子元件的 scss 檔案添加一些樣式。為“第二子元件”的宿主元素添加紫色背景色，並為第二子元件的類別添加橙色背景色。
 
-```css {linenos=table,hl_lines=[5]}
+```css {linenos=table,hl_lines=[2,8]}
 :host {
   border: 2px solid violet;
   display: block;
@@ -391,9 +391,9 @@ $ npx ng g c pages/child-third
 
 將這個"第三子元件“ ChildComponentThird 加入到 ChildComponentSecond 裡。
 
-在 ChildComponentSecond 的樣本中加入 ChildComponentThird：
+在 ChildComponentSecond 的範本 (child-second.component.html) 中加入 ChildComponentThird：
 
-```html
+```html {linenos=table,hl_lines=[6]}
 <div class="childSecondContainer">
   <p>我是第二子元件中的 P 標籤。</p>
   <h2>第二子元件中的 H2 標籤。</h2>
@@ -403,16 +403,16 @@ $ npx ng g c pages/child-third
 </div>
 ```
 
-ChildComponentThird的樣本內容：
+ChildComponentThird的範本 (child-third.component.html) 內容：
 
 ```html
 <p>我是第三子元件中的 p 標籤。</p>
 ```
 
-ChildComponentThird CSS內容：
+ChildComponentThird CSS (child-third.component.scss) 內容：
 
 ```scss
-:host-context(app-child-third.box){
+:host-context(app-child-second.box){
   color: red;
   border: 2px solid green;
   display: block;
