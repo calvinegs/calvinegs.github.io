@@ -805,7 +805,7 @@ $ git commit -m "finished JWT function" -a
 最後我們來看看如何使用工具來自動産生程式去維護一個新的資料表
 
 
-### 在 Models 目錄下新增一個 model(模型) class - ItemData
+### 在 Models 目錄下新增一個 model(模型) class - TodoList
 
 使用 dotnet cli 來新增一個 class 
 
@@ -818,7 +818,7 @@ $ dotnet new class -o Models -n TodoList
 ![image](https://user-images.githubusercontent.com/21993717/223054862-53a8302f-f529-4d29-9874-a0946a249dab.png)
 
 
-將 Models/ItemData.cs 補齊欄位設定
+將 Models/TodoList.cs 補齊欄位設定
 
 ```cs {linenos=table,hl_lines=[]}
 namespace dotnet7_webapi_jwt.Models;
@@ -877,8 +877,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using dotnet7_webapi_jwt;
 using dotnet7_webapi_jwt.Data;
-using dotnet7_webapi_jwt.Models;
 
 namespace dotnet7_webapi_jwt.Controllers
 {
@@ -895,44 +895,44 @@ namespace dotnet7_webapi_jwt.Controllers
 
         // GET: api/Todo
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ItemData>>> GetItemData()
+        public async Task<ActionResult<IEnumerable<TodoList>>> GetTodoList()
         {
-          if (_context.ItemData == null)
+          if (_context.TodoList == null)
           {
               return NotFound();
           }
-            return await _context.ItemData.ToListAsync();
+            return await _context.TodoList.ToListAsync();
         }
 
         // GET: api/Todo/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<ItemData>> GetItemData(int id)
+        public async Task<ActionResult<TodoList>> GetTodoList(int id)
         {
-          if (_context.ItemData == null)
+          if (_context.TodoList == null)
           {
               return NotFound();
           }
-            var itemData = await _context.ItemData.FindAsync(id);
+            var todoList = await _context.TodoList.FindAsync(id);
 
-            if (itemData == null)
+            if (todoList == null)
             {
                 return NotFound();
             }
 
-            return itemData;
+            return todoList;
         }
 
         // PUT: api/Todo/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutItemData(int id, ItemData itemData)
+        public async Task<IActionResult> PutTodoList(int id, TodoList todoList)
         {
-            if (id != itemData.Id)
+            if (id != todoList.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(itemData).State = EntityState.Modified;
+            _context.Entry(todoList).State = EntityState.Modified;
 
             try
             {
@@ -940,7 +940,7 @@ namespace dotnet7_webapi_jwt.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ItemDataExists(id))
+                if (!TodoListExists(id))
                 {
                     return NotFound();
                 }
@@ -956,41 +956,41 @@ namespace dotnet7_webapi_jwt.Controllers
         // POST: api/Todo
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<ItemData>> PostItemData(ItemData itemData)
+        public async Task<ActionResult<TodoList>> PostTodoList(TodoList todoList)
         {
-          if (_context.ItemData == null)
+          if (_context.TodoList == null)
           {
-              return Problem("Entity set 'ApiDbContext.ItemData'  is null.");
+              return Problem("Entity set 'ApiDbContext.TodoList'  is null.");
           }
-            _context.ItemData.Add(itemData);
+            _context.TodoList.Add(todoList);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetItemData", new { id = itemData.Id }, itemData);
+            return CreatedAtAction("GetTodoList", new { id = todoList.Id }, todoList);
         }
 
         // DELETE: api/Todo/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteItemData(int id)
+        public async Task<IActionResult> DeleteTodoList(int id)
         {
-            if (_context.ItemData == null)
+            if (_context.TodoList == null)
             {
                 return NotFound();
             }
-            var itemData = await _context.ItemData.FindAsync(id);
-            if (itemData == null)
+            var todoList = await _context.TodoList.FindAsync(id);
+            if (todoList == null)
             {
                 return NotFound();
             }
 
-            _context.ItemData.Remove(itemData);
+            _context.TodoList.Remove(todoList);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool ItemDataExists(int id)
+        private bool TodoListExists(int id)
         {
-            return (_context.ItemData?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.TodoList?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }
